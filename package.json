@@ -1,7 +1,7 @@
 {
   "name": "amethyst",
   "version": "0.1.0",
-  "description": "Amethyst - A modern note taking app",
+  "description": "Amethyst - A modern markdown note-taking application",
   "homepage": "https://github.com/abdallah-moh1/amethyst#readme",
   "bugs": {
     "url": "https://github.com/abdallah-moh1/amethyst/issues"
