@@ -1,0 +1,20 @@
+{
+  "name": "amethyst",
+  "version": "0.1.0",
+  "description": "Amethyst - A modern note taking app",
+  "homepage": "https://github.com/abdallah-moh1/amethyst#readme",
+  "bugs": {
+    "url": "https://github.com/abdallah-moh1/amethyst/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdallah-moh1/amethyst.git"
+  },
+  "license": "AGPL-3.0",
+  "author": "Abdallah Mohammad <abdallah.moh.q@gmail.com>",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
