@@ -1,5 +1,6 @@
 {
   "name": "amethyst",
+  "productName": "Amethyst",
   "version": "0.1.0",
   "description": "Amethyst - A modern markdown note-taking application",
   "homepage": "https://github.com/abdallah-moh1/amethyst#readme",
@@ -12,9 +13,17 @@
   },
   "license": "AGPL-3.0",
   "author": "Abdallah Mohammad <abdallah.moh.q@gmail.com>",
-  "type": "commonjs",
-  "main": "index.js",
+  "type": "module",
+  "main": "dist-electron/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "concurrently -k \"npm:dev:renderer\" \"npm:dev:electron\"",
+    "dev:renderer": "vite",
+    "dev:electron": "wait-on tcp:5173 && tsc -p tsconfig.node.json && cross-env ELECTRON_START_URL=http://localhost:5173 electron .",
+    "build": "tsc -p tsconfig.node.json && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
   }
 }
