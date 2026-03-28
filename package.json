@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/abdallah-moh1/amethyst.git"
   },
-  "license": "AGPL-3.0",
+  "license": "AGPL-3.0-or-later",
   "author": "Abdallah Mohammad <abdallah.moh.q@gmail.com>",
   "type": "module",
   "main": "dist-electron/main.js",
