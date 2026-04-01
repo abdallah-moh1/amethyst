@@ -2,8 +2,14 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { contextBridge } from 'electron';
+import { contextBridge, ipcRenderer, Settings } from 'electron';
+import { resetSettings } from './services/settings.service.js';
 
-contextBridge.exposeInMainWorld('Amethyst', {
-    ping: () => 'pong'
+contextBridge.exposeInMainWorld('amethyst', {
+    settings: {
+        get: (key: keyof Settings) => ipcRenderer.invoke('get:setting', key),
+        set: <K extends keyof Settings>(key: K, value: Settings[K]) => ipcRenderer.invoke('set:setting', key, value),
+        reset: () => ipcRenderer.invoke('reset:settings'),
+        getAll: () => ipcRenderer.invoke('get-all:settings'),
+    }
 });
