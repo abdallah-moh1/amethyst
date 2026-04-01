@@ -3,17 +3,21 @@
         "target": "ES2022",
         "module": "NodeNext",
         "moduleResolution": "NodeNext",
-        "rootDir": "electron",
+        "rootDir": ".",
         "outDir": "dist-electron",
         "strict": true,
         "skipLibCheck": true,
         "composite": true,
+        "resolveJsonModule": true,
         "types": [
             "node"
         ]
     },
     "include": [
         "electron/**/*.ts",
-        "electron/**/*.mts"
+        "electron/**/*.mts",
+        "electron/**/*.json",
+        "shared/**/*.ts",
+        "shared/**/*.json"
     ]
 }

@@ -7,11 +7,15 @@ import { app, BrowserWindow } from 'electron';
 import { loadSettings } from './services/settings.service.js';
 import { createWindow } from './window/createWindow.js';
 import { registerSettingsIpc } from './ipc/settings.ipc.js';
+import { registerThemesIpc } from './ipc/themes.ipc.js';
 
 app.whenReady().then(() => {
     loadSettings();
-    registerSettingsIpc();
     createWindow();
+
+    // Load IPC handlers
+    registerSettingsIpc();
+    registerThemesIpc();
 
 
     app.on('activate', () => {

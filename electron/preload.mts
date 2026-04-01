@@ -3,7 +3,6 @@
 // Copyright (C) 2026 Abdallah
 
 import { contextBridge, ipcRenderer, Settings } from 'electron';
-import { resetSettings } from './services/settings.service.js';
 
 contextBridge.exposeInMainWorld('amethyst', {
     settings: {
@@ -11,5 +10,9 @@ contextBridge.exposeInMainWorld('amethyst', {
         set: <K extends keyof Settings>(key: K, value: Settings[K]) => ipcRenderer.invoke('set:setting', key, value),
         reset: () => ipcRenderer.invoke('reset:settings'),
         getAll: () => ipcRenderer.invoke('get-all:settings'),
+    },
+    themes: {
+        get: (key: string) => ipcRenderer.invoke('get:theme', key),
+        list: () => ipcRenderer.invoke('list:themes'),
     }
 });
