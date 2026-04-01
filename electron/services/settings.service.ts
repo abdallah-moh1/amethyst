@@ -1,6 +1,7 @@
-import { app, Settings } from 'electron';
+import { app } from 'electron';
 import { join } from 'node:path';
 import { readFileSync, writeFileSync } from 'node:fs';
+import { Settings } from '../../shared/types/settings.type.js';
 
 const dataFolder = app.getPath('userData');
 const settingsFile = join(dataFolder, 'settings.json');

@@ -14,7 +14,7 @@
   "license": "AGPL-3.0-or-later",
   "author": "Abdallah Mohammad <abdallah.moh.q@gmail.com>",
   "type": "module",
-  "main": "dist-electron/main.js",
+  "main": "dist-electron/electron/main.js",
   "scripts": {
     "dev": "concurrently -k \"npm:dev:renderer\" \"npm:dev:electron\"",
     "dev:renderer": "vite",
