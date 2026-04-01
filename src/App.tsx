@@ -2,10 +2,28 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
+import LeftSidebar from "./components/LeftSidebar";
+import Main from "./components/Main";
+import RightSidebar from "./components/RightSidebar";
+import { Group, Panel, Separator } from "react-resizable-panels";
+
+
 export default function App() {
     return (
         <main className="app">
-            <h1>Amethyst</h1>
+            <Group>
+                <Panel >
+                    <LeftSidebar />
+                </Panel>
+                <Separator />
+                <Panel>
+                    <Main />
+                </Panel>
+                <Separator />
+                <Panel>
+                    <RightSidebar />
+                </Panel>
+            </Group>
         </main>
     );
 }
