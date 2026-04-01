@@ -1,0 +1,15 @@
+{
+    "id": "amethyst-light",
+    "name": "Amethyst Light",
+    "author": "Abdallah",
+    "version": 1,
+    "type": "built-in",
+    "app": {
+        "accent": "#bf80e8",
+        "primary": "#9954cb",
+        "bg-primary": "#f5f3ff",
+        "bg-secondary": "#ffffff",
+        "text-primary": "#1f2937",
+        "text-secondary": "#6b7280"
+    }
+}
