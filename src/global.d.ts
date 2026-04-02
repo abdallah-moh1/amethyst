@@ -13,7 +13,7 @@ declare global {
             },
             themes: {
                 get: (key: BuiltInThemes) => Promise<Theme>,
-                list: () => Promise<Theme[]>,
+                list: () => Promise<BuiltInThemes[]>,
             },
         };
     }
