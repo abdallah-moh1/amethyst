@@ -2,16 +2,19 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import './styles.css';
-import { applyTheme } from './services/themes.service';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./app/App";
+import { bootstrapApp } from "./app/bootstrap";
 
-applyTheme("amethyst-dark");
+// Global styles
+import "./styles/globals.css";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+bootstrapApp().then(() => {
+  console.log("App bootstrapped successfully");
+  ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
-        <App />
-    </React.StrictMode>
-);
+      <App />
+    </React.StrictMode>,
+  );
+});
