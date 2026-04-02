@@ -11,7 +11,7 @@ const settingsFile = join(dataFolder, 'settings.json');
 
 let settings: Settings;
 
-export const defaultSettings = {
+export const defaultSettings: Settings = {
     theme: {
         id: 'amethyst-dark',
         type: 'built-in',
@@ -25,7 +25,7 @@ export function loadSettings() {
         const data = readFileSync(settingsFile, 'utf-8');
         settings = JSON.parse(data);
     } catch (err) {
-        writeFileSync(settingsFile, JSON.stringify(defaultSettings));
+        setSettings(defaultSettings);
     }
 }
 
@@ -38,10 +38,15 @@ export function setSetting<K extends keyof Settings>(key: K, value: Settings[K])
     writeFileSync(settingsFile, JSON.stringify(settings));
 }
 
+export function setSettings(newSettings: Settings) {
+    settings = newSettings;
+    writeFileSync(settingsFile, JSON.stringify(settings));
+}
+
 export function getAllSettings() {
     return settings;
 }
 
 export function resetSettings() {
-    writeFileSync(settingsFile, JSON.stringify(defaultSettings));
+    setSettings(defaultSettings);
 }
