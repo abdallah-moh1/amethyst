@@ -1,0 +1,8 @@
+.right-panel {
+  background-color: var(--app-color-bg-secondary);
+  height: 100%;
+  border-left: 1px solid
+    color-mix(in srgb, var(--app-color-text-secondary) 30%, transparent);
+
+  user-select: none;
+}

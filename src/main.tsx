@@ -9,6 +9,7 @@ import { bootstrapApp } from "./app/bootstrap";
 
 // Global styles
 import "./styles/globals.css";
+import "./styles/layout.css";
 
 bootstrapApp().then(() => {
   console.log("App bootstrapped successfully");

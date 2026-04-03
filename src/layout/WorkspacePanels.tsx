@@ -2,31 +2,38 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
+import { RightPanel } from "@src/features/right-panel/RightPanel";
+import { Sidebar } from "@src/features/sidebar/Sidebar";
+import { WorkspaceView } from "@src/features/workspace/WorkspaceView";
 import { Panel, Group, Separator } from "react-resizable-panels";
 
 export function WorkspacePanels() {
   return (
     <Group className="panel-group">
       <Panel
-        className="sidebar-panel"
-        defaultSize={200}
-        minSize={14}
+        className="panel"
         collapsible
-        collapsedSize={20}
+        defaultSize={240}
+        minSize={100}
+        collapsedSize={40}
+        groupResizeBehavior="preserve-pixel-size"
       >
-        Sidebar panel
+        <Sidebar />
       </Panel>
 
-      <Separator className="separator" />
-
-      <Panel className="workspace-panel" defaultSize={200} minSize={40}>
-        workspace panel
+      <Panel className="panel" minSize={300}>
+        <WorkspaceView />
       </Panel>
 
-      <Separator className="separator" />
-
-      <Panel className="right-panel" defaultSize={200} minSize={15} collapsible>
-        rightpanel
+      <Panel
+        className="panel"
+        collapsible
+        defaultSize={200}
+        minSize={100}
+        collapsedSize={40}
+        groupResizeBehavior="preserve-pixel-size"
+      >
+        <RightPanel />
       </Panel>
     </Group>
   );
