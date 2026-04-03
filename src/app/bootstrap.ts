@@ -4,9 +4,9 @@
 
 import { BuiltInThemes } from "@shared/types/themes.type";
 import { Settings } from "@shared/types/settings.type";
-import { applyTheme } from "../features/theme/theme.runtime";
-import { getSetting } from "../services/settings.client";
-import { getTheme } from "../services/themes.client";
+import { applyTheme } from "@/features/theme/theme.runtime";
+import { getSetting } from "@/services/settings.client";
+import { getTheme } from "@/services/themes.client";
 
 export async function bootstrapApp() {
     const themeSetting = await getSetting("theme") as Settings["theme"];

@@ -2,9 +2,9 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { RightPanel } from "@src/features/right-panel/RightPanel";
-import { Sidebar } from "@src/features/sidebar/Sidebar";
-import { WorkspaceView } from "@src/features/workspace/WorkspaceView";
+import { RightPanel } from "@/features/right-panel";
+import { Sidebar } from "@/features/sidebar";
+import { WorkspaceView } from "@/features/workspace";
 import { Panel, Group, Separator } from "react-resizable-panels";
 
 export function WorkspacePanels() {
