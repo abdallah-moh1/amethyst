@@ -1,15 +1,56 @@
 {
-    "id": "amethyst-dark",
-    "name": "Amethyst Dark",
-    "author": "Abdallah",
-    "version": 1,
-    "type": "built-in",
-    "app": {
-        "accent": "#bf80e8",
-        "bg-primary": "#181818",
-        "bg-secondary": "#1f1f1f",
-        "primary": "#9954cb",
-        "text-primary": "#e5e7eb",
-        "text-secondary": "#9ca3af"
+  "id": "amethyst-dark",
+  "name": "Amethyst Dark",
+  "author": "Abdallah",
+  "version": 1,
+  "type": "built-in",
+  "app": {
+    "accent": "#bf80e8",
+    "bg-primary": "#181818",
+    "bg-secondary": "#1f1f1f",
+    "primary": "#9954cb",
+    "text-primary": "#e5e7eb",
+    "text-secondary": "#9ca3af"
+  },
+  "editor": {
+    "ui": {
+      "bg": "#181818",
+      "text": "#e5e7eb",
+      "text-muted": "#9ca3af",
+      "caret": "#bf80e8",
+      "selection": "#3a2a47",
+      "active-line": "#222222",
+      "gutter-bg": "#181818",
+      "gutter-text": "#6b7280",
+      "border": "#2a2a2a",
+      "fold-placeholder-bg": "#252525",
+      "fold-placeholder-text": "#9ca3af"
+    },
+    "markdown": {
+      "heading-1": "#bf80e8",
+      "heading-2": "#c89cff",
+      "heading-3": "#d4b3ff",
+      "heading-4": "#dcc2ff",
+      "heading-5": "#e3d1ff",
+      "heading-6": "#e9ddff",
+      "quote": "#b794f4",
+      "link": "#bf80e8",
+      "bold": "#ffffff",
+      "italic": "#d1d5db",
+      "inline-code-bg": "#232323",
+      "inline-code-text": "#e5e7eb",
+      "code-block-bg": "#1f1f1f",
+      "hr": "#2a2a2a"
+    },
+    "syntax": {
+      "keyword": "#c792ea",
+      "string": "#ecc48d",
+      "comment": "#7f848e",
+      "number": "#f78c6c",
+      "variable": "#e5e7eb",
+      "type": "#82aaff",
+      "function": "#c3a6ff",
+      "operator": "#89ddff"
     }
+  }
 }
