@@ -57,4 +57,9 @@ export type Theme = {
             operator: string;
         };
     };
+    scrollbar: {
+        thumb: string;
+        "thumb-hover": string;
+        "thumb-active": string;
+    };
 };

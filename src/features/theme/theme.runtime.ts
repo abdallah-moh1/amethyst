@@ -16,4 +16,8 @@ export function applyTheme(theme: Theme) {
             root.style.setProperty(`--editor-${sectionKey}-${key}`, value);
         }
     }
+
+    for (const [key, value] of Object.entries(theme.scrollbar)) {
+        root.style.setProperty(`--scrollbar-${key}`, value);
+    }
 }

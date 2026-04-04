@@ -39,6 +39,10 @@ export const editorTheme = EditorView.theme({
         backgroundColor: "var(--editor-ui-selection)",
     },
 
+    '&.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground': {
+        backgroundColor: 'var(--editor-ui-selection)',
+    },
+
     ".cm-cursor": {
         borderLeft: "none",
         width: "2px",
