@@ -14,14 +14,10 @@
   },
   "editor": {
     "ui": {
-      "bg": "#ffffff",
       "text": "#1f2937",
       "text-muted": "#6b7280",
       "caret": "#9954cb",
       "selection": "#eadcff",
-      "active-line": "#f7f2ff",
-      "gutter-bg": "#ffffff",
-      "gutter-text": "#9ca3af",
       "border": "#e5e7eb",
       "fold-placeholder-bg": "#f3e8ff",
       "fold-placeholder-text": "#6b7280"
@@ -39,8 +35,7 @@
       "italic": "#374151",
       "inline-code-bg": "#f3f4f6",
       "inline-code-text": "#1f2937",
-      "code-block-bg": "#f8fafc",
-      "hr": "#e5e7eb"
+      "code-block-bg": "#f8fafc"
     },
     "syntax": {
       "keyword": "#8b5cf6",

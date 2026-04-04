@@ -1,4 +1,5 @@
 import { BuiltInThemes, Theme } from "@shared/types/themes.type";
+import { Settings } from "@shared/types/settings.type";
 
 export { };
 
