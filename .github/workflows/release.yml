@@ -32,18 +32,16 @@ jobs:
             - name: Build application
               run: npm run build:electron
 
-            - name: Upload artifacts (Linux/Windows)
-              if: runner.os != 'macOS'
+            - name: Upload release artifacts
               uses: softprops/action-gh-release@v1
               with:
-                  files: dist-electron/**/*
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-            - name: Upload artifacts (macOS)
-              if: runner.os == 'macOS'
-              uses: softprops/action-gh-release@v1
-              with:
-                  files: dist-electron/**/*
+                  files: |
+                      dist/*.AppImage
+                      dist/*.deb
+                      dist/*.rpm
+                      dist/*.tar.gz
+                      dist/*.dmg
+                      dist/*.zip
+                      dist/*.exe
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
