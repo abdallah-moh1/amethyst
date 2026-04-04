@@ -1,50 +1,64 @@
 {
-  "name": "amethyst",
-  "productName": "Amethyst",
-  "version": "0.1.0",
-  "description": "Amethyst - A modern markdown note-taking application",
-  "homepage": "https://github.com/abdallah-moh1/amethyst#readme",
-  "bugs": {
-    "url": "https://github.com/abdallah-moh1/amethyst/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/abdallah-moh1/amethyst.git"
-  },
-  "license": "AGPL-3.0-or-later",
-  "author": "Abdallah Mohammad <abdallah.moh.q@gmail.com>",
-  "type": "module",
-  "main": "dist-electron/electron/main.js",
-  "scripts": {
-    "dev": "concurrently -k \"npm:dev:renderer\" \"npm:dev:electron\"",
-    "dev:renderer": "vite",
-    "dev:electron": "wait-on tcp:5173 && tsc -p tsconfig.node.json && cross-env ELECTRON_START_URL=http://localhost:5173 electron .",
-    "build": "tsc -p tsconfig.node.json && vite build",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "@types/node": "^25.5.0",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
-    "concurrently": "^9.2.1",
-    "cross-env": "^10.1.0",
-    "electron": "^41.1.0",
-    "typescript": "^6.0.2",
-    "vite": "^8.0.3",
-    "wait-on": "^9.0.4"
-  },
-  "dependencies": {
-    "@codemirror/autocomplete": "^6.20.1",
-    "@codemirror/commands": "^6.10.3",
-    "@codemirror/lang-markdown": "^6.5.0",
-    "@codemirror/language": "^6.12.3",
-    "@codemirror/language-data": "^6.5.2",
-    "@codemirror/search": "^6.6.0",
-    "@codemirror/state": "^6.6.0",
-    "@codemirror/view": "^6.41.0",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "react-resizable-panels": "^4.8.0"
-  }
+    "name": "amethyst",
+    "productName": "Amethyst",
+    "version": "0.1.0",
+    "description": "Amethyst - A modern markdown note-taking application",
+    "homepage": "https://github.com/abdallah-moh1/amethyst#readme",
+    "bugs": {
+        "url": "https://github.com/abdallah-moh1/amethyst/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/abdallah-moh1/amethyst.git"
+    },
+    "license": "AGPL-3.0-or-later",
+    "author": "Abdallah Mohammad <abdallah.moh.q@gmail.com>",
+    "type": "module",
+    "main": "dist-electron/electron/main.js",
+    "scripts": {
+        "dev": "concurrently -k \"npm:dev:renderer\" \"npm:dev:electron\"",
+        "dev:renderer": "vite",
+        "dev:electron": "wait-on tcp:5173 && tsc -p tsconfig.node.json && cross-env ELECTRON_START_URL=http://localhost:5173 electron .",
+        "build": "tsc -p tsconfig.node.json && vite build",
+        "preview": "vite preview",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "format": "prettier . --write",
+        "format:check": "prettier . --check",
+        "typecheck": "tsc --noEmit && tsc -p tsconfig.node.json --noEmit",
+        "check": "npm run typecheck && npm run lint && npm run format:check && npm run build"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.39.4",
+        "@types/node": "^25.5.0",
+        "@types/react": "^19.2.14",
+        "@types/react-dom": "^19.2.3",
+        "@vitejs/plugin-react": "^6.0.1",
+        "concurrently": "^9.2.1",
+        "cross-env": "^10.1.0",
+        "electron": "^41.1.0",
+        "eslint": "^9.39.4",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-react-hooks": "^7.0.1",
+        "eslint-plugin-react-refresh": "^0.5.2",
+        "globals": "^17.4.0",
+        "prettier": "^3.8.1",
+        "typescript": "^6.0.2",
+        "typescript-eslint": "^8.58.0",
+        "vite": "^8.0.3",
+        "wait-on": "^9.0.4"
+    },
+    "dependencies": {
+        "@codemirror/autocomplete": "^6.20.1",
+        "@codemirror/commands": "^6.10.3",
+        "@codemirror/lang-markdown": "^6.5.0",
+        "@codemirror/language": "^6.12.3",
+        "@codemirror/language-data": "^6.5.2",
+        "@codemirror/search": "^6.6.0",
+        "@codemirror/state": "^6.6.0",
+        "@codemirror/view": "^6.41.0",
+        "react": "^19.2.4",
+        "react-dom": "^19.2.4",
+        "react-resizable-panels": "^4.8.0"
+    }
 }
