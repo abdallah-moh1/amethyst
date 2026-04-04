@@ -7,12 +7,13 @@ import { contextBridge, ipcRenderer, Settings } from 'electron';
 contextBridge.exposeInMainWorld('amethyst', {
     settings: {
         get: (key: keyof Settings) => ipcRenderer.invoke('get:setting', key),
-        set: <K extends keyof Settings>(key: K, value: Settings[K]) => ipcRenderer.invoke('set:setting', key, value),
+        set: <K extends keyof Settings>(key: K, value: Settings[K]) =>
+            ipcRenderer.invoke('set:setting', key, value),
         reset: () => ipcRenderer.invoke('reset:settings'),
         getAll: () => ipcRenderer.invoke('get-all:settings'),
     },
     themes: {
         get: (key: string) => ipcRenderer.invoke('get:theme', key),
         list: () => ipcRenderer.invoke('list:themes'),
-    }
+    },
 });

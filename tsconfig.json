@@ -2,11 +2,7 @@
     "compilerOptions": {
         "target": "ES2020",
         "useDefineForClassFields": true,
-        "lib": [
-            "ES2020",
-            "DOM",
-            "DOM.Iterable"
-        ],
+        "lib": ["ES2020", "DOM", "DOM.Iterable"],
         "allowJs": false,
         "skipLibCheck": true,
         "esModuleInterop": true,
@@ -21,22 +17,10 @@
         "jsx": "react-jsx",
         // "baseUrl": ".",
         "paths": {
-            "@shared/*": [
-                "./shared/*"
-            ],
-            "@/*": [
-                "./src/*"
-            ]
+            "@shared/*": ["./shared/*"],
+            "@/*": ["./src/*"]
         }
     },
-    "include": [
-        "src",
-        "shared",
-        "vite.config.ts",
-    ],
-    "exclude": [
-        "dist",
-        "dist-electron",
-        "node_modules"
-    ],
+    "include": ["src", "shared", "vite.config.ts"],
+    "exclude": ["dist", "dist-electron", "node_modules"]
 }

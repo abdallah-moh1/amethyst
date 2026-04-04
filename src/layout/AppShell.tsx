@@ -2,12 +2,12 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { WorkspacePanels } from "./WorkspacePanels";
+import { WorkspacePanels } from './WorkspacePanels';
 
 export function AppShell() {
-  return (
-    <main className="app-shell">
-      <WorkspacePanels />
-    </main>
-  );
+    return (
+        <main className="app-shell">
+            <WorkspacePanels />
+        </main>
+    );
 }

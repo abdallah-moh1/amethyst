@@ -2,8 +2,8 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { AppShell } from "@/layout";
+import { AppShell } from '@/layout';
 
 export default function App() {
-  return <AppShell />;
+    return <AppShell />;
 }

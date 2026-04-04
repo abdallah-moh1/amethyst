@@ -2,7 +2,7 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { Settings } from "@shared/types/settings.type";
+import { Settings } from '@shared/types/settings.type';
 
 export function getSetting(key: keyof Settings): Promise<Settings[keyof Settings]> {
     return window.amethyst.settings.get(key);

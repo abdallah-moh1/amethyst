@@ -16,9 +16,8 @@ export const defaultSettings: Settings = {
         id: 'amethyst-dark',
         type: 'built-in',
     },
-    autoSave: true
+    autoSave: true,
 };
-
 
 export function loadSettings() {
     try {

@@ -1,52 +1,52 @@
-import { EditorView } from "@codemirror/view";
+import { EditorView } from '@codemirror/view';
 
 export const editorTheme = EditorView.theme({
-    "&": {
-        fontSize: "16px",
-        color: "var(--editor-ui-text)",
+    '&': {
+        fontSize: '16px',
+        color: 'var(--editor-ui-text)',
     },
 
-    ".cm-scroller": {
-        fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif",
+    '.cm-scroller': {
+        fontFamily: 'Inter, ui-sans-serif, system-ui, sans-serif',
     },
 
-    "&.cm-focused": {
-        outline: "none",
+    '&.cm-focused': {
+        outline: 'none',
     },
 
-    ".cm-gutters": {
-        borderRight: "none",
-        backgroundColor: "transparent",
+    '.cm-gutters': {
+        borderRight: 'none',
+        backgroundColor: 'transparent',
     },
 
-    ".cm-foldGutter .cm-gutterElement": {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+    '.cm-foldGutter .cm-gutterElement': {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 
-    ".cm-foldPlaceholder": {
-        backgroundColor: "var(--editor-ui-fold-placeholder-bg)",
-        border: "none",
-        color: "var(--editor-ui-fold-placeholder-text)",
-        fontWeight: "700",
-        fontSize: "16px",
-        margin: "10px",
-        padding: "0 4px",
+    '.cm-foldPlaceholder': {
+        backgroundColor: 'var(--editor-ui-fold-placeholder-bg)',
+        border: 'none',
+        color: 'var(--editor-ui-fold-placeholder-text)',
+        fontWeight: '700',
+        fontSize: '16px',
+        margin: '10px',
+        padding: '0 4px',
     },
 
-    ".cm-selectionBackground": {
-        backgroundColor: "var(--editor-ui-selection)",
+    '.cm-selectionBackground': {
+        backgroundColor: 'var(--editor-ui-selection)',
     },
 
     '&.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground': {
         backgroundColor: 'var(--editor-ui-selection)',
     },
 
-    ".cm-cursor": {
-        borderLeft: "none",
-        width: "2px",
-        backgroundColor: "var(--editor-ui-caret)",
-        borderRadius: "4px",
+    '.cm-cursor': {
+        borderLeft: 'none',
+        width: '2px',
+        backgroundColor: 'var(--editor-ui-caret)',
+        borderRadius: '4px',
     },
 });

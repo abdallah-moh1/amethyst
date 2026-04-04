@@ -1,15 +1,15 @@
-import { useEffect, useRef } from "react";
-import { EditorView } from "@codemirror/view";
-import { createEditor } from "../codemirror/createEditor";
-import { updateEditor } from "../codemirror/updateEditor";
-import type { UseCodeMirrorOptions } from "../types/editor.type";
-import { attachScrollbarVisibility } from "@/utils/attachScrollbarVisibility";
+import { useEffect, useRef } from 'react';
+import { EditorView } from '@codemirror/view';
+import { createEditor } from '../codemirror/createEditor';
+import { updateEditor } from '../codemirror/updateEditor';
+import type { UseCodeMirrorOptions } from '../types/editor.type';
+import { attachScrollbarVisibility } from '@/utils/attachScrollbarVisibility';
 
 export function useCodeMirror({
     containerRef,
     value,
     onChange,
-    placeholder
+    placeholder,
 }: UseCodeMirrorOptions) {
     const viewRef = useRef<EditorView | null>(null);
 
@@ -22,7 +22,7 @@ export function useCodeMirror({
             parent: container,
             doc: value,
             onChange,
-            placeholder
+            placeholder,
         });
 
         viewRef.current = view;

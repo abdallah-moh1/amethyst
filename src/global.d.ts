@@ -1,7 +1,7 @@
-import { BuiltInThemes, Theme } from "@shared/types/themes.type";
-import { Settings } from "@shared/types/settings.type";
+import { BuiltInThemes, Theme } from '@shared/types/themes.type';
+import { Settings } from '@shared/types/settings.type';
 
-export { };
+export {};
 
 declare global {
     interface Window {
@@ -11,11 +11,11 @@ declare global {
                 set: <K extends keyof Settings>(key: K, value: Settings[K]) => Promise<void>;
                 reset: () => Promise<void>;
                 getAll: () => Promise<Settings>;
-            },
+            };
             themes: {
-                get: (key: BuiltInThemes) => Promise<Theme>,
-                list: () => Promise<BuiltInThemes[]>,
-            },
+                get: (key: BuiltInThemes) => Promise<Theme>;
+                list: () => Promise<BuiltInThemes[]>;
+            };
         };
     }
 }

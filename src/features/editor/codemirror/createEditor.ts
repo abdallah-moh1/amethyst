@@ -1,18 +1,13 @@
-import { EditorState } from "@codemirror/state";
-import { EditorView, type ViewUpdate } from "@codemirror/view";
-import type { CreateEditorOptions } from "../types/editor.type";
-import { baseExtensions } from "./extensions/baseExtensions";
-import { markdownExtensions } from "./extensions/markdownExtensions";
-import { placeholderExtension } from "./extensions/placeholder";
-import { syntaxTheme } from "./extensions/syntaxTheme";
-import { editorTheme } from "./extensions/editorTheme";
+import { EditorState } from '@codemirror/state';
+import { EditorView, type ViewUpdate } from '@codemirror/view';
+import type { CreateEditorOptions } from '../types/editor.type';
+import { baseExtensions } from './extensions/baseExtensions';
+import { markdownExtensions } from './extensions/markdownExtensions';
+import { placeholderExtension } from './extensions/placeholder';
+import { syntaxTheme } from './extensions/syntaxTheme';
+import { editorTheme } from './extensions/editorTheme';
 
-export function createEditor({
-    parent,
-    doc,
-    onChange,
-    placeholder
-}: CreateEditorOptions) {
+export function createEditor({ parent, doc, onChange, placeholder }: CreateEditorOptions) {
     const state = EditorState.create({
         doc,
         extensions: [

@@ -1,1 +1,1 @@
-export { WorkspaceView } from "./WorkspaceView";
+export { WorkspaceView } from './WorkspaceView';

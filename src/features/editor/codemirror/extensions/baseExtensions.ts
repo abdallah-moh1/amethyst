@@ -1,29 +1,20 @@
-import { EditorView } from "@codemirror/view";
-import { history, historyKeymap } from "@codemirror/commands";
+import { EditorView } from '@codemirror/view';
+import { history, historyKeymap } from '@codemirror/commands';
 
-import {
-    drawSelection,
-    dropCursor,
-    keymap
-} from "@codemirror/view";
+import { drawSelection, dropCursor, keymap } from '@codemirror/view';
 
-import {
-    searchKeymap
-} from "@codemirror/search";
+import { searchKeymap } from '@codemirror/search';
 
-import {
-    bracketMatching,
-    foldGutter
-} from "@codemirror/language";
+import { bracketMatching, foldGutter } from '@codemirror/language';
 
 import {
     autocompletion,
     completionKeymap,
     closeBrackets,
-    closeBracketsKeymap
-} from "@codemirror/autocomplete";
+    closeBracketsKeymap,
+} from '@codemirror/autocomplete';
 
-import { defaultKeymap, indentWithTab } from "@codemirror/commands";
+import { defaultKeymap, indentWithTab } from '@codemirror/commands';
 
 export const baseExtensions = [
     history(),

@@ -2,7 +2,7 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { BuiltInThemes } from "@shared/types/themes.type";
+import { BuiltInThemes } from '@shared/types/themes.type';
 
 export async function getTheme(key: BuiltInThemes) {
     return await window.amethyst.themes.get(key);

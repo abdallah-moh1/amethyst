@@ -12,13 +12,13 @@ export function createWindow() {
     const win = new BrowserWindow({
         width: 1200,
         height: 800,
-        title: "Amethyst",
+        title: 'Amethyst',
         webPreferences: {
             preload: path.join(__dirname, '..', 'preload.mjs'),
             contextIsolation: true,
             nodeIntegration: false,
-            sandbox: false
-        }
+            sandbox: false,
+        },
     });
 
     const devServerUrl = process.env.ELECTRON_START_URL;

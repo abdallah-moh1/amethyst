@@ -17,7 +17,6 @@ app.whenReady().then(() => {
     registerSettingsIpc();
     registerThemesIpc();
 
-
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
             createWindow();
