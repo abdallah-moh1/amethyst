@@ -24,7 +24,7 @@ export function loadSettings() {
     try {
         const data = readFileSync(settingsFile, 'utf-8');
         settings = JSON.parse(data);
-    } catch (err) {
+    } catch {
         setSettings(defaultSettings);
     }
 }

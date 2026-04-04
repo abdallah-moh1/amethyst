@@ -10,7 +10,7 @@ export function registerThemesIpc() {
     ipcMain.handle("get:theme", (_event, key) => {
         return getTheme(key);
     });
-    ipcMain.handle("list:themes", (_event) => {
+    ipcMain.handle("list:themes", () => {
         return listThemes();
     });
 };

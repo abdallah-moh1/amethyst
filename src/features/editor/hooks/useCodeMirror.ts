@@ -33,6 +33,7 @@ export function useCodeMirror({
             viewRef.current = null;
             cleanupScrollbar();
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [containerRef]);
 
     useEffect(() => {

@@ -14,11 +14,11 @@ export function registerSettingsIpc() {
         setSetting(key, value);
     });
 
-    ipcMain.handle("reset:settings", (_event) => {
+    ipcMain.handle("reset:settings", () => {
         resetSettings();
     });
 
-    ipcMain.handle("get-all:settings", (_event) => {
+    ipcMain.handle("get-all:settings", () => {
         return getAllSettings();
     });
 };
