@@ -19,5 +19,10 @@
         "electron/**/*.json",
         "shared/**/*.ts",
         "shared/**/*.json"
+    ],
+    "exclude": [
+        "dist",
+        "dist-electron",
+        "node_modules"
     ]
 }
