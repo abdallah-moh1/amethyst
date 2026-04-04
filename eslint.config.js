@@ -4,6 +4,10 @@ import tseslint from 'typescript-eslint';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import eslintConfigPrettier from 'eslint-config-prettier';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default tseslint.config(
     {
@@ -18,7 +22,7 @@ export default tseslint.config(
         languageOptions: {
             parserOptions: {
                 projectService: true,
-                tsconfigRootDir: import.meta.dirname,
+                tsconfigRootDir: __dirname,
             },
             globals: {
                 ...globals.browser,
@@ -38,8 +42,8 @@ export default tseslint.config(
         files: ['electron/**/*.ts', 'shared/**/*.ts', 'vite.config.ts'],
         languageOptions: {
             parserOptions: {
-                projectService: true,
-                tsconfigRootDir: import.meta.dirname,
+                project: path.join(__dirname, 'tsconfig.node.json'),
+                tsconfigRootDir: __dirname,
             },
             globals: {
                 ...globals.node,

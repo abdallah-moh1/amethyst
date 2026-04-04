@@ -18,7 +18,8 @@
         "electron/**/*.mts",
         "electron/**/*.json",
         "shared/**/*.ts",
-        "shared/**/*.json"
+        "shared/**/*.json",
+        "vite.config.ts"
     ],
     "exclude": [
         "dist",
