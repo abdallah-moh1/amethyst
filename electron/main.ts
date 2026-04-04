@@ -10,6 +10,11 @@ import { createWindow } from './window/createWindow.js';
 import { registerSettingsIpc } from './ipc/settings.ipc.js';
 import { registerThemesIpc } from './ipc/themes.ipc.js';
 
+app.setName('Amethyst');
+if (process.platform === 'win32') {
+    app.setAppUserModelId('com.amethyst.app');
+}
+
 if (!app.isPackaged) {
     const devUserData = path.join(app.getPath('appData'), 'Amethyst (Development)');
     const devSessionData = path.join(devUserData, 'session');

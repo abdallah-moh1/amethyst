@@ -8,11 +8,16 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const iconPath = app.isPackaged
+    ? path.join(process.resourcesPath, 'icons', 'icon.png')
+    : path.join(process.cwd(), 'assets', 'icons', 'icon.png');
+
 export function createWindow() {
     const win = new BrowserWindow({
         width: 1200,
         height: 800,
         title: 'Amethyst',
+        icon: iconPath,
         webPreferences: {
             preload: path.join(__dirname, '..', 'preload.mjs'),
             contextIsolation: true,
