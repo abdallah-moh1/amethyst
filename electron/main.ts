@@ -3,11 +3,20 @@
 // Copyright (C) 2026 Abdallah
 
 import { app, BrowserWindow } from 'electron';
+import path from 'node:path';
 
 import { loadSettings } from './services/settings.service.js';
 import { createWindow } from './window/createWindow.js';
 import { registerSettingsIpc } from './ipc/settings.ipc.js';
 import { registerThemesIpc } from './ipc/themes.ipc.js';
+
+if (!app.isPackaged) {
+    const devUserData = path.join(app.getPath('appData'), 'Amethyst (Development)');
+    const devSessionData = path.join(devUserData, 'session');
+
+    app.setPath('userData', devUserData);
+    app.setPath('sessionData', devSessionData);
+}
 
 app.whenReady().then(() => {
     loadSettings();
