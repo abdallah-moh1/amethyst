@@ -1,0 +1,54 @@
+/* .cm-editor {
+  height: 100% !important;
+  font-size: 16px !important;
+  color: var(--editor-ui-text) !important;
+}
+
+.cm-editor .cm-scroller {
+  overflow: auto !important;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif !important;
+}
+
+.cm-editor.cm-focused {
+  outline: none !important;
+}
+
+.cm-gutters {
+  border-right: none !important;
+  background: transparent !important;
+}
+
+.cm-foldGutter .cm-gutterElement {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.cm-foldPlaceholder {
+  background: var(--editor-ui-fold-placeholder-bg) !important;
+  border: none !important;
+  color: var(--editor-ui-fold-placeholder-text) !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  margin: 10px !important;
+  padding: 0 4px !important;
+}
+
+.cm-selectionBackground {
+  background-color: var(--editor-ui-selection) !important;
+}
+
+.cm-cursor {
+  border-left: none !important;
+  width: 2px !important;
+  background-color: var(--editor-ui-caret) !important;
+  border-radius: 4px !important;
+} */
+
+.cm-editor {
+  height: 100%;
+}
+
+.cm-editor .cm-scroller {
+  overflow: auto;
+}

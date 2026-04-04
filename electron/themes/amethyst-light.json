@@ -1,15 +1,51 @@
 {
-    "id": "amethyst-light",
-    "name": "Amethyst Light",
-    "author": "Abdallah",
-    "version": 1,
-    "type": "built-in",
-    "app": {
-        "accent": "#bf80e8",
-        "primary": "#9954cb",
-        "bg-primary": "#f5f3ff",
-        "bg-secondary": "#ffffff",
-        "text-primary": "#1f2937",
-        "text-secondary": "#6b7280"
+  "id": "amethyst-light",
+  "name": "Amethyst Light",
+  "author": "Abdallah",
+  "version": 1,
+  "type": "built-in",
+  "app": {
+    "accent": "#bf80e8",
+    "primary": "#9954cb",
+    "bg-primary": "#f5f3ff",
+    "bg-secondary": "#ffffff",
+    "text-primary": "#1f2937",
+    "text-secondary": "#6b7280"
+  },
+  "editor": {
+    "ui": {
+      "text": "#1f2937",
+      "text-muted": "#6b7280",
+      "caret": "#9954cb",
+      "selection": "#eadcff",
+      "border": "#e5e7eb",
+      "fold-placeholder-bg": "#f3e8ff",
+      "fold-placeholder-text": "#6b7280"
+    },
+    "markdown": {
+      "heading-1": "#7c3aed",
+      "heading-2": "#8b5cf6",
+      "heading-3": "#a78bfa",
+      "heading-4": "#b79dfb",
+      "heading-5": "#c8b3fc",
+      "heading-6": "#d8c8fd",
+      "quote": "#7c3aed",
+      "link": "#9954cb",
+      "bold": "#111827",
+      "italic": "#374151",
+      "inline-code-bg": "#f3f4f6",
+      "inline-code-text": "#1f2937",
+      "code-block-bg": "#f8fafc"
+    },
+    "syntax": {
+      "keyword": "#8b5cf6",
+      "string": "#b45309",
+      "comment": "#9ca3af",
+      "number": "#ea580c",
+      "variable": "#1f2937",
+      "type": "#2563eb",
+      "function": "#7c3aed",
+      "operator": "#0891b2"
     }
+  }
 }
