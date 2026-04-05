@@ -1,33 +1,42 @@
 .cm-editor {
     height: 100%;
+    width: 100%;
 }
-.cm-editor .cm-scroller {
-    overflow: auto;
-} /* Thin by default */
+
+/* Scrollbar size — FIXED */
 .cm-editor .cm-scroller::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-} /* Big when scrolling */
-.cm-editor .cm-scroller.is-scrolling::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-} /* Big when hovering scrollbar track area */
-.cm-editor .cm-scroller::-webkit-scrollbar:hover {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
 }
+
+/* Track */
 .cm-editor .cm-scroller::-webkit-scrollbar-track {
     background: transparent;
 }
+
+/* Thumb */
 .cm-editor .cm-scroller::-webkit-scrollbar-thumb {
     background-color: var(--scrollbar-thumb);
     border-radius: 999px;
     border: 2px solid transparent;
     background-clip: padding-box;
 }
+
+/* Hover effect — color only ✅ */
 .cm-editor .cm-scroller::-webkit-scrollbar-thumb:hover {
     background-color: var(--scrollbar-thumb-hover);
 }
+
+/* Active effect — color only ✅ */
 .cm-editor .cm-scroller::-webkit-scrollbar-thumb:active {
     background-color: var(--scrollbar-thumb-active);
+}
+.cm-scroller {
+    display: flex;
+    justify-content: center;
+    padding-right: 10px;
+}
+.cm-content {
+    padding: 20px;
+    max-width: 800px;
 }
