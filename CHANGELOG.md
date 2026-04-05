@@ -1,0 +1,24 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is inspired by Keep a Changelog and the project follows semantic versioning.
+
+## [0.1.0] - 2026-04-05
+
+### Added
+- Initial Electron desktop application shell
+- React + Vite renderer setup
+- CodeMirror-based editor integration
+- Three-panel workspace layout with resizable panels
+- Collapsible left and right side panels
+- Preload bridge exposed through `window.amethyst`
+- IPC handlers and services for settings and themes
+- Built-in dark and light JSON themes
+- Settings persistence in Electron `userData`
+- GitHub Actions CI workflow
+- Tagged multi-platform release workflow with electron-builder
+
+### Notes
+- This release is an editor-foundation milestone.
+- Notes, notebooks, preview, split view, search, and full settings UI are not implemented yet.
