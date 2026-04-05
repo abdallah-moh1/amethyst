@@ -67,6 +67,12 @@
     "build": {
         "appId": "com.amethyst.app",
         "productName": "Amethyst",
+        "extraResources": [
+            {
+                "from": "assets/icons",
+                "to": "icons"
+            }
+        ],
         "directories": {
             "buildResources": "assets"
         },
@@ -94,9 +100,19 @@
         },
         "linux": {
             "target": [
-                "AppImage"
+                "AppImage",
+                "deb",
+                "rpm",
+                "tar.gz"
             ],
-            "icon": "assets/icons/icon.png"
+            "icon": "assets/icons/icon.png",
+            "category": "Office"
+        },
+        "deb": {
+            "afterInstall": "assets/linux-post-install.sh"
+        },
+        "rpm": {
+            "afterInstall": "assets/linux-post-install.sh"
         },
         "nsis": {
             "oneClick": false,
