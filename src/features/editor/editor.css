@@ -1,0 +1,5 @@
+.editor-wrapper {
+    flex: 1;
+    overflow: hidden;
+    padding: 20px 10px;
+}
