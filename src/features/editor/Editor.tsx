@@ -3,6 +3,7 @@ import { EditorProps } from './types/editor.type';
 import { useCodeMirror } from './hooks/useCodeMirror';
 
 import './codemirror/cm-editor.css';
+import './editor.css';
 
 export function Editor({ value = '', onChange, placeholder }: EditorProps) {
     const containerRef = useRef<HTMLDivElement | null>(null);
@@ -13,5 +14,5 @@ export function Editor({ value = '', onChange, placeholder }: EditorProps) {
         placeholder,
     });
 
-    return <div style={{ height: '100%' }} ref={containerRef} />;
+    return <div className="editor-wrapper" ref={containerRef} />;
 }
