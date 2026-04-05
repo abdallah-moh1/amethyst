@@ -7,6 +7,7 @@ The format is inspired by Keep a Changelog and the project follows semantic vers
 ## [0.1.0] - 2026-04-05
 
 ### Added
+
 - Initial Electron desktop application shell
 - React + Vite renderer setup
 - CodeMirror-based editor integration
@@ -20,5 +21,6 @@ The format is inspired by Keep a Changelog and the project follows semantic vers
 - Tagged multi-platform release workflow with electron-builder
 
 ### Notes
+
 - This release is an editor-foundation milestone.
 - Notes, notebooks, preview, split view, search, and full settings UI are not implemented yet.
