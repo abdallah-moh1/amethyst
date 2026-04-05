@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, shell } from 'electron';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -24,6 +24,22 @@ export function createWindow() {
             nodeIntegration: false,
             sandbox: false,
         },
+    });
+
+    // Prevent opening external links inside the Electron app
+    win.webContents.setWindowOpenHandler(({ url }) => {
+        // Open the URL in the system's default browser
+        shell.openExternal(url);
+        // Deny the request to open it inside the Electron app
+        return { action: 'deny' };
+    });
+
+    win.webContents.on('will-navigate', (event, url) => {
+        // Optional: only redirect if the URL is external (starts with http/https)
+        if (url.startsWith('http')) {
+            event.preventDefault(); // Stop Electron from loading the page
+            shell.openExternal(url); // Open in external browser
+        }
     });
 
     const devServerUrl = process.env.ELECTRON_START_URL;
