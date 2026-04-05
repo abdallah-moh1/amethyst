@@ -20,7 +20,7 @@
         "dev:renderer": "vite",
         "dev:electron": "wait-on tcp:5173 && tsc -p tsconfig.node.json && cross-env ELECTRON_START_URL=http://localhost:5173 electron .",
         "build": "tsc -p tsconfig.node.json && vite build",
-        "build:electron": "npm run build && electron-builder",
+        "build:electron": "npm run build && electron-builder --publish never",
         "build:electron:dir": "npm run build && electron-builder --dir",
         "preview": "vite preview",
         "lint": "eslint .",
