@@ -368,3 +368,38 @@
 .hljs-literal {
     color: var(--editor-syntax-number);
 }
+
+.task-list-checkboxs {
+    margin-right: 0.4em;
+    transform: scale(1.2);
+    accent-color: var(--app-accent);
+    cursor: pointer;
+    background-color: var(--app-bg-secondary) !important;
+}
+.task-list-item * {
+    display: inline-block;
+    vertical-align: middle;
+}
+.task-list-checkbox {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--app-border);
+    border-radius: 4px;
+    margin-right: 0.4em;
+    cursor: pointer;
+}
+
+/* Checked state */
+.task-list-checkbox:checked {
+    background-color: var(--app-accent);
+    border-color: var(--app-accent);
+}
+.task-list-checkbox:checked::after {
+    content: '✔';
+    color: white;
+    font-size: 12px;
+    position: relative;
+    left: 2px;
+    top: -1px;
+}

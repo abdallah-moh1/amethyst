@@ -1,6 +1,6 @@
 import { Editor } from '../editor';
 import { WorkspaceToolbar } from './components/WorkspaceToolbar';
-import { Preview } from '../preview/Preview';
+import { Preview } from '../preview';
 
 import './workspace-view.css';
 import { useWorkspaceStore } from '@/store';
