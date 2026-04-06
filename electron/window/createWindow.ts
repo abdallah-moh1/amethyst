@@ -26,7 +26,6 @@ export function createWindow() {
         },
     });
 
-
     if (app.isPackaged) {
         Menu.setApplicationMenu(null);
     }
@@ -40,12 +39,12 @@ export function createWindow() {
     });
 
     // Reload
-    globalShortcut.register("CommandOrControl+R", () => {
+    globalShortcut.register('CommandOrControl+R', () => {
         win.reload();
     });
 
     // DevTools
-    globalShortcut.register("CommandOrControl+Shift+I", () => {
+    globalShortcut.register('CommandOrControl+Shift+I', () => {
         win.webContents.toggleDevTools();
     });
 
