@@ -5,7 +5,6 @@ import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import remarkEmoji from 'remark-emoji';
 import { PreviewProps } from './types/preview.type';
-import { remarkRemoveFootnotes } from './extensions/remarkRemoveFootnote';
 
 import './preview.css';
 
@@ -14,7 +13,7 @@ export function Preview({ content, show = true }: PreviewProps) {
         <div className={`preview ${!show ? 'hidden' : ''}`}>
             <div className="preview-inner">
                 <ReactMarkdown
-                    remarkPlugins={[remarkGfm, remarkBreaks, remarkEmoji, remarkRemoveFootnotes]}
+                    remarkPlugins={[remarkGfm, remarkBreaks, remarkEmoji]}
                     rehypePlugins={[rehypeRaw, rehypeSanitize]}
                     components={customComponents}
                 >
