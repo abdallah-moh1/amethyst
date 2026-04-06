@@ -37,11 +37,6 @@ const customComponents: Components = {
     em: ({ children }) => <em className="md-em">{children}</em>,
     strong: ({ children }) => <strong className="md-strong">{children}</strong>,
     del: ({ children }) => <del className="md-del">{children}</del>,
-    // a: ({ href, children }) => (
-    //     <a href={href} className="md-link" target="_blank" rel="noreferrer">
-    //         {children}
-    //     </a>
-    // ),
     a: ({ href = '', children, id }) => {
         const isInternal = href.startsWith('#');
 
@@ -54,7 +49,7 @@ const customComponents: Components = {
                     e.preventDefault();
                     if (isInternal) {
                         // 👉 Handle footnote scroll
-                        const el = document.querySelector('user-content-' + href);
+                        const el = document.querySelector(href);
                         if (el) {
                             el.scrollIntoView({
                                 behavior: 'smooth',
