@@ -9,9 +9,9 @@ import { remarkRemoveFootnotes } from './extensions/remarkRemoveFootnote';
 
 import './preview.css';
 
-export function Preview({ content }: PreviewProps) {
+export function Preview({ content, show = true }: PreviewProps) {
     return (
-        <div className="preview">
+        <div className={`preview ${!show ? 'hidden' : ''}`}>
             <div className="preview-inner">
                 <ReactMarkdown
                     remarkPlugins={[remarkGfm, remarkBreaks, remarkEmoji, remarkRemoveFootnotes]}

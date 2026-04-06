@@ -5,7 +5,7 @@ import { useCodeMirror } from './hooks/useCodeMirror';
 import './codemirror/cm-editor.css';
 import './editor.css';
 
-export function Editor({ value = '', onChange, placeholder }: EditorProps) {
+export function Editor({ value = '', show = true, onChange, placeholder }: EditorProps) {
     const containerRef = useRef<HTMLDivElement | null>(null);
     useCodeMirror({
         containerRef,
@@ -14,5 +14,5 @@ export function Editor({ value = '', onChange, placeholder }: EditorProps) {
         placeholder,
     });
 
-    return <div className="editor-wrapper" ref={containerRef} />;
+    return <div className={`editor-wrapper ${!show ? 'hidden' : ''}`} ref={containerRef} />;
 }
