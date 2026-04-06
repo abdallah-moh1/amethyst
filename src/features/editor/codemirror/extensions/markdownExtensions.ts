@@ -4,7 +4,8 @@ import { GFM, Emoji } from '@lezer/markdown';
 
 export const markdownExtensions = [
     markdown({
-        codeLanguages: languages,
+        // Prevent the app from showing sytax highlighting for markdown code blocks, since we don't want to show it in the preview
+        codeLanguages: languages.filter(({ name }) => !(name === 'Markdown')),
         extensions: [GFM, Emoji],
     }),
 ];
