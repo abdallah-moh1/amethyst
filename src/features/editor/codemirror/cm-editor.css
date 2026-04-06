@@ -34,7 +34,6 @@
 .cm-scroller {
     display: flex;
     justify-content: center;
-    padding-right: 10px;
 }
 .cm-content {
     max-width: 700px;
