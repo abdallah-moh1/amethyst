@@ -1,4 +1,4 @@
-import { ViewingMode } from "./workspace.type";
+import { ViewingMode } from './workspace.type';
 
 export type WorkspaceStore = {
     viewMode: ViewingMode;

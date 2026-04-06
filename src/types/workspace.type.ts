@@ -1,1 +1,1 @@
-export type ViewingMode = "editor" | "preview";
+export type ViewingMode = 'editor' | 'preview';

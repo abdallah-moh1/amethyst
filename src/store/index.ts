@@ -1,1 +1,1 @@
-export { useWorkspaceStore } from "./workspace.store";
+export { useWorkspaceStore } from './workspace.store';
