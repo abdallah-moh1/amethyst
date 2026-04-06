@@ -13,7 +13,7 @@ export function ViewingModeSwitcher() {
                     setViewMode('editor');
                 }}
             >
-                <SquarePen width={24} />
+                <SquarePen width={20} />
             </div>
             <div
                 className={`switcher-btn ${viewMode === 'preview' ? 'active' : ''}`}
@@ -21,7 +21,7 @@ export function ViewingModeSwitcher() {
                     setViewMode('preview');
                 }}
             >
-                <Eye width={24} />
+                <Eye width={20} />
             </div>
         </div>
     );
