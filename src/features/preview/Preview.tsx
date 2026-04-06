@@ -2,7 +2,6 @@ import ReactMarkdown, { Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
 import rehypeRaw from 'rehype-raw';
-import rehypeSanitize from 'rehype-sanitize';
 import remarkEmoji from 'remark-emoji';
 import { PreviewProps } from './types/preview.type';
 
@@ -14,7 +13,7 @@ export function Preview({ content, show = true }: PreviewProps) {
             <div className="preview-inner">
                 <ReactMarkdown
                     remarkPlugins={[remarkGfm, remarkBreaks, remarkEmoji]}
-                    rehypePlugins={[rehypeRaw, rehypeSanitize]}
+                    rehypePlugins={[rehypeRaw]}
                     components={customComponents}
                 >
                     {content}
@@ -38,11 +37,39 @@ const customComponents: Components = {
     em: ({ children }) => <em className="md-em">{children}</em>,
     strong: ({ children }) => <strong className="md-strong">{children}</strong>,
     del: ({ children }) => <del className="md-del">{children}</del>,
-    a: ({ href, children }) => (
-        <a href={href} className="md-link" target="_blank" rel="noreferrer">
-            {children}
-        </a>
-    ),
+    // a: ({ href, children }) => (
+    //     <a href={href} className="md-link" target="_blank" rel="noreferrer">
+    //         {children}
+    //     </a>
+    // ),
+    a: ({ href = '', children, id }) => {
+        const isInternal = href.startsWith('#');
+
+        return (
+            <a
+                className="md-link"
+                href={href}
+                id={id}
+                onClick={(e) => {
+                    e.preventDefault();
+                    if (isInternal) {
+                        // 👉 Handle footnote scroll
+                        const el = document.querySelector('user-content-' + href);
+                        if (el) {
+                            el.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start',
+                            });
+                        }
+                    } else {
+                        window.open(href, '_blank', 'noopener,noreferrer');
+                    }
+                }}
+            >
+                {children}
+            </a>
+        );
+    },
     pre: ({ children }) => <pre className="md-pre">{children}</pre>,
     code: ({ children, className }) =>
         className ? (
