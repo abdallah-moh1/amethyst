@@ -1,7 +1,6 @@
 .sidebar {
     background-color: var(--app-bg-secondary);
     height: 100%;
-    border-right: 1px solid color-mix(in srgb, var(--app-text-secondary) 30%, transparent);
-
+    border-right: 1px solid var(--app-border);
     user-select: none;
 }

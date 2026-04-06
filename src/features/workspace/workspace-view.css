@@ -2,4 +2,61 @@
     height: 100%;
     width: 100%;
     background-color: var(--app-bg-primary);
+    display: flex;
+    flex-direction: column;
+}
+
+.workspace-toolbar {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.note-name-input {
+    font-size: 1.4em;
+    font-weight: bold;
+    border: none;
+    background: transparent;
+    color: var(--app-text-primary);
+    flex: 1;
+}
+
+.note-name-input::placeholder {
+    color: var(--app-text-secondary);
+}
+
+.note-name-input:focus {
+    outline: none;
+}
+
+.viewing-mode-switcher {
+    border-radius: 8px;
+    overflow: hidden;
+    width: auto;
+    height: auto;
+    display: flex;
+}
+
+.switcher-btn {
+    background: transparent;
+    border: none;
+    color: var(--app-text-secondary);
+    cursor: pointer;
+    padding: 4px 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.switcher-btn:hover {
+    color: var(--app-accent);
+}
+
+.switcher-btn.active {
+    color: var(--app-text-primary);
+    background-color: var(--app-primary);
 }

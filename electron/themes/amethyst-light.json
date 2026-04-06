@@ -10,7 +10,8 @@
         "bg-primary": "#f5f3ff",
         "bg-secondary": "#ffffff",
         "text-primary": "#1f2937",
-        "text-secondary": "#6b7280"
+        "text-secondary": "#6b7280",
+        "border": "#e5e7eb"
     },
     "editor": {
         "ui": {

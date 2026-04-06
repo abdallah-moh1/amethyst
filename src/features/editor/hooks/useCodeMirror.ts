@@ -3,7 +3,6 @@ import { EditorView } from '@codemirror/view';
 import { createEditor } from '../codemirror/createEditor';
 import { updateEditor } from '../codemirror/updateEditor';
 import type { UseCodeMirrorOptions } from '../types/editor.type';
-import { attachScrollbarVisibility } from '@/utils/attachScrollbarVisibility';
 
 export function useCodeMirror({
     containerRef,
@@ -26,12 +25,10 @@ export function useCodeMirror({
         });
 
         viewRef.current = view;
-        const cleanupScrollbar = attachScrollbarVisibility(view.scrollDOM);
 
         return () => {
             view.destroy();
             viewRef.current = null;
-            cleanupScrollbar();
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [containerRef]);

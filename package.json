@@ -60,11 +60,19 @@
         "@codemirror/search": "^6.6.0",
         "@codemirror/state": "^6.6.0",
         "@codemirror/view": "^6.41.0",
-        "@hugeicons/react": "^1.1.6",
+        "highlight.js": "^11.11.1",
+        "lucide-react": "^1.7.0",
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
         "react-markdown": "^10.1.0",
-        "react-resizable-panels": "^4.8.0"
+        "react-resizable-panels": "^4.8.0",
+        "rehype-highlight": "^7.0.2",
+        "rehype-raw": "^7.0.0",
+        "remark-breaks": "^4.0.0",
+        "remark-emoji": "^5.0.2",
+        "remark-gfm": "^4.0.1",
+        "unist-util-visit": "^5.1.0",
+        "zustand": "^5.0.12"
     },
     "build": {
         "appId": "com.amethyst.app",
