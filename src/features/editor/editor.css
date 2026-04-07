@@ -1,3 +1,4 @@
 .editor-wrapper {
     flex: 1;
+    overflow: auto;
 }
