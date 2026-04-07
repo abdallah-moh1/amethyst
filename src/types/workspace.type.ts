@@ -1,4 +1,4 @@
-import { LucideProps } from "lucide-react";
+import { LucideProps } from 'lucide-react';
 
 export type ViewModeSwitcherBtnProps = {
     mode: ViewingMode;
