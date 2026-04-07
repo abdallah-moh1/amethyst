@@ -12,8 +12,15 @@ Second development release of Amethyst.
 
 - Improved writing workflow with quick switching between editing and previewing
 
-### Notes
+This release is still an early development milestone.
 
-Preview is currently separate from the editor (no split view yet).
+- Notes and notebooks are not implemented yet
+- Markdown content is not persisted (no save/load functionality)
+- Preview is a separate mode (no split view yet)
+- Search functionality is not available
+- Outline panel is not implemented
+- Settings UI is not available yet (settings are stored but not user-editable)
+- Note title bar is not fully implemented
+- Layout persistence is not implemented (panel sizes reset on restart)
 
-Notes, notebooks, saving, split view, search, and the full settings UI are not implemented yet.
+The current focus is on validating the editor + preview workflow before introducing the note system and split-view architecture.
