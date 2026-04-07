@@ -1,6 +1,6 @@
 # Amethyst Architecture
 
-This document describes the current architecture of Amethyst as of `v0.1.0`.
+This document describes the current architecture of Amethyst as of `v0.2.0`.
 
 ## Goals of the current architecture
 
@@ -58,7 +58,7 @@ Responsibilities:
 
 - expose a minimal API on `window.amethyst`
 - forward renderer requests to `ipcRenderer.invoke(...)`
-- keep the renderer sandboxed from direct Node access
+- keep the renderer without direct Node access
 
 Current exposed APIs:
 
@@ -76,13 +76,14 @@ Responsibilities:
 - render the UI
 - manage feature-level state
 - host the editor and workspace layout
+- provide Markdown preview rendering
 - call main-process functionality only through typed service wrappers
 
 Important areas:
 
 - `src/app/` — app bootstrap and root component
 - `src/layout/` — shell and panel composition
-- `src/features/` — feature modules like editor, sidebar, workspace, right panel
+- `src/features/` — feature modules like editor, preview, sidebar, workspace, right panel
 - `src/services/` — wrappers over `window.amethyst`
 - `src/styles/` — global CSS and layout styles
 
@@ -109,10 +110,16 @@ This folder becomes more important as the app grows.
 - `src/features/editor/`
 - contains the CodeMirror integration and editor-specific logic
 
+### Preview
+
+- (new in v0.2.0)
+- handles Markdown rendering from the editor content
+- currently operates as a separate mode (not split view yet)
+
 ### Workspace
 
 - `src/features/workspace/`
-- currently owns the editor view state for the placeholder note
+- currently owns the editor/preview mode state and placeholder note content
 
 ### Sidebar and right panel
 
@@ -173,24 +180,26 @@ Current theme source:
 
 This is a good foundation for future custom themes because the runtime already works with token objects instead of hardcoded colors.
 
-## What is intentionally missing in v0.1.0
+## What is intentionally missing in v0.2.0
 
-To keep the first release focused, these concerns are not implemented yet:
+To keep development focused, these concerns are not fully implemented yet:
 
 - note storage model
 - notebook model
-- markdown preview pipeline
-- split-view synchronization
+- split-view synchronization (editor + preview)
 - search indexing
 - outline parsing
 - settings UI
 - command/shortcut system
+- note title bar (in progress)
 
 ## Suggested architecture direction for upcoming versions
 
 ### v0.2–v0.3
 
-Add preview and split-view as renderer-side feature modules.
+- Expand preview capabilities
+- Introduce split-view (editor + preview side-by-side)
+- Improve synchronization between editor and preview
 
 ### v0.4–v0.5
 
@@ -216,7 +225,5 @@ Packaging is currently driven from the `build` section in `package.json` using `
 Current targets:
 
 - Windows: NSIS installer, portable executable
-- macOS: DMG, ZIP
-- Linux: AppImage, DEB, RPM, tar.gz
-
-This is a good cross-platform baseline for a desktop app.
+- macOS: DMG
+- Linux: AppImage, DEB, RPM

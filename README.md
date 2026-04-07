@@ -2,21 +2,22 @@
 
 A modern markdown note-taking desktop application built with Electron, React, Vite, and TypeScript.
 
-Amethyst is currently in early development. The current `v0.1.0` milestone focuses on the editor foundation: a working desktop shell, a CodeMirror-based editor, a resizable three-panel layout, and a basic built-in theme/settings pipeline.
+Amethyst is currently in early development. The current `v0.2.0` milestone builds on the editor foundation and introduces an initial Markdown preview workflow.
 
 ## Current status
 
 Amethyst is currently in early development.
-Version 0.1.0 includes the editor foundation and application architecture.
-Notes, notebooks, preview, and split view will be added in future releases.
+Version 0.2.0 expands the editor foundation with preview capabilities and workflow improvements.
 
-**Released:** `v0.1.0`
+**Released:** `v0.2.0`
 
 What currently works:
 
 - Electron desktop shell
 - React renderer with Vite
 - CodeMirror editor integration
+- Markdown preview mode
+- Toggle between editor and preview
 - Resizable left / center / right workspace panels
 - Collapsible side panels
 - Built-in dark and light theme loading
@@ -27,11 +28,11 @@ What is not implemented yet:
 
 - Notes and notebooks
 - Saving markdown files
-- Preview pane
 - Split editor/preview view
 - Search
 - Outline panel contents
 - Full settings UI
+- Note title bar (in progress)
 
 ## Screenshots
 
