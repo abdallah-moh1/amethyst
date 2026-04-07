@@ -1,4 +1,4 @@
-import type { UpdateEditorOptions } from '../types/editor.type';
+import type { UpdateEditorOptions } from '../../../types/editor.type';
 
 export function updateEditor({ view, value }: UpdateEditorOptions) {
     const currentValue = view.state.doc.toString();

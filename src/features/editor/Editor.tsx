@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { EditorProps } from './types/editor.type';
+import { EditorProps } from '../../types/editor.type';
 import { useCodeMirror } from './hooks/useCodeMirror';
 
 import './codemirror/cm-editor.css';

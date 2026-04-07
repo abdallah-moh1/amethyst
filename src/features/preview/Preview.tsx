@@ -3,7 +3,7 @@ import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
 import rehypeRaw from 'rehype-raw';
 import remarkEmoji from 'remark-emoji';
-import { PreviewProps } from './types/preview.type';
+import { PreviewProps } from '@/types/preview.type';
 import { customComponents } from './customComponents';
 import rehypeHighlight from 'rehype-highlight';
 

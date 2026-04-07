@@ -1,5 +1,5 @@
 import { useWorkspaceStore } from '@/store';
-import { ViewModeSwitcherBtnProps } from '../types/workspace.type';
+import { ViewModeSwitcherBtnProps } from '../../../types/workspace.type';
 
 export function ViewModeSwitcherBtn({ mode, Icon, width }: ViewModeSwitcherBtnProps) {
     const viewMode = useWorkspaceStore((state) => state.viewMode);
