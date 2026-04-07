@@ -1,4 +1,4 @@
-import { WorkspaceStore } from '@/types/stores.type';
+import { WorkspaceStore } from './types/stores.type';
 import { create } from 'zustand';
 
 export const useWorkspaceStore = create<WorkspaceStore>((set) => ({

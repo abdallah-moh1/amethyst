@@ -1,1 +1,0 @@
-export type ViewingMode = 'editor' | 'preview';
