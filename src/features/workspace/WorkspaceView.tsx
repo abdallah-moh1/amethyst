@@ -4,24 +4,71 @@ import { Preview } from '../preview';
 
 import './workspace-view.css';
 import { useWorkspaceStore } from '@/store';
+import { Group, Panel, PanelImperativeHandle, Separator } from 'react-resizable-panels';
+import { useEffect, useRef } from 'react';
 
 export function WorkspaceView() {
     const noteContent = useWorkspaceStore((state) => state.noteContent);
     const setNoteContent = useWorkspaceStore((state) => state.setNoteContent);
     const viewMode = useWorkspaceStore((state) => state.viewMode);
 
+    const editorPanelRef = useRef<PanelImperativeHandle | null>(null);
+    const previewPanelRef = useRef<PanelImperativeHandle | null>(null);
+
+    useEffect(() => {
+        switch (viewMode) {
+            case 'editor':
+                editorPanelRef.current?.expand();
+                previewPanelRef.current?.collapse();
+
+                break;
+            case 'preview':
+                previewPanelRef.current?.expand();
+                editorPanelRef.current?.collapse();
+                break;
+            case 'split-view':
+                previewPanelRef.current?.expand();
+                editorPanelRef.current?.expand();
+                previewPanelRef.current?.resize('50%');
+                editorPanelRef.current?.resize('50%');
+                break;
+        }
+    }, [viewMode]);
+
     return (
         <div className="workspace-view">
             <WorkspaceToolbar />
+            <Group>
+                <Panel
+                    collapsible
+                    defaultSize="50%"
+                    collapsedSize={0}
+                    panelRef={editorPanelRef}
+                    className="panel"
+                >
+                    <Editor
+                        value={noteContent}
+                        onChange={setNoteContent}
+                        placeholder="Get Creative..."
+                    />
+                </Panel>
 
-            <Editor
-                value={noteContent}
-                onChange={setNoteContent}
-                placeholder="Get Creative..."
-                show={viewMode === 'editor'}
-            />
+                <Separator
+                    className="panel-separator"
+                    disabled={viewMode !== 'split-view'}
+                    hidden={viewMode !== 'split-view'}
+                />
 
-            <Preview content={noteContent} show={viewMode === 'preview'} />
+                <Panel
+                    collapsible
+                    defaultSize="50%"
+                    collapsedSize={0}
+                    panelRef={previewPanelRef}
+                    className="panel"
+                >
+                    <Preview content={noteContent} />
+                </Panel>
+            </Group>
         </div>
     );
 }

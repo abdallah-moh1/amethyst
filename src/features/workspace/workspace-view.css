@@ -38,6 +38,7 @@
     width: auto;
     height: auto;
     display: flex;
+    border: 1px solid var(--app-border);
 }
 
 .switcher-btn {
@@ -49,7 +50,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: 0.3s;
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
 }
 
 .switcher-btn:hover {

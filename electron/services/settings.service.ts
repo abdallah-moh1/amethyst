@@ -3,7 +3,7 @@
 // Copyright (C) 2026 Abdallah
 import { app } from 'electron';
 import { join } from 'node:path';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { Settings } from '../../shared/types/settings.type.js';
 
 const dataFolder = app.getPath('userData');
@@ -34,12 +34,12 @@ export function getSetting(key: keyof Settings) {
 
 export function setSetting<K extends keyof Settings>(key: K, value: Settings[K]) {
     settings[key] = value;
-    writeFileSync(settingsFile, JSON.stringify(settings));
+    // writeFileSync(settingsFile, JSON.stringify(settings));
 }
 
 export function setSettings(newSettings: Settings) {
     settings = newSettings;
-    writeFileSync(settingsFile, JSON.stringify(settings));
+    // writeFileSync(settingsFile, JSON.stringify(settings));
 }
 
 export function getAllSettings() {

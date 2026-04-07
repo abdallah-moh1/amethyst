@@ -2,45 +2,28 @@
     background: var(--app-bg-primary);
     color: var(--editor-ui-text);
     height: 100%;
+    overflow: auto;
+    padding: 20px 30px;
+    flex: 1;
     overflow-y: auto;
     display: flex;
     justify-content: center;
-    padding: 20px 30px;
-    margin-bottom: 20px;
 }
 
 .preview-inner {
-    width: 100%;
-    max-width: 700px;
     font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-    font-size: 16px;
     color: var(--editor-ui-text);
     word-break: break-word;
+    width: 100%;
+    height: auto;
+    max-width: 700px;
+    font-size: 16px;
 }
 
-/* Scrollbar */
-.preview::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-.preview::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.preview::-webkit-scrollbar-thumb {
-    background-color: var(--scrollbar-thumb);
-    border-radius: 999px;
-    border: 2px solid transparent;
-    background-clip: padding-box;
-}
-
-.preview::-webkit-scrollbar-thumb:hover {
-    background-color: var(--scrollbar-thumb-hover);
-}
-
-.preview::-webkit-scrollbar-thumb:active {
-    background-color: var(--scrollbar-thumb-active);
+.preview-inner::after {
+    content: '';
+    display: block;
+    height: 60px;
 }
 
 /* Reset first/last spacing */
