@@ -1,12 +1,11 @@
-## Amethyst v0.2.0
+## Amethyst v0.3.0
 
-Second development release of Amethyst.
+Third development release of Amethyst.
 
 ### Included
 
-- Markdown preview mode
-- Toggle between editor and preview
-- Initial groundwork for note title bar
+- Split editor/preview mode
+- Synced scrolling between the editor and preview
 
 ### Improvements
 
@@ -16,7 +15,6 @@ This release is still an early development milestone.
 
 - Notes and notebooks are not implemented yet
 - Markdown content is not persisted (no save/load functionality)
-- Preview is a separate mode (no split view yet)
 - Search functionality is not available
 - Outline panel is not implemented
 - Settings UI is not available yet (settings are stored but not user-editable)

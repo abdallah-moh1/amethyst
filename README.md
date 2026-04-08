@@ -9,7 +9,7 @@ Amethyst is currently in early development. The current `v0.2.0` milestone build
 Amethyst is currently in early development.
 Version 0.2.0 expands the editor foundation with preview capabilities and workflow improvements.
 
-**Released:** `v0.2.0`
+**Released:** `v0.3.0`
 
 What currently works:
 
@@ -18,6 +18,8 @@ What currently works:
 - CodeMirror editor integration
 - Markdown preview mode
 - Toggle between editor and preview
+- Split editor/preview view mode
+- Added synced scrolling between the editor and preview
 - Resizable left / center / right workspace panels
 - Collapsible side panels
 - Built-in dark and light theme loading
@@ -28,7 +30,6 @@ What is not implemented yet:
 
 - Notes and notebooks
 - Saving markdown files
-- Split editor/preview view
 - Search
 - Outline panel contents
 - Full settings UI
@@ -36,8 +37,8 @@ What is not implemented yet:
 
 ## Screenshots
 
-![Amethyst Screenshot Dark Theme](./screenshots/screenshot-dark.png)
-![Amethyst Screenshot Light Theme](./screenshots/screenshot-light.png)
+![Amethyst Screenshot Dark Theme](./screenshots/screenshot1.png)
+![Amethyst Screenshot Light Theme](./screenshots/screenshot2.png)
 
 ## Tech stack
 

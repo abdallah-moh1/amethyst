@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is inspired by Keep a Changelog and the project follows semantic versioning.
 
+## [0.3.0] - 2026-04-08
+
+### Added
+
+- Split editor/preview mode
+- Synced scrolling between the editor and preview
+
+---
+
 ## [0.2.0] - 2026-04-07
 
 ### Added
