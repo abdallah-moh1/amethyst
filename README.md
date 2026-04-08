@@ -2,12 +2,12 @@
 
 A modern markdown note-taking desktop application built with Electron, React, Vite, and TypeScript.
 
-Amethyst is currently in early development. The current `v0.2.0` milestone builds on the editor foundation and introduces an initial Markdown preview workflow.
+Amethyst is currently in early development. The current `v0.3.0` milestone builds on the editor foundation and introduces an initial Markdown preview workflow.
 
 ## Current status
 
 Amethyst is currently in early development.
-Version 0.2.0 expands the editor foundation with preview capabilities and workflow improvements.
+Version 0.3.0 expands the editor foundation with preview capabilities and workflow improvements.
 
 **Released:** `v0.3.0`
 

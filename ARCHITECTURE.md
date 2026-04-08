@@ -1,6 +1,6 @@
 # Amethyst Architecture
 
-This document describes the current architecture of Amethyst as of `v0.2.0`.
+This document describes the current architecture of Amethyst as of `v0.3.0`.
 
 ## Goals of the current architecture
 
@@ -105,6 +105,16 @@ This folder becomes more important as the app grows.
 
 ## Current feature layout
 
+### Synced scrolling
+
+- `src/hooks/useSyncedScroll.ts`
+- contains the logic for syncing scrolling between the editor and preview
+
+### Split editor/preview view
+
+- `src/features/workspace/`
+- contains the logic behind the split screen
+
 ### Editor
 
 - `src/features/editor/`
@@ -112,7 +122,7 @@ This folder becomes more important as the app grows.
 
 ### Preview
 
-- (new in v0.2.0)
+- `src/features/preview/`
 - handles Markdown rendering from the editor content
 - currently operates as a separate mode (not split view yet)
 
@@ -180,13 +190,12 @@ Current theme source:
 
 This is a good foundation for future custom themes because the runtime already works with token objects instead of hardcoded colors.
 
-## What is intentionally missing in v0.2.0
+## What is intentionally missing in v0.3.0
 
 To keep development focused, these concerns are not fully implemented yet:
 
 - note storage model
 - notebook model
-- split-view synchronization (editor + preview)
 - search indexing
 - outline parsing
 - settings UI
@@ -194,12 +203,6 @@ To keep development focused, these concerns are not fully implemented yet:
 - note title bar (in progress)
 
 ## Suggested architecture direction for upcoming versions
-
-### v0.2–v0.3
-
-- Expand preview capabilities
-- Introduce split-view (editor + preview side-by-side)
-- Improve synchronization between editor and preview
 
 ### v0.4–v0.5
 
