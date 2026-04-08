@@ -20,5 +20,5 @@ export const useWorkspaceStore = create<WorkspaceStore>((set) => ({
     },
     setSyncedScroll: (syncedScroll) => {
         set({ syncedScroll });
-    }
+    },
 }));
