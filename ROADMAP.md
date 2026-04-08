@@ -19,20 +19,18 @@ This roadmap is intentionally incremental. Each release adds one clear layer of 
 - Side-by-side editor and preview
 - Synchronized scrolling between both views
 
-## 0.4.0 — Notes System
+## 0.4.0 — Notebook and Notes system
 
-- Create notes
-- Delete notes
+- Create notes and notebooks
 - Save note contents
 - Restore last opened note
 - Autosave for real notes
 
-## 0.5.0 — Notebooks
+## 0.5.0 — CRUD operations for notes
 
-- Create notebooks
-- Delete notebooks
-- Move notes between notebooks
+- Delete notes and notebooks
 - Rename notes and notebooks
+- Move notes between notebooks
 - Confirmation dialogs for destructive actions
 
 ## 0.6.0 — Search and Navigation
