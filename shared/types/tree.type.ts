@@ -1,13 +1,12 @@
-
 export type NotebookNode = {
-    type: "notebook";
+    type: 'notebook';
     name: string;
     path: string;
     children: TreeNode[];
 };
 
 export type NoteNode = {
-    type: "note";
+    type: 'note';
     name: string;
     path: string;
     id: string;

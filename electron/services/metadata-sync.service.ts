@@ -1,13 +1,13 @@
-import { MetadataConfig, NotebookMetadata, NoteMetadata } from "../../shared/types/config.type.js";
+import { MetadataConfig, NotebookMetadata, NoteMetadata } from '../../shared/types/config.type.js';
 import { randomUUID } from 'node:crypto';
-import { ConfigService } from "./config.service.js";
-import { SafeScannerService } from "./safe-scanner.service.js";
+import { ConfigService } from './config.service.js';
+import { SafeScannerService } from './safe-scanner.service.js';
 
 export class MetadataSyncService {
     constructor(
         private configService: ConfigService,
-        private safeScannerService: SafeScannerService
-    ) { }
+        private safeScannerService: SafeScannerService,
+    ) {}
 
     syncWithDisk(): MetadataConfig {
         const scanned = this.safeScannerService.scan();
@@ -43,7 +43,10 @@ export class MetadataSyncService {
         });
     }
 
-    private syncNotebooks(scannedPaths: string[], existing: NotebookMetadata[]): NotebookMetadata[] {
+    private syncNotebooks(
+        scannedPaths: string[],
+        existing: NotebookMetadata[],
+    ): NotebookMetadata[] {
         const existingMap = new Map(existing.map((item) => [item.path, item]));
 
         return scannedPaths.map((path) => {

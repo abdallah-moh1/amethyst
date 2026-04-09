@@ -5,7 +5,6 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { Settings } from '../../shared/types/settings.type.js';
 
-
 export class SettingsService {
     settings: Settings;
     settingsFile: string;
@@ -57,5 +56,4 @@ export class SettingsService {
     resetSettings() {
         this.setSettings(SettingsService.defaultSettings);
     }
-
 }

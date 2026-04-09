@@ -1,27 +1,29 @@
-import { existsSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
-import { randomUUID } from "node:crypto";
+import { existsSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs';
+import { randomUUID } from 'node:crypto';
 
-import { NoteMetadata } from "../../shared/types/config.type.js";
-import { getParentRelativePath, joinRelativePath, toAbsoluteSafePath } from "../utils/path.utils.js";
-import { MetadataService } from "./metadata.service.js";
+import { NoteMetadata } from '../../shared/types/config.type.js';
+import {
+    getParentRelativePath,
+    joinRelativePath,
+    toAbsoluteSafePath,
+} from '../utils/path.utils.js';
+import { MetadataService } from './metadata.service.js';
 
 export class NoteService {
     constructor(
         private safePath: string,
         private metadataService: MetadataService,
-    ) { }
+    ) {}
 
     private abs(path: string): string {
         return toAbsoluteSafePath(this.safePath, path);
     }
 
     createNote(parentPath: string | null, title: string): NoteMetadata {
-        const path = parentPath
-            ? joinRelativePath(parentPath, `${title}.md`)
-            : `${title}.md`;
+        const path = parentPath ? joinRelativePath(parentPath, `${title}.md`) : `${title}.md`;
 
         if (existsSync(this.abs(path))) {
-            throw new Error("Note already exists");
+            throw new Error('Note already exists');
         }
 
         const noteMetadata: NoteMetadata = {
@@ -32,7 +34,7 @@ export class NoteService {
         };
 
         try {
-            this.writeNoteContentByPath(noteMetadata.path, "");
+            this.writeNoteContentByPath(noteMetadata.path, '');
             this.metadataService.addNote(noteMetadata);
             return noteMetadata;
         } catch (error) {
@@ -43,7 +45,7 @@ export class NoteService {
         }
     }
 
-    openNote(noteId: string): { metadata: NoteMetadata; content: string; } {
+    openNote(noteId: string): { metadata: NoteMetadata; content: string } {
         const metadata = this.metadataService.getMetadata();
         const { note } = this.metadataService.requireNote(metadata, noteId);
 
@@ -81,7 +83,7 @@ export class NoteService {
             : `${newTitle}.md`;
 
         if (existsSync(this.abs(newPath))) {
-            throw new Error("Note already exists");
+            throw new Error('Note already exists');
         }
 
         renameSync(this.abs(oldPath), this.abs(newPath));
@@ -113,10 +115,10 @@ export class NoteService {
     }
 
     readNoteContentByPath(path: string): string {
-        return readFileSync(this.abs(path), "utf-8");
+        return readFileSync(this.abs(path), 'utf-8');
     }
 
     writeNoteContentByPath(path: string, content: string): void {
-        writeFileSync(this.abs(path), content, "utf-8");
+        writeFileSync(this.abs(path), content, 'utf-8');
     }
 }

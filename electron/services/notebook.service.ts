@@ -1,17 +1,22 @@
-import { existsSync, mkdirSync, readdirSync, renameSync, rmdirSync } from "node:fs";
-import { randomUUID } from "node:crypto";
+import { existsSync, mkdirSync, readdirSync, renameSync, rmdirSync } from 'node:fs';
+import { randomUUID } from 'node:crypto';
 
-import { MetadataConfig, NotebookMetadata } from "../../shared/types/config.type.js";
-import { getParentRelativePath, joinRelativePath, replacePrefix, toAbsoluteSafePath } from "../utils/path.utils.js";
-import { MetadataService } from "./metadata.service.js";
-import { WorkspaceService } from "./workspace.service.js";
+import { MetadataConfig, NotebookMetadata } from '../../shared/types/config.type.js';
+import {
+    getParentRelativePath,
+    joinRelativePath,
+    replacePrefix,
+    toAbsoluteSafePath,
+} from '../utils/path.utils.js';
+import { MetadataService } from './metadata.service.js';
+import { WorkspaceService } from './workspace.service.js';
 
 export class NotebookService {
     constructor(
         private safePath: string,
         private metadataService: MetadataService,
         private workspaceService: WorkspaceService,
-    ) { }
+    ) {}
 
     private abs(path: string): string {
         return toAbsoluteSafePath(this.safePath, path);
@@ -21,7 +26,7 @@ export class NotebookService {
         const path = parentPath ? joinRelativePath(parentPath, name) : name;
 
         if (existsSync(this.abs(path))) {
-            throw new Error("Notebook already exists");
+            throw new Error('Notebook already exists');
         }
 
         const notebookMetadata: NotebookMetadata = {
@@ -52,7 +57,7 @@ export class NotebookService {
         const newPath = parentPath ? joinRelativePath(parentPath, newName) : newName;
 
         if (existsSync(this.abs(newPath))) {
-            throw new Error("Notebook already exists");
+            throw new Error('Notebook already exists');
         }
 
         renameSync(this.abs(oldPath), this.abs(newPath));
@@ -80,7 +85,7 @@ export class NotebookService {
 
     deleteNotebook(notebookId: string): void {
         if (!this.isNotebookEmpty(notebookId)) {
-            throw new Error("This notebook is not empty");
+            throw new Error('This notebook is not empty');
         }
 
         const metadata = this.metadataService.getMetadata();
@@ -100,9 +105,13 @@ export class NotebookService {
         return readdirSync(this.abs(notebook.path)).length === 0;
     }
 
-    private mutateDescendantPaths(metadata: MetadataConfig, oldPath: string, newPath: string): void {
+    private mutateDescendantPaths(
+        metadata: MetadataConfig,
+        oldPath: string,
+        newPath: string,
+    ): void {
         metadata.notebooks = metadata.notebooks.map((notebook) => {
-            if (notebook.path === oldPath || notebook.path.startsWith(oldPath + "/")) {
+            if (notebook.path === oldPath || notebook.path.startsWith(oldPath + '/')) {
                 return {
                     ...notebook,
                     path: replacePrefix(notebook.path, oldPath, newPath),
@@ -112,7 +121,7 @@ export class NotebookService {
         });
 
         metadata.notes = metadata.notes.map((note) => {
-            if (note.path === oldPath || note.path.startsWith(oldPath + "/")) {
+            if (note.path === oldPath || note.path.startsWith(oldPath + '/')) {
                 return {
                     ...note,
                     path: replacePrefix(note.path, oldPath, newPath),

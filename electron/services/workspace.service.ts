@@ -1,9 +1,9 @@
-import { WorkspaceConfig } from "../../shared/types/config.type.js";
-import { replacePrefix } from "../utils/path.utils.js";
-import { ConfigService } from "./config.service.js";
+import { WorkspaceConfig } from '../../shared/types/config.type.js';
+import { replacePrefix } from '../utils/path.utils.js';
+import { ConfigService } from './config.service.js';
 
 export class WorkspaceService {
-    constructor(private configService: ConfigService) { }
+    constructor(private configService: ConfigService) {}
 
     getWorkspace(): WorkspaceConfig {
         return this.configService.readWorkspaceFile();
@@ -31,12 +31,14 @@ export class WorkspaceService {
     removeExpandedNotebookPath(path: string): void {
         const workspace = this.getWorkspace();
 
-        this.setExpandedNotebookPaths(workspace.expandedNotebookPaths.filter((value) => value !== path));
+        this.setExpandedNotebookPaths(
+            workspace.expandedNotebookPaths.filter((value) => value !== path),
+        );
     }
 
     removeExpandedNotebookAndSubNotebooks(path: string): void {
         const updatedList = this.getWorkspace().expandedNotebookPaths.filter((value) => {
-            if (value === path || value.startsWith(path + "/")) {
+            if (value === path || value.startsWith(path + '/')) {
                 return false;
             }
             return true;
@@ -47,7 +49,7 @@ export class WorkspaceService {
 
     replaceExpandedNotebookAndSubNotebooks(oldPath: string, newPath: string): void {
         const updatedList = this.getWorkspace().expandedNotebookPaths.map((value) => {
-            if (value === oldPath || value.startsWith(oldPath + "/")) {
+            if (value === oldPath || value.startsWith(oldPath + '/')) {
                 return replacePrefix(value, oldPath, newPath);
             }
             return value;

@@ -23,7 +23,7 @@ import { MetadataSyncService } from './services/metadata-sync.service.js';
 import { WorkspaceSnapshotService } from './services/workspace-snapshot.service.js';
 import { registerWorkspaceSnapshotIpc } from './ipc/workspace-snapshot.ipc.js';
 
-const safePath = path.join(app.getPath("home"), '.amethyst');
+const safePath = path.join(app.getPath('home'), '.amethyst');
 
 app.setName('Amethyst');
 if (process.platform === 'win32') {
@@ -55,7 +55,7 @@ app.whenReady().then(() => {
         noteService,
     );
 
-    const settingsService = new SettingsService(path.join(app.getPath("appData"), "settings.json"));
+    const settingsService = new SettingsService(path.join(app.getPath('appData'), 'settings.json'));
 
     createWindow();
 

@@ -1,7 +1,7 @@
-import { existsSync, mkdirSync, readFileSync } from "node:fs";
-import { writeFileSync } from "node:fs";
-import { join } from "node:path";
-import { MetadataConfig, WorkspaceConfig } from "../../shared/types/config.type.js";
+import { existsSync, mkdirSync, readFileSync } from 'node:fs';
+import { writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { MetadataConfig, WorkspaceConfig } from '../../shared/types/config.type.js';
 
 export class ConfigService {
     safePath: string;
@@ -9,7 +9,7 @@ export class ConfigService {
 
     constructor(safePath: string) {
         this.safePath = safePath;
-        this.configPath = join(safePath, ".config");
+        this.configPath = join(safePath, '.config');
 
         mkdirSync(this.configPath, { recursive: true });
 
@@ -28,7 +28,7 @@ export class ConfigService {
         this.writeWorkspaceFile({
             version: 1,
             lastOpenedNoteId: null,
-            expandedNotebookPaths: []
+            expandedNotebookPaths: [],
         });
     }
 
@@ -41,11 +41,11 @@ export class ConfigService {
     }
 
     getWorkspaceFilePath(): string {
-        return join(this.configPath, "workspace.json");
+        return join(this.configPath, 'workspace.json');
     }
 
     getMetadataFilePath(): string {
-        return join(this.configPath, "metadata.json");
+        return join(this.configPath, 'metadata.json');
     }
 
     readMetadataFile(): MetadataConfig {

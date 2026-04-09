@@ -1,9 +1,9 @@
-import { MetadataConfig, NoteMetadata, WorkspaceConfig } from "../../shared/types/config.type.js";
-import { TreeNode } from "../../shared/types/tree.type.js";
-import { MetadataSyncService } from "./metadata-sync.service.js";
-import { NoteService } from "./note.service.js";
-import { SafeTreeService } from "./safe-tree.service.js";
-import { WorkspaceService } from "./workspace.service.js";
+import { MetadataConfig, NoteMetadata, WorkspaceConfig } from '../../shared/types/config.type.js';
+import { TreeNode } from '../../shared/types/tree.type.js';
+import { MetadataSyncService } from './metadata-sync.service.js';
+import { NoteService } from './note.service.js';
+import { SafeTreeService } from './safe-tree.service.js';
+import { WorkspaceService } from './workspace.service.js';
 
 export type WorkspaceSnapshot = {
     metadata: MetadataConfig;
@@ -20,7 +20,7 @@ export class WorkspaceSnapshotService {
         private metadataSyncService: MetadataSyncService,
         private workspaceService: WorkspaceService,
         private noteService: NoteService,
-    ) { }
+    ) {}
 
     loadSnapshot(): WorkspaceSnapshot {
         const metadata = this.metadataSyncService.syncWithDisk();
@@ -43,7 +43,7 @@ export class WorkspaceSnapshotService {
     private resolveActiveNote(
         metadata: MetadataConfig,
         workspace: WorkspaceConfig,
-    ): { metadata: NoteMetadata; content: string; } | null {
+    ): { metadata: NoteMetadata; content: string } | null {
         const lastOpenedNoteId = workspace.lastOpenedNoteId;
         if (!lastOpenedNoteId) return null;
 
