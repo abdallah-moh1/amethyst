@@ -43,3 +43,11 @@ export function toRelativeSafePath(safePath: string, absolutePath: string): stri
     );
 
 }
+
+export function replacePrefix(path: string, oldPath: string, newPath: string): string {
+    if (path === oldPath) return newPath;
+    if (path.startsWith(oldPath + "/")) {
+        return newPath + path.slice(oldPath.length);
+    }
+    return normalizeRelativePath(path);
+};
