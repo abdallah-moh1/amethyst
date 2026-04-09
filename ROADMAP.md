@@ -24,35 +24,33 @@ This roadmap is intentionally incremental. Each release adds one clear layer of 
 - CRUD operations for notes and notebooks
 - Save note contents
 - Restore last opened note
-
-## 0.5.0 — Ui implementation of the Notebooks and Notes system
 - Notebooks section in the sidebar
 - implemetn the Notebooks and notes CRUD operations in the sidebar
 - Autosave notes
 - Confirmation dialogs for destructive actions
 
-## 0.6.0 — Search and Navigation
+## 0.5.0 — Search and Navigation
 
 - Search by title
 - Search by content
 - Quick open
 - Recent notes
 
-## 0.7.0 — Outline and Status
+## 0.6.0 — Outline and Status
 
 - Outline panel from markdown headings
 - Status bar
 - Word count / character count
 - Line and column indicators
 
-## 0.8.0 — Layout System
+## 0.7.0 — Layout System
 
 - Persist panel sizes
 - Restore layout on startup
 - Better collapse/expand behavior
 - Optional panel visibility controls
 
-## 0.9.0 — Settings and Themes
+## 0.8.0 — Settings and Themes
 
 - Settings page
 - General, editor, appearance, and layout settings
