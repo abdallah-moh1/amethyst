@@ -3,27 +3,22 @@
 // Copyright (C) 2026 Abdallah
 
 import { ipcMain } from 'electron';
-import {
-    getAllSettings,
-    getSetting,
-    resetSettings,
-    setSetting,
-} from '../services/settings.service.js';
+import { SettingsService } from '../services/settings.service.js';
 
-export function registerSettingsIpc() {
+export function registerSettingsIpc(settingsService: SettingsService) {
     ipcMain.handle('get:setting', (_event, key) => {
-        return getSetting(key);
+        return settingsService.getSetting(key);
     });
 
     ipcMain.handle('set:setting', (_event, key, value) => {
-        setSetting(key, value);
+        settingsService.setSetting(key, value);
     });
 
     ipcMain.handle('reset:settings', () => {
-        resetSettings();
+        settingsService.resetSettings();
     });
 
     ipcMain.handle('get-all:settings', () => {
-        return getAllSettings();
+        return settingsService.getAllSettings();
     });
 }

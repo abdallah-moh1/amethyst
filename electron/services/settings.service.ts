@@ -2,51 +2,60 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { app } from 'electron';
-import { join } from 'node:path';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { Settings } from '../../shared/types/settings.type.js';
 
-const dataFolder = app.getPath('userData');
-const settingsFile = join(dataFolder, 'settings.json');
 
-let settings: Settings;
+export class SettingsService {
+    settings: Settings;
+    settingsFile: string;
 
-export const defaultSettings: Settings = {
-    theme: {
-        id: 'amethyst-dark',
-        type: 'built-in',
-    },
-    autoSave: true,
-};
+    static defaultSettings: Settings = {
+        theme: {
+            id: 'amethyst-dark',
+            type: 'built-in',
+        },
+        autoSave: true,
+    };
 
-export function loadSettings() {
-    try {
-        const data = readFileSync(settingsFile, 'utf-8');
-        settings = JSON.parse(data);
-    } catch {
-        setSettings(defaultSettings);
+    constructor(file: string) {
+        this.settingsFile = file;
+
+        if (!existsSync(file)) {
+            this.settings = SettingsService.defaultSettings;
+            return;
+        }
+        this.settings = this.readSettingsFile();
     }
-}
 
-export function getSetting(key: keyof Settings) {
-    return settings[key];
-}
+    readSettingsFile(): Settings {
+        return JSON.parse(readFileSync(this.settingsFile, 'utf-8')) as Settings;
+    }
 
-export function setSetting<K extends keyof Settings>(key: K, value: Settings[K]) {
-    settings[key] = value;
-    // writeFileSync(settingsFile, JSON.stringify(settings));
-}
+    writeSettingsFile(data: Settings) {
+        writeFileSync(this.settingsFile, JSON.stringify(data, null, 2), 'utf-8');
+    }
 
-export function setSettings(newSettings: Settings) {
-    settings = newSettings;
-    // writeFileSync(settingsFile, JSON.stringify(settings));
-}
+    getSetting<K extends keyof Settings>(key: K): Settings[K] {
+        return this.settings[key];
+    }
 
-export function getAllSettings() {
-    return settings;
-}
+    setSetting<K extends keyof Settings>(key: K, value: Settings[K]) {
+        this.settings[key] = value;
+        // writeFileSync(settingsFile, JSON.stringify(settings));
+    }
 
-export function resetSettings() {
-    setSettings(defaultSettings);
+    setSettings(newSettings: Settings) {
+        this.settings = newSettings;
+        // writeFileSync(settingsFile, JSON.stringify(settings));
+    }
+
+    getAllSettings(): Settings {
+        return this.settings;
+    }
+
+    resetSettings() {
+        this.setSettings(SettingsService.defaultSettings);
+    }
+
 }
