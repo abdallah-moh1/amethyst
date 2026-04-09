@@ -2,22 +2,26 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
+import { openNote } from '@/clients/note.client';
 import { AppShell } from '@/layout';
 import { useWorkspaceStore } from '@/store';
 import { useExplorerStore } from '@/store/explorer.store';
 
 export default function App() {
     const setTree = useExplorerStore((state) => state.setTree);
-    const expandNotebook = useExplorerStore((state) => state.expandNotebook);
-    const setLastOpenedNoteId = useWorkspaceStore((state) => state.setLastOpenedNoteId);
+    const setExpandedNotebooks = useExplorerStore((state) => state.setExpandedNotebooks);
+    const setOpenedNoteId = useWorkspaceStore((state) => state.setOpenedNoteId);
+    const setNoteContent = useWorkspaceStore((state) => state.setNoteContent);
 
-    window.amethyst.workspace.loadSnapshot().then((data) => {
+    window.amethyst.workspace.loadSnapshot().then(async (data) => {
         setTree(data.tree);
-        setLastOpenedNoteId(data.workspace.lastOpenedNoteId);
 
-        data.workspace.expandedNotebookPaths.forEach((folder) => {
-            expandNotebook(folder);
-        });
+        if (data.workspace.lastOpenedNoteId) {
+            setNoteContent((await openNote(data.workspace.lastOpenedNoteId)).content);
+            setOpenedNoteId(data.workspace.lastOpenedNoteId);
+        }
+
+        setExpandedNotebooks(data.workspace.expandedNotebookPaths);
     });
 
     return <AppShell />;

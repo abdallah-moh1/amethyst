@@ -8,9 +8,9 @@ export type WorkspaceStore = {
     viewMode: ViewingMode;
     noteContent: string;
     syncedScroll: SyncedScroll;
-    lastOpenedNoteId: null | string;
+    openedNoteId: null | string;
     setViewMode: (mode: ViewingMode) => void;
     setNoteContent: (content: string) => void;
     setSyncedScroll: (syncedScroll: SyncedScroll) => void;
-    setLastOpenedNoteId: (id: string | null) => void;
+    setOpenedNoteId: (id: string | null) => void;
 };

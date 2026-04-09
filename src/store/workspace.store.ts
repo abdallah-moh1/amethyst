@@ -8,11 +8,11 @@ import { create } from 'zustand';
 export const useWorkspaceStore = create<WorkspaceStore>((set) => ({
     viewMode: 'editor',
     noteContent: '',
+    openedNoteId: null,
     syncedScroll: {
         source: null,
         percentage: 0,
     },
-    lastOpenedNoteId: null,
     setViewMode: (mode) => {
         set({ viewMode: mode });
     },
@@ -22,7 +22,7 @@ export const useWorkspaceStore = create<WorkspaceStore>((set) => ({
     setSyncedScroll: (syncedScroll) => {
         set({ syncedScroll });
     },
-    setLastOpenedNoteId: (id) => {
-        set({ lastOpenedNoteId: id });
+    setOpenedNoteId: (id) => {
+        set({ openedNoteId: id });
     },
 }));

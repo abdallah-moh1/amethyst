@@ -7,53 +7,22 @@ import { create } from 'zustand';
 
 export const useExplorerStore = create<ExplorerStore>((set) => ({
     tree: [],
-    expandedNotebooks: new Set(),
+    expandedNotebooks: [],
     selectedPath: null,
-
     isLoading: false,
     error: null,
 
     setTree: (tree) => set({ tree }),
-
-    toggleNotebook: (path) =>
-        set((state) => {
-            const next = new Set(state.expandedNotebooks);
-
-            if (next.has(path)) {
-                next.delete(path);
-            } else {
-                next.add(path);
-            }
-
-            return { expandedNotebooks: next };
-        }),
-
-    expandNotebook: (path) =>
-        set((state) => {
-            const next = new Set(state.expandedNotebooks);
-            next.add(path);
-            return { expandedNotebooks: next };
-        }),
-
-    collapseNotebook: (path) =>
-        set((state) => {
-            const next = new Set(state.expandedNotebooks);
-            next.delete(path);
-            return { expandedNotebooks: next };
-        }),
-
-    collapseAll: () => set({ expandedNotebooks: new Set() }),
-
+    setExpandedNotebooks(notebooks: string[]) {
+        set({ expandedNotebooks: notebooks });
+    },
     setSelectedPath: (path) => set({ selectedPath: path }),
-
     setLoading: (loading) => set({ isLoading: loading }),
-
     setError: (error) => set({ error }),
-
     reset: () =>
         set({
             tree: [],
-            expandedNotebooks: new Set(),
+            expandedNotebooks: [],
             selectedPath: null,
             isLoading: false,
             error: null,
