@@ -1,7 +1,12 @@
 import { TreeNode } from '@shared/types/tree.type';
 import { BuiltInThemes, Theme } from '@shared/types/themes.type';
 import { Settings } from '@shared/types/settings.type';
-import { NoteMetadata, NotebookMetadata, WorkspaceConfig } from '@shared/types/config.type';
+import {
+    NoteMetadata,
+    NotebookMetadata,
+    WorkspaceConfig,
+    MetadataConfig,
+} from '@shared/types/config.type';
 
 export {};
 
@@ -22,7 +27,7 @@ declare global {
 
             workspace: {
                 loadSnapshot: () => Promise<{
-                    metadata: import('@shared/types/config.type').MetadataConfig;
+                    metadata: MetadataConfig;
                     workspace: WorkspaceConfig;
                     tree: TreeNode[];
                     activeNote: {

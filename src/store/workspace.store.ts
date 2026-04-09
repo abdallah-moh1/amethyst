@@ -12,6 +12,7 @@ export const useWorkspaceStore = create<WorkspaceStore>((set) => ({
         source: null,
         percentage: 0,
     },
+    lastOpenedNoteId: null,
     setViewMode: (mode) => {
         set({ viewMode: mode });
     },
@@ -20,5 +21,8 @@ export const useWorkspaceStore = create<WorkspaceStore>((set) => ({
     },
     setSyncedScroll: (syncedScroll) => {
         set({ syncedScroll });
+    },
+    setLastOpenedNoteId: (id) => {
+        set({ lastOpenedNoteId: id });
     },
 }));
