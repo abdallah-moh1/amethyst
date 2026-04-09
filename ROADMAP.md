@@ -19,14 +19,13 @@ This roadmap is intentionally incremental. Each release adds one clear layer of 
 - Side-by-side editor and preview
 - Synchronized scrolling between both views
 
-## 0.4.0 — Notebook and Notes system
+## 0.4.0 — Notebook and Notes System
 
-- CRUD operations for notes and notebooks
-- Save note contents
-- Restore last opened note
-- Notebooks section in the sidebar
-- implemetn the Notebooks and notes CRUD operations in the sidebar
+- Notebook and note CRUD operations
+- Sidebar integration for notebooks and notes
+- Save and load note contents
 - Autosave notes
+- Restore last opened note
 - Confirmation dialogs for destructive actions
 
 ## 0.5.0 — Search and Navigation
