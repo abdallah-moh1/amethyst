@@ -21,16 +21,14 @@ This roadmap is intentionally incremental. Each release adds one clear layer of 
 
 ## 0.4.0 — Notebook and Notes system
 
-- Create notes and notebooks
+- CRUD operations for notes and notebooks
 - Save note contents
 - Restore last opened note
-- Autosave for real notes
 
-## 0.5.0 — CRUD operations for notes
-
-- Delete notes and notebooks
-- Rename notes and notebooks
-- Move notes between notebooks
+## 0.5.0 — Ui implementation of the Notebooks and Notes system
+- Notebooks section in the sidebar
+- implemetn the Notebooks and notes CRUD operations in the sidebar
+- Autosave notes
 - Confirmation dialogs for destructive actions
 
 ## 0.6.0 — Search and Navigation
