@@ -1,9 +1,13 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Amethyst - A modern markdown note-taking application
+// Copyright (C) 2026 Abdallah
+
 import { WorkspaceConfig } from '../../shared/types/config.type.js';
 import { replacePrefix } from '../utils/path.utils.js';
 import { ConfigService } from './config.service.js';
 
 export class WorkspaceService {
-    constructor(private configService: ConfigService) {}
+    constructor(private configService: ConfigService) { }
 
     getWorkspace(): WorkspaceConfig {
         return this.configService.readWorkspaceFile();

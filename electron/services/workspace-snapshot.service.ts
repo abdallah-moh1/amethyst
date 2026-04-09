@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Amethyst - A modern markdown note-taking application
+// Copyright (C) 2026 Abdallah
+
 import { MetadataConfig, NoteMetadata, WorkspaceConfig } from '../../shared/types/config.type.js';
 import { TreeNode } from '../../shared/types/tree.type.js';
 import { MetadataSyncService } from './metadata-sync.service.js';
@@ -20,7 +24,7 @@ export class WorkspaceSnapshotService {
         private metadataSyncService: MetadataSyncService,
         private workspaceService: WorkspaceService,
         private noteService: NoteService,
-    ) {}
+    ) { }
 
     loadSnapshot(): WorkspaceSnapshot {
         const metadata = this.metadataSyncService.syncWithDisk();
@@ -43,7 +47,7 @@ export class WorkspaceSnapshotService {
     private resolveActiveNote(
         metadata: MetadataConfig,
         workspace: WorkspaceConfig,
-    ): { metadata: NoteMetadata; content: string } | null {
+    ): { metadata: NoteMetadata; content: string; } | null {
         const lastOpenedNoteId = workspace.lastOpenedNoteId;
         if (!lastOpenedNoteId) return null;
 

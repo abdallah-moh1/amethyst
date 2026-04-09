@@ -1,10 +1,13 @@
-// electron/services/metadata.service.ts
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Amethyst - A modern markdown note-taking application
+// Copyright (C) 2026 Abdallah
+
 
 import { MetadataConfig, NoteMetadata, NotebookMetadata } from '../../shared/types/config.type.js';
 import { ConfigService } from './config.service.js';
 
 export class MetadataService {
-    constructor(private configService: ConfigService) {}
+    constructor(private configService: ConfigService) { }
 
     getMetadata(): MetadataConfig {
         return this.configService.readMetadataFile();
@@ -104,7 +107,7 @@ export class MetadataService {
         });
     }
 
-    removeNote(noteId: string): { metadata: MetadataConfig; removed: NoteMetadata } {
+    removeNote(noteId: string): { metadata: MetadataConfig; removed: NoteMetadata; } {
         let removed: NoteMetadata | undefined;
 
         const metadata = this.updateMetadata((current) => {
@@ -119,7 +122,7 @@ export class MetadataService {
         return { metadata, removed };
     }
 
-    removeNotebook(notebookId: string): { metadata: MetadataConfig; removed: NotebookMetadata } {
+    removeNotebook(notebookId: string): { metadata: MetadataConfig; removed: NotebookMetadata; } {
         let removed: NotebookMetadata | undefined;
 
         const metadata = this.updateMetadata((current) => {

@@ -1,4 +1,6 @@
-// electron/preload.ts
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Amethyst - A modern markdown note-taking application
+// Copyright (C) 2026 Abdallah
 
 import { contextBridge, ipcRenderer } from 'electron';
 import { Settings } from '../shared/types/settings.type.js';

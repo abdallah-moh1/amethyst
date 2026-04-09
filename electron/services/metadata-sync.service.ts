@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Amethyst - A modern markdown note-taking application
+// Copyright (C) 2026 Abdallah
+
 import { MetadataConfig, NotebookMetadata, NoteMetadata } from '../../shared/types/config.type.js';
 import { randomUUID } from 'node:crypto';
 import { ConfigService } from './config.service.js';
@@ -7,7 +11,7 @@ export class MetadataSyncService {
     constructor(
         private configService: ConfigService,
         private safeScannerService: SafeScannerService,
-    ) {}
+    ) { }
 
     syncWithDisk(): MetadataConfig {
         const scanned = this.safeScannerService.scan();
