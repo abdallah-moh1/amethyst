@@ -4,9 +4,10 @@
 
 import { useEffect, useRef } from 'react';
 import { EditorView } from '@codemirror/view';
-import { createEditor } from '../codemirror/createEditor';
+import { createEditor, createState } from '../codemirror/createEditor';
 import { updateEditor } from '../codemirror/updateEditor';
 import type { UseCodeMirrorOptions } from '../../../types/editor.type';
+import { useWorkspaceStore } from '@/store';
 
 export function useCodeMirror({
     containerRef,
@@ -15,6 +16,7 @@ export function useCodeMirror({
     placeholder,
 }: UseCodeMirrorOptions) {
     const viewRef = useRef<EditorView | null>(null);
+    const openedNoteId = useWorkspaceStore(s => s.openedNoteId);
 
     useEffect(() => {
         const container = containerRef.current;
@@ -46,4 +48,11 @@ export function useCodeMirror({
             value,
         });
     }, [value]);
+
+    useEffect(() => {
+        const view = viewRef.current;
+        if (!view) return;
+
+        view.setState(createState({ doc: value, onChange, placeholder }));
+    }, [openedNoteId]);
 }
