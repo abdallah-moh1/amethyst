@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 
 export default function App() {
     const setTree = useExplorerStore((state) => state.setTree);
-    const setExpandedNotebooks = useExplorerStore((state) => state.setExpandedNotebooks);
+    const setExpanded = useExplorerStore((state) => state.setExpanded);
     const setOpenedNoteId = useWorkspaceStore((state) => state.setOpenedNoteId);
     const setNoteContent = useWorkspaceStore((state) => state.setNoteContent);
 
@@ -23,7 +23,7 @@ export default function App() {
                 setOpenedNoteId(data.workspace.lastOpenedNoteId);
             }
 
-            setExpandedNotebooks(data.workspace.expandedNotebookPaths);
+            setExpanded(data.workspace.expandedNotebookPaths);
         });
     }, []);
 
