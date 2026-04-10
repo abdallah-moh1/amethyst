@@ -25,6 +25,12 @@ export type CreateEditorOptions = {
     placeholder?: string;
 };
 
+export type CreateStateOptions = {
+    doc: string;
+    onChange?: (value: string) => void;
+    placeholder?: string;
+};
+
 export type UpdateEditorOptions = {
     view: EditorView;
     value: string;
