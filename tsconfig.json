@@ -21,11 +21,11 @@
             "@/*": ["./src/*"]
         }
     },
-    "references": [
-        {
-            "path": "./tsconfig.node.json"
-        }
-    ],
+    // "references": [
+    //     {
+    //         "path": "./tsconfig.node.json"
+    //     }
+    // ],
     "include": ["src", "shared", "vite.config.ts"],
     "exclude": ["dist", "dist-electron", "node_modules"]
 }

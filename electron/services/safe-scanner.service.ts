@@ -7,9 +7,9 @@ import { join, relative } from 'node:path';
 import { isConfigPath, isMarkdownFile, normalizeRelativePath } from '../utils/path.utils.js';
 
 export class SafeScannerService {
-    constructor(private safePath: string) { }
+    constructor(private safePath: string) {}
 
-    async scan(): Promise<{ notes: string[]; notebooks: string[]; }> {
+    async scan(): Promise<{ notes: string[]; notebooks: string[] }> {
         const notes: string[] = [];
         const notebooks: string[] = [];
 

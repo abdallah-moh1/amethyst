@@ -7,7 +7,7 @@ import { replacePrefix } from '../utils/path.utils.js';
 import { ConfigService } from './config.service.js';
 
 export class WorkspaceService {
-    constructor(private configService: ConfigService) { }
+    constructor(private configService: ConfigService) {}
 
     async getWorkspace(): Promise<WorkspaceConfig> {
         return await this.configService.readWorkspaceFile();

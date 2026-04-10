@@ -6,7 +6,7 @@ import { MetadataConfig, NoteMetadata, NotebookMetadata } from '../../shared/typ
 import { ConfigService } from './config.service.js';
 
 export class MetadataService {
-    constructor(private configService: ConfigService) { }
+    constructor(private configService: ConfigService) {}
 
     async getMetadata(): Promise<MetadataConfig> {
         return await this.configService.readMetadataFile();
@@ -87,7 +87,10 @@ export class MetadataService {
         });
     }
 
-    async updateNote(noteId: string, updater: (note: NoteMetadata) => void): Promise<MetadataConfig> {
+    async updateNote(
+        noteId: string,
+        updater: (note: NoteMetadata) => void,
+    ): Promise<MetadataConfig> {
         return await this.updateMetadata((metadata) => {
             const { note, index } = this.requireNote(metadata, noteId);
             updater(note);
@@ -106,7 +109,7 @@ export class MetadataService {
         });
     }
 
-    async removeNote(noteId: string): Promise<{ metadata: MetadataConfig; removed: NoteMetadata; }> {
+    async removeNote(noteId: string): Promise<{ metadata: MetadataConfig; removed: NoteMetadata }> {
         let removed: NoteMetadata | undefined;
 
         const metadata = await this.updateMetadata((current) => {
@@ -121,7 +124,9 @@ export class MetadataService {
         return { metadata, removed };
     }
 
-    async removeNotebook(notebookId: string): Promise<{ metadata: MetadataConfig; removed: NotebookMetadata; }> {
+    async removeNotebook(
+        notebookId: string,
+    ): Promise<{ metadata: MetadataConfig; removed: NotebookMetadata }> {
         let removed: NotebookMetadata | undefined;
 
         const metadata = await this.updateMetadata((current) => {

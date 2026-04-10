@@ -21,7 +21,7 @@ export class NotebookService {
         private safePath: string,
         private metadataService: MetadataService,
         private workspaceService: WorkspaceService,
-    ) { }
+    ) {}
 
     private abs(path: string): string {
         return toAbsoluteSafePath(this.safePath, path);

@@ -7,7 +7,7 @@
         "outDir": "dist-electron",
         "strict": true,
         "skipLibCheck": true,
-        "composite": true,
+        // "composite": true,
         "resolveJsonModule": true,
         "types": ["node"]
     },
