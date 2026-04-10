@@ -6,29 +6,29 @@ import { MetadataConfig, NoteMetadata, NotebookMetadata } from '../../shared/typ
 import { ConfigService } from './config.service.js';
 
 export class MetadataService {
-    constructor(private configService: ConfigService) {}
+    constructor(private configService: ConfigService) { }
 
-    getMetadata(): MetadataConfig {
-        return this.configService.readMetadataFile();
+    async getMetadata(): Promise<MetadataConfig> {
+        return await this.configService.readMetadataFile();
     }
 
     saveMetadata(metadata: MetadataConfig): void {
         this.configService.writeMetadataFile(metadata);
     }
 
-    updateMetadata(updater: (metadata: MetadataConfig) => void): MetadataConfig {
-        const metadata = this.getMetadata();
+    async updateMetadata(updater: (metadata: MetadataConfig) => void): Promise<MetadataConfig> {
+        const metadata = await this.getMetadata();
         updater(metadata);
         this.saveMetadata(metadata);
         return metadata;
     }
 
-    findNoteById(noteId: string): NoteMetadata | undefined {
-        return this.getMetadata().notes.find((note) => note.id === noteId);
+    async findNoteById(noteId: string): Promise<NoteMetadata | undefined> {
+        return (await this.getMetadata()).notes.find((note) => note.id === noteId);
     }
 
-    findNotebookById(notebookId: string): NotebookMetadata | undefined {
-        return this.getMetadata().notebooks.find((notebook) => notebook.id === notebookId);
+    async findNotebookById(notebookId: string): Promise<NotebookMetadata | undefined> {
+        return (await this.getMetadata()).notebooks.find((notebook) => notebook.id === notebookId);
     }
 
     getNoteIndexById(metadata: MetadataConfig, noteId: string): number {
@@ -75,41 +75,41 @@ export class MetadataService {
         };
     }
 
-    addNote(note: NoteMetadata): MetadataConfig {
-        return this.updateMetadata((metadata) => {
+    async addNote(note: NoteMetadata): Promise<MetadataConfig> {
+        return await this.updateMetadata((metadata) => {
             metadata.notes.push(note);
         });
     }
 
-    addNotebook(notebook: NotebookMetadata): MetadataConfig {
-        return this.updateMetadata((metadata) => {
+    async addNotebook(notebook: NotebookMetadata): Promise<MetadataConfig> {
+        return await this.updateMetadata((metadata) => {
             metadata.notebooks.push(notebook);
         });
     }
 
-    updateNote(noteId: string, updater: (note: NoteMetadata) => void): MetadataConfig {
-        return this.updateMetadata((metadata) => {
+    async updateNote(noteId: string, updater: (note: NoteMetadata) => void): Promise<MetadataConfig> {
+        return await this.updateMetadata((metadata) => {
             const { note, index } = this.requireNote(metadata, noteId);
             updater(note);
             metadata.notes[index] = note;
         });
     }
 
-    updateNotebook(
+    async updateNotebook(
         notebookId: string,
         updater: (notebook: NotebookMetadata) => void,
-    ): MetadataConfig {
-        return this.updateMetadata((metadata) => {
+    ): Promise<MetadataConfig> {
+        return await this.updateMetadata((metadata) => {
             const { notebook, index } = this.requireNotebook(metadata, notebookId);
             updater(notebook);
             metadata.notebooks[index] = notebook;
         });
     }
 
-    removeNote(noteId: string): { metadata: MetadataConfig; removed: NoteMetadata } {
+    async removeNote(noteId: string): Promise<{ metadata: MetadataConfig; removed: NoteMetadata; }> {
         let removed: NoteMetadata | undefined;
 
-        const metadata = this.updateMetadata((current) => {
+        const metadata = await this.updateMetadata((current) => {
             const { index } = this.requireNote(current, noteId);
             removed = current.notes.splice(index, 1)[0];
         });
@@ -121,10 +121,10 @@ export class MetadataService {
         return { metadata, removed };
     }
 
-    removeNotebook(notebookId: string): { metadata: MetadataConfig; removed: NotebookMetadata } {
+    async removeNotebook(notebookId: string): Promise<{ metadata: MetadataConfig; removed: NotebookMetadata; }> {
         let removed: NotebookMetadata | undefined;
 
-        const metadata = this.updateMetadata((current) => {
+        const metadata = await this.updateMetadata((current) => {
             const { index } = this.requireNotebook(current, notebookId);
             removed = current.notebooks.splice(index, 1)[0];
         });

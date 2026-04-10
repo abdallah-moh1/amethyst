@@ -2,10 +2,10 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { existsSync, mkdirSync, readFileSync } from 'node:fs';
-import { writeFileSync } from 'node:fs';
+import { writeFile, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { MetadataConfig, WorkspaceConfig } from '../../shared/types/config.type.js';
+import { existsSync, mkdirSync } from 'node:fs';
 
 export class ConfigService {
     safePath: string;
@@ -52,19 +52,19 @@ export class ConfigService {
         return join(this.configPath, 'metadata.json');
     }
 
-    readMetadataFile(): MetadataConfig {
-        return JSON.parse(readFileSync(this.getMetadataFilePath(), 'utf-8')) as MetadataConfig;
+    async readMetadataFile(): Promise<MetadataConfig> {
+        return JSON.parse(await readFile(this.getMetadataFilePath(), 'utf-8')) as MetadataConfig;
     }
 
-    readWorkspaceFile(): WorkspaceConfig {
-        return JSON.parse(readFileSync(this.getWorkspaceFilePath(), 'utf-8')) as WorkspaceConfig;
+    async readWorkspaceFile(): Promise<WorkspaceConfig> {
+        return JSON.parse(await readFile(this.getWorkspaceFilePath(), 'utf-8')) as WorkspaceConfig;
     }
 
-    writeMetadataFile(data: MetadataConfig): void {
-        writeFileSync(this.getMetadataFilePath(), JSON.stringify(data, null, 2), 'utf-8');
+    async writeMetadataFile(data: MetadataConfig): Promise<void> {
+        await writeFile(this.getMetadataFilePath(), JSON.stringify(data, null, 2), 'utf-8');
     }
 
-    writeWorkspaceFile(data: WorkspaceConfig): void {
-        writeFileSync(this.getWorkspaceFilePath(), JSON.stringify(data, null, 2), 'utf-8');
+    async writeWorkspaceFile(data: WorkspaceConfig): Promise<void> {
+        await writeFile(this.getWorkspaceFilePath(), JSON.stringify(data, null, 2), 'utf-8');
     }
 }

@@ -2,7 +2,8 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { existsSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync } from 'node:fs';
+import { readFile, rename, rm, writeFile } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
 
 import { NoteMetadata } from '../../shared/types/config.type.js';
@@ -17,13 +18,13 @@ export class NoteService {
     constructor(
         private safePath: string,
         private metadataService: MetadataService,
-    ) {}
+    ) { }
 
     private abs(path: string): string {
         return toAbsoluteSafePath(this.safePath, path);
     }
 
-    createNote(parentPath: string | null, title: string): NoteMetadata {
+    async createNote(parentPath: string | null, title: string): Promise<NoteMetadata> {
         const path = parentPath ? joinRelativePath(parentPath, `${title}.md`) : `${title}.md`;
 
         if (existsSync(this.abs(path))) {
@@ -43,27 +44,27 @@ export class NoteService {
             return noteMetadata;
         } catch (error) {
             if (existsSync(this.abs(noteMetadata.path))) {
-                rmSync(this.abs(noteMetadata.path));
+                await rm(this.abs(noteMetadata.path));
             }
             throw error;
         }
     }
 
-    openNote(noteId: string): { metadata: NoteMetadata; content: string } {
-        const metadata = this.metadataService.getMetadata();
+    async openNote(noteId: string): Promise<{ metadata: NoteMetadata; content: string; }> {
+        const metadata = await this.metadataService.getMetadata();
         const { note } = this.metadataService.requireNote(metadata, noteId);
 
         return {
             metadata: note,
-            content: this.readNoteContentByPath(note.path),
+            content: await this.readNoteContentByPath(note.path),
         };
     }
 
-    saveNote(noteId: string, content: string): NoteMetadata {
-        const metadata = this.metadataService.getMetadata();
+    async saveNote(noteId: string, content: string): Promise<NoteMetadata> {
+        const metadata = await this.metadataService.getMetadata();
         const { note, index } = this.metadataService.requireNote(metadata, noteId);
 
-        this.writeNoteContentByPath(note.path, content);
+        await this.writeNoteContentByPath(note.path, content);
 
         const updatedNote: NoteMetadata = {
             ...note,
@@ -76,8 +77,8 @@ export class NoteService {
         return updatedNote;
     }
 
-    renameNote(noteId: string, newTitle: string): NoteMetadata {
-        const metadata = this.metadataService.getMetadata();
+    async renameNote(noteId: string, newTitle: string): Promise<NoteMetadata> {
+        const metadata = await this.metadataService.getMetadata();
         const { note, index } = this.metadataService.requireNote(metadata, noteId);
 
         const oldPath = note.path;
@@ -90,7 +91,7 @@ export class NoteService {
             throw new Error('Note already exists');
         }
 
-        renameSync(this.abs(oldPath), this.abs(newPath));
+        await rename(this.abs(oldPath), this.abs(newPath));
 
         const updatedNote: NoteMetadata = {
             ...note,
@@ -103,26 +104,26 @@ export class NoteService {
             this.metadataService.saveMetadata(metadata);
             return updatedNote;
         } catch (error) {
-            renameSync(this.abs(newPath), this.abs(oldPath));
+            await rename(this.abs(newPath), this.abs(oldPath));
             throw error;
         }
     }
 
-    deleteNote(noteId: string): void {
-        const metadata = this.metadataService.getMetadata();
+    async deleteNote(noteId: string): Promise<void> {
+        const metadata = await this.metadataService.getMetadata();
         const { note, index } = this.metadataService.requireNote(metadata, noteId);
 
-        rmSync(this.abs(note.path));
+        await rm(this.abs(note.path));
 
         metadata.notes.splice(index, 1);
         this.metadataService.saveMetadata(metadata);
     }
 
-    readNoteContentByPath(path: string): string {
-        return readFileSync(this.abs(path), 'utf-8');
+    readNoteContentByPath(path: string): Promise<string> {
+        return readFile(this.abs(path), 'utf-8');
     }
 
-    writeNoteContentByPath(path: string, content: string): void {
-        writeFileSync(this.abs(path), content, 'utf-8');
+    async writeNoteContentByPath(path: string, content: string): Promise<void> {
+        await writeFile(this.abs(path), content, 'utf-8');
     }
 }

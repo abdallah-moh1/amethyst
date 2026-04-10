@@ -11,11 +11,11 @@ export class MetadataSyncService {
     constructor(
         private configService: ConfigService,
         private safeScannerService: SafeScannerService,
-    ) {}
+    ) { }
 
-    syncWithDisk(): MetadataConfig {
-        const scanned = this.safeScannerService.scan();
-        const metadata = this.configService.readMetadataFile();
+    async syncWithDisk(): Promise<MetadataConfig> {
+        const scanned = await this.safeScannerService.scan();
+        const metadata = await this.configService.readMetadataFile();
 
         const nextNotes = this.syncNotes(scanned.notes, metadata.notes);
         const nextNotebooks = this.syncNotebooks(scanned.notebooks, metadata.notebooks);

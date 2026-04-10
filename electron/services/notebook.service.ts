@@ -2,7 +2,8 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { existsSync, mkdirSync, readdirSync, renameSync, rmdirSync } from 'node:fs';
+import { existsSync } from 'node:fs';
+import { mkdir, readdir, rename, rmdir } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
 
 import { MetadataConfig, NotebookMetadata } from '../../shared/types/config.type.js';
@@ -20,13 +21,13 @@ export class NotebookService {
         private safePath: string,
         private metadataService: MetadataService,
         private workspaceService: WorkspaceService,
-    ) {}
+    ) { }
 
     private abs(path: string): string {
         return toAbsoluteSafePath(this.safePath, path);
     }
 
-    createNotebook(parentPath: string | null, name: string): NotebookMetadata {
+    async createNotebook(parentPath: string | null, name: string): Promise<NotebookMetadata> {
         const path = parentPath ? joinRelativePath(parentPath, name) : name;
 
         if (existsSync(this.abs(path))) {
@@ -41,19 +42,19 @@ export class NotebookService {
         };
 
         try {
-            mkdirSync(this.abs(path), { recursive: false });
+            await mkdir(this.abs(path), { recursive: false });
             this.metadataService.addNotebook(notebookMetadata);
             return notebookMetadata;
         } catch (error) {
             if (existsSync(this.abs(path))) {
-                rmdirSync(this.abs(path));
+                await rmdir(this.abs(path));
             }
             throw error;
         }
     }
 
-    renameNotebook(notebookId: string, newName: string): NotebookMetadata {
-        const metadata = this.metadataService.getMetadata();
+    async renameNotebook(notebookId: string, newName: string): Promise<NotebookMetadata> {
+        const metadata = await this.metadataService.getMetadata();
         const { notebook, index } = this.metadataService.requireNotebook(metadata, notebookId);
 
         const oldPath = notebook.path;
@@ -64,7 +65,7 @@ export class NotebookService {
             throw new Error('Notebook already exists');
         }
 
-        renameSync(this.abs(oldPath), this.abs(newPath));
+        await rename(this.abs(oldPath), this.abs(newPath));
 
         try {
             this.mutateDescendantPaths(metadata, oldPath, newPath);
@@ -82,31 +83,31 @@ export class NotebookService {
 
             return updatedNotebook;
         } catch (error) {
-            renameSync(this.abs(newPath), this.abs(oldPath));
+            await rename(this.abs(newPath), this.abs(oldPath));
             throw error;
         }
     }
 
-    deleteNotebook(notebookId: string): void {
+    async deleteNotebook(notebookId: string): Promise<void> {
         if (!this.isNotebookEmpty(notebookId)) {
             throw new Error('This notebook is not empty');
         }
 
-        const metadata = this.metadataService.getMetadata();
+        const metadata = await this.metadataService.getMetadata();
         const { notebook, index } = this.metadataService.requireNotebook(metadata, notebookId);
 
-        rmdirSync(this.abs(notebook.path));
+        await rmdir(this.abs(notebook.path));
 
         metadata.notebooks.splice(index, 1);
         this.metadataService.saveMetadata(metadata);
         this.workspaceService.removeExpandedNotebookAndSubNotebooks(notebook.path);
     }
 
-    isNotebookEmpty(notebookId: string): boolean {
-        const metadata = this.metadataService.getMetadata();
+    async isNotebookEmpty(notebookId: string): Promise<boolean> {
+        const metadata = await this.metadataService.getMetadata();
         const { notebook } = this.metadataService.requireNotebook(metadata, notebookId);
 
-        return readdirSync(this.abs(notebook.path)).length === 0;
+        return (await readdir(this.abs(notebook.path))).length === 0;
     }
 
     private mutateDescendantPaths(

@@ -24,17 +24,17 @@ export class WorkspaceSnapshotService {
         private metadataSyncService: MetadataSyncService,
         private workspaceService: WorkspaceService,
         private noteService: NoteService,
-    ) {}
+    ) { }
 
-    loadSnapshot(): WorkspaceSnapshot {
-        const metadata = this.metadataSyncService.syncWithDisk();
-        const workspace = this.workspaceService.getWorkspace();
+    async loadSnapshot(): Promise<WorkspaceSnapshot> {
+        const metadata = await this.metadataSyncService.syncWithDisk();
+        const workspace = await this.workspaceService.getWorkspace();
 
         const tree = SafeTreeService.sortTree(
             SafeTreeService.buildTree(metadata.notebooks, metadata.notes),
         );
 
-        const activeNote = this.resolveActiveNote(metadata, workspace);
+        const activeNote = await this.resolveActiveNote(metadata, workspace);
 
         return {
             metadata,
@@ -44,10 +44,10 @@ export class WorkspaceSnapshotService {
         };
     }
 
-    private resolveActiveNote(
+    private async resolveActiveNote(
         metadata: MetadataConfig,
         workspace: WorkspaceConfig,
-    ): { metadata: NoteMetadata; content: string } | null {
+    ): Promise<{ metadata: NoteMetadata; content: string; } | null> {
         const lastOpenedNoteId = workspace.lastOpenedNoteId;
         if (!lastOpenedNoteId) return null;
 
@@ -57,6 +57,6 @@ export class WorkspaceSnapshotService {
             return null;
         }
 
-        return this.noteService.openNote(noteMetadata.id);
+        return await this.noteService.openNote(noteMetadata.id);
     }
 }
