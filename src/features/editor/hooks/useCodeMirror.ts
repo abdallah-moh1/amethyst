@@ -54,5 +54,6 @@ export function useCodeMirror({
         if (!view) return;
 
         view.setState(createState({ doc: value, onChange, placeholder }));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [openedNoteId]);
 }

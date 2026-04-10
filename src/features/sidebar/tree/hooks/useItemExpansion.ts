@@ -50,6 +50,7 @@ export function useItemExpansion(treeRef: RefObject<TreeRef<TreeItemData> | null
         }, 30);
 
         return () => clearTimeout(id);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pendingCreation]);
 
     return { handleExpandItem, handleCollapseItem, expandedItems };

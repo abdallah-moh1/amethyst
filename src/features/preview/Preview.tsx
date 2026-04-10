@@ -34,6 +34,7 @@ export function Preview({ content }: PreviewProps) {
             applyScroll(previewRef.current, percentage);
             setSyncedScroll({ source: null, percentage });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [source, percentage]);
 
     return (
