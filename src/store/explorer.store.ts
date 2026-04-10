@@ -58,7 +58,7 @@ export const useExplorerStore = create<ExplorerStore>((set) => ({
 
         const isRoot = !note.path.includes('/');
         return {
-            tree: isRoot ? [...state.tree, newNode] : insertIntoTree(state.tree),
+            tree: isRoot ? sortNodes([...state.tree, newNode]) : insertIntoTree(state.tree),
         };
     }),
     removeNoteFromTree: (noteId) => set((state) => {
@@ -146,7 +146,7 @@ export const useExplorerStore = create<ExplorerStore>((set) => ({
                 return state;
             }
 
-            return { tree: [...state.tree, newNode] };
+            return { tree: sortNodes([...state.tree, newNode]) };
         }
 
         const newTree = insertIntoTree(state.tree);
