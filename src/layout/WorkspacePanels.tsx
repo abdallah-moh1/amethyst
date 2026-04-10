@@ -14,7 +14,7 @@ export function WorkspacePanels() {
                 className="panel"
                 collapsible
                 defaultSize={240}
-                minSize={100}
+                minSize={200}
                 collapsedSize={40}
                 groupResizeBehavior="preserve-pixel-size"
             >
