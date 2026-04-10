@@ -35,8 +35,8 @@ export function NotebooksSection() {
                     <button onClick={handleAddNote}>
                         <FilePlus width={16} />
                     </button>
-                    <button>
-                        <FolderPlus width={16} onClick={handleAddNotebook} />
+                    <button onClick={handleAddNotebook}>
+                        <FolderPlus width={16} />
                     </button>
                 </div>
             </div>
