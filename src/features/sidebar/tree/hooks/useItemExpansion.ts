@@ -1,16 +1,15 @@
-import { addExpandedNotebook, removeExpandedNotebook } from "@/clients/workspace.client";
-import { useExplorerStore } from "@/store";
-import { TreeItemData } from "@shared/types/tree.type";
-import { RefObject, useCallback, useEffect } from "react";
-import { TreeItem, TreeItemIndex, TreeRef } from "react-complex-tree";
-import { GHOST_ID } from "./useTreeItems";
+import { addExpandedNotebook, removeExpandedNotebook } from '@/clients/workspace.client';
+import { useExplorerStore } from '@/store';
+import { TreeItemData } from '@shared/types/tree.type';
+import { RefObject, useCallback, useEffect } from 'react';
+import { TreeItem, TreeItemIndex, TreeRef } from 'react-complex-tree';
+import { GHOST_ID } from './useTreeItems';
 
 export function useItemExpansion(treeRef: RefObject<TreeRef<TreeItemData> | null>) {
     const expanded = useExplorerStore((s) => s.expanded);
     const pendingCreation = useExplorerStore((s) => s.pendingCreation);
 
     const setExpanded = useExplorerStore((s) => s.setExpanded);
-
 
     const expandedItems: TreeItemIndex[] = expanded;
 

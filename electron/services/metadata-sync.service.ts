@@ -11,7 +11,7 @@ export class MetadataSyncService {
     constructor(
         private configService: ConfigService,
         private safeScannerService: SafeScannerService,
-    ) { }
+    ) {}
 
     syncWithDisk(): MetadataConfig {
         const scanned = this.safeScannerService.scan();

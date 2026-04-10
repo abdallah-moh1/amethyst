@@ -1,14 +1,17 @@
 import { NotebookMetadata, NoteMetadata } from '@shared/types/config.type';
 import { PendingCreation, TreeNode } from '@shared/types/tree.type';
 
-export type SelectedItem = {
-    path: string | null,
-    type: 'note';
-    id: string;
-} | {
-    path: string,
-    type: 'notebook';
-} | null;
+export type SelectedItem =
+    | {
+          path: string | null;
+          type: 'note';
+          id: string;
+      }
+    | {
+          path: string;
+          type: 'notebook';
+      }
+    | null;
 
 export type ExplorerStore = {
     tree: TreeNode[];

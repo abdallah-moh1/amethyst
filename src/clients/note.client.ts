@@ -1,4 +1,3 @@
-
 export async function createNote(parentPath: string | null, title: string) {
     return await window.amethyst.notes.create(parentPath, title);
 }

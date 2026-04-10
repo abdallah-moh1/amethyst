@@ -1,10 +1,10 @@
-import { openNote } from "@/clients/note.client";
-import { setLastOpenedNote } from "@/clients/workspace.client";
-import { useWorkspaceStore } from "@/store";
-import { TreeItemData } from "@shared/types/tree.type";
-import { useCallback } from "react";
-import { TreeItem } from "react-complex-tree";
-import { GHOST_ID } from "./useTreeItems";
+import { openNote } from '@/clients/note.client';
+import { setLastOpenedNote } from '@/clients/workspace.client';
+import { useWorkspaceStore } from '@/store';
+import { TreeItemData } from '@shared/types/tree.type';
+import { useCallback } from 'react';
+import { TreeItem } from 'react-complex-tree';
+import { GHOST_ID } from './useTreeItems';
 
 export function useTreeAction() {
     const setNoteContent = useWorkspaceStore((s) => s.setNoteContent);

@@ -17,7 +17,7 @@ export class NoteService {
     constructor(
         private safePath: string,
         private metadataService: MetadataService,
-    ) { }
+    ) {}
 
     private abs(path: string): string {
         return toAbsoluteSafePath(this.safePath, path);
@@ -49,7 +49,7 @@ export class NoteService {
         }
     }
 
-    openNote(noteId: string): { metadata: NoteMetadata; content: string; } {
+    openNote(noteId: string): { metadata: NoteMetadata; content: string } {
         const metadata = this.metadataService.getMetadata();
         const { note } = this.metadataService.requireNote(metadata, noteId);
 

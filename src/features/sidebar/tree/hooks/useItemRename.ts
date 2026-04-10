@@ -1,11 +1,11 @@
-import { createNote, openNote, renameNote } from "@/clients/note.client";
-import { createNotebook, renameNotebook } from "@/clients/notebook.client";
-import { setLastOpenedNote } from "@/clients/workspace.client";
-import { useExplorerStore, useWorkspaceStore } from "@/store";
-import { TreeItemData } from "@shared/types/tree.type";
-import { useCallback } from "react";
-import { TreeItem } from "react-complex-tree";
-import { GHOST_ID } from "./useTreeItems";
+import { createNote, openNote, renameNote } from '@/clients/note.client';
+import { createNotebook, renameNotebook } from '@/clients/notebook.client';
+import { setLastOpenedNote } from '@/clients/workspace.client';
+import { useExplorerStore, useWorkspaceStore } from '@/store';
+import { TreeItemData } from '@shared/types/tree.type';
+import { useCallback } from 'react';
+import { TreeItem } from 'react-complex-tree';
+import { GHOST_ID } from './useTreeItems';
 
 export function useItemRename() {
     const pendingCreation = useExplorerStore((s) => s.pendingCreation);
@@ -81,6 +81,7 @@ export function useItemRename() {
     );
 
     return {
-        handleRenameItem, handleAbortRenaming
+        handleRenameItem,
+        handleAbortRenaming,
     };
 }

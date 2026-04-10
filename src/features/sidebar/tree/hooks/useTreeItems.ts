@@ -1,7 +1,7 @@
-import { useExplorerStore } from "@/store";
-import { RCTItems } from "@shared/types/tree.type";
-import { useMemo } from "react";
-import { toRCTItems } from "../utils/treeAdapter";
+import { useExplorerStore } from '@/store';
+import { RCTItems } from '@shared/types/tree.type';
+import { useMemo } from 'react';
+import { toRCTItems } from '../utils/treeAdapter';
 
 export const GHOST_ID = '__NOTE_OR_NOTEBOOK_GHOST_ID__';
 

@@ -1,8 +1,8 @@
-import { useExplorerStore } from "@/store";
-import { RCTItems } from "@shared/types/tree.type";
-import { useCallback } from "react";
-import { TreeItemIndex } from "react-complex-tree";
-import { GHOST_ID } from "./useTreeItems";
+import { useExplorerStore } from '@/store';
+import { RCTItems } from '@shared/types/tree.type';
+import { useCallback } from 'react';
+import { TreeItemIndex } from 'react-complex-tree';
+import { GHOST_ID } from './useTreeItems';
 
 export function useItemSelection(items: RCTItems) {
     const selectedItem = useExplorerStore((s) => s.selectedItem);
@@ -31,6 +31,6 @@ export function useItemSelection(items: RCTItems) {
 
     return {
         selectedItems,
-        handleSelectItems
+        handleSelectItems,
     };
 }

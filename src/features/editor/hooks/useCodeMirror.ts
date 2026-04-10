@@ -16,7 +16,7 @@ export function useCodeMirror({
     placeholder,
 }: UseCodeMirrorOptions) {
     const viewRef = useRef<EditorView | null>(null);
-    const openedNoteId = useWorkspaceStore(s => s.openedNoteId);
+    const openedNoteId = useWorkspaceStore((s) => s.openedNoteId);
 
     useEffect(() => {
         const container = containerRef.current;

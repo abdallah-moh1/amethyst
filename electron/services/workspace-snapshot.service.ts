@@ -24,7 +24,7 @@ export class WorkspaceSnapshotService {
         private metadataSyncService: MetadataSyncService,
         private workspaceService: WorkspaceService,
         private noteService: NoteService,
-    ) { }
+    ) {}
 
     loadSnapshot(): WorkspaceSnapshot {
         const metadata = this.metadataSyncService.syncWithDisk();
@@ -47,7 +47,7 @@ export class WorkspaceSnapshotService {
     private resolveActiveNote(
         metadata: MetadataConfig,
         workspace: WorkspaceConfig,
-    ): { metadata: NoteMetadata; content: string; } | null {
+    ): { metadata: NoteMetadata; content: string } | null {
         const lastOpenedNoteId = workspace.lastOpenedNoteId;
         if (!lastOpenedNoteId) return null;
 

@@ -1,4 +1,3 @@
-
 import { useExplorerStore } from '@/store/explorer.store';
 
 export function useCreateNoteOrNotebook() {
@@ -10,6 +9,6 @@ export function useCreateNoteOrNotebook() {
         },
         (parentPath: string | null = null) => {
             setPendingCreation({ type: 'notebook', parentPath });
-        }
+        },
     ];
 }
