@@ -1,17 +1,28 @@
 import { NotebookMetadata, NoteMetadata } from '@shared/types/config.type';
-import { TreeNode } from '@shared/types/tree.type';
+import { PendingCreation, TreeNode } from '@shared/types/tree.type';
+
+export type SelectedItem = {
+    path: string | null,
+    type: 'note';
+    id: string;
+} | {
+    path: string,
+    type: 'notebook';
+} | null;
 
 export type ExplorerStore = {
     tree: TreeNode[];
-    expandedNotebooks: string[];
-    selectedPath: string | null;
+    expanded: string[];
+    selectedItem: SelectedItem;
     isLoading: boolean;
+    pendingCreation: PendingCreation;
     error: string | null;
 
     setTree: (tree: TreeNode[]) => void;
-    setSelectedPath: (path: string | null) => void;
-    setExpandedNotebooks: (notebooks: string[]) => void;
+    setSelectedItem: (item: SelectedItem) => void;
+    setExpanded: (notebooks: string[]) => void;
     setLoading: (loading: boolean) => void;
+    setPendingCreation: (creation: PendingCreation) => void;
     setError: (error: string | null) => void;
 
     addNoteToTree: (note: NoteMetadata) => void;

@@ -8,23 +8,25 @@ import { create } from 'zustand';
 
 export const useExplorerStore = create<ExplorerStore>((set) => ({
     tree: [],
-    expandedNotebooks: [],
-    selectedPath: null,
+    expanded: [],
+    selectedItem: null,
     isLoading: false,
     error: null,
+    pendingCreation: null,
 
     setTree: (tree) => set({ tree }),
-    setExpandedNotebooks(notebooks: string[]) {
-        set({ expandedNotebooks: notebooks });
+    setExpanded(notebooks: string[]) {
+        set({ expanded: notebooks });
     },
-    setSelectedPath: (path) => set({ selectedPath: path }),
+    setPendingCreation: (creation) => set({ pendingCreation: creation }),
+    setSelectedItem: (item) => set({ selectedItem: item }),
     setLoading: (loading) => set({ isLoading: loading }),
     setError: (error) => set({ error }),
     reset: () =>
         set({
             tree: [],
-            expandedNotebooks: [],
-            selectedPath: null,
+            expanded: [],
+            selectedItem: null,
             isLoading: false,
             error: null,
         }),
@@ -47,7 +49,7 @@ export const useExplorerStore = create<ExplorerStore>((set) => ({
                     note.path.split('/').length === node.path.split('/').length + 1;
 
                 if (isDirectParent) {
-                    return { ...node, children: [...node.children, newNode] };
+                    return { ...node, children: sortNodes([...node.children, newNode]) };
                 }
 
                 // Is an ancestor but not direct parent — recurse only into this branch
@@ -125,7 +127,7 @@ export const useExplorerStore = create<ExplorerStore>((set) => ({
 
                     return {
                         ...node,
-                        children: [...node.children, newNode],
+                        children: sortNodes([...node.children, newNode]),
                     };
                 }
 
@@ -210,3 +212,17 @@ export const useExplorerStore = create<ExplorerStore>((set) => ({
         return { tree: rewritePaths(state.tree) };
     }),
 }));
+
+const sortNodes = (nodes: TreeNode[]): TreeNode[] => {
+    return [...nodes].sort((a, b) => {
+        // 1. Notebooks first
+        if (a.type !== b.type) {
+            return a.type === 'notebook' ? -1 : 1;
+        }
+
+        // 2. Alphabetical (case-insensitive)
+        return a.name.localeCompare(b.name, undefined, {
+            sensitivity: 'base',
+        });
+    });
+};

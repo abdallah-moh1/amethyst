@@ -4,4 +4,96 @@
     height: 100%;
     width: 100%;
     user-select: none;
+    padding: 10px 20px;
+}
+.notebooks-section {
+    width: 100%;
+    color: var(--app-text-primary);
+    font-family:
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        sans-serif;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* We treat .section-header as a container for the TOP ROW 
+   The NotebooksTree should sit outside or below the flex row
+*/
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* padding: 4px 6px; */
+}
+
+.section-header p {
+    margin: 0;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    user-select: none;
+    color: var(--app-text-secondary);
+}
+
+/* Action buttons container */
+.action-btns {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.action-btns button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    color: var(--app-text-secondary);
+    cursor: pointer;
+    transition:
+        transform 0.1s ease,
+        color 0.2s ease,
+        background-color 0.2s ease;
+    outline: none;
+}
+
+/* Hover: subtle background and accent color */
+.action-btns button:hover {
+    background-color: var(--app-bg-secondary);
+    color: var(--app-accent);
+}
+
+/* Active: Scale down for a "pressed" feel */
+.action-btns button:active {
+    transform: scale(0.9); /* Size transform instead of color change */
+}
+
+/* Ensure the Tree component takes its own line below the header */
+.notebooks-section :global(.notebooks-tree) {
+    width: 100%;
+    padding: 0 4px;
+}
+
+/* Custom Scrollbar */
+.notebooks-section {
+    overflow-y: auto;
+}
+
+.notebooks-section::-webkit-scrollbar {
+    width: 4px;
+}
+
+.notebooks-section::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 4px;
+}
+
+.notebooks-section::-webkit-scrollbar-thumb:active {
+    background: var(--scrollbar-thumb-active);
 }

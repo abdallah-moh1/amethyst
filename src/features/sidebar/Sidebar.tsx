@@ -2,8 +2,14 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
+import { NotebooksSection } from './components/NotebooksSection';
 import './sidebar.css';
+import './rct.css';
 
 export function Sidebar() {
-    return <div className="sidebar">Sidebar</div>;
+    return (
+        <div className="sidebar">
+            <NotebooksSection />
+        </div>
+    );
 }

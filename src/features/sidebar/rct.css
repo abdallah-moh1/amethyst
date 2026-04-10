@@ -1,0 +1,226 @@
+.rct-tree-root {
+    background-color: transparent;
+    color: var(--app-text-primary);
+    font-size: 13px;
+    font-family: inherit;
+    padding: 4px 0;
+    outline: none;
+}
+
+.rct-tree-root-focus {
+    outline: none;
+}
+.rct-tree-root-renaming {
+    cursor: text;
+}
+
+.rct-tree-items-container {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.rct-tree-item-li {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    width: 100%;
+    display: block;
+}
+
+.rct-tree-item-li > .rct-tree-items-container {
+    padding-left: 16px;
+}
+
+.rct-tree-item-title-container {
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+    padding: 0 0 0 6px;
+    height: 28px;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: relative;
+    transition:
+        background-color 120ms ease,
+        color 120ms ease;
+}
+
+.rct-tree-item-title-container:hover {
+    background-color: color-mix(in srgb, var(--app-accent) 6%, transparent);
+}
+
+.rct-tree-item-li-selected:not(.rct-tree-item-li-isFolder)
+    > .rct-tree-item-title-container::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 4px;
+    bottom: 4px;
+    width: 3px;
+    border-radius: 2px;
+    background-color: var(--app-accent);
+    opacity: 1;
+    transform: scaleY(1);
+    transition:
+        opacity 140ms ease,
+        transform 140ms ease;
+}
+
+.rct-tree-item-li-selected > .rct-tree-item-title-container > .rct-tree-item-button {
+    padding-left: 10px;
+}
+
+.rct-tree-item-li-selected.rct-tree-item-li-isFolder > .rct-tree-item-title-container {
+    background-color: color-mix(in srgb, var(--app-accent) 10%, transparent);
+}
+
+.rct-tree-item-li-selected.rct-tree-item-li-isFolder
+    > .rct-tree-item-title-container
+    > .rct-tree-item-button {
+    color: var(--app-accent);
+    font-weight: 500;
+}
+
+.rct-tree-item-li-focused > .rct-tree-item-title-container {
+    outline: 1px solid color-mix(in srgb, var(--app-accent) 40%, transparent);
+    outline-offset: -1px;
+}
+
+.rct-tree-item-li-dragging-over > .rct-tree-item-title-container {
+    background-color: color-mix(in srgb, var(--app-accent) 22%, transparent);
+}
+
+.rct-tree-item-li-search-match > .rct-tree-item-title-container {
+    background-color: color-mix(in srgb, var(--app-accent) 14%, transparent);
+}
+
+.rct-tree-item-arrow,
+.rct-tree-item-arrow svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    color: var(--app-text-secondary) !important;
+    fill: var(--app-text-secondary) !important;
+    stroke: var(--app-text-secondary) !important;
+    transition:
+        transform 120ms ease,
+        color 120ms ease;
+}
+
+.rct-tree-item-arrow:not(.rct-tree-item-arrow-isFolder) {
+    visibility: hidden;
+}
+
+.rct-tree-item-button {
+    background: none;
+    border: none;
+    padding: 0 6px 0 4px;
+    margin: 0;
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    font-size: inherit;
+    font-family: inherit;
+    color: var(--app-text-primary);
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    transition: color 120ms ease;
+}
+
+.rct-tree-item-li-isFolder > .rct-tree-item-title-container > .rct-tree-item-button {
+    color: var(--app-text-secondary);
+    font-weight: 500;
+}
+
+/* ─── Search highlight ───────────────────────────────────────────────────── */
+
+.rct-tree-item-search-highlight {
+    background-color: color-mix(in srgb, var(--app-accent) 35%, transparent);
+    border-radius: 2px;
+    padding: 0 1px;
+}
+
+/* ─── Rename Form ─────────────────────────────────────────────────────────── */
+
+.rct-tree-item-renaming-form {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 4px;
+}
+
+.rct-tree-item-renaming-input {
+    flex: 1;
+    background-color: var(--app-bg-primary);
+    color: var(--app-text-primary);
+    border: 1px solid var(--app-accent);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: inherit;
+    font-family: inherit;
+    outline: none;
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--app-accent) 25%, transparent);
+    width: 100%;
+}
+
+.rct-tree-item-renaming-submit-button {
+    display: none;
+}
+
+/* ─── Drag line ───────────────────────────────────────────────────────────── */
+
+.rct-tree-drag-between-line {
+    height: 2px;
+    border-radius: 1px;
+    background-color: var(--app-accent);
+    margin: 0 6px;
+    pointer-events: none;
+}
+
+.rct-tree-drag-between-line-top {
+    margin-top: -1px;
+}
+.rct-tree-drag-between-line-bottom {
+    margin-bottom: -1px;
+}
+
+/* ─── Search Input ────────────────────────────────────────────────────────── */
+
+.rct-tree-search-input-container {
+    padding: 6px 8px;
+}
+
+.rct-tree-search-input {
+    width: 100%;
+    background-color: var(--app-bg-primary);
+    color: var(--app-text-primary);
+    border: 1px solid var(--app-border);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-family: inherit;
+    outline: none;
+    transition:
+        border-color 100ms ease,
+        box-shadow 100ms ease;
+}
+
+.rct-tree-search-input:focus {
+    border-color: var(--app-accent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--app-accent) 25%, transparent);
+}
+
+.rct-tree-search-input::placeholder {
+    color: var(--app-text-secondary);
+}
