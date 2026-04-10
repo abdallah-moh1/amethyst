@@ -3,9 +3,9 @@
 // Copyright (C) 2026 Abdallah
 
 import { openNote } from '@/clients/note.client';
+import { loadConfigSnapshot } from '@/clients/workspace.client';
 import { AppShell } from '@/layout';
-import { useWorkspaceStore } from '@/store';
-import { useExplorerStore } from '@/store/explorer.store';
+import { useWorkspaceStore, useExplorerStore } from '@/store';
 import { useEffect } from 'react';
 
 export default function App() {
@@ -15,7 +15,7 @@ export default function App() {
     const setNoteContent = useWorkspaceStore((state) => state.setNoteContent);
 
     useEffect(() => {
-        window.amethyst.workspace.loadSnapshot().then(async (data) => {
+        loadConfigSnapshot().then(async (data) => {
             setTree(data.tree);
 
             if (data.workspace.lastOpenedNoteId) {
