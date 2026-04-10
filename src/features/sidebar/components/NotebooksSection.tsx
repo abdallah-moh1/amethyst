@@ -2,7 +2,7 @@ import { FilePlus, FolderPlus } from 'lucide-react';
 import { NotebooksTree } from '../tree/NotebooksTree';
 import { useExplorerStore } from '@/store';
 import { SelectedItem } from '@/types/explorer.type';
-import { useCreateNoteOrNotebook } from '../hooks/useCreateNoteorNotebook';
+import { useCreateNoteOrNotebook } from '../hooks/useCreateNoteOrNotebook';
 
 export function NotebooksSection() {
     const selectedItem = useExplorerStore((s) => s.selectedItem);
