@@ -1,6 +1,6 @@
 
-export function createNote(parentPath: string | null, title: string) {
-    window.amethyst.notes.create(parentPath, title);
+export async function createNote(parentPath: string | null, title: string) {
+    return await window.amethyst.notes.create(parentPath, title);
 }
 
 export async function openNote(noteId: string) {
@@ -8,11 +8,11 @@ export async function openNote(noteId: string) {
 }
 
 export async function saveNote(noteId: string, content: string) {
-    window.amethyst.notes.save(noteId, content);
+    return await window.amethyst.notes.save(noteId, content);
 }
 
 export async function renameNote(noteId: string, newTitle: string) {
-    window.amethyst.notes.rename(noteId, newTitle);
+    return await window.amethyst.notes.rename(noteId, newTitle);
 }
 
 export async function deleteNote(noteId: string) {

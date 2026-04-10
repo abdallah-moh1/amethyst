@@ -6,6 +6,7 @@ import { openNote } from '@/clients/note.client';
 import { AppShell } from '@/layout';
 import { useWorkspaceStore } from '@/store';
 import { useExplorerStore } from '@/store/explorer.store';
+import { useEffect } from 'react';
 
 export default function App() {
     const setTree = useExplorerStore((state) => state.setTree);
@@ -13,16 +14,18 @@ export default function App() {
     const setOpenedNoteId = useWorkspaceStore((state) => state.setOpenedNoteId);
     const setNoteContent = useWorkspaceStore((state) => state.setNoteContent);
 
-    window.amethyst.workspace.loadSnapshot().then(async (data) => {
-        setTree(data.tree);
+    useEffect(() => {
+        window.amethyst.workspace.loadSnapshot().then(async (data) => {
+            setTree(data.tree);
 
-        if (data.workspace.lastOpenedNoteId) {
-            setNoteContent((await openNote(data.workspace.lastOpenedNoteId)).content);
-            setOpenedNoteId(data.workspace.lastOpenedNoteId);
-        }
+            if (data.workspace.lastOpenedNoteId) {
+                setNoteContent((await openNote(data.workspace.lastOpenedNoteId)).content);
+                setOpenedNoteId(data.workspace.lastOpenedNoteId);
+            }
 
-        setExpandedNotebooks(data.workspace.expandedNotebookPaths);
-    });
+            setExpandedNotebooks(data.workspace.expandedNotebookPaths);
+        });
+    }, []);
 
     return <AppShell />;
 }
