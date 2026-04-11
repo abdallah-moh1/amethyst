@@ -1,5 +1,5 @@
-import { FacetNote } from "./note.type.js";
-import { FacetNotebook } from "./notebook.type.js";
+import { FacetNote } from './note.type.js';
+import { FacetNotebook } from './notebook.type.js';
 
 export type Facet = {
     path: string;
