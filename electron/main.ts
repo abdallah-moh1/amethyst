@@ -22,6 +22,8 @@ import { SafeScannerService } from './services/safe-scanner.service.js';
 import { MetadataSyncService } from './services/metadata-sync.service.js';
 import { WorkspaceSnapshotService } from './services/workspace-snapshot.service.js';
 import { registerWorkspaceSnapshotIpc } from './ipc/workspace-snapshot.ipc.js';
+import { registerWatcherIpc } from './ipc/watcher-ipc.js';
+import { SafeWatcherService } from './services/safe-watcher.service.js';
 
 const safePath = path.join(app.getPath('home'), '.amethyst');
 
@@ -48,6 +50,7 @@ app.whenReady().then(() => {
     const metadataSyncService = new MetadataSyncService(configService, safeScannerService);
     const noteService = new NoteService(safePath, metadataService);
     const notebookService = new NotebookService(safePath, metadataService, workspaceService);
+    const watcher = new SafeWatcherService(safePath);
 
     const workspaceSnapshotService = new WorkspaceSnapshotService(
         metadataSyncService,
@@ -57,7 +60,7 @@ app.whenReady().then(() => {
 
     const settingsService = new SettingsService(path.join(app.getPath('appData'), 'settings.json'));
 
-    createWindow();
+    const window = createWindow();
 
     registerSettingsIpc(settingsService);
     registerThemesIpc();
@@ -65,6 +68,7 @@ app.whenReady().then(() => {
     registerNoteIpc(noteService);
     registerNotebookIpc(notebookService);
     registerWorkspaceSnapshotIpc(workspaceSnapshotService);
+    registerWatcherIpc(watcher, window);
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {

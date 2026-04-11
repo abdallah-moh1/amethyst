@@ -8,7 +8,7 @@ import {
     MetadataConfig,
 } from '@shared/types/config.type';
 
-export {};
+export { };
 
 declare global {
     interface Window {
@@ -44,7 +44,7 @@ declare global {
 
             notes: {
                 create: (parentPath: string | null, title: string) => Promise<NoteMetadata>;
-                open: (noteId: string) => Promise<{ metadata: NoteMetadata; content: string }>;
+                open: (noteId: string) => Promise<{ metadata: NoteMetadata; content: string; }>;
                 save: (noteId: string, content: string) => Promise<NoteMetadata>;
                 rename: (noteId: string, newTitle: string) => Promise<NoteMetadata>;
                 delete: (noteId: string) => Promise<void>;
@@ -55,6 +55,23 @@ declare global {
                 rename: (notebookId: string, newName: string) => Promise<NotebookMetadata>;
                 delete: (notebookId: string) => Promise<void>;
                 isEmpty: (notebookId: string) => Promise<boolean>;
+            };
+
+            watcher: {
+                // FILE EVENTS
+                onFileCreated: (cb: (path: string) => void) => () => void;
+                onFileChanged: (cb: (path: string) => void) => () => void;
+                onFileDeleted: (cb: (path: string) => void) => () => void;
+
+                // FOLDER EVENTS
+                onFolderCreated: (cb: (path: string) => void) => () => void;
+                onFolderDeleted: (cb: (path: string) => void) => () => void;
+
+                // LIFECYCLE
+                onWatcherReady: (cb: () => void) => () => void;
+
+                // CLEANUP
+                removeAll: () => void;
             };
         };
     }

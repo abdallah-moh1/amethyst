@@ -3,6 +3,13 @@
 // Copyright (C) 2026 Abdallah
 
 import { openNote } from '@/clients/note.client';
+import {
+    onFileChanged,
+    onFileCreated,
+    onFileDeleted,
+    onFolderCreated,
+    onFolderDeleted,
+} from '@/clients/safe-watcher.client';
 import { loadConfigSnapshot } from '@/clients/workspace.client';
 import { AppShell } from '@/layout';
 import { useWorkspaceStore, useExplorerStore } from '@/store';
@@ -27,6 +34,12 @@ export default function App() {
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    window.amethyst.watcher.onFileChanged(console.log);
+    window.amethyst.watcher.onFileCreated(console.log);
+    window.amethyst.watcher.onFileDeleted(console.log);
+    window.amethyst.watcher.onFolderCreated(console.log);
+    window.amethyst.watcher.onFolderDeleted(console.log);
 
     return <AppShell />;
 }

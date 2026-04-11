@@ -57,4 +57,5 @@ export function createWindow() {
         const appPath = app.isPackaged ? app.getAppPath() : process.cwd();
         win.loadFile(path.join(appPath, 'dist', 'index.html'));
     }
+    return win;
 }
