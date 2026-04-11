@@ -9,7 +9,9 @@
         "skipLibCheck": true,
         "composite": true,
         "resolveJsonModule": true,
-        "types": ["node"]
+        "types": [
+            "node"
+        ]
     },
     "include": [
         "electron/**/*.ts",
@@ -19,5 +21,9 @@
         "shared/**/*.json",
         "vite.config.ts"
     ],
-    "exclude": ["dist", "dist-electron", "node_modules"]
+    "exclude": [
+        "dist",
+        "dist-electron",
+        "node_modules"
+    ]
 }
