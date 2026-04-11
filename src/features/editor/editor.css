@@ -1,5 +1,5 @@
 .editor-wrapper {
     flex: 1;
-    overflow: auto;
+    /* overflow: auto; */
     padding-left: 10px;
 }

@@ -6,7 +6,7 @@
 .cm-editor .cm-scroller {
     display: flex;
     justify-content: center;
-    overflow: visible;
+    /* overflow: visible; */
 }
 
 .cm-editor .cm-content,

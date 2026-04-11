@@ -12,9 +12,13 @@ export type ViewModeSwitcherBtnProps = {
     >;
 };
 
-export type ViewingMode = 'editor' | 'preview' | 'split-view';
-
-export type SyncedScroll = {
-    source: 'editor' | 'preview' | null;
-    percentage: number;
+export type WorkspaceStore = {
+    viewMode: ViewingMode;
+    noteContent: string;
+    openedNoteId: null | string;
+    setViewMode: (mode: ViewingMode) => void;
+    setNoteContent: (content: string) => void;
+    setOpenedNoteId: (id: string | null) => void;
 };
+
+export type ViewingMode = 'editor' | 'preview' | 'split-view';

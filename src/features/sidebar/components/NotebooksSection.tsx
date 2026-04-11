@@ -40,7 +40,9 @@ export function NotebooksSection() {
                     </button>
                 </div>
             </div>
-            <NotebooksTree />
+            <div className="notebooks-tree">
+                <NotebooksTree />
+            </div>
         </div>
     );
 }
