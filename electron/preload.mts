@@ -55,68 +55,68 @@ contextBridge.exposeInMainWorld('amethyst', {
         // FILE EVENTS
         onFileCreated: (cb: (path: string) => void) => {
             const handler = (_event: IpcRendererEvent, path: string) => cb(path);
-            ipcRenderer.on("fs:file-created", handler);
+            ipcRenderer.on('fs:file-created', handler);
 
             return () => {
-                ipcRenderer.removeListener("fs:file-created", handler);
+                ipcRenderer.removeListener('fs:file-created', handler);
             };
         },
 
         onFileChanged: (cb: (path: string) => void) => {
             const handler = (_event: IpcRendererEvent, path: string) => cb(path);
-            ipcRenderer.on("fs:file-changed", handler);
+            ipcRenderer.on('fs:file-changed', handler);
 
             return () => {
-                ipcRenderer.removeListener("fs:file-changed", handler);
+                ipcRenderer.removeListener('fs:file-changed', handler);
             };
         },
 
         onFileDeleted: (cb: (path: string) => void) => {
             const handler = (_event: IpcRendererEvent, path: string) => cb(path);
-            ipcRenderer.on("fs:file-deleted", handler);
+            ipcRenderer.on('fs:file-deleted', handler);
 
             return () => {
-                ipcRenderer.removeListener("fs:file-deleted", handler);
+                ipcRenderer.removeListener('fs:file-deleted', handler);
             };
         },
 
         // FOLDER EVENTS
         onFolderCreated: (cb: (path: string) => void) => {
             const handler = (_event: IpcRendererEvent, path: string) => cb(path);
-            ipcRenderer.on("fs:folder-created", handler);
+            ipcRenderer.on('fs:folder-created', handler);
 
             return () => {
-                ipcRenderer.removeListener("fs:folder-created", handler);
+                ipcRenderer.removeListener('fs:folder-created', handler);
             };
         },
 
         onFolderDeleted: (cb: (path: string) => void) => {
             const handler = (_event: IpcRendererEvent, path: string) => cb(path);
-            ipcRenderer.on("fs:folder-deleted", handler);
+            ipcRenderer.on('fs:folder-deleted', handler);
 
             return () => {
-                ipcRenderer.removeListener("fs:folder-deleted", handler);
+                ipcRenderer.removeListener('fs:folder-deleted', handler);
             };
         },
 
         // LIFECYCLE
         onWatcherReady: (cb: () => void) => {
             const handler = () => cb();
-            ipcRenderer.on("fs:watcher-ready", handler);
+            ipcRenderer.on('fs:watcher-ready', handler);
 
             return () => {
-                ipcRenderer.removeListener("fs:watcher-ready", handler);
+                ipcRenderer.removeListener('fs:watcher-ready', handler);
             };
         },
 
         // CLEANUP (global fallback only)
         removeAll: () => {
-            ipcRenderer.removeAllListeners("fs:file-created");
-            ipcRenderer.removeAllListeners("fs:file-changed");
-            ipcRenderer.removeAllListeners("fs:file-deleted");
-            ipcRenderer.removeAllListeners("fs:folder-created");
-            ipcRenderer.removeAllListeners("fs:folder-deleted");
-            ipcRenderer.removeAllListeners("fs:watcher-ready");
+            ipcRenderer.removeAllListeners('fs:file-created');
+            ipcRenderer.removeAllListeners('fs:file-changed');
+            ipcRenderer.removeAllListeners('fs:file-deleted');
+            ipcRenderer.removeAllListeners('fs:folder-created');
+            ipcRenderer.removeAllListeners('fs:folder-deleted');
+            ipcRenderer.removeAllListeners('fs:watcher-ready');
         },
-    }
+    },
 });

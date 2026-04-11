@@ -1,4 +1,4 @@
-import chokidar, { FSWatcher } from "chokidar";
+import chokidar, { FSWatcher } from 'chokidar';
 
 export class SafeWatcherService {
     private watcher: FSWatcher;
@@ -14,33 +14,33 @@ export class SafeWatcherService {
 
     // FILE EVENTS
     onFileCreated(callback: (path: string) => void) {
-        this.watcher.on("add", callback);
+        this.watcher.on('add', callback);
     }
 
     onFileChanged(callback: (path: string) => void) {
-        this.watcher.on("change", callback);
+        this.watcher.on('change', callback);
     }
 
     onFileDeleted(callback: (path: string) => void) {
-        this.watcher.on("unlink", callback);
+        this.watcher.on('unlink', callback);
     }
 
     // DIRECTORY EVENTS
     onFolderCreated(callback: (path: string) => void) {
-        this.watcher.on("addDir", callback);
+        this.watcher.on('addDir', callback);
     }
 
     onFolderDeleted(callback: (path: string) => void) {
-        this.watcher.on("unlinkDir", callback);
+        this.watcher.on('unlinkDir', callback);
     }
 
     // LIFECYCLE
     onReady(callback: () => void) {
-        this.watcher.on("ready", callback);
+        this.watcher.on('ready', callback);
     }
 
     onError(callback: (error: unknown) => void) {
-        this.watcher.on("error", callback);
+        this.watcher.on('error', callback);
     }
 
     // CLEANUP

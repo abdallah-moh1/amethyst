@@ -11,7 +11,7 @@ export class MetadataSyncService {
     constructor(
         private configService: ConfigService,
         private safeScannerService: SafeScannerService,
-    ) { }
+    ) {}
 
     async syncWithDisk(): Promise<MetadataConfig> {
         const scanned = await this.safeScannerService.scan();

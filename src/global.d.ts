@@ -8,7 +8,7 @@ import {
     MetadataConfig,
 } from '@shared/types/config.type';
 
-export { };
+export {};
 
 declare global {
     interface Window {
@@ -44,7 +44,7 @@ declare global {
 
             notes: {
                 create: (parentPath: string | null, title: string) => Promise<NoteMetadata>;
-                open: (noteId: string) => Promise<{ metadata: NoteMetadata; content: string; }>;
+                open: (noteId: string) => Promise<{ metadata: NoteMetadata; content: string }>;
                 save: (noteId: string, content: string) => Promise<NoteMetadata>;
                 rename: (noteId: string, newTitle: string) => Promise<NoteMetadata>;
                 delete: (noteId: string) => Promise<void>;
