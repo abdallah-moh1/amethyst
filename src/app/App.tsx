@@ -32,14 +32,13 @@ export default function App() {
 
             setExpanded(data.workspace.expandedNotebookPaths);
         });
+        onFileChanged(console.log);
+        onFileCreated(console.log);
+        onFileDeleted(console.log);
+        onFolderCreated(console.log);
+        onFolderDeleted(console.log);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    window.amethyst.watcher.onFileChanged(console.log);
-    window.amethyst.watcher.onFileCreated(console.log);
-    window.amethyst.watcher.onFileDeleted(console.log);
-    window.amethyst.watcher.onFolderCreated(console.log);
-    window.amethyst.watcher.onFolderDeleted(console.log);
 
     return <AppShell />;
 }
