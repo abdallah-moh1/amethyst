@@ -13,10 +13,10 @@ export class NoteService {
     constructor(
         private facetPath: string,
         private facetService: FacetService,
-    ) {}
+    ) { }
 
     async createNote(name: string, parentPath: ParentPath): Promise<FacetNote> {
-        const notePath = parentPath ? joinRelativePath(parentPath, name) : name;
+        const notePath = parentPath ? `${joinRelativePath(parentPath, name)}.md` : `${name}.md`;
         const absolutePath = this.getAbsolutePath(notePath);
         if (await pathExists(absolutePath)) {
             throw new Error(`A note named "${name}" already exists here`);
