@@ -36,17 +36,22 @@ contextBridge.exposeInMainWorld('amethyst', {
         // }
     },
     notes: {
-        create: (name: string, parentPath: ParentPath) => ipcRenderer.invoke('note:create', name, parentPath),
+        create: (name: string, parentPath: ParentPath) =>
+            ipcRenderer.invoke('note:create', name, parentPath),
         open: (id: string) => ipcRenderer.invoke('note:open', id),
         save: (id: string, content: string) => ipcRenderer.invoke('note:save', id, content),
         rename: (id: string, newName: string) => ipcRenderer.invoke('note:rename', id, newName),
-        move: (id: string, newParentPath: ParentPath) => ipcRenderer.invoke('note:move', id, newParentPath),
+        move: (id: string, newParentPath: ParentPath) =>
+            ipcRenderer.invoke('note:move', id, newParentPath),
         delete: (id: string) => ipcRenderer.invoke('note:delete', id),
     },
     notebooks: {
-        create: (parentPath: ParentPath, name: string) => ipcRenderer.invoke('notebook:create', parentPath, name),
-        rename: (path: string, newName: string) => ipcRenderer.invoke('notebook:rename', path, newName),
-        move: (path: string, newParentPath: ParentPath) => ipcRenderer.invoke('notebook:move', path, newParentPath),
+        create: (parentPath: ParentPath, name: string) =>
+            ipcRenderer.invoke('notebook:create', parentPath, name),
+        rename: (path: string, newName: string) =>
+            ipcRenderer.invoke('notebook:rename', path, newName),
+        move: (path: string, newParentPath: ParentPath) =>
+            ipcRenderer.invoke('notebook:move', path, newParentPath),
         delete: (path: string) => ipcRenderer.invoke('notebook:delete', path),
     },
 });

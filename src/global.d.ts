@@ -2,7 +2,7 @@ import { BuiltInThemes, Theme } from '@shared/types/themes.type';
 import { Settings } from '@shared/types/settings.type';
 import { FacetNote, FacetNotebook, ParentPath } from '@shared/types/facet.type';
 
-export { };
+export {};
 
 declare global {
     interface Window {
@@ -18,7 +18,7 @@ declare global {
                 list: () => Promise<BuiltInThemes[]>;
             };
             facet: {
-                open: () => Promise<{ notes: FacetNote[], notebooks: FacetNotebook[]; }>;
+                open: () => Promise<{ notes: FacetNote[]; notebooks: FacetNotebook[] }>;
                 // Still todo when adding dir watcher
                 // on: {
                 //     noteAdded: (cb: (note: FacetNote) => void) => void;

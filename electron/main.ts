@@ -31,15 +31,12 @@ if (!app.isPackaged) {
 // Todo: allow picking facet and support multiple facets
 const facetPath = path.join(app.getPath('home'), '.amethyst');
 
-
 app.whenReady().then(() => {
     loadSettings();
     createWindow();
     const facetService = new FacetService(facetPath);
     const noteService = new NoteService(facetPath, facetService);
     const notebookService = new NotebookService(facetPath, facetService);
-
-
 
     // Load IPC handlers
 
@@ -51,7 +48,6 @@ app.whenReady().then(() => {
     registerFacetIpc(facetService);
     registerNoteIpc(noteService);
     registerNotebookIpc(notebookService);
-
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {

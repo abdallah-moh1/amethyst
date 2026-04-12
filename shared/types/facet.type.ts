@@ -13,7 +13,6 @@ export type FacetNote = {
     modifiedAt: Date; // from fs.stat mtime
 };
 
-
 export type Facet = {
     path: string;
     name: string;

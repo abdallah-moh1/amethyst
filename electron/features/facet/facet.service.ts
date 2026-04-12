@@ -2,8 +2,8 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { FacetNote, FacetNotebook } from "../../../shared/types/facet.type.js";
-import { FacetScanService } from "./facet-scan.service.js";
+import { FacetNote, FacetNotebook } from '../../../shared/types/facet.type.js';
+import { FacetScanService } from './facet-scan.service.js';
 
 export class FacetService {
     private notes: Map<string, FacetNote>;
@@ -15,14 +15,14 @@ export class FacetService {
     }
 
     async openFacet(): Promise<{
-        notes: FacetNote[],
+        notes: FacetNote[];
         notebooks: FacetNotebook[];
     }> {
         await FacetScanService.scanDisk(this.facetPath, this);
 
         return {
             notes: [...this.notes.values()],
-            notebooks: [...this.notebooks.values()]
+            notebooks: [...this.notebooks.values()],
         };
     }
 
@@ -61,5 +61,4 @@ export class FacetService {
     removeNote(id: string) {
         this.notes.delete(id);
     }
-
 }

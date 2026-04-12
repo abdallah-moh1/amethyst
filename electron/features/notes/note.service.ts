@@ -2,15 +2,18 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { randomUUID } from "node:crypto";
-import { ParentPath, FacetNote } from "../../../shared/types/facet.type.js";
-import { joinRelativePath, pathExists, toAbsoluteFacetPath } from "../../utils/path.utils.js";
-import { FacetService } from "../facet/facet.service.js";
-import { readFile, rename, rm, stat, writeFile } from "node:fs/promises";
-import matter from "gray-matter";
+import { randomUUID } from 'node:crypto';
+import { ParentPath, FacetNote } from '../../../shared/types/facet.type.js';
+import { joinRelativePath, pathExists, toAbsoluteFacetPath } from '../../utils/path.utils.js';
+import { FacetService } from '../facet/facet.service.js';
+import { readFile, rename, rm, stat, writeFile } from 'node:fs/promises';
+import matter from 'gray-matter';
 
 export class NoteService {
-    constructor(private facetPath: string, private facetService: FacetService) { }
+    constructor(
+        private facetPath: string,
+        private facetService: FacetService,
+    ) {}
 
     async createNote(name: string, parentPath: ParentPath): Promise<FacetNote> {
         const notePath = parentPath ? joinRelativePath(parentPath, name) : name;
@@ -20,7 +23,7 @@ export class NoteService {
         }
         const id = randomUUID();
 
-        await writeFile(absolutePath, matter.stringify("", { id }), { encoding: 'utf-8' });
+        await writeFile(absolutePath, matter.stringify('', { id }), { encoding: 'utf-8' });
 
         const noteStat = await stat(absolutePath);
 
@@ -30,11 +33,10 @@ export class NoteService {
             modifiedAt: noteStat.mtime,
             name,
             parentPath,
-            path: notePath
+            path: notePath,
         };
 
         this.facetService.addNote(createdNote);
-
 
         return createdNote;
     }
@@ -63,7 +65,6 @@ export class NoteService {
             ...note,
             modifiedAt: noteStat.mtime,
         });
-
     }
 
     async renameNote(id: string, newName: string) {
