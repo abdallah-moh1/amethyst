@@ -54,8 +54,6 @@ export class FacetScanService {
                 const existingNote = facetService.getNote(note.id);
                 let timeDifference = 0;
                 if (existingNote) {
-                    console.log(note.createdAt.getTime(), existingNote.createdAt.getTime());
-
                     timeDifference = existingNote.createdAt.getTime() - note.createdAt.getTime();
                     if (timeDifference > 0) {
                         // The existing note is the newest one so we will reassign it a new id
