@@ -9,7 +9,7 @@ import { FacetService } from "../facet/facet.service.js";
 import { readFile, rename, rm, stat, writeFile } from "node:fs/promises";
 import matter from "gray-matter";
 
-export class NotesService {
+export class NoteService {
     constructor(private facetPath: string, private facetService: FacetService) { }
 
     async createNote(name: string, parentPath: ParentPath): Promise<FacetNote> {

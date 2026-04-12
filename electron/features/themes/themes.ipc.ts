@@ -3,13 +3,13 @@
 // Copyright (C) 2026 Abdallah
 
 import { ipcMain } from 'electron';
-import { getTheme, listThemes } from '../services/themes.service.js';
+import { ThemesService } from './themes.service.js';
 
 export function registerThemesIpc() {
     ipcMain.handle('get:theme', (_event, key) => {
-        return getTheme(key);
+        return ThemesService.getTheme(key);
     });
     ipcMain.handle('list:themes', () => {
-        return listThemes();
+        return ThemesService.listThemes();
     });
 }
