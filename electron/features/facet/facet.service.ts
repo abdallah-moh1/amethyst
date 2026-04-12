@@ -14,10 +14,20 @@ export class FacetService {
         this.notebooks = new Map();
     }
 
-    async openFacet() {
+    async openFacet(): Promise<{
+        notes: FacetNote[],
+        notebooks: FacetNotebook[];
+    }> {
         await FacetScanService.scanDisk(this.facetPath, this);
-        console.log(this.notes, this.notebooks);
 
+        return {
+            notes: [...this.notes.values()],
+            notebooks: [...this.notebooks.values()]
+        };
+    }
+
+    getFacetPath(): string {
+        return this.facetPath;
     }
 
     getNotes(): ReadonlyMap<string, FacetNote> {
