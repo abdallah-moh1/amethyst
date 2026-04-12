@@ -16,7 +16,7 @@ export class NoteService {
     ) {}
 
     async createNote(name: string, parentPath: ParentPath): Promise<FacetNote> {
-        const notePath = parentPath ? `${joinRelativePath(parentPath, name)}.md` : `${name}.md`;
+        const notePath = parentPath ? joinRelativePath(parentPath, `${name}.md`) : `${name}.md`;
         const absolutePath = this.getAbsolutePath(notePath);
         if (await pathExists(absolutePath)) {
             throw new Error(`A note named "${name}" already exists here`);
@@ -73,7 +73,9 @@ export class NoteService {
         if (!note) throw new Error(`A note with ${id} doesn't exist`);
 
         const absolutePath = this.getAbsolutePath(note.path);
-        const newPath = note.parentPath ? joinRelativePath(note.parentPath, newName) : newName;
+        const newPath = note.parentPath
+            ? joinRelativePath(note.parentPath, `${newName}.md`)
+            : `${newName}.md`;
 
         if (await pathExists(this.getAbsolutePath(newPath))) {
             throw new Error(`A note named "${newName}" already exists here`);
@@ -97,7 +99,9 @@ export class NoteService {
         if (!note) throw new Error(`A note with ${id} doesn't exist`);
 
         const absolutePath = this.getAbsolutePath(note.path);
-        const newPath = newParentPath ? joinRelativePath(newParentPath, note.name) : note.name;
+        const newPath = newParentPath
+            ? joinRelativePath(newParentPath, `${note.name}.md`)
+            : `${note.name}.md`;
 
         if (await pathExists(this.getAbsolutePath(newPath))) {
             throw new Error(`A note named "${note.name}" already exists here`);
