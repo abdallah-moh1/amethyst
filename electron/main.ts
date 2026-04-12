@@ -33,8 +33,9 @@ const facetPath = path.join(app.getPath('home'), '.amethyst');
 
 app.whenReady().then(() => {
     loadSettings();
-    createWindow();
-    const facetService = new FacetService(facetPath);
+    const win = createWindow();
+
+    const facetService = new FacetService(facetPath, win);
     const noteService = new NoteService(facetPath, facetService);
     const notebookService = new NotebookService(facetPath, facetService);
 
@@ -48,6 +49,8 @@ app.whenReady().then(() => {
     registerFacetIpc(facetService);
     registerNoteIpc(noteService);
     registerNotebookIpc(notebookService);
+
+    win.on('closed', () => facetService.closeFacet());
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {

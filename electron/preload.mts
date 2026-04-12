@@ -3,7 +3,7 @@
 // Copyright (C) 2026 Abdallah
 
 import { contextBridge, ipcRenderer, Settings } from 'electron';
-import { ParentPath } from '../shared/types/facet.type.js';
+import { FacetNote, FacetNotebook, ParentPath } from '../shared/types/facet.type.js';
 
 contextBridge.exposeInMainWorld('amethyst', {
     settings: {
@@ -19,21 +19,34 @@ contextBridge.exposeInMainWorld('amethyst', {
     },
     facet: {
         open: () => ipcRenderer.invoke('facet:open'),
-        // Still to do when adding dir watcher
-        // on: {
-        //     noteAdded: (cb: (note: FacetNote) => void) =>
-        //         ipcRenderer.on('facet:note-added', (_, note) => cb(note)),
-        //     noteChanged: (cb: (note: FacetNote) => void) =>
-        //         ipcRenderer.on('facet:note-changed', (_, note) => cb(note)),
-        //     noteRemoved: (cb: (id: string) => void) =>
-        //         ipcRenderer.on('facet:note-removed', (_, id) => cb(id)),
-        //     notebookAdded: (cb: (notebook: FacetNotebook) => void) =>
-        //         ipcRenderer.on('facet:notebook-added', (_, notebook) => cb(notebook)),
-        //     notebookChanged: (cb: (payload: { oldPath: string, notebook: FacetNotebook; }) => void) =>
-        //         ipcRenderer.on('facet:notebook-changed', (_, payload) => cb(payload)),
-        //     notebookRemoved: (cb: (path: string) => void) =>
-        //         ipcRenderer.on('facet:notebook-removed', (_, path) => cb(path)),
-        // }
+        close: () => ipcRenderer.invoke('facet:close'),
+        on: {
+            noteAdded: (cb: (note: FacetNote) => void) => {
+                const listener = (_: unknown, note: FacetNote) => cb(note);
+                ipcRenderer.on('facet:note-added', listener);
+                return () => ipcRenderer.off('facet:note-added', listener);
+            },
+            noteChanged: (cb: (note: FacetNote) => void) => {
+                const listener = (_: unknown, note: FacetNote) => cb(note);
+                ipcRenderer.on('facet:note-changed', listener);
+                return () => ipcRenderer.off('facet:note-changed', listener);
+            },
+            noteRemoved: (cb: (id: string) => void) => {
+                const listener = (_: unknown, id: string) => cb(id);
+                ipcRenderer.on('facet:note-removed', listener);
+                return () => ipcRenderer.off('facet:note-removed', listener);
+            },
+            notebookAdded: (cb: (notebook: FacetNotebook) => void) => {
+                const listener = (_: unknown, notebook: FacetNotebook) => cb(notebook);
+                ipcRenderer.on('facet:notebook-added', listener);
+                return () => ipcRenderer.off('facet:notebook-added', listener);
+            },
+            notebookRemoved: (cb: (path: string) => void) => {
+                const listener = (_: unknown, path: string) => cb(path);
+                ipcRenderer.on('facet:notebook-removed', listener);
+                return () => ipcRenderer.off('facet:notebook-removed', listener);
+            },
+        }
     },
     notes: {
         create: (name: string, parentPath: ParentPath) =>

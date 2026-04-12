@@ -34,7 +34,7 @@ export function getParentRelativePath(path: string): string | null {
 }
 
 export function isMarkdownFile(path: string): boolean {
-    return path.endsWith('.md');
+    return path.toLowerCase().endsWith('.md');
 }
 
 export function isConfigPath(path: string): boolean {

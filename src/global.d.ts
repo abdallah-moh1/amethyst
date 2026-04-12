@@ -2,7 +2,7 @@ import { BuiltInThemes, Theme } from '@shared/types/themes.type';
 import { Settings } from '@shared/types/settings.type';
 import { FacetNote, FacetNotebook, ParentPath } from '@shared/types/facet.type';
 
-export {};
+export { };
 
 declare global {
     interface Window {
@@ -18,16 +18,15 @@ declare global {
                 list: () => Promise<BuiltInThemes[]>;
             };
             facet: {
-                open: () => Promise<{ notes: FacetNote[]; notebooks: FacetNotebook[] }>;
-                // Still todo when adding dir watcher
-                // on: {
-                //     noteAdded: (cb: (note: FacetNote) => void) => void;
-                //     noteChanged: (cb: (note: FacetNote) => void) => void;
-                //     noteRemoved: (cb: (id: string) => void) => void;
-                //     notebookAdded: (cb: (notebook: FacetNotebook) => void) => void;
-                //     notebookChanged: (cb: (payload: { oldPath: string; notebook: FacetNotebook }) => void) => void;
-                //     notebookRemoved: (cb: (path: string) => void) => void;
-                // };
+                open: () => Promise<{ notes: FacetNote[]; notebooks: FacetNotebook[]; }>;
+                close: () => Promise<void>;
+                on: {
+                    noteAdded: (cb: (note: FacetNote) => void) => () => void;
+                    noteChanged: (cb: (note: FacetNote) => void) => () => void;
+                    noteRemoved: (cb: (id: string) => void) => () => void;
+                    notebookAdded: (cb: (notebook: FacetNotebook) => void) => () => void;
+                    notebookRemoved: (cb: (path: string) => void) => () => void;
+                };
             };
             notes: {
                 create: (name: string, parentPath: ParentPath) => Promise<FacetNote>;
