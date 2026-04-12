@@ -19,8 +19,9 @@ export function joinRelativePath(...parts: string[]): string {
 
 export function getNameFromPath(path: string): string {
     const parts = normalizeRelativePath(path).split('/');
+    const name = parts[parts.length - 1];
 
-    return parts[parts.length - 1];
+    return name.endsWith('.md') ? name.slice(0, -3) : name;
 }
 
 export function getParentRelativePath(path: string): string | null {
