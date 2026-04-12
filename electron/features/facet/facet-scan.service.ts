@@ -59,7 +59,10 @@ export class FacetScanService {
                 const existingNote = facetService.getNote(note.id);
                 await this.handleDuplicateId(facetPath, facetService, note, fullPath);
 
-                if (!frontMatter || (existingNote && existingNote.createdAt.getTime() > note.createdAt.getTime())) {
+                if (
+                    !frontMatter ||
+                    (existingNote && existingNote.createdAt.getTime() > note.createdAt.getTime())
+                ) {
                     const content = await readFile(fullPath, { encoding: 'utf-8' });
                     const parsed = matter(content);
                     await writeFile(fullPath, matter.stringify(parsed.content, { id: note.id }));
@@ -70,7 +73,7 @@ export class FacetScanService {
         }
     }
 
-    static async readFrontmatter(absolutePath: string): Promise<{ id: string; } | null> {
+    static async readFrontmatter(absolutePath: string): Promise<{ id: string } | null> {
         const fd = await open(absolutePath);
         try {
             // read first 512 bytes — enough for any frontmatter block

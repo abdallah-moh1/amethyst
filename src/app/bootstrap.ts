@@ -12,6 +12,5 @@ export async function bootstrapApp() {
     const themeSetting = (await getSetting('theme')) as Settings['theme'];
     await window.amethyst.facet.open();
 
-
     applyTheme(await getTheme(themeSetting.id as BuiltInThemes));
 }

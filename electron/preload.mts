@@ -46,7 +46,7 @@ contextBridge.exposeInMainWorld('amethyst', {
                 ipcRenderer.on('facet:notebook-removed', listener);
                 return () => ipcRenderer.off('facet:notebook-removed', listener);
             },
-        }
+        },
     },
     notes: {
         create: (name: string, parentPath: ParentPath) =>
