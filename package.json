@@ -27,7 +27,7 @@
         "lint:fix": "eslint . --fix",
         "format": "prettier . --write",
         "format:check": "prettier . --check",
-        "typecheck": "tsc --noEmit && tsc -p tsconfig.node.json --noEmit",
+        "typecheck": "tsc -b tsconfig.node.json && tsc --noEmit",
         "check": "npm run typecheck && npm run lint && npm run format:check && npm run build"
     },
     "devDependencies": {
@@ -60,6 +60,8 @@
         "@codemirror/search": "^6.6.0",
         "@codemirror/state": "^6.6.0",
         "@codemirror/view": "^6.41.0",
+        "chokidar": "^5.0.0",
+        "gray-matter": "^4.0.3",
         "highlight.js": "^11.11.1",
         "lucide-react": "^1.7.0",
         "react": "^19.2.4",

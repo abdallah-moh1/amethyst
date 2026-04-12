@@ -8,7 +8,13 @@ import path from 'node:path';
 import { loadSettings } from './services/settings.service.js';
 import { createWindow } from './window/createWindow.js';
 import { registerSettingsIpc } from './ipc/settings.ipc.js';
-import { registerThemesIpc } from './ipc/themes.ipc.js';
+import { registerThemesIpc } from './features/themes/themes.ipc.js';
+import { FacetService } from './features/facet/facet.service.js';
+import { registerFacetIpc } from './features/facet/facet.ipc.js';
+import { NoteService } from './features/notes/note.service.js';
+import { NotebookService } from './features/notebooks/notebook.service.js';
+import { registerNoteIpc } from './features/notes/note.ipc.js';
+import { registerNotebookIpc } from './features/notebooks/notebook.ipc.js';
 
 app.setName('Amethyst');
 if (process.platform === 'win32') {
@@ -22,14 +28,29 @@ if (!app.isPackaged) {
     app.setPath('userData', devUserData);
     app.setPath('sessionData', devSessionData);
 }
+// Todo: allow picking facet and support multiple facets
+const facetPath = path.join(app.getPath('home'), '.amethyst');
 
 app.whenReady().then(() => {
     loadSettings();
-    createWindow();
+    const win = createWindow();
+
+    const facetService = new FacetService(facetPath, win);
+    const noteService = new NoteService(facetPath, facetService);
+    const notebookService = new NotebookService(facetPath, facetService);
 
     // Load IPC handlers
+
+    // Settings and themes
     registerSettingsIpc();
     registerThemesIpc();
+
+    // Notes and Notebooks
+    registerFacetIpc(facetService);
+    registerNoteIpc(noteService);
+    registerNotebookIpc(notebookService);
+
+    win.on('closed', () => facetService.closeFacet());
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
