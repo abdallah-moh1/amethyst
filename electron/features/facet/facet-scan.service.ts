@@ -57,46 +57,20 @@ export class FacetScanService {
                 };
 
                 const existingNote = facetService.getNote(note.id);
-                let timeDifference = 0;
-                if (existingNote) {
-                    timeDifference = existingNote.createdAt.getTime() - note.createdAt.getTime();
-                    if (timeDifference > 0) {
-                        // The existing note is the newest one so we will reassign it a new id
-                        const existingNoteAbsPath = toAbsoluteFacetPath(
-                            facetPath,
-                            existingNote.path,
-                        );
-                        const content = await readFile(existingNoteAbsPath, { encoding: 'utf-8' });
+                await this.handleDuplicateId(facetPath, facetService, note, fullPath);
 
-                        const newId = randomUUID();
-                        const parsed = matter(content);
-                        await writeFile(
-                            existingNoteAbsPath,
-                            matter.stringify(parsed.content, { id: newId }),
-                        );
-
-                        existingNote.id = newId;
-                        facetService.removeNote(note.id);
-                        facetService.addNote(existingNote);
-                    } else if (timeDifference < 0) {
-                        // the existing note is the old one so we will keep it and assign the new note a new id
-                        // The existing note is the newest one so we will reassign it a new id
-                        note.id = randomUUID();
-                    }
-                }
-
-                if (!frontMatter || (existingNote && timeDifference < 0)) {
+                if (!frontMatter || (existingNote && existingNote.createdAt.getTime() > note.createdAt.getTime())) {
                     const content = await readFile(fullPath, { encoding: 'utf-8' });
                     const parsed = matter(content);
                     await writeFile(fullPath, matter.stringify(parsed.content, { id: note.id }));
                 }
 
-                // Let this overwrite the old existing note
                 facetService.addNote(note);
             }
         }
     }
-    static async readFrontmatter(absolutePath: string): Promise<{ id: string } | null> {
+
+    static async readFrontmatter(absolutePath: string): Promise<{ id: string; } | null> {
         const fd = await open(absolutePath);
         try {
             // read first 512 bytes — enough for any frontmatter block
@@ -107,6 +81,41 @@ export class FacetScanService {
             return parsed.data.id ? { id: parsed.data.id } : null;
         } finally {
             await fd.close();
+        }
+    }
+
+    static async handleDuplicateId(
+        facetPath: string,
+        facetService: FacetService,
+        note: FacetNote,
+        fullPath: string,
+    ): Promise<void> {
+        const existingNote = facetService.getNote(note.id);
+        if (!existingNote) return;
+
+        const timeDifference = existingNote.createdAt.getTime() - note.createdAt.getTime();
+
+        if (timeDifference > 0) {
+            // The existing note is newer — reassign it a new id
+            const existingNoteAbsPath = toAbsoluteFacetPath(facetPath, existingNote.path);
+            const content = await readFile(existingNoteAbsPath, { encoding: 'utf-8' });
+
+            const newId = randomUUID();
+            const parsed = matter(content);
+            await writeFile(existingNoteAbsPath, matter.stringify(parsed.content, { id: newId }));
+
+            existingNote.id = newId;
+            facetService.removeNote(note.id);
+            facetService.addNote(existingNote);
+        } else if (timeDifference < 0) {
+            // The existing note is older — reassign the new note a new id
+            note.id = randomUUID();
+        }
+
+        if (timeDifference < 0) {
+            const content = await readFile(fullPath, { encoding: 'utf-8' });
+            const parsed = matter(content);
+            await writeFile(fullPath, matter.stringify(parsed.content, { id: note.id }));
         }
     }
 }
