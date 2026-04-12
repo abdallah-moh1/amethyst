@@ -13,7 +13,7 @@ export class NoteService {
     constructor(
         private facetPath: string,
         private facetService: FacetService,
-    ) { }
+    ) {}
 
     async createNote(name: string, parentPath: ParentPath): Promise<FacetNote> {
         const notePath = parentPath ? `${joinRelativePath(parentPath, name)}.md` : `${name}.md`;
