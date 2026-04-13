@@ -7,13 +7,10 @@ export function useItemSelection() {
     const tree = useFacetStore((s) => s.tree);
     const selectedItem = useFacetStore((s) => s.selectedItem);
 
-
     const setSelectedItem = useFacetStore((s) => s.setSelectedItem);
     const setNoteContent = useWorkspaceStore((s) => s.setNoteContent);
     const setNoteName = useWorkspaceStore((s) => s.setNoteName);
     const setCurrentNoteId = useWorkspaceStore((s) => s.setCurrentNoteId);
-
-
 
     const selectedItems: TreeItemIndex[] = selectedItem
         ? [selectedItem.type === 'note' ? selectedItem.id : selectedItem.path]

@@ -114,13 +114,16 @@ export const useFacetStore = create<FacetStore>((set) => ({
 
             if (useWorkspaceStore.getState().currentNoteId === note?.id) {
                 useWorkspaceStore.getState().setCurrentNoteId(null);
-                useWorkspaceStore.getState().setNoteContent("");
-                useWorkspaceStore.getState().setNoteName("");
+                useWorkspaceStore.getState().setNoteContent('');
+                useWorkspaceStore.getState().setNoteName('');
             }
 
             return {
                 notes: s.notes.filter((n) => n.id !== id),
-                selectedItem: s.selectedItem?.type === 'note' && s.selectedItem.id === note?.id ? null : s.selectedItem,
+                selectedItem:
+                    s.selectedItem?.type === 'note' && s.selectedItem.id === note?.id
+                        ? null
+                        : s.selectedItem,
                 tree: {
                     ...tree,
                     [parentIndex]: {
