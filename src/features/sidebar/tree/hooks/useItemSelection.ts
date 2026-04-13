@@ -10,6 +10,9 @@ export function useItemSelection() {
 
     const setSelectedItem = useFacetStore((s) => s.setSelectedItem);
     const setNoteContent = useWorkspaceStore((s) => s.setNoteContent);
+    const setNoteName = useWorkspaceStore((s) => s.setNoteName);
+    const setCurrentNoteId = useWorkspaceStore((s) => s.setCurrentNoteId);
+
 
 
     const selectedItems: TreeItemIndex[] = selectedItem
@@ -25,6 +28,8 @@ export function useItemSelection() {
             if (!data) return;
             if (data.type === 'note') {
                 setNoteContent(await openNote(data.node.id));
+                setNoteName(data.node.name);
+                setCurrentNoteId(data.node.id);
             }
             setSelectedItem(
                 data.type === 'notebook'
@@ -32,7 +37,7 @@ export function useItemSelection() {
                     : { type: 'note', path: data.node.path, id: data.node.id },
             );
         },
-        [tree, setSelectedItem, setNoteContent],
+        [tree, setSelectedItem, setNoteContent, setNoteName, setCurrentNoteId],
     );
     return {
         handleSelectItems,
