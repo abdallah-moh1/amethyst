@@ -1,0 +1,295 @@
+.rct-tree-root {
+    background-color: transparent;
+    color: var(--app-text-primary);
+    font-size: 13px;
+    font-family: inherit;
+    padding: 4px 0;
+    outline: none;
+}
+
+.rct-tree-root-focus {
+    outline: none;
+}
+
+.rct-tree-root-renaming {
+    cursor: text;
+}
+
+.rct-tree-items-container {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.rct-tree-item-li {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    width: 100%;
+    display: block;
+}
+
+.rct-tree-item-li > .rct-tree-items-container {
+    padding-left: 16px;
+    overflow: hidden;
+    animation: rct-expand 140ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes rct-expand {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.rct-tree-item-title-container {
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+    padding: 0 0 0 6px;
+    height: 28px;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: relative;
+    transition:
+        background-color 100ms cubic-bezier(0.4, 0, 0.2, 1),
+        color 100ms cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: background-color;
+}
+
+.rct-tree-item-title-container:hover {
+    background-color: color-mix(in srgb, var(--app-accent) 7%, transparent);
+}
+
+.rct-tree-item-title-container:active {
+    background-color: color-mix(in srgb, var(--app-accent) 12%, transparent);
+    transition-duration: 60ms;
+}
+
+/* Note selected indicator bar */
+.rct-tree-item-li-selected:not(.rct-tree-item-li-isFolder)
+    > .rct-tree-item-title-container::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 5px;
+    bottom: 5px;
+    width: 2px;
+    border-radius: 2px;
+    background-color: var(--app-accent);
+    transform: scaleY(1);
+    transition:
+        opacity 160ms cubic-bezier(0.4, 0, 0.2, 1),
+        transform 160ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: center;
+}
+
+/* Note selected — shift text to make room for bar */
+.rct-tree-item-li-selected > .rct-tree-item-title-container > .rct-tree-item-button {
+    padding-left: 10px;
+    transition: padding-left 120ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Note selected — background */
+.rct-tree-item-li-selected:not(.rct-tree-item-li-isFolder) > .rct-tree-item-title-container {
+    background-color: color-mix(in srgb, var(--app-accent) 8%, transparent);
+}
+
+/* Notebook selected */
+.rct-tree-item-li-selected.rct-tree-item-li-isFolder > .rct-tree-item-title-container {
+    background-color: color-mix(in srgb, var(--app-accent) 10%, transparent);
+}
+
+.rct-tree-item-li-selected.rct-tree-item-li-isFolder
+    > .rct-tree-item-title-container
+    > .rct-tree-item-button {
+    color: var(--app-accent);
+    font-weight: 500;
+}
+
+/* Keyboard focus ring */
+.rct-tree-item-li-focused > .rct-tree-item-title-container {
+    outline: 1.5px solid color-mix(in srgb, var(--app-accent) 50%, transparent);
+    outline-offset: -1px;
+}
+
+/* Drag over */
+.rct-tree-item-li-dragging-over > .rct-tree-item-title-container {
+    background-color: color-mix(in srgb, var(--app-accent) 18%, transparent);
+    transition-duration: 60ms;
+}
+
+/* Search match */
+.rct-tree-item-li-search-match > .rct-tree-item-title-container {
+    background-color: color-mix(in srgb, var(--app-accent) 12%, transparent);
+}
+
+/* Arrow */
+.rct-tree-item-arrow,
+.rct-tree-item-arrow svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    color: var(--app-text-secondary) !important;
+    fill: var(--app-text-secondary) !important;
+    stroke: var(--app-text-secondary) !important;
+    transition:
+        transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1),
+        color 120ms ease,
+        opacity 120ms ease;
+    opacity: 0.7;
+}
+
+.rct-tree-item-title-container:hover .rct-tree-item-arrow {
+    opacity: 1;
+}
+
+.rct-tree-item-arrow-isFolder-open {
+    transform: rotate(0deg);
+}
+
+.rct-tree-item-arrow-isFolder-closed {
+    transform: rotate(-90deg);
+}
+
+.rct-tree-item-arrow:not(.rct-tree-item-arrow-isFolder) {
+    visibility: hidden;
+}
+
+/* Item label button */
+.rct-tree-item-button {
+    background: none;
+    border: none;
+    padding: 0 6px 0 4px;
+    margin: 0;
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    font-size: inherit;
+    font-family: inherit;
+    color: var(--app-text-primary);
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    transition:
+        color 100ms ease,
+        padding-left 120ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.rct-tree-item-li-isFolder > .rct-tree-item-title-container > .rct-tree-item-button {
+    color: var(--app-text-secondary);
+    font-weight: 500;
+}
+
+/* Search highlight */
+.rct-tree-item-search-highlight {
+    background-color: color-mix(in srgb, var(--app-accent) 30%, transparent);
+    border-radius: 2px;
+    padding: 0 1px;
+}
+
+/* Rename form */
+.rct-tree-item-renaming-form {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 4px;
+    animation: rct-fade-in 80ms ease forwards;
+}
+
+@keyframes rct-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.rct-tree-item-renaming-input {
+    flex: 1;
+    background-color: var(--app-bg-primary);
+    color: var(--app-text-primary);
+    border: 1px solid var(--app-accent);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: inherit;
+    font-family: inherit;
+    outline: none;
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--app-accent) 20%, transparent);
+    width: 100%;
+    transition: box-shadow 120ms ease;
+}
+
+.rct-tree-item-renaming-input:focus {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--app-accent) 30%, transparent);
+}
+
+.rct-tree-item-renaming-submit-button {
+    display: none;
+}
+
+/* Drag between line */
+.rct-tree-drag-between-line {
+    height: 2px;
+    border-radius: 1px;
+    background-color: var(--app-accent);
+    margin: 0 6px;
+    pointer-events: none;
+    animation: rct-fade-in 60ms ease forwards;
+}
+
+.rct-tree-drag-between-line-top {
+    margin-top: -1px;
+}
+
+.rct-tree-drag-between-line-bottom {
+    margin-bottom: -1px;
+}
+
+/* Search input */
+.rct-tree-search-input-container {
+    padding: 6px 8px;
+}
+
+.rct-tree-search-input {
+    width: 100%;
+    background-color: var(--app-bg-primary);
+    color: var(--app-text-primary);
+    border: 1px solid color-mix(in srgb, var(--app-accent) 20%, transparent);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-family: inherit;
+    outline: none;
+    transition:
+        border-color 120ms ease,
+        box-shadow 120ms ease;
+}
+
+.rct-tree-search-input:hover {
+    border-color: color-mix(in srgb, var(--app-accent) 35%, transparent);
+}
+
+.rct-tree-search-input:focus {
+    border-color: var(--app-accent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--app-accent) 22%, transparent);
+}
+
+.rct-tree-search-input::placeholder {
+    color: var(--app-text-secondary);
+    opacity: 0.6;
+}

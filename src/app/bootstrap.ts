@@ -7,10 +7,12 @@ import { Settings } from '@shared/types/settings.type';
 import { applyTheme } from '@/features/theme/theme.runtime';
 import { getSetting } from '@/clients/settings.client';
 import { getTheme } from '@/clients/themes.client';
+import { initFacet } from './initFacet';
 
 export async function bootstrapApp() {
     const themeSetting = (await getSetting('theme')) as Settings['theme'];
-    await window.amethyst.facet.open();
 
     applyTheme(await getTheme(themeSetting.id as BuiltInThemes));
+    await initFacet();
+
 }
