@@ -10,6 +10,10 @@
     justify-content: center;
 }
 
+.preview * {
+    user-select: text;
+}
+
 .preview-inner {
     font-family: Inter, ui-sans-serif, system-ui, sans-serif;
     color: var(--editor-ui-text);
