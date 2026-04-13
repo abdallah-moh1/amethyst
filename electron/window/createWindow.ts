@@ -42,6 +42,11 @@ export function createWindow() {
     });
 
     win.webContents.on('will-navigate', (event, url) => {
+        const devUrl = process.env.ELECTRON_START_URL;
+
+        if (devUrl && url.startsWith(devUrl)) {
+            return; // ✅ allow internal navigation
+        }
         // Optional: only redirect if the URL is external (starts with http/https)
         if (url.startsWith('http')) {
             event.preventDefault(); // Stop Electron from loading the page
