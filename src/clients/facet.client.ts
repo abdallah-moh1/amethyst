@@ -4,11 +4,10 @@
 
 import { FacetNote, FacetNotebook } from '@shared/types/facet.type';
 
-export const openFacet = (): Promise<{ notes: FacetNote[]; notebooks: FacetNotebook[]; }> =>
+export const openFacet = (): Promise<{ notes: FacetNote[]; notebooks: FacetNotebook[] }> =>
     window.amethyst.facet.open();
 
-export const closeFacet = (): Promise<void> =>
-    window.amethyst.facet.close();
+export const closeFacet = (): Promise<void> => window.amethyst.facet.close();
 
 export const onNoteAdded = (cb: (note: FacetNote) => void) =>
     window.amethyst.facet.on.noteAdded(cb);
@@ -16,8 +15,7 @@ export const onNoteAdded = (cb: (note: FacetNote) => void) =>
 export const onNoteChanged = (cb: (note: FacetNote) => void) =>
     window.amethyst.facet.on.noteChanged(cb);
 
-export const onNoteRemoved = (cb: (id: string) => void) =>
-    window.amethyst.facet.on.noteRemoved(cb);
+export const onNoteRemoved = (cb: (id: string) => void) => window.amethyst.facet.on.noteRemoved(cb);
 
 export const onNotebookAdded = (cb: (notebook: FacetNotebook) => void) =>
     window.amethyst.facet.on.notebookAdded(cb);

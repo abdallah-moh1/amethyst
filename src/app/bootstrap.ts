@@ -14,5 +14,4 @@ export async function bootstrapApp() {
 
     applyTheme(await getTheme(themeSetting.id as BuiltInThemes));
     await initFacet();
-
 }

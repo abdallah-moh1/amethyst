@@ -55,10 +55,7 @@ export const useFacetStore = create<FacetStore>((set) => ({
                     },
                     [parentIndex]: {
                         ...s.tree[parentIndex],
-                        children: [
-                            ...(s.tree[parentIndex]?.children ?? []),
-                            deserialized.id,
-                        ],
+                        children: [...(s.tree[parentIndex]?.children ?? []), deserialized.id],
                     },
                 },
             };
@@ -68,9 +65,7 @@ export const useFacetStore = create<FacetStore>((set) => ({
         set((s) => {
             const deserialized = deserializeNote(note);
             const oldNote = s.notes.find((n) => n.id === deserialized.id);
-            const notes = s.notes.map((n) =>
-                n.id === deserialized.id ? deserialized : n,
-            );
+            const notes = s.notes.map((n) => (n.id === deserialized.id ? deserialized : n));
 
             if (oldNote && oldNote.parentPath !== deserialized.parentPath) {
                 const oldParent = oldNote.parentPath ?? 'root';
@@ -86,16 +81,12 @@ export const useFacetStore = create<FacetStore>((set) => ({
                         [oldParent]: {
                             ...s.tree[oldParent],
                             children:
-                                s.tree[oldParent].children?.filter(
-                                    (c) => c !== deserialized.id,
-                                ) ?? [],
+                                s.tree[oldParent].children?.filter((c) => c !== deserialized.id) ??
+                                [],
                         },
                         [newParent]: {
                             ...s.tree[newParent],
-                            children: [
-                                ...(s.tree[newParent]?.children ?? []),
-                                deserialized.id,
-                            ],
+                            children: [...(s.tree[newParent]?.children ?? []), deserialized.id],
                         },
                     },
                 };
@@ -125,8 +116,7 @@ export const useFacetStore = create<FacetStore>((set) => ({
                     ...tree,
                     [parentIndex]: {
                         ...tree[parentIndex],
-                        children:
-                            tree[parentIndex]?.children?.filter((c) => c !== id) ?? [],
+                        children: tree[parentIndex]?.children?.filter((c) => c !== id) ?? [],
                     },
                 },
             };
@@ -147,10 +137,7 @@ export const useFacetStore = create<FacetStore>((set) => ({
                     },
                     [parentIndex]: {
                         ...s.tree[parentIndex],
-                        children: [
-                            ...(s.tree[parentIndex]?.children ?? []),
-                            notebook.path,
-                        ],
+                        children: [...(s.tree[parentIndex]?.children ?? []), notebook.path],
                     },
                 },
             };
@@ -160,8 +147,7 @@ export const useFacetStore = create<FacetStore>((set) => ({
         set((s) => {
             const tree = { ...s.tree };
             const oldItem = tree[oldPath];
-            const oldParent =
-                s.notebooks.find((n) => n.path === oldPath)?.parentPath ?? 'root';
+            const oldParent = s.notebooks.find((n) => n.path === oldPath)?.parentPath ?? 'root';
             const newParent = notebook.parentPath ?? 'root';
 
             delete tree[oldPath];
@@ -184,18 +170,13 @@ export const useFacetStore = create<FacetStore>((set) => ({
                 if (oldParent !== newParent) {
                     tree[newParent] = {
                         ...tree[newParent],
-                        children: [
-                            ...(tree[newParent]?.children ?? []),
-                            notebook.path,
-                        ],
+                        children: [...(tree[newParent]?.children ?? []), notebook.path],
                     };
                 }
             }
 
             return {
-                notebooks: s.notebooks.map((n) =>
-                    n.path === oldPath ? notebook : n,
-                ),
+                notebooks: s.notebooks.map((n) => (n.path === oldPath ? notebook : n)),
                 tree,
             };
         }),
@@ -212,9 +193,7 @@ export const useFacetStore = create<FacetStore>((set) => ({
                     ...tree,
                     [parentIndex]: {
                         ...tree[parentIndex],
-                        children:
-                            tree[parentIndex]?.children?.filter((c) => c !== path) ??
-                            [],
+                        children: tree[parentIndex]?.children?.filter((c) => c !== path) ?? [],
                     },
                 },
             };

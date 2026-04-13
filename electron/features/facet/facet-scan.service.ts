@@ -73,7 +73,7 @@ export class FacetScanService {
         }
     }
 
-    static async readFrontmatter(absolutePath: string): Promise<{ id: string; } | null> {
+    static async readFrontmatter(absolutePath: string): Promise<{ id: string } | null> {
         const fd = await open(absolutePath);
         try {
             // read first 512 bytes — enough for any frontmatter block

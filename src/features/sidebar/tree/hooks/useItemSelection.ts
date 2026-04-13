@@ -1,6 +1,6 @@
-import { useFacetStore } from "@/store";
-import { useCallback } from "react";
-import { TreeItemIndex } from "react-complex-tree";
+import { useFacetStore } from '@/store';
+import { useCallback } from 'react';
+import { TreeItemIndex } from 'react-complex-tree';
 
 export function useItemSelection() {
     const tree = useFacetStore((s) => s.tree);
@@ -28,6 +28,6 @@ export function useItemSelection() {
     );
     return {
         handleSelectItems,
-        selectedItems
+        selectedItems,
     };
 }

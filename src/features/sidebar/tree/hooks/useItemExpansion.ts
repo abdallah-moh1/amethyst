@@ -1,6 +1,6 @@
-import { useFacetStore } from "@/store";
-import { FacetTreeItem } from "@/types/tree.type";
-import { useCallback } from "react";
+import { useFacetStore } from '@/store';
+import { FacetTreeItem } from '@/types/tree.type';
+import { useCallback } from 'react';
 
 export function useItemExpansion() {
     const expandedItems = useFacetStore((s) => s.expandedItems);
@@ -24,6 +24,7 @@ export function useItemExpansion() {
     );
 
     return {
-        handleExpandItem, handleCollapseItem
+        handleExpandItem,
+        handleCollapseItem,
     };
 }

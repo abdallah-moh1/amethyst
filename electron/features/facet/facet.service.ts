@@ -45,7 +45,8 @@ export class FacetService {
             persistent: true,
             ignored: (path, stats) => {
                 if (!stats) return false; // not yet known, don't ignore
-                if (stats.isDirectory() && !isHiddenPath(toRelativeFacetPath(this.facetPath, path))) return false;
+                if (stats.isDirectory() && !isHiddenPath(toRelativeFacetPath(this.facetPath, path)))
+                    return false;
                 return !isMarkdownFile(path);
             },
             awaitWriteFinish: {

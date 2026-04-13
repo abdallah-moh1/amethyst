@@ -1,16 +1,13 @@
 import { FacetNote, FacetNotebook } from '@shared/types/facet.type';
 import { FacetTree } from '@/types/tree.type';
-export function buildFacetTree(
-    notes: FacetNote[],
-    notebooks: FacetNotebook[]
-): FacetTree {
+export function buildFacetTree(notes: FacetNote[], notebooks: FacetNotebook[]): FacetTree {
     const tree: FacetTree = {
         root: {
             index: 'root',
             isFolder: true,
             children: [],
-            data: null
-        }
+            data: null,
+        },
     };
 
     // add notebooks first
@@ -21,8 +18,8 @@ export function buildFacetTree(
             children: [],
             data: {
                 type: 'notebook',
-                node: notebook
-            }
+                node: notebook,
+            },
         };
 
         const parentIndex = notebook.parentPath ?? 'root';
@@ -37,8 +34,8 @@ export function buildFacetTree(
             children: [],
             data: {
                 type: 'note',
-                node: note
-            }
+                node: note,
+            },
         };
 
         const parentIndex = note.parentPath ?? 'root';

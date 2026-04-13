@@ -37,7 +37,7 @@ export function isMarkdownFile(path: string): boolean {
     return path.toLowerCase().endsWith('.md');
 }
 export function isHiddenPath(relativePath: string): boolean {
-    return relativePath.split('/').some(part => part.startsWith('.'));
+    return relativePath.split('/').some((part) => part.startsWith('.'));
 }
 export function toAbsoluteFacetPath(facetPath: string, relativePath: string): string {
     return path.join(facetPath, relativePath);
