@@ -21,14 +21,14 @@ export type WorkspaceStore = {
 
 export type SelectedItem =
     | {
-        path: string;
-        type: 'note';
-        id: string;
-    }
+          path: string;
+          type: 'note';
+          id: string;
+      }
     | {
-        path: string;
-        type: 'notebook';
-    }
+          path: string;
+          type: 'notebook';
+      }
     | null;
 
 export type FacetStore = {
@@ -48,6 +48,6 @@ export type FacetStore = {
     removeNote: (id: string) => void;
 
     addNotebook: (notebook: FacetNotebook) => void;
-    updateNotebook: (payload: { oldPath: string; notebook: FacetNotebook; }) => void;
+    updateNotebook: (payload: { oldPath: string; notebook: FacetNotebook }) => void;
     removeNotebook: (path: string) => void;
 };

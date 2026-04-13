@@ -16,7 +16,7 @@ export const useWorkspaceStore = create<WorkspaceStore>((set) => ({
     currentNoteId: null,
     setNoteName(name) {
         set({
-            noteName: name
+            noteName: name,
         });
     },
     setViewMode: (mode) => {
