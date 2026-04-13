@@ -6,6 +6,7 @@ import { buildFacetTree } from '@/features/sidebar/tree/utils/treeAdapter';
 import { FacetStore } from '@/types/stores.type';
 import { FacetNote } from '@shared/types/facet.type';
 import { create } from 'zustand';
+import { useWorkspaceStore } from './workspace.store';
 
 function deserializeNote(note: FacetNote): FacetNote {
     return {
@@ -110,8 +111,16 @@ export const useFacetStore = create<FacetStore>((set) => ({
             const parentIndex = note?.parentPath ?? 'root';
             const tree = { ...s.tree };
             delete tree[id];
+
+            if (useWorkspaceStore.getState().currentNoteId === note?.id) {
+                useWorkspaceStore.getState().setCurrentNoteId(null);
+                useWorkspaceStore.getState().setNoteContent("");
+                useWorkspaceStore.getState().setNoteName("");
+            }
+
             return {
                 notes: s.notes.filter((n) => n.id !== id),
+                selectedItem: s.selectedItem?.type === 'note' && s.selectedItem.id === note?.id ? null : s.selectedItem,
                 tree: {
                     ...tree,
                     [parentIndex]: {
