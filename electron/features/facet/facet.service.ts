@@ -7,6 +7,7 @@ import { FacetNote, FacetNotebook } from '../../../shared/types/facet.type.js';
 import {
     getNameFromPath,
     getParentRelativePath,
+    isHiddenPath,
     isMarkdownFile,
     toRelativeFacetPath,
 } from '../../utils/path.utils.js';
@@ -44,7 +45,7 @@ export class FacetService {
             persistent: true,
             ignored: (path, stats) => {
                 if (!stats) return false; // not yet known, don't ignore
-                if (stats.isDirectory()) return false;
+                if (stats.isDirectory() && !isHiddenPath(toRelativeFacetPath(this.facetPath, path))) return false;
                 return !isMarkdownFile(path);
             },
             awaitWriteFinish: {
