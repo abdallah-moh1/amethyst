@@ -12,7 +12,13 @@ export const useWorkspaceStore = create<WorkspaceStore>((set) => ({
         source: null,
         percentage: 0,
     },
+    noteName: null,
     currentNoteId: null,
+    setNoteName(name) {
+        set({
+            noteName: name
+        });
+    },
     setViewMode: (mode) => {
         set({ viewMode: mode });
     },
