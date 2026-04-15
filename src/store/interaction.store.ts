@@ -6,8 +6,8 @@ import { ParentPath } from '@shared/types/facet.type';
 import { create } from 'zustand';
 
 type SelectedItem =
-    | { type: 'note'; id: string; path: string; }
-    | { type: 'notebook'; path: string; }
+    | { type: 'note'; id: string; path: string }
+    | { type: 'notebook'; path: string }
     | null;
 
 type InteractionState = {
