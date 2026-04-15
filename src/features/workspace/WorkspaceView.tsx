@@ -5,14 +5,16 @@
 import { Editor } from '../editor';
 import { WorkspaceToolbar } from './components/WorkspaceToolbar';
 import { Preview } from '../preview';
-
-import './workspace-view.css';
 import { useUIStore, useWorkspaceStore } from '@/store';
 import { Group, Panel, PanelImperativeHandle, Separator } from 'react-resizable-panels';
 import { useEffect, useRef } from 'react';
+import { NoteEmptyState } from '../empty-state';
+
+import './workspace-view.css';
 
 export function WorkspaceView() {
     const noteContent = useWorkspaceStore((state) => state.noteContent);
+    const currentNoteId = useWorkspaceStore((state) => state.currentNoteId);
     const setNoteContent = useWorkspaceStore((state) => state.setNoteContent);
     const viewMode = useUIStore((state) => state.viewMode);
 
@@ -41,38 +43,44 @@ export function WorkspaceView() {
 
     return (
         <div className="workspace-view">
-            <WorkspaceToolbar />
-            <Group>
-                <Panel
-                    collapsible
-                    defaultSize="50%"
-                    collapsedSize={0}
-                    panelRef={editorPanelRef}
-                    className="panel"
-                >
-                    <Editor
-                        value={noteContent}
-                        onChange={setNoteContent}
-                        placeholder="Get Creative..."
-                    />
-                </Panel>
+            {currentNoteId ? (
+                <>
+                    <WorkspaceToolbar />
+                    <Group>
+                        <Panel
+                            collapsible
+                            defaultSize="50%"
+                            collapsedSize={0}
+                            panelRef={editorPanelRef}
+                            className="panel"
+                        >
+                            <Editor
+                                value={noteContent}
+                                onChange={setNoteContent}
+                                placeholder="Get Creative..."
+                            />
+                        </Panel>
 
-                <Separator
-                    className="panel-separator"
-                    disabled={viewMode !== 'split-view'}
-                    hidden={viewMode !== 'split-view'}
-                />
+                        <Separator
+                            className="panel-separator"
+                            disabled={viewMode !== 'split-view'}
+                            hidden={viewMode !== 'split-view'}
+                        />
 
-                <Panel
-                    collapsible
-                    defaultSize="50%"
-                    collapsedSize={0}
-                    panelRef={previewPanelRef}
-                    className="panel"
-                >
-                    <Preview content={noteContent} />
-                </Panel>
-            </Group>
+                        <Panel
+                            collapsible
+                            defaultSize="50%"
+                            collapsedSize={0}
+                            panelRef={previewPanelRef}
+                            className="panel"
+                        >
+                            <Preview content={noteContent} />
+                        </Panel>
+                    </Group>
+                </>
+            ) : (
+                <NoteEmptyState />
+            )}
         </div>
     );
 }
