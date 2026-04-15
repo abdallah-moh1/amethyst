@@ -12,6 +12,7 @@ export function useItemPrimaryAction() {
     const setNoteName = useWorkspaceStore((s) => s.setNoteName);
     const setCurrentNoteId = useWorkspaceStore((s) => s.setCurrentNoteId);
 
+
     const handlePrimaryAction = useCallback(
         async (item: FacetTreeItem) => {
             // if (!) return;

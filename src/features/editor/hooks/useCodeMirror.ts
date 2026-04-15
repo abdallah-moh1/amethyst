@@ -4,9 +4,11 @@
 
 import { useEffect, useRef } from 'react';
 import { EditorView } from '@codemirror/view';
-import { createEditor } from '../codemirror/createEditor';
+import { createEditor, createState } from '../codemirror/createEditor';
 import { updateEditor } from '../codemirror/updateEditor';
-import type { UseCodeMirrorOptions } from '../../../types/editor.type';
+import type { UseCodeMirrorOptions } from '@/types/editor.type';
+import { useWorkspaceStore } from '@/store';
+
 
 export function useCodeMirror({
     containerRef,
@@ -15,6 +17,17 @@ export function useCodeMirror({
     placeholder,
 }: UseCodeMirrorOptions) {
     const viewRef = useRef<EditorView | null>(null);
+    const currentNoteId = useWorkspaceStore(s => s.currentNoteId);
+
+    // This ref acts as a gatekeeper to prevent programmatic updates 
+    // from triggering the 'isDirty' logic in the store.
+    const isProgrammaticUpdate = useRef(false);
+
+    // Wrap the onChange to check our gatekeeper
+    const handleDocChange = (content: string) => {
+        if (isProgrammaticUpdate.current) return;
+        onChange?.(content);
+    };
 
     useEffect(() => {
         const container = containerRef.current;
@@ -24,7 +37,7 @@ export function useCodeMirror({
         const view = createEditor({
             parent: container,
             doc: value,
-            onChange,
+            onChange: handleDocChange, // Use the wrapped version
             placeholder,
         });
 
@@ -37,13 +50,35 @@ export function useCodeMirror({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [containerRef]);
 
+    // Handles content sync from store to editor (e.g. undo/redo or external edits)
     useEffect(() => {
         const view = viewRef.current;
         if (!view) return;
 
-        updateEditor({
-            view,
-            value,
-        });
+        // Only update if the editor content actually differs to avoid feedback loops
+        if (view.state.doc.toString() !== value) {
+            isProgrammaticUpdate.current = true;
+            updateEditor({
+                view,
+                value,
+            });
+            isProgrammaticUpdate.current = false;
+        }
     }, [value]);
+
+    // Handles note switching
+    useEffect(() => {
+        const view = viewRef.current;
+        if (!view) return;
+
+        isProgrammaticUpdate.current = true;
+        view.setState(createState({
+            doc: value,
+            onChange: handleDocChange, // Re-bind the wrapped version
+            placeholder
+        }));
+        isProgrammaticUpdate.current = false;
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentNoteId]);
 }

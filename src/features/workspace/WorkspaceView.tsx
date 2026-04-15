@@ -15,8 +15,10 @@ import './workspace-view.css';
 export function WorkspaceView() {
     const noteContent = useWorkspaceStore((state) => state.noteContent);
     const currentNoteId = useWorkspaceStore((state) => state.currentNoteId);
-    const setNoteContent = useWorkspaceStore((state) => state.setNoteContent);
     const viewMode = useUIStore((state) => state.viewMode);
+
+    const setNoteContent = useWorkspaceStore((state) => state.setNoteContent);
+    const markDirty = useWorkspaceStore((state) => state.markDirty);
 
     const editorPanelRef = useRef<PanelImperativeHandle | null>(null);
     const previewPanelRef = useRef<PanelImperativeHandle | null>(null);
@@ -56,7 +58,10 @@ export function WorkspaceView() {
                         >
                             <Editor
                                 value={noteContent}
-                                onChange={setNoteContent}
+                                onChange={(value) => {
+                                    setNoteContent(value);
+                                    markDirty();
+                                }}
                                 placeholder="Get Creative..."
                             />
                         </Panel>
