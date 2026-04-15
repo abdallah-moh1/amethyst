@@ -78,7 +78,7 @@ export function FacetTree() {
             }, 0);
             return () => clearTimeout(id);
         }
-    }, [ghost]);
+    }, [ghost, expandedItems, setExpandedItems]);
 
     const handleRenameItem = useCallback(
         async (item: FacetTreeItem, newName: string) => {
