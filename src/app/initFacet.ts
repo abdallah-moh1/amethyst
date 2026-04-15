@@ -26,6 +26,5 @@ export async function initFacet() {
 
     onNoteChanged((note) => {
         console.log(`This note ${note} changed`);
-
     });
 }

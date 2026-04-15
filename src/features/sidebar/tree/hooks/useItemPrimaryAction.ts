@@ -8,25 +8,26 @@ import { FacetTreeItem } from '@/types/tree.type';
 import { useCallback } from 'react';
 
 export function useItemPrimaryAction() {
-
     const setNoteContent = useWorkspaceStore((s) => s.setNoteContent);
     const setNoteName = useWorkspaceStore((s) => s.setNoteName);
     const setCurrentNoteId = useWorkspaceStore((s) => s.setCurrentNoteId);
 
     const handlePrimaryAction = useCallback(
-        async (item: FacetTreeItem) => {
+        (item: FacetTreeItem) => {
             // if (!) return;
             const data = item.data;
             if (!data) return;
             if (data.type === 'note') {
-                setNoteContent(await openNote(data.node.id));
-                setNoteName(data.node.name);
-                setCurrentNoteId(data.node.id);
+                setTimeout(async () => {
+                    setNoteContent(await openNote(data.node.id));
+                    setNoteName(data.node.name);
+                    setCurrentNoteId(data.node.id);
+                }, 100);
             }
         },
         [setNoteContent, setNoteName, setCurrentNoteId],
     );
     return {
-        handlePrimaryAction
+        handlePrimaryAction,
     };
 }

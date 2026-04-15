@@ -5,6 +5,11 @@
     width: 100%;
     padding: 10px 20px;
 }
+.notebooks-section {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+}
 
 .section-header {
     display: flex;
@@ -15,7 +20,8 @@
 }
 
 .section-tree {
-    padding: 0px 6px;
+    overflow: scroll;
+    flex: 1;
 }
 
 .section-header p {

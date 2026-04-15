@@ -49,3 +49,7 @@ textarea {
 *::-webkit-scrollbar-thumb:active {
     background-color: var(--scrollbar-thumb-active);
 }
+
+*::-webkit-scrollbar-corner {
+    background: transparent;
+}

@@ -35,7 +35,7 @@ export const useWorkspaceStore = create<WorkspaceState>((set) => ({
 
     setNoteContent: (content) =>
         set({
-            noteContent: content
+            noteContent: content,
         }),
 
     setNoteName: (name) =>
