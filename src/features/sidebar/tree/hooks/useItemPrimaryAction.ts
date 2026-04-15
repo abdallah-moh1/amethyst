@@ -13,16 +13,14 @@ export function useItemPrimaryAction() {
     const setCurrentNoteId = useWorkspaceStore((s) => s.setCurrentNoteId);
 
     const handlePrimaryAction = useCallback(
-        (item: FacetTreeItem) => {
+        async (item: FacetTreeItem) => {
             // if (!) return;
             const data = item.data;
             if (!data) return;
             if (data.type === 'note') {
-                setTimeout(async () => {
-                    setNoteContent(await openNote(data.node.id));
-                    setNoteName(data.node.name);
-                    setCurrentNoteId(data.node.id);
-                }, 100);
+                setNoteContent(await openNote(data.node.id));
+                setNoteName(data.node.name);
+                setCurrentNoteId(data.node.id);
             }
         },
         [setNoteContent, setNoteName, setCurrentNoteId],
