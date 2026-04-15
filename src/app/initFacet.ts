@@ -15,11 +15,17 @@ import {
 export async function initFacet() {
     const store = useFacetStore.getState();
     const { notes, notebooks } = await openFacet();
-    store.hydrate(notes, notebooks);
+
+    store.setNotes(notes);
+    store.setNotebooks(notebooks);
 
     onNoteAdded(store.addNote);
-    onNoteChanged(store.updateNote);
     onNoteRemoved(store.removeNote);
     onNotebookAdded(store.addNotebook);
     onNotebookRemoved(store.removeNotebook);
+
+    onNoteChanged((note) => {
+        console.log(`This note ${note} changed`);
+
+    });
 }

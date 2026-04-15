@@ -2,14 +2,14 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { useFacetStore } from '@/store';
+import { useInteractionStore } from '@/store';
 import { FacetTreeItem } from '@/types/tree.type';
 import { useCallback } from 'react';
 
 export function useItemExpansion() {
-    const expandedItems = useFacetStore((s) => s.expandedItems);
+    const expandedItems = useInteractionStore((s) => s.expandedItems);
 
-    const setExpandedItems = useFacetStore((s) => s.setExpandedItems);
+    const setExpandedItems = useInteractionStore((s) => s.setExpandedItems);
 
     const handleExpandItem = useCallback(
         (item: FacetTreeItem) => {
@@ -28,6 +28,7 @@ export function useItemExpansion() {
     );
 
     return {
+        expandedItems,
         handleExpandItem,
         handleCollapseItem,
     };

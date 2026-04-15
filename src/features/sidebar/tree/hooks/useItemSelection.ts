@@ -2,46 +2,40 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { openNote } from '@/clients/note.client';
-import { useFacetStore, useWorkspaceStore } from '@/store';
+import { useInteractionStore } from '@/store';
+import { FacetTree } from '@/types/tree.type';
 import { useCallback } from 'react';
 import { TreeItemIndex } from 'react-complex-tree';
 
-export function useItemSelection() {
-    const tree = useFacetStore((s) => s.tree);
-    const selectedItem = useFacetStore((s) => s.selectedItem);
-
-    const setSelectedItem = useFacetStore((s) => s.setSelectedItem);
-    const setNoteContent = useWorkspaceStore((s) => s.setNoteContent);
-    const setNoteName = useWorkspaceStore((s) => s.setNoteName);
-    const setCurrentNoteId = useWorkspaceStore((s) => s.setCurrentNoteId);
+export function useItemSelection(items: FacetTree) {
+    const selectedItem = useInteractionStore((s) => s.selectedItem);
+    const setSelectedItem = useInteractionStore((s) => s.setSelectedItem);
 
     const selectedItems: TreeItemIndex[] = selectedItem
         ? [selectedItem.type === 'note' ? selectedItem.id : selectedItem.path]
         : [];
 
     const handleSelectItems = useCallback(
-        async (indices: TreeItemIndex[]) => {
+        (indices: TreeItemIndex[]) => {
             const index = indices[0];
-            const rctItem = tree[index];
-            if (!rctItem) return;
-            const data = rctItem.data;
-            if (!data) return;
-            if (data.type === 'note') {
-                setNoteContent(await openNote(data.node.id));
-                setNoteName(data.node.name);
-                setCurrentNoteId(data.node.id);
+            if (!index) {
+                setSelectedItem(null);
+                return;
             }
+
+            const rctItem = items[index];
+            if (!rctItem?.data) return;
+
+            const { data } = rctItem;
+
             setSelectedItem(
-                data.type === 'notebook'
-                    ? { type: 'notebook', path: data.node.path }
-                    : { type: 'note', path: data.node.path, id: data.node.id },
+                data.type === 'note'
+                    ? { type: 'note', id: data.node.id, path: data.node.path }
+                    : { type: 'notebook', path: data.node.path },
             );
         },
-        [tree, setSelectedItem, setNoteContent, setNoteName, setCurrentNoteId],
+        [items, setSelectedItem],
     );
-    return {
-        handleSelectItems,
-        selectedItems,
-    };
+
+    return { handleSelectItems, selectedItems };
 }

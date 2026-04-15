@@ -2,33 +2,54 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { WorkspaceStore } from '@/types/stores.type';
 import { create } from 'zustand';
 
-export const useWorkspaceStore = create<WorkspaceStore>((set) => ({
-    viewMode: 'editor',
-    noteContent: '',
-    syncedScroll: {
-        source: null,
-        percentage: 0,
-    },
-    noteName: null,
+type WorkspaceState = {
+    currentNoteId: string | null;
+    noteContent: string;
+    noteName: string;
+
+    isDirty: boolean;
+
+    setCurrentNoteId: (id: string | null) => void;
+    setNoteContent: (content: string) => void;
+    setNoteName: (content: string) => void;
+
+    markDirty: () => void;
+    markSaved: () => void;
+
+    reset: () => void;
+};
+
+export const useWorkspaceStore = create<WorkspaceState>((set) => ({
     currentNoteId: null,
-    setNoteName(name) {
+    noteContent: '',
+    isDirty: false,
+    noteName: '',
+
+    setCurrentNoteId: (id) =>
+        set({
+            currentNoteId: id,
+            isDirty: false,
+        }),
+
+    setNoteContent: (content) =>
+        set({
+            noteContent: content
+        }),
+
+    setNoteName: (name) =>
         set({
             noteName: name,
-        });
-    },
-    setViewMode: (mode) => {
-        set({ viewMode: mode });
-    },
-    setNoteContent: (content) => {
-        set({ noteContent: content });
-    },
-    setSyncedScroll: (syncedScroll) => {
-        set({ syncedScroll });
-    },
-    setCurrentNoteId(id) {
-        set({ currentNoteId: id });
-    },
+        }),
+
+    markDirty: () => set({ isDirty: true }),
+    markSaved: () => set({ isDirty: false }),
+
+    reset: () =>
+        set({
+            currentNoteId: null,
+            noteContent: '',
+            isDirty: false,
+        }),
 }));

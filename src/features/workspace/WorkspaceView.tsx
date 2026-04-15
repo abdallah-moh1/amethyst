@@ -7,14 +7,14 @@ import { WorkspaceToolbar } from './components/WorkspaceToolbar';
 import { Preview } from '../preview';
 
 import './workspace-view.css';
-import { useWorkspaceStore } from '@/store';
+import { useUIStore, useWorkspaceStore } from '@/store';
 import { Group, Panel, PanelImperativeHandle, Separator } from 'react-resizable-panels';
 import { useEffect, useRef } from 'react';
 
 export function WorkspaceView() {
     const noteContent = useWorkspaceStore((state) => state.noteContent);
     const setNoteContent = useWorkspaceStore((state) => state.setNoteContent);
-    const viewMode = useWorkspaceStore((state) => state.viewMode);
+    const viewMode = useUIStore((state) => state.viewMode);
 
     const editorPanelRef = useRef<PanelImperativeHandle | null>(null);
     const previewPanelRef = useRef<PanelImperativeHandle | null>(null);
