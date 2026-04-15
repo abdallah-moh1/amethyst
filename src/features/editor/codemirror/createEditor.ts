@@ -11,7 +11,15 @@ import { placeholderExtension } from './extensions/placeholder';
 import { syntaxTheme } from './extensions/syntaxTheme';
 import { editorTheme } from './extensions/editorTheme';
 
-export function createState({ doc, onChange, placeholder }: CreateStateOptions) {
+export function createState({
+    doc,
+    onChange,
+    placeholder,
+}: {
+    doc: string;
+    onChange?: (value: string) => void;
+    placeholder?: string;
+}) {
     return EditorState.create({
         doc,
         extensions: [
@@ -27,7 +35,6 @@ export function createState({ doc, onChange, placeholder }: CreateStateOptions) 
         ],
     });
 }
-
 
 export function createEditor({ parent, doc, onChange, placeholder }: CreateEditorOptions) {
     const state = createState({ doc, onChange, placeholder });

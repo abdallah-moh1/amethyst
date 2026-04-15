@@ -8,10 +8,6 @@
     overflow: visible;
 }
 
-.hide-tree-nodes .rct-tree-item-li {
-    display: none;
-}
-
 .rct-tree-root-focus {
     outline: none;
 }

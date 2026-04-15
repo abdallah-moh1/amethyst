@@ -2,11 +2,12 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
+import { ParentPath } from '@shared/types/facet.type';
 import { create } from 'zustand';
 
 type SelectedItem =
-    | { type: 'note'; id: string; path: string }
-    | { type: 'notebook'; path: string }
+    | { type: 'note'; id: string; path: string; }
+    | { type: 'notebook'; path: string; }
     | null;
 
 type InteractionState = {
@@ -15,16 +16,32 @@ type InteractionState = {
 
     mode: 'idle' | 'creating' | 'renaming';
 
+    ghost: GhostItem | null;
+
+    setGhost: (ghost: GhostItem | null) => void;
+
     setSelectedItem: (item: SelectedItem) => void;
     setExpandedItems: (items: string[]) => void;
 
     reset: () => void;
+};
+type GhostItem = {
+    type: 'note' | 'notebook';
+    parentPath: ParentPath;
+    index: string; // e.g. '__ghost__'
 };
 
 export const useInteractionStore = create<InteractionState>((set) => ({
     selectedItem: null,
     expandedItems: [],
     mode: 'idle',
+    ghost: null,
+
+    setGhost(ghost) {
+        set({
+            ghost,
+        });
+    },
 
     setSelectedItem: (item) => set({ selectedItem: item }),
     setExpandedItems: (items) => set({ expandedItems: items }),

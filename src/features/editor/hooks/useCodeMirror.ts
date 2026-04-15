@@ -9,7 +9,6 @@ import { updateEditor } from '../codemirror/updateEditor';
 import type { UseCodeMirrorOptions } from '@/types/editor.type';
 import { useWorkspaceStore } from '@/store';
 
-
 export function useCodeMirror({
     containerRef,
     value,
@@ -17,9 +16,9 @@ export function useCodeMirror({
     placeholder,
 }: UseCodeMirrorOptions) {
     const viewRef = useRef<EditorView | null>(null);
-    const currentNoteId = useWorkspaceStore(s => s.currentNoteId);
+    const currentNoteId = useWorkspaceStore((s) => s.currentNoteId);
 
-    // This ref acts as a gatekeeper to prevent programmatic updates 
+    // This ref acts as a gatekeeper to prevent programmatic updates
     // from triggering the 'isDirty' logic in the store.
     const isProgrammaticUpdate = useRef(false);
 
@@ -72,11 +71,13 @@ export function useCodeMirror({
         if (!view) return;
 
         isProgrammaticUpdate.current = true;
-        view.setState(createState({
-            doc: value,
-            onChange: handleDocChange, // Re-bind the wrapped version
-            placeholder
-        }));
+        view.setState(
+            createState({
+                doc: value,
+                onChange: handleDocChange, // Re-bind the wrapped version
+                placeholder,
+            }),
+        );
         isProgrammaticUpdate.current = false;
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
