@@ -26,7 +26,8 @@ Amethyst is a streamlined, architecture-first Markdown note-taking application. 
 
 **0.4.0 — Notebook & Tree View (Current)**
 
-- Recursive folder scanning for local workspaces (Facets).
+- **Single-Facet Architecture:** Logic to scan and watch exactly one local root directory.
+- Recursive folder scanning for the active workspace.
 - Tree View navigation for note hierarchies.
 - Single-note loading logic (tab-less, focused environment).
 - Intelligent sorting (notebooks first, then notes alphabetically).
@@ -42,16 +43,15 @@ Amethyst is a streamlined, architecture-first Markdown note-taking application. 
 **0.6.0 — File Safety & Advanced Operations**
 
 - **Rename & Move:** Full support for changing file/folder paths.
-- **Safe Deletion:** Command-triggered deletion with confirmation modals.
-- **Facet Trash:** Moves deleted files to a local `.trash` folder within the Facet.
+- **Safe Deletion:** Command-triggered deletion with confirmation modals and `.trash` logic.
 - **Conflict Handling:** Banner-based resolution for external file changes.
-- **Debounced Autosave & Dirty State:** 2s interval with "Save on Switch" protection, plus a visual indicator for unsaved changes.
+- **Debounced Autosave & Dirty State:** 2s interval with "Save on Switch" protection and unsaved changes indicator.
 
 **0.7.0 — Search & Global Navigation**
 
 - **Quick Open:** `Ctrl+P` modal to instantly jump to any file by name.
 - **Command Palette:** `Ctrl+Shift+P` to search and execute any registered command.
-- **Local Find & Replace:** `Ctrl+F` interface to search and modify text within the active note.
+- **Local Find & Replace:** `Ctrl+F` interface to search/modify text within the active note.
 - **Global Search:** Full-text indexing across the entire Facet.
 - **Breadcrumbs:** Path-based navigation trail at the top of the editor.
 
@@ -62,12 +62,10 @@ Amethyst is a streamlined, architecture-first Markdown note-taking application. 
 
 **0.9.0 — Workspace, Themes & Focus**
 
-- **Theme Engine:** Logic to load JSON theme files and inject CSS variables into the UI.
+- **Theme Engine:** Logic to load JSON theme files and inject CSS variables.
 - **Efficient Sync-Scroll:** Re-introduction of high-performance synchronized scrolling.
-- **Focus Mode:** A dedicated mode to hide all peripheral UI for distraction-free writing.
-- **Layout Recovery:** Persist sidebar width, panel states, and preview status.
-- **Session Restore:** Auto-load the last active Facet and note on startup.
-- **Global Settings:** Central UI for editor preferences and theme selection.
+- **Focus Mode:** Dedicated mode to hide peripheral UI for distraction-free writing.
+- **Layout Recovery:** Persist sidebar width, panel states, and active Facet path.
 
 **1.0.0 — Stable Release**
 
@@ -81,6 +79,5 @@ Amethyst is a streamlined, architecture-first Markdown note-taking application. 
 ## 🔮 Later Ideas (Post-1.0.0)
 
 - **Image Handling:** Automatic asset management for pasted/dropped images.
+- Multi-Facet switching / Global Workspace Manager.
 - Backlinks & Graph View.
-- Local-first sync options.
-- Plugin system.

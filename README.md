@@ -1,26 +1,29 @@
 # 💎 Amethyst
 
-![Version](https://img.shields.io/badge/version-0.3.0-blue.svg)
+![Version](https://img.shields.io/badge/version-0.4.0-blue.svg)
 ![License](https://img.shields.io/badge/license-AGPL--3.0-green.svg)
 ![Release](https://github.com/abdallah-moh1/amethyst/actions/workflows/release.yml/badge.svg)
 ![CI](https://github.com/abdallah-moh1/amethyst/actions/workflows/ci.yml/badge.svg)
 
 A streamlined, architecture-first Markdown note-taking desktop application built with **Electron, React, Vite, and TypeScript**.
 
-Amethyst is currently in active early development. The latest `v0.3.0` milestone solidifies the core editor foundation and introduces an initial Markdown preview workflow.
+Amethyst is currently in active early development. The latest `v0.4.0` milestone introduces **Facets** (single-workspace management) and a recursive filesystem tree view.
 
-## 🚀 Current Status (`v0.3.0`)
+## 🚀 Current Status (`v0.4.0`)
 
 What currently works:
 
-- **Core App:** Electron desktop shell with a React/Vite renderer.
-- **Editor:** CodeMirror 6 integration.
-- **Preview:** Live Markdown-to-HTML rendering.
-- **Layout:** Resizable left/center/right workspace panels with a split editor/preview view mode.
+- **Single-Facet Workspace:** Support for opening and scanning a single local root directory.
+- **Recursive Tree View:** Hierarchical navigation of folders (notebooks) and files (notes) within the active Facet.
+- **Real-time Sync:** Main-process filesystem watching (Chokidar) to reflect external changes instantly.
+- **Editor:** CodeMirror 6 integration with tab-less, single-note focused loading.
+- **Preview:** Live Markdown-to-HTML rendering with toggle and split-view modes.
 - **Theming:** Built-in dark and light theme loading via CSS variables and JSON.
-- **Infrastructure:** Settings persistence and GitHub Actions CI with a tagged release workflow.
+- **Infrastructure:** Settings persistence and GitHub Actions CI/CD.
 
-_See [ROADMAP.md](./ROADMAP.md) for what is currently in progress (v0.4.0 Notebook & Tree View) and what is planned for the road to 1.0.0._
+> **Note:** Synchronized scrolling has been temporarily removed in v0.4.0 to undergo a high-performance refactor scheduled for v0.9.0.
+
+_See [ROADMAP.md](./ROADMAP.md) for the full release schedule and the road to 1.0.0._
 
 ## 📸 Screenshots
 
@@ -47,17 +50,16 @@ amethyst/
 ├── assets/                # Icons and packaging assets
 ├── electron/              # Electron main process, preload, IPC, native-side services
 │   ├── ipc/               # IPC handler registration
-│   ├── services/          # Settings/theme services on the main process
+│   ├── services/          # Settings/theme/filesystem services
 │   ├── themes/            # Built-in JSON theme definitions
 │   └── window/            # BrowserWindow creation
 ├── shared/                # Types shared by main and renderer
 ├── src/                   # React renderer application
 │   ├── app/               # App bootstrap and root app component
-│   ├── features/          # Feature modules (editor, sidebar, right panel, workspace)
+│   ├── features/          # Feature modules (editor, sidebar/tree, workspace)
 │   ├── layout/            # App shell and panel layout composition
 │   ├── services/          # Renderer-side IPC client wrappers
-│   ├── styles/            # Global and layout CSS
-│   └── utils/             # Small DOM/UI helpers
+│   └── styles/            # Global and layout CSS
 ├── .github/workflows/     # CI and release automation
 ├── package.json
 └── vite.config.ts
@@ -67,63 +69,55 @@ amethyst/
 
 Amethyst follows a strict, secure Electron architecture:
 
-- **Main Process:** Creates the native window, owns filesystem access, and persists settings.
+- **Main Process:** Manages native windows, recursive filesystem scanning, and file watching.
 - **Preload:** Exposes a narrow, secure API to the renderer through `window.amethyst`.
-- **Renderer:** Contains the React UI and communicates with the main process exclusively through IPC wrappers.
+- **Renderer:** Contains the React UI and communicates via IPC wrappers.
 - **Shared Types:** Keeps the contract between the main process and renderer strictly aligned.
 
 _For more detail, see [ARCHITECTURE.md](https://www.google.com/search?q=./ARCHITECTURE.md)._
 
 ## 💻 Development
 
-### 1. Install Dependencies
+### 1\. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 2. Run Locally
+### 2\. Run Locally
 
 ```bash
 npm run dev
 ```
 
-### 3. Run Checks
+### 3\. Run Checks
 
 ```bash
 npm run check
 ```
 
-_Runs type-checking, linting, formatting checks, and a production build._
-
 ## 📦 Build and Package
 
-| Command                      | Description                                         |
-| ---------------------------- | --------------------------------------------------- |
-| `npm run build`              | Builds the renderer and Electron TypeScript output. |
-| `npm run build:electron`     | Packages the app into desktop release artifacts.    |
-| `npm run build:electron:dir` | Builds unpacked output for local inspection.        |
+| Command                  | Description                                         |
+| ------------------------ | --------------------------------------------------- |
+| `npm run build`          | Builds the renderer and Electron TypeScript output. |
+| `npm run build:electron` | Packages the app into desktop release artifacts.    |
 
-**Current Packaging Targets:**
-
-- **Windows:** NSIS installer, portable executable
-- **macOS:** DMG, ZIP
-- **Linux:** AppImage, DEB, RPM, tar.gz
+**Packaging Targets:** Windows (NSIS, Portable), macOS (DMG, ZIP), Linux (AppImage, DEB, RPM).
 
 ## 🎨 Themes
 
 Amethyst utilizes a lightweight theme system. Themes are defined as JSON files in `electron/themes/` and applied in the renderer by mapping theme tokens to CSS custom properties.
 
-> Note: Changing them is still in progress
-
 ## 📚 Documentation
 
-- [ROADMAP.md](./ROADMAP.md) - Release schedule and feature tracking.
-- [ARCHITECTURE.md](./ARCHITECTURE.md) - Deep dive into the app's structure.
+- [ROADMAP.md](https://www.google.com/search?q=./ROADMAP.md) - Release schedule.
+- [PROJECT_PLAN.md](https://www.google.com/search?q=./PROJECT_PLAN.md) - Technical milestone checklist.
+- [ARCHITECTURE.md](https://www.google.com/search?q=./ARCHITECTURE.md) - Technical deep dive.
 
 ## 🤝 Contributing
 
-Contributions are welcome\! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on how to help grow Amethyst.
+Please see [CONTRIBUTING.md](https://www.google.com/search?q=./CONTRIBUTING.md) for guidelines.
 
 ## 👨‍💻 Author
 
@@ -134,4 +128,4 @@ Contributions are welcome\! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for 
 
 ## 📄 License
 
-Amethyst is licensed under the **AGPL-3.0-or-later** license. See [LICENSE](https://www.google.com/search?q=./LICENSE).
+Amethyst is licensed under the **AGPL-3.0-or-later** license.
