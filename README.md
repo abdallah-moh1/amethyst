@@ -1,59 +1,46 @@
-# Amethyst
+# 💎 Amethyst
 
-A modern markdown note-taking desktop application built with Electron, React, Vite, and TypeScript.
+![Version](https://img.shields.io/badge/version-0.3.0-blue.svg)
+![License](https://img.shields.io/badge/license-AGPL--3.0-green.svg)
+![Release](https://github.com/abdallah-moh1/amethyst/actions/workflows/release.yml/badge.svg)
+![CI](https://github.com/abdallah-moh1/amethyst/actions/workflows/ci.yml/badge.svg)
 
-Amethyst is currently in early development. The current `v0.3.0` milestone builds on the editor foundation and introduces an initial Markdown preview workflow.
+A streamlined, architecture-first Markdown note-taking desktop application built with **Electron, React, Vite, and TypeScript**.
 
-## Current status
+Amethyst is currently in active early development. The latest `v0.3.0` milestone solidifies the core editor foundation and introduces an initial Markdown preview workflow.
 
-Amethyst is currently in early development.
-Version 0.3.0 expands the editor foundation with preview capabilities and workflow improvements.
-
-**Released:** `v0.3.0`
+## 🚀 Current Status (`v0.3.0`)
 
 What currently works:
 
-- Electron desktop shell
-- React renderer with Vite
-- CodeMirror editor integration
-- Markdown preview mode
-- Toggle between editor and preview
-- Split editor/preview view mode
-- Added synced scrolling between the editor and preview
-- Resizable left / center / right workspace panels
-- Collapsible side panels
-- Built-in dark and light theme loading
-- Settings persistence infrastructure
-- GitHub Actions CI and tagged release workflow
+- **Core App:** Electron desktop shell with a React/Vite renderer.
+- **Editor:** CodeMirror 6 integration.
+- **Preview:** Live Markdown-to-HTML rendering.
+- **Layout:** Resizable left/center/right workspace panels with a split editor/preview view mode.
+- **Theming:** Built-in dark and light theme loading via CSS variables and JSON.
+- **Infrastructure:** Settings persistence and GitHub Actions CI with a tagged release workflow.
 
-What is not implemented yet:
+_See [ROADMAP.md](./ROADMAP.md) for what is currently in progress (v0.4.0 Notebook & Tree View) and what is planned for the road to 1.0.0._
 
-- Notes and notebooks
-- Saving markdown files
-- Search
-- Outline panel contents
-- Full settings UI
-- Note title bar (in progress)
-
-## Screenshots
+## 📸 Screenshots
 
 ![Amethyst Screenshot Dark Theme](./screenshots/screenshot1.png)
 ![Amethyst Screenshot Light Theme](./screenshots/screenshot2.png)
 
-## Tech stack
+## 🛠️ Tech Stack
 
 | Layer         | Technology                  |
 | ------------- | --------------------------- |
-| Desktop shell | Electron                    |
+| Desktop Shell | Electron                    |
 | Renderer      | React                       |
-| Build tool    | Vite                        |
+| Build Tool    | Vite                        |
 | Language      | TypeScript                  |
 | Editor        | CodeMirror 6                |
 | Layout        | react-resizable-panels      |
 | Styling       | CSS variables + JSON themes |
 | Packaging     | electron-builder            |
 
-## Project structure
+## 📂 Project Structure
 
 ```text
 amethyst/
@@ -76,145 +63,75 @@ amethyst/
 └── vite.config.ts
 ```
 
-## How the app is structured
+## 🏗️ Architecture
 
-Amethyst follows a simple Electron architecture:
+Amethyst follows a strict, secure Electron architecture:
 
-- **Main process** creates the native window, owns filesystem access, and persists settings.
-- **Preload** exposes a narrow, safe API to the renderer through `window.amethyst`.
-- **Renderer** contains the React UI and talks to the main process only through IPC wrappers.
-- **Shared types** keep the contract between both sides aligned.
+- **Main Process:** Creates the native window, owns filesystem access, and persists settings.
+- **Preload:** Exposes a narrow, secure API to the renderer through `window.amethyst`.
+- **Renderer:** Contains the React UI and communicates with the main process exclusively through IPC wrappers.
+- **Shared Types:** Keeps the contract between the main process and renderer strictly aligned.
 
-For more detail, see [ARCHITECTURE.md](./ARCHITECTURE.md).
+_For more detail, see [ARCHITECTURE.md](https://www.google.com/search?q=./ARCHITECTURE.md)._
 
-## Development
+## 💻 Development
 
-### Install dependencies
+### 1. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### Run in development
+### 2. Run Locally
 
 ```bash
 npm run dev
 ```
 
-This starts:
-
-- the Vite development server for the renderer
-- Electron, pointed at the Vite dev URL through `ELECTRON_START_URL`
-
-### Run checks
+### 3. Run Checks
 
 ```bash
 npm run check
 ```
 
-This runs type-checking, linting, formatting checks, and a production build.
+_Runs type-checking, linting, formatting checks, and a production build._
 
-## Build and package
+## 📦 Build and Package
 
-### Build renderer + Electron main code
+| Command                      | Description                                         |
+| ---------------------------- | --------------------------------------------------- |
+| `npm run build`              | Builds the renderer and Electron TypeScript output. |
+| `npm run build:electron`     | Packages the app into desktop release artifacts.    |
+| `npm run build:electron:dir` | Builds unpacked output for local inspection.        |
 
-```bash
-npm run build
-```
-
-### Build installable packages
-
-```bash
-npm run build:electron
-```
-
-This packages the app with `electron-builder`.
-
-Current targets:
+**Current Packaging Targets:**
 
 - **Windows:** NSIS installer, portable executable
 - **macOS:** DMG, ZIP
 - **Linux:** AppImage, DEB, RPM, tar.gz
 
-## Available scripts
+## 🎨 Themes
 
-| Script                       | Description                                              |
-| ---------------------------- | -------------------------------------------------------- |
-| `npm run dev`                | Start Vite and Electron together for local development   |
-| `npm run build`              | Build the renderer and Electron TypeScript output        |
-| `npm run build:electron`     | Create packaged desktop release artifacts                |
-| `npm run build:electron:dir` | Build unpacked output for inspection/debugging           |
-| `npm run preview`            | Preview the Vite production renderer build               |
-| `npm run lint`               | Run ESLint                                               |
-| `npm run lint:fix`           | Run ESLint and apply fixes where possible                |
-| `npm run format`             | Format the repository with Prettier                      |
-| `npm run format:check`       | Check formatting with Prettier                           |
-| `npm run typecheck`          | Type-check both renderer and Electron TypeScript configs |
-| `npm run check`              | Run typecheck + lint + format check + build              |
+Amethyst utilizes a lightweight theme system. Themes are defined as JSON files in `electron/themes/` and applied in the renderer by mapping theme tokens to CSS custom properties.
 
-## Themes
+> Note: Changing them is still in progress
 
-Amethyst already has a small theme system.
+## 📚 Documentation
 
-Current built-in themes:
+- [ROADMAP.md](./ROADMAP.md) - Release schedule and feature tracking.
+- [ARCHITECTURE.md](./ARCHITECTURE.md) - Deep dive into the app's structure.
 
-- `amethyst-dark`
-- `amethyst-light`
+## 🤝 Contributing
 
-Themes are defined as JSON files in `electron/themes/` and applied in the renderer by mapping theme tokens to CSS custom properties.
+Contributions are welcome\! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on how to help grow Amethyst.
 
-Longer term, this can grow into a custom-theme system without changing the basic contract.
-
-## Settings
-
-The project already includes a basic settings persistence layer.
-
-Current stored settings:
-
-- selected theme
-- autosave flag
-
-Settings are stored in the Electron `userData` directory as `settings.json`.
-
-The settings model is intentionally small right now because the settings UI has not been built yet.
-
-## Storage
-
-### Current
-
-- **Settings:** stored in the app's `userData/settings.json`
-- **Themes:** built-in JSON files bundled with the app
-- **Notes:** not implemented yet
-
-### Planned
-
-Once note storage is added, markdown notes and notebook metadata will likely live in a user-chosen local directory while app-level preferences remain in `userData`.
-
-## Documentation
-
-- [CHANGELOG.md](./CHANGELOG.md)
-- [ROADMAP.md](./ROADMAP.md)
-- [ARCHITECTURE.md](./ARCHITECTURE.md)
-
-## Contributing
-
-Contributions are welcome later, but the project is still in early architecture-first development.
-
-If you want to contribute once the project stabilizes:
-
-1. Fork the repository.
-2. Create a feature branch.
-3. Keep changes focused and small.
-4. Run `npm run check` before opening a pull request.
-5. Explain the change clearly in the PR description.
-
-## License
-
-Amethyst is licensed under the **AGPL-3.0-or-later** license. See [LICENSE](./LICENSE).
-
-## Author
+## 👨‍💻 Author
 
 **Abdallah Mohammad**
 
-- GitHub: `abdallah-moh1`
+- GitHub: [abdallah-moh1](https://www.google.com/search?q=https://github.com/abdallah-moh1)
 - Email: `abdallah.moh.q@gmail.com`
+
+## 📄 License
+
+Amethyst is licensed under the **AGPL-3.0-or-later** license. See [LICENSE](https://www.google.com/search?q=./LICENSE).

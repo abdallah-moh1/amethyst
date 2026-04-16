@@ -1,77 +1,86 @@
-# Amethyst Roadmap
+# 💎 Amethyst Roadmap
 
-This roadmap is intentionally incremental. Each release adds one clear layer of the product so the architecture stays clean.
+Amethyst is a streamlined, architecture-first Markdown note-taking application. This roadmap tracks our progress from the initial shell to a stable 1.0.0 release.
 
-## 0.1.0 — Editor Core
+## ✅ Already Released
 
-- Editor foundation
-- Electron shell
-- Resizable workspace layout
-- Theme/settings infrastructure
+**0.1.0 — Editor Core**
 
-## 0.2.0 — Markdown Preview
+- Electron shell for cross-platform support.
+- Core Markdown editor foundation.
+- Resizable workspace infrastructure.
 
-- Markdown preview pane
-- Edit / Preview toggle
+**0.2.0 — Markdown Preview**
 
-## 0.3.0 — Split View
+- Live Markdown-to-HTML rendering engine.
+- Edit and Preview mode toggle.
 
-- Side-by-side editor and preview
-- Synchronized scrolling between both views
+**0.3.0 — Split View**
 
-## 0.4.0 — Notebook and Notes System
+- Side-by-side editing and previewing.
+- _Note: Synchronized scrolling introduced (to be refactored in 0.9.0)._
 
-- Notebook and note CRUD operations
-- Sidebar integration for notebooks and notes
-- Save and load note contents
-- Autosave notes
-- Restore last opened note
-- Confirmation dialogs for destructive actions
+---
 
-## 0.5.0 — Search and Navigation
+## 📍 Current & Future Phases
 
-- Search by title
-- Search by content
-- Quick open
-- Recent notes
+**0.4.0 — Notebook & Tree View (Current)**
 
-## 0.6.0 — Outline and Status
+- Recursive folder scanning for local workspaces (Facets).
+- Tree View navigation for note hierarchies.
+- Single-note loading logic (tab-less, focused environment).
+- Intelligent sorting (notebooks first, then notes alphabetically).
+- _Note: Temporary removal of sync-scroll for performance refactoring._
 
-- Outline panel from markdown headings
-- Status bar
-- Word count / character count
-- Line and column indicators
+**0.5.0 — The Command System**
 
-## 0.7.0 — Layout System
+- **Command Registry:** Centralized hub to register and trigger all app actions.
+- **Context Menus:** Right-click support for the Sidebar and Editor.
+- **Shortcut Manager:** Mapping physical keys to Command IDs.
+- **Toast Notifications:** Global system for both **success** and **error** feedback.
 
-- Persist panel sizes
-- Restore layout on startup
-- Better collapse/expand behavior
-- Optional panel visibility controls
+**0.6.0 — File Safety & Advanced Operations**
 
-## 0.8.0 — Settings and Themes
+- **Rename & Move:** Full support for changing file/folder paths.
+- **Safe Deletion:** Command-triggered deletion with confirmation modals.
+- **Facet Trash:** Moves deleted files to a local `.trash` folder within the Facet.
+- **Conflict Handling:** Banner-based resolution for external file changes.
+- **Debounced Autosave & Dirty State:** 2s interval with "Save on Switch" protection, plus a visual indicator for unsaved changes.
 
-- Settings page
-- General, editor, appearance, and layout settings
-- Dark / light / system theme handling
-- Theme system shaped for future custom themes
-- About page and changelog page
+**0.7.0 — Search & Global Navigation**
 
-## 1.0.0 — Stable Release
+- **Quick Open:** `Ctrl+P` modal to instantly jump to any file by name.
+- **Command Palette:** `Ctrl+Shift+P` to search and execute any registered command.
+- **Local Find & Replace:** `Ctrl+F` interface to search and modify text within the active note.
+- **Global Search:** Full-text indexing across the entire Facet.
+- **Breadcrumbs:** Path-based navigation trail at the top of the editor.
 
-- Export to Markdown / HTML / PDF
-- Keyboard shortcuts
-- Better empty states
-- App menu polish
-- First stable installer set for Windows, macOS, and Linux
-- Public release-quality documentation and screenshots
+**0.8.0 — Outline & Status**
 
-## Later ideas
+- **Markdown Outline:** A clickable panel showing the header structure of the active note.
+- **Status Bar:** Real-time word/character counts and cursor position (Line/Col).
 
-- Backlinks
-- Graph view
-- Custom themes
-- Plugin system
-- Local-first sync options
-- Templates
-- Tagging
+**0.9.0 — Workspace, Themes & Focus**
+
+- **Theme Engine:** Logic to load JSON theme files and inject CSS variables into the UI.
+- **Efficient Sync-Scroll:** Re-introduction of high-performance synchronized scrolling.
+- **Focus Mode:** A dedicated mode to hide all peripheral UI for distraction-free writing.
+- **Layout Recovery:** Persist sidebar width, panel states, and preview status.
+- **Session Restore:** Auto-load the last active Facet and note on startup.
+- **Global Settings:** Central UI for editor preferences and theme selection.
+
+**1.0.0 — Stable Release**
+
+- **Export Engine:** One-click export to PDF and HTML.
+- **App Menu Polish:** Native window menus wired to the Command System.
+- **Empty States:** Onboarding UI for empty Facets or unselected notes.
+- **Keyboard Cheat-Sheet:** Quick-reference modal for all shortcuts.
+
+---
+
+## 🔮 Later Ideas (Post-1.0.0)
+
+- **Image Handling:** Automatic asset management for pasted/dropped images.
+- Backlinks & Graph View.
+- Local-first sync options.
+- Plugin system.
