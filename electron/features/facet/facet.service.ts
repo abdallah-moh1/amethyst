@@ -7,14 +7,16 @@ import { FacetNote, FacetNotebook } from '../../../shared/types/facet.type.js';
 import {
     getNameFromPath,
     getParentRelativePath,
+    isHiddenPath,
     isMarkdownFile,
     toRelativeFacetPath,
 } from '../../utils/path.utils.js';
 import { FacetScanService } from './facet-scan.service.js';
 import chokidar, { FSWatcher } from 'chokidar';
-import { readFile, stat, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
 import matter from 'gray-matter';
+import { existsSync } from 'node:fs';
 
 export class FacetService {
     private notes: Map<string, FacetNote>;
@@ -38,13 +40,19 @@ export class FacetService {
             this.watcher = null;
         }
 
+        // Create facet if it doesn't exist
+        if (!existsSync(this.facetPath)) {
+            await mkdir(this.facetPath, { recursive: true });
+        }
+
         await FacetScanService.scanDisk(this.facetPath, this);
 
         this.watcher = chokidar.watch(this.facetPath, {
             persistent: true,
             ignored: (path, stats) => {
                 if (!stats) return false; // not yet known, don't ignore
-                if (stats.isDirectory()) return false;
+                if (stats.isDirectory() && !isHiddenPath(toRelativeFacetPath(this.facetPath, path)))
+                    return false;
                 return !isMarkdownFile(path);
             },
             awaitWriteFinish: {

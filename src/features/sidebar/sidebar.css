@@ -3,5 +3,64 @@
     border-right: 1px solid var(--app-border);
     height: 100%;
     width: 100%;
-    user-select: none;
+    padding: 10px 20px;
+}
+.notebooks-section {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 0px;
+    flex-shrink: 0;
+}
+
+.section-tree {
+    overflow: scroll;
+    flex: 1;
+}
+
+.section-header p {
+    margin: 0;
+    font-size: 12px;
+    /* letter-spacing: 0.04em; */
+    text-transform: uppercase;
+    color: var(--app-text-secondary);
+}
+.action-btns {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.action-btns button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    color: var(--app-text-secondary);
+    cursor: pointer;
+    transition:
+        transform 0.1s ease,
+        color 0.2s ease,
+        background-color 0.2s ease;
+    outline: none;
+}
+
+/* Hover: subtle background and accent color */
+.action-btns button:hover {
+    background-color: var(--app-bg-secondary);
+    color: var(--app-accent);
+}
+
+/* Active: Scale down for a "pressed" feel */
+.action-btns button:active {
+    transform: scale(0.9); /* Size transform instead of color change */
 }

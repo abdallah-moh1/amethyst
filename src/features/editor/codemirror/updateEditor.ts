@@ -1,19 +1,29 @@
-// SPDX-License-Identifier: AGPL-3.0-or-later
-// Amethyst - A modern markdown note-taking application
-// Copyright (C) 2026 Abdallah
-
-import type { UpdateEditorOptions } from '../../../types/editor.type';
+import { UpdateEditorOptions } from '@/types/editor.type';
 
 export function updateEditor({ view, value }: UpdateEditorOptions) {
-    const currentValue = view.state.doc.toString();
+    const current = view.state.doc.toString();
+    if (current === value) return;
 
-    if (currentValue === value) return;
+    let start = 0;
+    let endCurrent = current.length;
+    let endNew = value.length;
+
+    // find common prefix
+    while (start < endCurrent && start < endNew && current[start] === value[start]) {
+        start++;
+    }
+
+    // find common suffix
+    while (endCurrent > start && endNew > start && current[endCurrent - 1] === value[endNew - 1]) {
+        endCurrent--;
+        endNew--;
+    }
 
     view.dispatch({
         changes: {
-            from: 0,
-            to: currentValue.length,
-            insert: value,
+            from: start,
+            to: endCurrent,
+            insert: value.slice(start, endNew),
         },
     });
 }

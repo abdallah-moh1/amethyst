@@ -11,11 +11,12 @@ import { bootstrapApp } from './app/bootstrap';
 import './styles/globals.css';
 import './styles/layout.css';
 
+ReactDOM.createRoot(document.getElementById('root')!).render(
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>,
+);
+
 bootstrapApp().then(() => {
     console.log('App bootstrapped successfully');
-    ReactDOM.createRoot(document.getElementById('root')!).render(
-        <React.StrictMode>
-            <App />
-        </React.StrictMode>,
-    );
 });

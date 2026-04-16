@@ -1,3 +1,7 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Amethyst - A modern markdown note-taking application
+// Copyright (C) 2026 Abdallah
+
 export const BUILTIN_THEMES = ['amethyst-dark', 'amethyst-light'] as const;
 
 export type BuiltInThemes = (typeof BUILTIN_THEMES)[number];

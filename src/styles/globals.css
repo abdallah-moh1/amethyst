@@ -13,6 +13,12 @@ body,
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    user-select: none;
+}
+
+input,
+textarea {
+    user-select: text;
 }
 
 .app-shell {
@@ -42,4 +48,8 @@ body,
 
 *::-webkit-scrollbar-thumb:active {
     background-color: var(--scrollbar-thumb-active);
+}
+
+*::-webkit-scrollbar-corner {
+    background: transparent;
 }

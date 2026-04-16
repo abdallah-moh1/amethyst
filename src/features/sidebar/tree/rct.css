@@ -1,0 +1,323 @@
+/* ============================================================
+   React Complex Tree — Final Theme + Enhanced Rename UX
+   ============================================================ */
+
+/* ─────────────────────────────────────────────────────────────
+   ROOT
+──────────────────────────────────────────────────────────── */
+.rct-tree-root {
+    background-color: transparent;
+    color: var(--app-text-primary);
+    font-size: 13px;
+    font-family: inherit;
+    padding: 4px 0;
+    outline: none;
+    overflow: visible;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   LISTS
+──────────────────────────────────────────────────────────── */
+.rct-tree-items-container {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.rct-tree-item-li {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: block;
+}
+
+/* nested */
+.rct-tree-item-li > .rct-tree-items-container {
+    padding-left: 16px;
+    overflow: hidden;
+    animation: rct-expand 140ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   ANIMATION
+──────────────────────────────────────────────────────────── */
+@keyframes rct-expand {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   ROW BASE
+──────────────────────────────────────────────────────────── */
+.rct-tree-item-title-container {
+    display: flex;
+    align-items: center;
+
+    border-radius: 6px;
+    padding: 0 0 0 6px;
+
+    height: 32px;
+    width: 100%;
+
+    box-sizing: border-box;
+
+    cursor: pointer;
+    position: relative;
+
+    background: transparent;
+
+    transition:
+        background-color 180ms cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 180ms cubic-bezier(0.4, 0, 0.2, 1),
+        transform 120ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* hover */
+.rct-tree-item-title-container:hover {
+    background-color: color-mix(in srgb, var(--app-accent) 7%, var(--app-bg-primary));
+}
+
+/* active */
+.rct-tree-item-title-container:active {
+    background-color: color-mix(in srgb, var(--app-accent) 12%, var(--app-bg-primary));
+    transform: scale(0.995);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SELECTION NOTE
+──────────────────────────────────────────────────────────── */
+.rct-tree-item-li-selected:not(.rct-tree-item-li-isFolder) > .rct-tree-item-title-container {
+    background-color: color-mix(in srgb, var(--app-accent) 9%, var(--app-bg-primary));
+
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--app-accent) 20%, transparent);
+}
+
+/* selection bar */
+.rct-tree-item-li-selected:not(.rct-tree-item-li-isFolder)
+    > .rct-tree-item-title-container::before {
+    content: '';
+
+    position: absolute;
+    left: 14px;
+    top: 6px;
+    bottom: 6px;
+
+    width: 2px;
+
+    border-radius: 2px;
+
+    background-color: var(--app-accent);
+
+    box-shadow: 0 0 8px color-mix(in srgb, var(--app-accent) 40%, transparent);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   FOLDER SELECTION
+──────────────────────────────────────────────────────────── */
+.rct-tree-item-li-selected.rct-tree-item-li-isFolder > .rct-tree-item-title-container {
+    background-color: color-mix(in srgb, var(--app-accent) 11%, var(--app-bg-primary));
+
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--app-accent) 18%, transparent);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   FOCUS
+──────────────────────────────────────────────────────────── */
+.rct-tree-item-li-focused > .rct-tree-item-title-container {
+    outline: 1.5px solid color-mix(in srgb, var(--app-accent) 45%, transparent);
+    outline-offset: -1px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   DRAG OVER
+──────────────────────────────────────────────────────────── */
+.rct-tree-item-li-dragging-over > .rct-tree-item-title-container {
+    background-color: color-mix(in srgb, var(--app-accent) 16%, var(--app-bg-primary));
+    transform: scale(1.01);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SEARCH MATCH
+──────────────────────────────────────────────────────────── */
+.rct-tree-item-li-search-match > .rct-tree-item-title-container {
+    background-color: color-mix(in srgb, var(--app-accent) 12%, var(--app-bg-primary));
+}
+
+/* ─────────────────────────────────────────────────────────────
+   ARROW
+──────────────────────────────────────────────────────────── */
+.rct-tree-item-arrow,
+.rct-tree-item-arrow svg {
+    width: 12px;
+    height: 12px;
+
+    flex-shrink: 0;
+
+    color: var(--app-text-secondary) !important;
+    fill: var(--app-text-secondary) !important;
+    stroke: var(--app-text-secondary) !important;
+
+    opacity: 0.75;
+
+    transition:
+        transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 160ms ease;
+}
+
+.rct-tree-item-title-container:hover .rct-tree-item-arrow {
+    opacity: 1;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   LABEL
+──────────────────────────────────────────────────────────── */
+.rct-tree-item-button {
+    background: none;
+    border: none;
+
+    padding: 0 6px 0 4px;
+    margin: 0;
+
+    flex: 1;
+
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+
+    text-align: left;
+
+    font: inherit;
+    color: var(--app-text-primary);
+
+    cursor: pointer;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    min-width: 0;
+}
+
+/* folder label */
+.rct-tree-item-li-isFolder > .rct-tree-item-title-container > .rct-tree-item-button {
+    color: var(--app-text-secondary);
+    font-weight: 500;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SEARCH HIGHLIGHT
+──────────────────────────────────────────────────────────── */
+.rct-tree-item-search-highlight {
+    background-color: color-mix(in srgb, var(--app-accent) 30%, transparent);
+    border-radius: 2px;
+    padding: 0 1px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SEARCH INPUT
+──────────────────────────────────────────────────────────── */
+.rct-tree-search-input {
+    width: 100%;
+
+    background-color: var(--app-bg-primary);
+    color: var(--app-text-primary);
+
+    border: 1px solid color-mix(in srgb, var(--app-accent) 20%, transparent);
+
+    border-radius: 6px;
+
+    padding: 5px 10px;
+
+    font: inherit;
+
+    outline: none;
+
+    transition:
+        border-color 160ms ease,
+        box-shadow 160ms ease;
+}
+
+.rct-tree-search-input:focus {
+    border-color: var(--app-accent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--app-accent) 22%, transparent);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   ✨ ENHANCED RENAME UX (IMPROVED)
+──────────────────────────────────────────────────────────── */
+
+/* form container (slightly more “editor-like”) */
+.rct-tree-item-renaming-form {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 0;
+    animation: rct-fade-in 100ms ease forwards;
+}
+
+/* input becomes “inline editor” */
+.rct-tree-item-renaming-input {
+    flex: 1;
+
+    background-color: var(--app-bg-primary);
+    color: var(--app-text-primary);
+
+    border: 1px solid color-mix(in srgb, var(--app-accent) 25%, transparent);
+    border-radius: 6px;
+
+    padding: 4px 8px;
+
+    font: inherit;
+
+    outline: none;
+
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--app-accent) 18%, transparent);
+
+    transition:
+        box-shadow 160ms ease,
+        border-color 160ms ease,
+        transform 120ms ease;
+}
+
+/* focus = more “active editing mode” */
+.rct-tree-item-renaming-input:focus {
+    border-color: var(--app-accent);
+
+    box-shadow:
+        0 0 0 3px color-mix(in srgb, var(--app-accent) 28%, transparent),
+        0 4px 12px color-mix(in srgb, var(--app-accent) 10%, transparent);
+
+    transform: scale(1.01);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   ❌ REMOVE BUTTON (HIDE CHECK / SUBMIT BUTTON)
+──────────────────────────────────────────────────────────── */
+.rct-tree-item-renaming-submit-button {
+    display: none !important;
+}
+
+/* also safety for any icon button variants */
+.rct-tree-item-renaming-form button {
+    display: none !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   FADE
+──────────────────────────────────────────────────────────── */
+@keyframes rct-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

@@ -2,12 +2,21 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { useWorkspaceStore } from '@/store';
-import { ViewModeSwitcherBtnProps } from '../../../types/workspace.type';
+import { useUIStore } from '@/store';
+import { ViewMode } from '@/store/ui.store';
+import { LucideProps } from 'lucide-react';
+
+type ViewModeSwitcherBtnProps = {
+    mode: ViewMode;
+    width?: number;
+    Icon: React.ForwardRefExoticComponent<
+        Omit<LucideProps, 'ref'> & React.RefAttributes<SVGSVGElement>
+    >;
+};
 
 export function ViewModeSwitcherBtn({ mode, Icon, width }: ViewModeSwitcherBtnProps) {
-    const viewMode = useWorkspaceStore((state) => state.viewMode);
-    const setViewMode = useWorkspaceStore((state) => state.setViewMode);
+    const viewMode = useUIStore((state) => state.viewMode);
+    const setViewMode = useUIStore((state) => state.setViewMode);
     return (
         <div
             className={`switcher-btn ${viewMode === mode ? 'active' : ''}`}

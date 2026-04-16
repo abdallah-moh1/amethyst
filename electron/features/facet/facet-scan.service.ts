@@ -7,7 +7,7 @@ import { join, relative } from 'node:path';
 import {
     getNameFromPath,
     getParentRelativePath,
-    isConfigPath,
+    isHiddenPath,
     isMarkdownFile,
     normalizeRelativePath,
     toAbsoluteFacetPath,
@@ -28,7 +28,7 @@ export class FacetScanService {
             const fullPath = join(dirent.parentPath, dirent.name);
             const relativePath = normalizeRelativePath(relative(facetPath, fullPath));
 
-            if (isConfigPath(relativePath)) {
+            if (isHiddenPath(relativePath)) {
                 continue;
             }
 
@@ -76,9 +76,9 @@ export class FacetScanService {
     static async readFrontmatter(absolutePath: string): Promise<{ id: string } | null> {
         const fd = await open(absolutePath);
         try {
-            // read first 512 bytes — enough for any frontmatter block
-            const buffer = Buffer.alloc(128);
-            await fd.read(buffer, 0, 128, 0);
+            // read first 1024 bytes — enough for any frontmatter block
+            const buffer = Buffer.alloc(1024);
+            await fd.read(buffer, 0, 1024, 0);
             const chunk = buffer.toString('utf-8');
             const parsed = matter(chunk);
             return parsed.data.id ? { id: parsed.data.id } : null;
