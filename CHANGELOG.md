@@ -8,20 +8,15 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.0.0
 
 ### Added
 
-- **Facets (Single-Workspace Management):** Support for opening and scanning a single local root directory.
-- **Recursive Tree View:** Hierarchical sidebar navigation for notes and notebooks within the active Facet.
-- **Real-time Filesystem Sync:** Integration with `chokidar` in the Main process to reflect external file changes (add/remove) instantly.
-- **Intelligent Sorting:** Automated logic that prioritizes Notebooks (folders) over Notes (files), followed by alphabetical ordering.
-- **Single-Note Loading:** Tab-less editor architecture optimized for focused, single-file performance.
-- **Workspace Actions:** "Add Note" and "Add Notebook" global actions within the sidebar header.
-- **Empty States:** Onboarding UI for unselected folders and empty note views.
+- **Single-Facet Management:** Support for a single root directory (set to a fixed default path).
+- **Recursive Tree View:** Hierarchical sidebar navigation with Notebook/Note sorting.
+- **Real-time Sync:** Chokidar-powered watcher to reflect external FS changes.
+- **Tab-less Loading:** Architecture optimized for single-note focus.
+- **Creation UI:** Sidebar header buttons for adding notes and notebooks.
 
 ### Changed
 
-- **Performance Refactor:** Temporarily disabled synchronized scrolling (introduced in v0.3.0) to prepare for a high-performance refactor in a later milestone.
-- **IPC Architecture:** Migrated filesystem state management to a centralized IPC-driven flow between Main and Renderer.
-
----
+- **Sync-Scroll:** Temporarily disabled for performance refactor in v0.9.0.
 
 ## [0.3.0] - 2026-04-08
 
