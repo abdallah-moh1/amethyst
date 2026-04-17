@@ -116,7 +116,6 @@ npm run check
 ## 📚 Documentation
 
 - [ROADMAP.md](./ROADMAP.md) - Release schedule and feature tracking.
-- [PROJECT_PLAN.md](./PROJECT_PLAN.md) - Technical milestone checklist.
 - [ARCHITECTURE.md](./ARCHITECTURE.md) - Technical deep dive.
 
 ## 🤝 Contributing
