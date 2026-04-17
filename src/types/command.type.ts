@@ -5,9 +5,9 @@
 export type CommandId = string;
 
 export type Command = {
-    id: CommandId,
-    label: string,
-    canBeOverwritten: boolean,
-    execute: (...args: unknown[]) => void | Promise<void>,
+    id: CommandId;
+    label: string;
+    canBeOverwritten: boolean;
+    execute: (...args: unknown[]) => void | Promise<void>;
     isEnabled?: () => boolean;
 };

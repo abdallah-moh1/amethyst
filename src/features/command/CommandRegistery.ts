@@ -8,7 +8,7 @@ class CommandRegistry {
     private static instance: CommandRegistry;
     private commands = new Map<CommandId, Command>();
 
-    private constructor() { }
+    private constructor() {}
 
     public static getInstance(): CommandRegistry {
         if (!CommandRegistry.instance) {
@@ -22,7 +22,8 @@ class CommandRegistry {
         const cmd = this.commands.get(command.id);
 
         if (cmd) {
-            if (cmd.canBeOverwritten) console.warn(`[CommandRegistry] Overwriting command: ${command.id}`);
+            if (cmd.canBeOverwritten)
+                console.warn(`[CommandRegistry] Overwriting command: ${command.id}`);
             else {
                 console.warn(`[CommandRegistry] Command: ${command.id}, can't be overwritten`);
                 return;
@@ -44,8 +45,7 @@ class CommandRegistry {
         const cmd = this.commands.get(id);
         if (cmd && this.canExecute(id)) {
             cmd.execute(...args);
-        }
-        else if (cmd) {
+        } else if (cmd) {
             console.warn(`[CommandRegistry] Command ${id} is blocked by isEnabled logic.`);
         }
     }
