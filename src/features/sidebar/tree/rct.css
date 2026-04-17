@@ -189,9 +189,6 @@
 
     height: 100%;
 
-    display: flex;
-    align-items: center;
-
     text-align: left;
 
     font: inherit;
@@ -261,6 +258,7 @@
     flex: 1;
     gap: 0;
     animation: rct-fade-in 100ms ease forwards;
+    max-width: 100%;
 }
 
 /* input becomes “inline editor” */
@@ -280,6 +278,7 @@
     outline: none;
 
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--app-accent) 18%, transparent);
+    max-width: 100%;
 
     transition:
         box-shadow 160ms ease,
