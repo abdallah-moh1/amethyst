@@ -12,9 +12,9 @@ export function WorkspacePanels() {
         <Group className="panel-group">
             <Panel
                 className="panel"
-                collapsible
+                collapsible={false}
                 defaultSize={240}
-                minSize={100}
+                minSize={200}
                 collapsedSize={40}
                 groupResizeBehavior="preserve-pixel-size"
             >
@@ -28,7 +28,7 @@ export function WorkspacePanels() {
             <Panel
                 className="panel"
                 collapsible
-                defaultSize={200}
+                defaultSize={40}
                 minSize={100}
                 collapsedSize={40}
                 groupResizeBehavior="preserve-pixel-size"
