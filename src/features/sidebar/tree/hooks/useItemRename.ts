@@ -1,9 +1,9 @@
-import { useInteractionStore } from "@/store";
-import { RefObject, useCallback, useEffect } from "react";
-import { GHOST_INDEX } from "../FacetTree";
-import { FacetTreeItem } from "@/types/tree.type";
-import { commands, FacetCommands } from "@/features/commands";
-import { TreeRef } from "react-complex-tree";
+import { useInteractionStore } from '@/store';
+import { RefObject, useCallback, useEffect } from 'react';
+import { GHOST_INDEX } from '../FacetTree';
+import { FacetTreeItem } from '@/types/tree.type';
+import { commands, FacetCommands } from '@/features/commands';
+import { TreeRef } from 'react-complex-tree';
 
 export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItem> | null>) {
     const ghost = useInteractionStore((s) => s.ghost);
@@ -38,12 +38,10 @@ export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItem> | null>)
                     commands.execute(FacetCommands.CREATE_NOTEBOOK, newName, ghost.parentPath);
                 }
                 setGhost(null);
-            }
-            else {
+            } else {
                 if (item.data?.type === 'note') {
                     commands.execute(FacetCommands.RENAME_NOTE, newName, item.data.node.id);
-                }
-                else if (item.data?.type === 'notebook') {
+                } else if (item.data?.type === 'notebook') {
                     commands.execute(FacetCommands.RENAME_NOTE, newName, item.data.node.path);
                 }
             }
@@ -58,6 +56,6 @@ export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItem> | null>)
 
     return {
         handleRenameItem,
-        handleAbort
+        handleAbort,
     };
 }

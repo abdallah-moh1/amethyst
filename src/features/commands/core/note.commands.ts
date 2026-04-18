@@ -12,7 +12,7 @@ import {
     moveNote,
     openNote,
     renameNote,
-    saveNote // Assuming this exists in your client
+    saveNote, // Assuming this exists in your client
 } from '@/clients/note.client';
 import { FacetCommands } from './facet.commands';
 
@@ -24,13 +24,13 @@ export const registerNoteCommands = () => {
 
     commands.register({
         id: FacetCommands.CREATE_NOTE,
-        label: "Create note",
+        label: 'Create note',
         canBeOverwritten: false,
         execute: async (...args) => {
             const { addNote } = facetStore.getState();
 
             // Palette fallback: If no name, you might want to prompt or use 'Untitled'
-            const name = (args[0] as string) || "Untitled";
+            const name = (args[0] as string) || 'Untitled';
             const parentPath = (args[1] || null) as ParentPath;
 
             try {
@@ -41,12 +41,12 @@ export const registerNoteCommands = () => {
             } catch (error) {
                 console.error(`[Amethyst] Create Failed:`, error);
             }
-        }
+        },
     });
 
     commands.register({
         id: FacetCommands.OPEN_NOTE,
-        label: "Open note",
+        label: 'Open note',
         canBeOverwritten: false,
         execute: async (...args) => {
             const { notes } = facetStore.getState();
@@ -66,12 +66,12 @@ export const registerNoteCommands = () => {
             } catch (error) {
                 console.error(`[Amethyst] Open Failed:`, error);
             }
-        }
+        },
     });
 
     commands.register({
         id: FacetCommands.SAVE_NOTE,
-        label: "Save note",
+        label: 'Save note',
         canBeOverwritten: false,
         // Smart fallback for Palette/Hotkey usage
         execute: async (...args) => {
@@ -81,7 +81,7 @@ export const registerNoteCommands = () => {
             const targetId = (args[0] as string) || currentNoteId;
             const content = (args[1] as string) || noteContent;
 
-            if (!targetId) return console.warn("No active note to save.");
+            if (!targetId) return console.warn('No active note to save.');
 
             try {
                 await saveNote(targetId, content);
@@ -90,12 +90,12 @@ export const registerNoteCommands = () => {
             } catch (error) {
                 console.error(`[Amethyst] Save Failed:`, error);
             }
-        }
+        },
     });
 
     commands.register({
         id: FacetCommands.RENAME_NOTE,
-        label: "Rename note",
+        label: 'Rename note',
         canBeOverwritten: false,
         execute: async (...args) => {
             const { removeNote, addNote } = facetStore.getState();
@@ -104,7 +104,7 @@ export const registerNoteCommands = () => {
             const id = (args[0] as string) || currentNoteId;
             const newName = args[1] as string;
 
-            if (!id || !newName) return console.error("Rename requires an ID and a New Name.");
+            if (!id || !newName) return console.error('Rename requires an ID and a New Name.');
 
             try {
                 const note = await renameNote(id, newName);
@@ -116,19 +116,19 @@ export const registerNoteCommands = () => {
             } catch (error) {
                 console.error(`[Amethyst] Rename Failed:`, error);
             }
-        }
+        },
     });
 
     commands.register({
         id: FacetCommands.MOVE_NOTE,
-        label: "Move note",
+        label: 'Move note',
         canBeOverwritten: false,
         execute: async (...args) => {
             const { removeNote, addNote } = facetStore.getState();
             const id = (args[0] as string) || workspaceStore.getState().currentNoteId;
             const newParentPath = args[1] as ParentPath;
 
-            if (!id) return console.error("Move requires target ID.");
+            if (!id) return console.error('Move requires target ID.');
 
             try {
                 const note = await moveNote(id, newParentPath);
@@ -137,12 +137,12 @@ export const registerNoteCommands = () => {
             } catch (error) {
                 console.error(`[Amethyst] Move Failed:`, error);
             }
-        }
+        },
     });
 
     commands.register({
         id: FacetCommands.DELETE_NOTE,
-        label: "Delete note",
+        label: 'Delete note',
         canBeOverwritten: false,
         execute: async (...args) => {
             const { notes, removeNote } = facetStore.getState();
@@ -158,13 +158,13 @@ export const registerNoteCommands = () => {
                 // If deleting the open note, clear the workspace
                 if (target === currentNoteId) {
                     setCurrentNoteId(null);
-                    setNoteContent("");
+                    setNoteContent('');
                 }
                 await deleteNote(target);
                 removeNote(target);
             } catch (error) {
                 console.error(`[Amethyst] Delete Failed:`, error);
             }
-        }
+        },
     });
 };

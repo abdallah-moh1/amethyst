@@ -6,7 +6,7 @@ import { registerNoteCommands } from './note.commands';
 import { registerNotebookCommands } from './notebook.commands';
 
 /**
- * The "Note Facet" - Registers all commands related to 
+ * The "Note Facet" - Registers all commands related to
  * notes and notebook management.
  */
 export const FacetCommands = {

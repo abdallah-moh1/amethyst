@@ -1,1 +1,1 @@
-export * from "./facet.commands";
+export * from './facet.commands';

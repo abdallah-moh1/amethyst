@@ -6,19 +6,24 @@ import { ParentPath } from '@shared/types/facet.type';
 import { commands } from '../registry';
 import { useFacetStore } from '@/store';
 import { FacetCommands } from './facet.commands';
-import { createNotebook, deleteNotebook, moveNotebook, renameNotebook } from '@/clients/notebook.client';
+import {
+    createNotebook,
+    deleteNotebook,
+    moveNotebook,
+    renameNotebook,
+} from '@/clients/notebook.client';
 
 export const registerNotebookCommands = () => {
     const facetStore = useFacetStore;
 
     commands.register({
         id: FacetCommands.CREATE_NOTEBOOK,
-        label: "Create notebook",
+        label: 'Create notebook',
         canBeOverwritten: false,
         // args = [name, parentPath]
         execute: async (...args) => {
             const { addNotebook } = facetStore.getState();
-            const name = (args[0] as string) || "New Notebook";
+            const name = (args[0] as string) || 'New Notebook';
             const parentPath = (args[1] as ParentPath) || null;
 
             try {
@@ -27,19 +32,19 @@ export const registerNotebookCommands = () => {
             } catch (error) {
                 console.error(`[Amethyst] Create Notebook Failed:`, error);
             }
-        }
+        },
     });
 
     commands.register({
         id: FacetCommands.DELETE_NOTEBOOK,
-        label: "Delete notebook",
+        label: 'Delete notebook',
         canBeOverwritten: false,
         // args = [path]
         execute: async (...args) => {
             const { removeNotebook } = facetStore.getState();
             const path = args[0] as string;
 
-            if (!path) return console.error("Delete Notebook: Path required.");
+            if (!path) return console.error('Delete Notebook: Path required.');
 
             // Basic safety: You might want a confirm dialog here eventually
             try {
@@ -48,12 +53,12 @@ export const registerNotebookCommands = () => {
             } catch (error) {
                 console.error(`[Amethyst] Delete Notebook Failed:`, error);
             }
-        }
+        },
     });
 
     commands.register({
         id: FacetCommands.MOVE_NOTEBOOK,
-        label: "Move notebook",
+        label: 'Move notebook',
         canBeOverwritten: false,
         // args = [currentPath, newParentPath]
         execute: async (...args) => {
@@ -70,13 +75,13 @@ export const registerNotebookCommands = () => {
             } catch (error) {
                 console.error(`[Amethyst] Move Notebook Failed:`, error);
             }
-        }
+        },
     });
 
     // Added a Rename Notebook command to match your client
     commands.register({
         id: FacetCommands.RENAME_NOTEBOOK,
-        label: "Rename notebook",
+        label: 'Rename notebook',
         canBeOverwritten: false,
         // args = [path, newName]
         execute: async (...args) => {
@@ -93,6 +98,6 @@ export const registerNotebookCommands = () => {
             } catch (error) {
                 console.error(`[Amethyst] Rename Notebook Failed:`, error);
             }
-        }
+        },
     });
 };

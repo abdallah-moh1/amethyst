@@ -1,7 +1,7 @@
-import { useMemo } from "react";
-import { buildFacetTree } from "../utils/treeAdapter";
-import { useFacetStore, useInteractionStore } from "@/store";
-import { GHOST_INDEX } from "../FacetTree";
+import { useMemo } from 'react';
+import { buildFacetTree } from '../utils/treeAdapter';
+import { useFacetStore, useInteractionStore } from '@/store';
+import { GHOST_INDEX } from '../FacetTree';
 
 export function useItems() {
     const notesMap = useFacetStore((s) => s.notes);
