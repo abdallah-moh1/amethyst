@@ -128,7 +128,7 @@ export const registerNoteCommands = () => {
             const id = (args[0] as string) || workspaceStore.getState().currentNoteId;
             const newParentPath = args[1] as ParentPath;
 
-            if (!id || !newParentPath) return console.error("Move requires target ID and new path.");
+            if (!id) return console.error("Move requires target ID.");
 
             try {
                 const note = await moveNote(id, newParentPath);

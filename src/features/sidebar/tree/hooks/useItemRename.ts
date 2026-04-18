@@ -41,10 +41,10 @@ export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItem> | null>)
             }
             else {
                 if (item.data?.type === 'note') {
-                    commands.execute(FacetCommands.RENAME_NOTE, item.data.node.id, newName);
+                    commands.execute(FacetCommands.RENAME_NOTE, newName, item.data.node.id);
                 }
                 else if (item.data?.type === 'notebook') {
-                    commands.execute(FacetCommands.RENAME_NOTE, item.data.node.path, newName);
+                    commands.execute(FacetCommands.RENAME_NOTE, newName, item.data.node.path);
                 }
             }
         },

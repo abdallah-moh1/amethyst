@@ -3,7 +3,6 @@
     border-right: 1px solid var(--app-border);
     height: 100%;
     width: 100%;
-    padding: 10px 20px;
 }
 .notebooks-section {
     display: flex;
@@ -15,13 +14,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 4px 0px;
     flex-shrink: 0;
+    padding: 10px 20px 0 20px;
 }
 
 .section-tree {
     overflow: scroll;
     flex: 1;
+    padding: 0px 20px;
 }
 
 .section-header p {

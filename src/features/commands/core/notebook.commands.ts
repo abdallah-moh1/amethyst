@@ -15,11 +15,11 @@ export const registerNotebookCommands = () => {
         id: FacetCommands.CREATE_NOTEBOOK,
         label: "Create notebook",
         canBeOverwritten: false,
-        // args = [parentPath, name]
+        // args = [name, parentPath]
         execute: async (...args) => {
             const { addNotebook } = facetStore.getState();
-            const parentPath = (args[0] as ParentPath) || null;
-            const name = (args[1] as string) || "New Notebook";
+            const name = (args[0] as string) || "New Notebook";
+            const parentPath = (args[1] as ParentPath) || null;
 
             try {
                 const notebook = await createNotebook(parentPath, name);
@@ -61,7 +61,7 @@ export const registerNotebookCommands = () => {
             const path = args[0] as string;
             const newParentPath = args[1] as ParentPath;
 
-            if (!path || newParentPath === undefined) return;
+            if (!path) return;
 
             try {
                 const notebook = await moveNotebook(path, newParentPath);
