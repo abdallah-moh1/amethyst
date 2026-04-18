@@ -57,7 +57,22 @@ export const useFacetStore = create<FacetState>((set) => ({
     removeNotebook: (path) =>
         set((state) => {
             const notebooks = new Map(state.notebooks);
-            notebooks.delete(path);
-            return { notebooks };
+            const notes = new Map(state.notes);
+
+            // 1. Remove the target notebook and all descendants from notebooks Map
+            for (const [nbPath] of notebooks) {
+                if (nbPath.startsWith(path)) {
+                    notebooks.delete(nbPath);
+                }
+            }
+
+            // 2. Remove all notes that were inside that folder
+            for (const [id, note] of notes) {
+                if (note.path.startsWith(path)) {
+                    notes.delete(id);
+                }
+            }
+
+            return { notebooks, notes };
         }),
 }));

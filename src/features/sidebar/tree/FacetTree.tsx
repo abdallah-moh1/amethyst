@@ -19,6 +19,7 @@ import { useItems } from './hooks/useItems';
 
 import './rct.css';
 import { commands, FacetCommands } from '@/features/commands';
+import { ROOT_ID } from './utils/treeAdapter';
 
 export const GHOST_INDEX = '__ghost__';
 
@@ -49,12 +50,16 @@ export function FacetTree() {
             }
         } else if (target.targetType === 'between-items') {
             if (item.data?.type === 'note') {
-                commands.execute(FacetCommands.MOVE_NOTE, item.data.node.id, target.parentItem);
+                commands.execute(
+                    FacetCommands.MOVE_NOTE,
+                    item.data.node.id,
+                    target.parentItem === ROOT_ID ? null : target.parentItem,
+                );
             } else if (item.data?.type === 'notebook') {
                 commands.execute(
                     FacetCommands.MOVE_NOTEBOOK,
                     item.data.node.path,
-                    target.parentItem,
+                    target.parentItem === ROOT_ID ? null : target.parentItem,
                 );
             }
         } else {
@@ -87,7 +92,7 @@ export function FacetTree() {
             onAbortRenamingItem={handleAbort}
             onDrop={handleOnDrop}
         >
-            <Tree treeId="facet" rootItem="root" treeLabel="Facet Tree" ref={envRef} />
+            <Tree treeId="facet" rootItem={ROOT_ID} treeLabel="Facet Tree" ref={envRef} />
         </ControlledTreeEnvironment>
     );
 }

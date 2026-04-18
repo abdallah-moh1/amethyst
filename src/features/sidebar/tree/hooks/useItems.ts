@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { buildFacetTree } from '../utils/treeAdapter';
+import { buildFacetTree, ROOT_ID } from '../utils/treeAdapter';
 import { useFacetStore, useInteractionStore } from '@/store';
 import { GHOST_INDEX } from '../FacetTree';
 
@@ -18,7 +18,7 @@ export function useItems() {
     const items = useMemo(() => {
         if (!ghost) return baseItems;
 
-        const parentIndex = ghost.parentPath ?? 'root';
+        const parentIndex = ghost.parentPath ?? ROOT_ID;
         const injected = { ...baseItems };
 
         // Clone the parent so we don't mutate

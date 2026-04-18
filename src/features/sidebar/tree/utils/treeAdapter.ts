@@ -4,14 +4,18 @@
 
 import { FacetNote, FacetNotebook } from '@shared/types/facet.type';
 import { FacetTree } from '@/types/tree.type';
+
+export const ROOT_ID = "__rct_root__";
+
 export function buildFacetTree(notes: FacetNote[], notebooks: FacetNotebook[]): FacetTree {
     const tree: FacetTree = {
-        root: {
-            index: 'root',
-            isFolder: true,
-            children: [],
-            data: null,
-        },
+    };
+
+    tree[ROOT_ID] = {
+        index: ROOT_ID,
+        isFolder: true,
+        children: [],
+        data: null,
     };
 
     // add notebooks first
@@ -26,7 +30,7 @@ export function buildFacetTree(notes: FacetNote[], notebooks: FacetNotebook[]): 
             },
         };
 
-        const parentIndex = notebook.parentPath ?? 'root';
+        const parentIndex = notebook.parentPath ?? ROOT_ID;
         tree[parentIndex]?.children?.push(notebook.path);
     }
 
@@ -42,7 +46,7 @@ export function buildFacetTree(notes: FacetNote[], notebooks: FacetNotebook[]): 
             },
         };
 
-        const parentIndex = note.parentPath ?? 'root';
+        const parentIndex = note.parentPath ?? ROOT_ID;
         tree[parentIndex]?.children?.push(note.id);
     }
 
