@@ -20,9 +20,9 @@ const getUpdatedDescendants = (
     oldPath: string,
     newPath: string,
     notes: Map<string, FacetNote>,
-    notebooks: Map<string, FacetNotebook>
+    notebooks: Map<string, FacetNotebook>,
 ) => {
-    // We check for startsWith(oldPath) but ensure we handle trailing slashes 
+    // We check for startsWith(oldPath) but ensure we handle trailing slashes
     // to avoid partial folder name matches (e.g., /Work vs /Work-Old)
     const isDescendant = (path: string) => path === oldPath || path.startsWith(`${oldPath}/`);
 
@@ -31,9 +31,10 @@ const getUpdatedDescendants = (
             return {
                 ...note,
                 path: note.path.replace(oldPath, newPath),
-                parentPath: note.parentPath === oldPath
-                    ? newPath
-                    : note.parentPath?.replace(oldPath, newPath) || null
+                parentPath:
+                    note.parentPath === oldPath
+                        ? newPath
+                        : note.parentPath?.replace(oldPath, newPath) || null,
             };
         }
         return note;
@@ -44,9 +45,10 @@ const getUpdatedDescendants = (
             return {
                 ...nb,
                 path: nb.path.replace(oldPath, newPath),
-                parentPath: nb.parentPath === oldPath
-                    ? newPath
-                    : nb.parentPath?.replace(oldPath, newPath) || null
+                parentPath:
+                    nb.parentPath === oldPath
+                        ? newPath
+                        : nb.parentPath?.replace(oldPath, newPath) || null,
             };
         }
         return nb;
@@ -113,7 +115,7 @@ export const registerNotebookCommands = () => {
                     oldPath,
                     moved.path,
                     notes,
-                    notebooks
+                    notebooks,
                 );
 
                 setNotes(updatedNotes);
@@ -141,7 +143,7 @@ export const registerNotebookCommands = () => {
                     oldPath,
                     renamed.path,
                     notes,
-                    notebooks
+                    notebooks,
                 );
 
                 setNotes(updatedNotes);
