@@ -126,9 +126,9 @@ Contributions are welcome\! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for 
 
 **Abdallah Mohammad**
 
-- GitHub: [abdallah-moh1](https://www.google.com/search?q=https://github.com/abdallah-moh1)
+- GitHub: [abdallah-moh1](https://github.com/abdallah-moh1)
 - Email: `abdallah.moh.q@gmail.com`
 
 ## 📄 License
 
-Amethyst is licensed under the **AGPL-3.0-or-later** license. See [LICENSE](https://www.google.com/search?q=./LICENSE).
+Amethyst is licensed under the **AGPL-3.0-or-later** license. See [LICENSE](./LICENSE).
