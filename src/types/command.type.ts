@@ -12,9 +12,11 @@ export type Command = {
     isEnabled?: () => boolean;
 };
 
-export type CommandExecutionResult = {
-    success: true;
-} | {
-    success: false;
-    message: string;
-};
+export type CommandExecutionResult =
+    | {
+          success: true;
+      }
+    | {
+          success: false;
+          message: string;
+      };

@@ -2,24 +2,42 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { contextBridge, ipcRenderer, Settings } from 'electron';
+import { contextBridge, ipcRenderer } from 'electron';
+import { Settings } from '../shared/types/settings.type.js';
 import { FacetNote, FacetNotebook, ParentPath } from '../shared/types/facet.type.js';
+
+/**
+ * Type-safe invoke helper.
+ * Uses unknown[] for rest arguments to satisfy TS without using 'any'.
+ */
+async function invoke<T>(channel: string, ...args: unknown[]): Promise<T> {
+    const result = await ipcRenderer.invoke(channel, ...args);
+
+    // Check if the result is our standardized error object from Main
+    if (result && typeof result === 'object' && 'error' in result) {
+        // Throw the raw error (usually a string or error object)
+        // so the Renderer catch block receives it cleanly.
+        throw result.error;
+    }
+
+    return result as T;
+}
 
 contextBridge.exposeInMainWorld('amethyst', {
     settings: {
-        get: (key: keyof Settings) => ipcRenderer.invoke('get:setting', key),
+        get: (key: keyof Settings) => invoke<Settings[keyof Settings]>('get:setting', key),
         set: <K extends keyof Settings>(key: K, value: Settings[K]) =>
-            ipcRenderer.invoke('set:setting', key, value),
-        reset: () => ipcRenderer.invoke('reset:settings'),
-        getAll: () => ipcRenderer.invoke('get-all:settings'),
+            invoke<void>('set:setting', key, value),
+        reset: () => invoke<void>('reset:settings'),
+        getAll: () => invoke<Settings>('get-all:settings'),
     },
     themes: {
-        get: (key: string) => ipcRenderer.invoke('get:theme', key),
-        list: () => ipcRenderer.invoke('list:themes'),
+        get: (key: string) => invoke<unknown>('get:theme', key),
+        list: () => invoke<string[]>('list:themes'),
     },
     facet: {
-        open: () => ipcRenderer.invoke('facet:open'),
-        close: () => ipcRenderer.invoke('facet:close'),
+        open: () => invoke<void>('facet:open'),
+        close: () => invoke<void>('facet:close'),
         on: {
             noteAdded: (cb: (note: FacetNote) => void) => {
                 const listener = (_: unknown, note: FacetNote) => cb(note);
@@ -50,21 +68,20 @@ contextBridge.exposeInMainWorld('amethyst', {
     },
     notes: {
         create: (name: string, parentPath: ParentPath) =>
-            ipcRenderer.invoke('note:create', name, parentPath),
-        open: (id: string) => ipcRenderer.invoke('note:open', id),
-        save: (id: string, content: string) => ipcRenderer.invoke('note:save', id, content),
-        rename: (id: string, newName: string) => ipcRenderer.invoke('note:rename', id, newName),
+            invoke<FacetNote>('note:create', name, parentPath),
+        open: (id: string) => invoke<string>('note:open', id),
+        save: (id: string, content: string) => invoke<void>('note:save', id, content),
+        rename: (id: string, newName: string) => invoke<void>('note:rename', id, newName),
         move: (id: string, newParentPath: ParentPath) =>
-            ipcRenderer.invoke('note:move', id, newParentPath),
-        delete: (id: string) => ipcRenderer.invoke('note:delete', id),
+            invoke<void>('note:move', id, newParentPath),
+        delete: (id: string) => invoke<void>('note:delete', id),
     },
     notebooks: {
         create: (parentPath: ParentPath, name: string) =>
-            ipcRenderer.invoke('notebook:create', parentPath, name),
-        rename: (path: string, newName: string) =>
-            ipcRenderer.invoke('notebook:rename', path, newName),
+            invoke<FacetNotebook>('notebook:create', parentPath, name),
+        rename: (path: string, newName: string) => invoke<void>('notebook:rename', path, newName),
         move: (path: string, newParentPath: ParentPath) =>
-            ipcRenderer.invoke('notebook:move', path, newParentPath),
-        delete: (path: string) => ipcRenderer.invoke('notebook:delete', path),
+            invoke<void>('notebook:move', path, newParentPath),
+        delete: (path: string) => invoke<void>('notebook:delete', path),
     },
 });

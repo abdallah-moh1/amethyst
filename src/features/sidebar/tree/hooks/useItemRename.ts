@@ -13,8 +13,7 @@ import { CommandExecutionResult } from '@/types/command.type';
 export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItem> | null>) {
     const ghost = useInteractionStore((s) => s.ghost);
     const setGhost = useInteractionStore((s) => s.setGhost);
-    const addToast = useInteractionStore(s => s.addToast);
-
+    const addToast = useInteractionStore((s) => s.addToast);
 
     const expandedItems = useInteractionStore((s) => s.expandedItems);
     const setExpandedItems = useInteractionStore((s) => s.setExpandedItems);
@@ -42,16 +41,32 @@ export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItem> | null>)
 
             if (item.index === GHOST_INDEX && ghost) {
                 if (ghost.type === 'note') {
-                    result = await commands.execute(FacetCommands.CREATE_NOTE, newName, ghost.parentPath);
+                    result = await commands.execute(
+                        FacetCommands.CREATE_NOTE,
+                        newName,
+                        ghost.parentPath,
+                    );
                 } else {
-                    result = await commands.execute(FacetCommands.CREATE_NOTEBOOK, newName, ghost.parentPath);
+                    result = await commands.execute(
+                        FacetCommands.CREATE_NOTEBOOK,
+                        newName,
+                        ghost.parentPath,
+                    );
                 }
                 setGhost(null);
             } else {
                 if (item.data?.type === 'note') {
-                    result = await commands.execute(FacetCommands.RENAME_NOTE, newName, item.data.node.id);
+                    result = await commands.execute(
+                        FacetCommands.RENAME_NOTE,
+                        newName,
+                        item.data.node.id,
+                    );
                 } else if (item.data?.type === 'notebook') {
-                    result = await commands.execute(FacetCommands.RENAME_NOTE, newName, item.data.node.path);
+                    result = await commands.execute(
+                        FacetCommands.RENAME_NOTE,
+                        newName,
+                        item.data.node.path,
+                    );
                 }
             }
             if (result && !result?.success) {
@@ -59,7 +74,7 @@ export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItem> | null>)
                     id: Date.now().toString(),
                     message: result.message,
                     duration: 4000,
-                    type: 'error'
+                    type: 'error',
                 });
             }
         },

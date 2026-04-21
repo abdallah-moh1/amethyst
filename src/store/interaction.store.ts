@@ -7,8 +7,8 @@ import { ParentPath } from '@shared/types/facet.type';
 import { create } from 'zustand';
 
 type SelectedItem =
-    | { type: 'note'; id: string; path: string; }
-    | { type: 'notebook'; path: string; }
+    | { type: 'note'; id: string; path: string }
+    | { type: 'notebook'; path: string }
     | null;
 
 type InteractionState = {
@@ -46,12 +46,12 @@ export const useInteractionStore = create<InteractionState>((set) => ({
 
     addToast(toast) {
         set((state) => ({
-            toasts: [...state.toasts, toast]
+            toasts: [...state.toasts, toast],
         }));
     },
     removeToast(id) {
         set((state) => ({
-            toasts: state.toasts.filter((v) => v.id !== id)
+            toasts: state.toasts.filter((v) => v.id !== id),
         }));
     },
 

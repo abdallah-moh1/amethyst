@@ -8,7 +8,7 @@ class CommandRegistry {
     private static instance: CommandRegistry;
     private commands = new Map<CommandId, Command>();
 
-    private constructor() { }
+    private constructor() {}
 
     public static getInstance(): CommandRegistry {
         if (!CommandRegistry.instance) {
@@ -49,13 +49,13 @@ class CommandRegistry {
             console.warn(`[CommandRegistry] Command ${id} is blocked by isEnabled logic.`);
             return {
                 success: false,
-                message: `Command ${id} is blocked by isEnabled logic.`
+                message: `Command ${id} is blocked by isEnabled logic.`,
             };
         }
 
         return {
             success: false,
-            message: `Command ${id} doesn't exist`
+            message: `Command ${id} doesn't exist`,
         };
     }
 

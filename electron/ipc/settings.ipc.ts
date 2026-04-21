@@ -11,19 +11,35 @@ import {
 } from '../services/settings.service.js';
 
 export function registerSettingsIpc() {
-    ipcMain.handle('get:setting', (_event, key) => {
-        return getSetting(key);
+    ipcMain.handle('get:setting', async (_event, key) => {
+        try {
+            return await getSetting(key);
+        } catch (error) {
+            return { error };
+        }
     });
 
-    ipcMain.handle('set:setting', (_event, key, value) => {
-        setSetting(key, value);
+    ipcMain.handle('set:setting', async (_event, key, value) => {
+        try {
+            return await setSetting(key, value);
+        } catch (error) {
+            return { error };
+        }
     });
 
-    ipcMain.handle('reset:settings', () => {
-        resetSettings();
+    ipcMain.handle('reset:settings', async () => {
+        try {
+            return await resetSettings();
+        } catch (error) {
+            return { error };
+        }
     });
 
-    ipcMain.handle('get-all:settings', () => {
-        return getAllSettings();
+    ipcMain.handle('get-all:settings', async () => {
+        try {
+            return await getAllSettings();
+        } catch (error) {
+            return { error };
+        }
     });
 }

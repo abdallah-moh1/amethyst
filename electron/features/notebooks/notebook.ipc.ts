@@ -7,14 +7,35 @@ import { ParentPath } from '../../../shared/types/facet.type.js';
 import { NotebookService } from './notebook.service.js';
 
 export function registerNotebookIpc(notebookService: NotebookService) {
-    ipcMain.handle('notebook:create', (_, parentPath: ParentPath, name: string) =>
-        notebookService.createNotebook(parentPath, name),
-    );
-    ipcMain.handle('notebook:rename', (_, path: string, newName: string) =>
-        notebookService.renameNotebook(path, newName),
-    );
-    ipcMain.handle('notebook:move', (_, path: string, newParentPath: ParentPath) =>
-        notebookService.moveNotebook(path, newParentPath),
-    );
-    ipcMain.handle('notebook:delete', (_, path: string) => notebookService.deleteNotebook(path));
+    ipcMain.handle('notebook:create', async (_, parentPath: ParentPath, name: string) => {
+        try {
+            return await notebookService.createNotebook(parentPath, name);
+        } catch (error) {
+            return { error };
+        }
+    });
+
+    ipcMain.handle('notebook:rename', async (_, path: string, newName: string) => {
+        try {
+            return await notebookService.renameNotebook(path, newName);
+        } catch (error) {
+            return { error };
+        }
+    });
+
+    ipcMain.handle('notebook:move', async (_, path: string, newParentPath: ParentPath) => {
+        try {
+            return await notebookService.moveNotebook(path, newParentPath);
+        } catch (error) {
+            return { error };
+        }
+    });
+
+    ipcMain.handle('notebook:delete', async (_, path: string) => {
+        try {
+            return await notebookService.deleteNotebook(path);
+        } catch (error) {
+            return { error };
+        }
+    });
 }

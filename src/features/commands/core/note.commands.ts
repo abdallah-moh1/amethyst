@@ -39,7 +39,7 @@ export const registerNoteCommands = () => {
             } catch (error) {
                 return {
                     success: false,
-                    message: error instanceof Error ? error.message : 'Failed to create note'
+                    message: error instanceof Error ? error.message : 'Failed to create note',
                 };
             }
         },
@@ -68,7 +68,7 @@ export const registerNoteCommands = () => {
             } catch (error) {
                 return {
                     success: false,
-                    message: error instanceof Error ? error.message : 'Failed to open note'
+                    message: error instanceof Error ? error.message : 'Failed to open note',
                 };
             }
         },
@@ -92,7 +92,7 @@ export const registerNoteCommands = () => {
             } catch (error) {
                 return {
                     success: false,
-                    message: error instanceof Error ? error.message : 'Failed to save note'
+                    message: error instanceof Error ? error.message : 'Failed to save note',
                 };
             }
         },
@@ -110,7 +110,10 @@ export const registerNoteCommands = () => {
             const newName = args[1] as string;
 
             if (!id || !newName) {
-                return { success: false, message: 'Rename requires both a Note ID and a new name.' };
+                return {
+                    success: false,
+                    message: 'Rename requires both a Note ID and a new name.',
+                };
             }
 
             try {
@@ -123,7 +126,7 @@ export const registerNoteCommands = () => {
             } catch (error) {
                 return {
                     success: false,
-                    message: error instanceof Error ? error.message : 'Failed to rename note'
+                    message: error instanceof Error ? error.message : 'Failed to rename note',
                 };
             }
         },
@@ -148,7 +151,7 @@ export const registerNoteCommands = () => {
             } catch (error) {
                 return {
                     success: false,
-                    message: error instanceof Error ? error.message : 'Failed to move note'
+                    message: error instanceof Error ? error.message : 'Failed to move note',
                 };
             }
         },
@@ -179,7 +182,7 @@ export const registerNoteCommands = () => {
             } catch (error) {
                 return {
                     success: false,
-                    message: error instanceof Error ? error.message : 'Failed to delete note'
+                    message: error instanceof Error ? error.message : 'Failed to delete note',
                 };
             }
         },

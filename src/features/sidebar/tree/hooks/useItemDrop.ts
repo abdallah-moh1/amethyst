@@ -2,15 +2,15 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { commands, FacetCommands } from "@/features/commands";
-import { ROOT_ID } from "../utils/treeAdapter";
-import { CommandExecutionResult } from "@/types/command.type";
-import { DraggingPosition, TreeItem } from "react-complex-tree";
-import { FacetTreeItemData } from "@/types/tree.type";
-import { useInteractionStore } from "@/store";
+import { commands, FacetCommands } from '@/features/commands';
+import { ROOT_ID } from '../utils/treeAdapter';
+import { CommandExecutionResult } from '@/types/command.type';
+import { DraggingPosition, TreeItem } from 'react-complex-tree';
+import { FacetTreeItemData } from '@/types/tree.type';
+import { useInteractionStore } from '@/store';
 
 export function useItemDrop() {
-    const addToast = useInteractionStore(s => s.addToast);
+    const addToast = useInteractionStore((s) => s.addToast);
 
     const handleOnDrop = async (
         items: TreeItem<FacetTreeItemData | null>[],
@@ -35,7 +35,11 @@ export function useItemDrop() {
                 );
             }
         } else if (target.targetType === 'between-items') {
-            if (item.data?.node.parentPath === (target.parentItem === ROOT_ID ? null : target.parentItem)) return;
+            if (
+                item.data?.node.parentPath ===
+                (target.parentItem === ROOT_ID ? null : target.parentItem)
+            )
+                return;
             if (item.data?.type === 'note') {
                 result = await commands.execute(
                     FacetCommands.MOVE_NOTE,
@@ -66,11 +70,11 @@ export function useItemDrop() {
                 id: Date.now().toString(),
                 message: result.message,
                 duration: 4000,
-                type: 'error'
+                type: 'error',
             });
         }
     };
     return {
-        handleOnDrop
+        handleOnDrop,
     };
 }

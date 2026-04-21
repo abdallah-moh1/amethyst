@@ -75,7 +75,7 @@ export const registerNotebookCommands = () => {
             } catch (error) {
                 return {
                     success: false,
-                    message: error instanceof Error ? error.message : 'Failed to create notebook'
+                    message: error instanceof Error ? error.message : 'Failed to create notebook',
                 };
             }
         },
@@ -89,7 +89,8 @@ export const registerNotebookCommands = () => {
             const { removeNotebook } = facetStore.getState();
             const path = args[0] as string;
 
-            if (!path) return { success: false, message: 'Notebook path is required for deletion.' };
+            if (!path)
+                return { success: false, message: 'Notebook path is required for deletion.' };
 
             try {
                 await deleteNotebook(path);
@@ -98,7 +99,7 @@ export const registerNotebookCommands = () => {
             } catch (error) {
                 return {
                     success: false,
-                    message: error instanceof Error ? error.message : 'Failed to delete notebook'
+                    message: error instanceof Error ? error.message : 'Failed to delete notebook',
                 };
             }
         },
@@ -113,7 +114,8 @@ export const registerNotebookCommands = () => {
             const oldPath = args[0] as string;
             const newParentPath = args[1] as ParentPath;
 
-            if (!oldPath) return { success: false, message: 'Source path is required to move a notebook.' };
+            if (!oldPath)
+                return { success: false, message: 'Source path is required to move a notebook.' };
 
             try {
                 const moved = await moveNotebook(oldPath, newParentPath);
@@ -130,7 +132,7 @@ export const registerNotebookCommands = () => {
             } catch (error) {
                 return {
                     success: false,
-                    message: error instanceof Error ? error.message : 'Failed to move notebook'
+                    message: error instanceof Error ? error.message : 'Failed to move notebook',
                 };
             }
         },
@@ -146,7 +148,10 @@ export const registerNotebookCommands = () => {
             const newName = args[1] as string;
 
             if (!oldPath || !newName) {
-                return { success: false, message: 'Rename requires both the current path and a new name.' };
+                return {
+                    success: false,
+                    message: 'Rename requires both the current path and a new name.',
+                };
             }
 
             try {
@@ -164,7 +169,7 @@ export const registerNotebookCommands = () => {
             } catch (error) {
                 return {
                     success: false,
-                    message: error instanceof Error ? error.message : 'Failed to rename notebook'
+                    message: error instanceof Error ? error.message : 'Failed to rename notebook',
                 };
             }
         },
