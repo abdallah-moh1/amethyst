@@ -63,7 +63,7 @@ export function useItemDrop() {
         }
         if (result && !result?.success) {
             addToast({
-                id: Date.toString(),
+                id: Date.now().toString(),
                 message: result.message,
                 duration: 4000,
                 type: 'error'

@@ -18,7 +18,7 @@ export function useItemPrimaryAction() {
             const result = await commands.execute(FacetCommands.OPEN_NOTE, data.node.id);
             if (result.success) return;
             addToast({
-                id: Date.toString(),
+                id: Date.now().toString(),
                 message: result.message,
                 duration: 4000,
                 type: 'error'
