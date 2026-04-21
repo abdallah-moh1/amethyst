@@ -3,23 +3,17 @@
 // Copyright (C) 2026 Abdallah
 
 import { useRef } from 'react';
-import {
-    Tree,
-    ControlledTreeEnvironment,
-    TreeRef,
-    TreeItem,
-    DraggingPosition,
-} from 'react-complex-tree';
+import { Tree, ControlledTreeEnvironment, TreeRef } from 'react-complex-tree';
 import { useItemSelection } from './hooks/useItemSelection';
 import { useItemExpansion } from './hooks/useItemExpansion';
 import { useItemPrimaryAction } from './hooks/useItemPrimaryAction';
-import { FacetTreeItem, FacetTreeItemData } from '@/types/tree.type';
+import { FacetTreeItem } from '@/types/tree.type';
 import { useItemRename } from './hooks/useItemRename';
 import { useItems } from './hooks/useItems';
 
 import './rct.css';
-import { commands, FacetCommands } from '@/features/commands';
 import { ROOT_ID } from './utils/treeAdapter';
+import { useItemDrop } from './hooks/useItemDrop';
 
 export const GHOST_INDEX = '__ghost__';
 
@@ -31,45 +25,7 @@ export function FacetTree() {
     const { handlePrimaryAction } = useItemPrimaryAction();
     const { selectedItems, handleSelectItems } = useItemSelection(items);
     const { handleRenameItem, handleAbort } = useItemRename(envRef);
-
-    const handleOnDrop = (
-        items: TreeItem<FacetTreeItemData | null>[],
-        target: DraggingPosition,
-    ) => {
-        const item = items[0];
-
-        if (target.targetType === 'item') {
-            if (item.data?.type === 'note') {
-                commands.execute(FacetCommands.MOVE_NOTE, item.data.node.id, target.targetItem);
-            } else if (item.data?.type === 'notebook') {
-                commands.execute(
-                    FacetCommands.MOVE_NOTEBOOK,
-                    item.data.node.path,
-                    target.targetItem,
-                );
-            }
-        } else if (target.targetType === 'between-items') {
-            if (item.data?.type === 'note') {
-                commands.execute(
-                    FacetCommands.MOVE_NOTE,
-                    item.data.node.id,
-                    target.parentItem === ROOT_ID ? null : target.parentItem,
-                );
-            } else if (item.data?.type === 'notebook') {
-                commands.execute(
-                    FacetCommands.MOVE_NOTEBOOK,
-                    item.data.node.path,
-                    target.parentItem === ROOT_ID ? null : target.parentItem,
-                );
-            }
-        } else {
-            if (item.data?.type === 'note') {
-                commands.execute(FacetCommands.MOVE_NOTE, item.data.node.id, null);
-            } else if (item.data?.type === 'notebook') {
-                commands.execute(FacetCommands.MOVE_NOTEBOOK, item.data.node.path, null);
-            }
-        }
-    };
+    const { handleOnDrop } = useItemDrop();
 
     return (
         <ControlledTreeEnvironment
