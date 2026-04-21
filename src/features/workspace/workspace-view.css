@@ -15,21 +15,67 @@
     gap: 10px;
 }
 
+.note-name-container {
+    position: relative;
+    display: flex;
+    flex: 1; /* Takes up available space in the toolbar */
+    align-items: center;
+}
+
 .note-name-input {
+    /* Your original typography */
     font-size: 1.4em;
     font-weight: bold;
-    border: none;
-    background: transparent;
     color: var(--app-text-primary);
+    background: transparent;
+    border: 1px solid transparent; /* Reserved for error state */
+    border-radius: 6px;
+
     flex: 1;
+    padding: 4px 8px; /* Added slight padding for better focus ring */
+    outline: none;
+    transition: all 0.2s ease-in-out;
 }
 
 .note-name-input::placeholder {
     color: var(--app-text-secondary);
 }
 
-.note-name-input:focus {
-    outline: none;
+.note-name-input.has-error {
+    color: #ff8080;
+    background: rgba(255, 77, 77, 0.08);
+    border: 1px solid #cf2222;
+    /* Visual cue that user is "trapped" */
+    box-shadow: 0 0 0 2px rgba(207, 34, 34, 0.2);
+}
+
+.note-name-error-tooltip {
+    position: absolute;
+    /* Placed below the bold title */
+    top: calc(100% + 12px);
+    left: 0;
+    z-index: 1000;
+
+    background-color: #cf2222;
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: normal;
+    white-space: nowrap;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+    animation: tooltipFadeIn 0.15s ease-out;
+}
+
+.note-name-error-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 14px;
+    border: 6px solid transparent;
+    border-bottom-color: #cf2222;
 }
 
 .viewing-mode-switcher {
@@ -58,8 +104,18 @@
 .switcher-btn:hover {
     color: var(--app-accent);
 }
-
 .switcher-btn.active {
     color: var(--app-text-primary);
     background-color: var(--app-primary);
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
