@@ -12,6 +12,7 @@ import {
     moveNotebook,
     renameNotebook,
 } from '@/clients/notebook.client';
+import { CommandExecutionResult } from '@/types/command.type';
 
 /**
  * Safely updates descendants when a parent path changes.
@@ -22,8 +23,6 @@ const getUpdatedDescendants = (
     notes: Map<string, FacetNote>,
     notebooks: Map<string, FacetNotebook>,
 ) => {
-    // We check for startsWith(oldPath) but ensure we handle trailing slashes
-    // to avoid partial folder name matches (e.g., /Work vs /Work-Old)
     const isDescendant = (path: string) => path === oldPath || path.startsWith(`${oldPath}/`);
 
     const updatedNotes = Array.from(notes.values()).map((note) => {
@@ -64,7 +63,7 @@ export const registerNotebookCommands = () => {
         id: FacetCommands.CREATE_NOTEBOOK,
         label: 'Create notebook',
         canBeOverwritten: false,
-        execute: async (...args) => {
+        execute: async (...args): Promise<CommandExecutionResult> => {
             const { addNotebook } = facetStore.getState();
             const name = (args[0] as string) || 'New Notebook';
             const parentPath = (args[1] as ParentPath) || null;
@@ -72,8 +71,12 @@ export const registerNotebookCommands = () => {
             try {
                 const notebook = await createNotebook(parentPath, name);
                 addNotebook(notebook);
+                return { success: true };
             } catch (error) {
-                console.error(`[Amethyst] Create Notebook Failed:`, error);
+                return {
+                    success: false,
+                    message: error instanceof Error ? error.message : 'Failed to create notebook'
+                };
             }
         },
     });
@@ -82,18 +85,21 @@ export const registerNotebookCommands = () => {
         id: FacetCommands.DELETE_NOTEBOOK,
         label: 'Delete notebook',
         canBeOverwritten: false,
-        execute: async (...args) => {
+        execute: async (...args): Promise<CommandExecutionResult> => {
             const { removeNotebook } = facetStore.getState();
             const path = args[0] as string;
 
-            if (!path) return;
+            if (!path) return { success: false, message: 'Notebook path is required for deletion.' };
 
             try {
                 await deleteNotebook(path);
                 removeNotebook(path);
-                // Ensure your store.removeNotebook is recursive!
+                return { success: true };
             } catch (error) {
-                console.error(`[Amethyst] Delete Notebook Failed:`, error);
+                return {
+                    success: false,
+                    message: error instanceof Error ? error.message : 'Failed to delete notebook'
+                };
             }
         },
     });
@@ -102,12 +108,12 @@ export const registerNotebookCommands = () => {
         id: FacetCommands.MOVE_NOTEBOOK,
         label: 'Move notebook',
         canBeOverwritten: false,
-        execute: async (...args) => {
+        execute: async (...args): Promise<CommandExecutionResult> => {
             const { notes, notebooks, setNotes, setNotebooks } = facetStore.getState();
             const oldPath = args[0] as string;
             const newParentPath = args[1] as ParentPath;
 
-            if (!oldPath) return;
+            if (!oldPath) return { success: false, message: 'Source path is required to move a notebook.' };
 
             try {
                 const moved = await moveNotebook(oldPath, newParentPath);
@@ -120,8 +126,12 @@ export const registerNotebookCommands = () => {
 
                 setNotes(updatedNotes);
                 setNotebooks(updatedNotebooks);
+                return { success: true };
             } catch (error) {
-                console.error(`[Amethyst] Move Failed:`, error);
+                return {
+                    success: false,
+                    message: error instanceof Error ? error.message : 'Failed to move notebook'
+                };
             }
         },
     });
@@ -130,12 +140,14 @@ export const registerNotebookCommands = () => {
         id: FacetCommands.RENAME_NOTEBOOK,
         label: 'Rename notebook',
         canBeOverwritten: false,
-        execute: async (...args) => {
+        execute: async (...args): Promise<CommandExecutionResult> => {
             const { notes, notebooks, setNotes, setNotebooks } = facetStore.getState();
             const oldPath = args[0] as string;
             const newName = args[1] as string;
 
-            if (!oldPath || !newName) return;
+            if (!oldPath || !newName) {
+                return { success: false, message: 'Rename requires both the current path and a new name.' };
+            }
 
             try {
                 const renamed = await renameNotebook(oldPath, newName);
@@ -148,8 +160,12 @@ export const registerNotebookCommands = () => {
 
                 setNotes(updatedNotes);
                 setNotebooks(updatedNotebooks);
+                return { success: true };
             } catch (error) {
-                console.error(`[Amethyst] Rename Failed:`, error);
+                return {
+                    success: false,
+                    message: error instanceof Error ? error.message : 'Failed to rename notebook'
+                };
             }
         },
     });

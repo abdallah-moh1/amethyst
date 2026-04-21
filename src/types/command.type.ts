@@ -8,6 +8,13 @@ export type Command = {
     id: CommandId;
     label: string;
     canBeOverwritten: boolean;
-    execute: (...args: unknown[]) => void | Promise<void>;
+    execute: (...args: unknown[]) => Promise<CommandExecutionResult>;
     isEnabled?: () => boolean;
+};
+
+export type CommandExecutionResult = {
+    success: true;
+} | {
+    success: false;
+    message: string;
 };

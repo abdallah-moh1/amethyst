@@ -12,9 +12,10 @@ import {
     moveNote,
     openNote,
     renameNote,
-    saveNote, // Assuming this exists in your client
+    saveNote,
 } from '@/clients/note.client';
 import { FacetCommands } from './facet.commands';
+import { CommandExecutionResult } from '@/types/command.type';
 
 export const registerNoteCommands = () => {
     const workspaceStore = useWorkspaceStore;
@@ -26,20 +27,20 @@ export const registerNoteCommands = () => {
         id: FacetCommands.CREATE_NOTE,
         label: 'Create note',
         canBeOverwritten: false,
-        execute: async (...args) => {
+        execute: async (...args): Promise<CommandExecutionResult> => {
             const { addNote } = facetStore.getState();
-
-            // Palette fallback: If no name, you might want to prompt or use 'Untitled'
             const name = (args[0] as string) || 'Untitled';
             const parentPath = (args[1] || null) as ParentPath;
 
             try {
                 const note = await createNote(name, parentPath);
                 addNote(note);
-                // Optional: Automatically open the note after creation
-                // commands.execute(FacetCommands.OPEN_NOTE, note.id);
+                return { success: true };
             } catch (error) {
-                console.error(`[Amethyst] Create Failed:`, error);
+                return {
+                    success: false,
+                    message: error instanceof Error ? error.message : 'Failed to create note'
+                };
             }
         },
     });
@@ -48,23 +49,27 @@ export const registerNoteCommands = () => {
         id: FacetCommands.OPEN_NOTE,
         label: 'Open note',
         canBeOverwritten: false,
-        execute: async (...args) => {
+        execute: async (...args): Promise<CommandExecutionResult> => {
             const { notes } = facetStore.getState();
             const { setNoteContent, setNoteName, setCurrentNoteId } = workspaceStore.getState();
 
             const id = args[0] as string;
-            if (!id) return console.error(`Command [${FacetCommands.OPEN_NOTE}]: ID is required.`);
+            if (!id) return { success: false, message: 'Note ID is required to open a note.' };
 
             const note = notes.get(id);
-            if (!note) return console.error(`Note with id:${id} doesn't exist`);
+            if (!note) return { success: false, message: `Note with id: ${id} does not exist.` };
 
             try {
                 const content = await openNote(id);
                 setNoteContent(content);
                 setNoteName(note.name);
                 setCurrentNoteId(note.id);
+                return { success: true };
             } catch (error) {
-                console.error(`[Amethyst] Open Failed:`, error);
+                return {
+                    success: false,
+                    message: error instanceof Error ? error.message : 'Failed to open note'
+                };
             }
         },
     });
@@ -73,22 +78,22 @@ export const registerNoteCommands = () => {
         id: FacetCommands.SAVE_NOTE,
         label: 'Save note',
         canBeOverwritten: false,
-        // Smart fallback for Palette/Hotkey usage
-        execute: async (...args) => {
+        execute: async (...args): Promise<CommandExecutionResult> => {
             const { currentNoteId, noteContent } = workspaceStore.getState();
 
-            // Priority: 1. Argument 2. Currently active note
             const targetId = (args[0] as string) || currentNoteId;
             const content = (args[1] as string) || noteContent;
 
-            if (!targetId) return console.warn('No active note to save.');
+            if (!targetId) return { success: false, message: 'No active note to save.' };
 
             try {
                 await saveNote(targetId, content);
-                console.log(`[Amethyst] Note ${targetId} saved successfully.`);
-                // You could trigger a 'last saved' timestamp update here
+                return { success: true };
             } catch (error) {
-                console.error(`[Amethyst] Save Failed:`, error);
+                return {
+                    success: false,
+                    message: error instanceof Error ? error.message : 'Failed to save note'
+                };
             }
         },
     });
@@ -97,24 +102,29 @@ export const registerNoteCommands = () => {
         id: FacetCommands.RENAME_NOTE,
         label: 'Rename note',
         canBeOverwritten: false,
-        execute: async (...args) => {
+        execute: async (...args): Promise<CommandExecutionResult> => {
             const { removeNote, addNote } = facetStore.getState();
             const { currentNoteId, setNoteName } = workspaceStore.getState();
 
             const id = (args[0] as string) || currentNoteId;
             const newName = args[1] as string;
 
-            if (!id || !newName) return console.error('Rename requires an ID and a New Name.');
+            if (!id || !newName) {
+                return { success: false, message: 'Rename requires both a Note ID and a new name.' };
+            }
 
             try {
                 const note = await renameNote(id, newName);
                 removeNote(id);
                 addNote(note);
 
-                // If the renamed note is the one currently open, update UI name
                 if (id === currentNoteId) setNoteName(newName);
+                return { success: true };
             } catch (error) {
-                console.error(`[Amethyst] Rename Failed:`, error);
+                return {
+                    success: false,
+                    message: error instanceof Error ? error.message : 'Failed to rename note'
+                };
             }
         },
     });
@@ -123,19 +133,23 @@ export const registerNoteCommands = () => {
         id: FacetCommands.MOVE_NOTE,
         label: 'Move note',
         canBeOverwritten: false,
-        execute: async (...args) => {
+        execute: async (...args): Promise<CommandExecutionResult> => {
             const { removeNote, addNote } = facetStore.getState();
             const id = (args[0] as string) || workspaceStore.getState().currentNoteId;
             const newParentPath = args[1] as ParentPath;
 
-            if (!id) return console.error('Move requires target ID.');
+            if (!id) return { success: false, message: 'Move requires a target Note ID.' };
 
             try {
                 const note = await moveNote(id, newParentPath);
                 removeNote(id);
                 addNote(note);
+                return { success: true };
             } catch (error) {
-                console.error(`[Amethyst] Move Failed:`, error);
+                return {
+                    success: false,
+                    message: error instanceof Error ? error.message : 'Failed to move note'
+                };
             }
         },
     });
@@ -144,26 +158,29 @@ export const registerNoteCommands = () => {
         id: FacetCommands.DELETE_NOTE,
         label: 'Delete note',
         canBeOverwritten: false,
-        execute: async (...args) => {
+        execute: async (...args): Promise<CommandExecutionResult> => {
             const { notes, removeNote } = facetStore.getState();
             const { currentNoteId, setCurrentNoteId, setNoteContent } = workspaceStore.getState();
 
             const target = (args[0] as string) || currentNoteId;
 
             if (!target || !notes.has(target)) {
-                return console.error(`Delete target [${target}] invalid or not found.`);
+                return { success: false, message: 'Delete target invalid or not found.' };
             }
 
             try {
-                // If deleting the open note, clear the workspace
                 if (target === currentNoteId) {
                     setCurrentNoteId(null);
                     setNoteContent('');
                 }
                 await deleteNote(target);
                 removeNote(target);
+                return { success: true };
             } catch (error) {
-                console.error(`[Amethyst] Delete Failed:`, error);
+                return {
+                    success: false,
+                    message: error instanceof Error ? error.message : 'Failed to delete note'
+                };
             }
         },
     });
