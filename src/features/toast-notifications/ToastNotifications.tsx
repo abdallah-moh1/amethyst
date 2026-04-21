@@ -13,46 +13,56 @@ export type ToastMessage = {
 
 export function ToastNotifications() {
     const toasts = useInteractionStore((s) => s.toasts);
-    const removeToast = useInteractionStore((s) => s.removeToast);
-
-    const timers = useRef<Map<string, NodeJS.Timeout>>(new Map());
-
-    const schedule = (toast: ToastMessage) => {
-        const duration = toast.duration ?? 3000;
-
-        const timer = setTimeout(() => {
-            removeToast(toast.id);
-            timers.current.delete(toast.id);
-        }, duration);
-
-        timers.current.set(toast.id, timer);
-    };
-
-    useEffect(() => {
-        // start timers for new toasts
-        toasts.forEach((t) => {
-            if (!timers.current.has(t.id)) {
-                schedule(t);
-            }
-        });
-
-        // cleanup removed toasts
-        timers.current.forEach((timer, id) => {
-            if (!toasts.find((t) => t.id === id)) {
-                clearTimeout(timer);
-                timers.current.delete(id);
-            }
-        });
-    }, [toasts]);
 
     return (
         <div className="toast-container">
             {toasts.map((toast) => (
-                <div key={toast.id} className={`toast toast-${toast.type ?? 'info'}`}>
-                    <span>{toast.message}</span>
-                    <button onClick={() => removeToast(toast.id)}>×</button>
-                </div>
+                <ToastItem key={toast.id} toast={toast} />
             ))}
+        </div>
+    );
+}
+
+function ToastItem({ toast }: { toast: ToastMessage }) {
+    const removeToast = useInteractionStore((s) => s.removeToast);
+    const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+    // Calculate duration: base duration + bonus time for long text
+    const getDuration = () => {
+        if (toast.duration) return toast.duration;
+        // Basic readability logic: add 1s for every 50 characters
+        const extraTime = Math.floor(toast.message.length / 50) * 1000;
+        return 3000 + extraTime;
+    };
+
+    const startTimer = () => {
+        // If it's an error, you might want it to stay until dismissed manually
+        // if (toast.type === 'error') return;
+
+        timerRef.current = setTimeout(() => {
+            removeToast(toast.id);
+        }, getDuration());
+    };
+
+    const clearTimer = () => {
+        if (timerRef.current) clearTimeout(timerRef.current);
+    };
+
+    useEffect(() => {
+        startTimer();
+        return clearTimer; // Cleanup on unmount
+    }, []);
+
+    return (
+        <div
+            className={`toast toast-${toast.type ?? 'info'}`}
+            onMouseEnter={clearTimer}
+            onMouseLeave={startTimer}
+        >
+            <span className="toast-message">{toast.message}</span>
+            <button className="toast-close-btn" onClick={() => removeToast(toast.id)}>
+                ×
+            </button>
         </div>
     );
 }

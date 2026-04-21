@@ -13,19 +13,20 @@
 
 /* Base toast */
 .toast {
-    min-width: 200px;
-    max-width: 260px;
+    min-width: 220px;
+    max-width: 280px; /* Increased to accommodate longer errors */
+    width: fit-content;
 
-    padding: 10px 12px;
+    padding: 12px 14px;
     border-radius: 8px;
 
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* Better for multi-line text */
     justify-content: space-between;
-    gap: 8px;
+    gap: 12px;
 
     font-size: 14px;
-    line-height: 1.35;
+    line-height: 1.4;
 
     color: var(--app-text-primary);
     border: 1px solid var(--app-border);
@@ -33,9 +34,14 @@
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 
     animation: toast-in 0.15s ease;
+    transition: transform 0.2s ease;
+}
+
+.toast:hover {
+    transform: translateY(-2px);
 }
 
 /* INFO (very subtle blue tint) */
@@ -58,28 +64,31 @@
     background: color-mix(in srgb, var(--app-accent) 15%, var(--app-bg-secondary));
 }
 
-/* Text */
-.toast span {
+/* Text Handling */
+.toast-message {
     flex: 1;
-    overflow: hidden;
-    /* text-overflow: ellipsis; */
-    /* white-space: nowrap; */
+    white-space: pre-wrap; /* Allows manual newlines if sent from server */
+    word-break: break-word; /* Prevents overflow from long strings/URLs */
+    overflow-wrap: anywhere;
 }
 
 /* Close button */
-.toast button {
+.toast-close-btn {
     background: transparent;
     border: none;
 
     color: var(--app-text-secondary);
     cursor: pointer;
 
-    font-size: 13px;
-    padding: 2px 4px;
+    font-size: 18px; /* Larger for easier clicking */
+    line-height: 1;
+    padding: 0 4px;
+    margin-top: -2px; /* Align with top of text */
     border-radius: 4px;
+    flex-shrink: 0;
 }
 
-.toast button:hover {
+.toast-close-btn:hover {
     color: var(--app-text-primary);
 }
 
@@ -87,7 +96,7 @@
 @keyframes toast-in {
     from {
         opacity: 0;
-        transform: translateY(6px) scale(0.98);
+        transform: translateY(10px) scale(0.95);
     }
     to {
         opacity: 1;
