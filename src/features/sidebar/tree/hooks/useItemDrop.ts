@@ -7,8 +7,11 @@ import { ROOT_ID } from "../utils/treeAdapter";
 import { CommandExecutionResult } from "@/types/command.type";
 import { DraggingPosition, TreeItem } from "react-complex-tree";
 import { FacetTreeItemData } from "@/types/tree.type";
+import { useInteractionStore } from "@/store";
 
 export function useItemDrop() {
+    const addToast = useInteractionStore(s => s.addToast);
+
     const handleOnDrop = async (
         items: TreeItem<FacetTreeItemData | null>[],
         target: DraggingPosition,
@@ -59,7 +62,12 @@ export function useItemDrop() {
             }
         }
         if (result && !result?.success) {
-            alert(`${result.message}`);
+            addToast({
+                id: Date.toString(),
+                message: result.message,
+                duration: 4000,
+                type: 'error'
+            });
         }
     };
     return {

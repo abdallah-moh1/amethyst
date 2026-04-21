@@ -3,18 +3,28 @@
 // Copyright (C) 2026 Abdallah
 
 import { commands, FacetCommands } from '@/features/commands';
+import { useInteractionStore } from '@/store';
 import { FacetTreeItem } from '@/types/tree.type';
 import { useCallback } from 'react';
 
 export function useItemPrimaryAction() {
+    const addToast = useInteractionStore(s => s.addToast);
+
     const handlePrimaryAction = useCallback(async (item: FacetTreeItem) => {
         // if (!) return;
         const data = item.data;
         if (!data) return;
         if (data.type === 'note') {
-            commands.execute(FacetCommands.OPEN_NOTE, data.node.id);
+            const result = await commands.execute(FacetCommands.OPEN_NOTE, data.node.id);
+            if (result.success) return;
+            addToast({
+                id: Date.toString(),
+                message: result.message,
+                duration: 4000,
+                type: 'error'
+            });
         }
-    }, []);
+    }, [addToast]);
     return {
         handlePrimaryAction,
     };
