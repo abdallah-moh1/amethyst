@@ -2,6 +2,7 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
+import { ToastMessage } from '@/features/toast-notifications/ToastNotifications';
 import { ParentPath } from '@shared/types/facet.type';
 import { create } from 'zustand';
 
@@ -17,6 +18,11 @@ type InteractionState = {
     mode: 'idle' | 'creating' | 'renaming';
 
     ghost: GhostItem | null;
+
+    toasts: ToastMessage[];
+
+    addToast: (toast: ToastMessage) => void;
+    removeToast: (id: string) => void;
 
     setGhost: (ghost: GhostItem | null) => void;
 
@@ -36,6 +42,18 @@ export const useInteractionStore = create<InteractionState>((set) => ({
     expandedItems: [],
     mode: 'idle',
     ghost: null,
+    toasts: [],
+
+    addToast(toast) {
+        set((state) => ({
+            toasts: [...state.toasts, toast],
+        }));
+    },
+    removeToast(id) {
+        set((state) => ({
+            toasts: state.toasts.filter((v) => v.id !== id),
+        }));
+    },
 
     setGhost(ghost) {
         set({

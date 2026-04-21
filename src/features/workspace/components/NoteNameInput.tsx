@@ -2,26 +2,98 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
+import { commands, FacetCommands } from '@/features/commands';
 import { useWorkspaceStore } from '@/store';
-import { useEffect, useState } from 'react';
+import { validateFileName } from '@/utils';
+import { KeyboardEvent, useEffect, useState, useRef } from 'react';
 
 export function NoteNameInput() {
     const noteName = useWorkspaceStore((s) => s.noteName);
-    // const setNoteName = useWorkspaceStore((s) => s.setNoteName);
+    const setNoteName = useWorkspaceStore((s) => s.setNoteName);
+
     const [name, setName] = useState('');
+    const [error, setError] = useState<string | null>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const isReverting = useRef(false);
 
     useEffect(() => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setName(noteName ?? '');
+        if (noteName === name) return;
+        setName(noteName);
+        setError(null);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [noteName]);
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue = e.target.value;
+        setName(newValue);
+
+        const validation = validateFileName(newValue);
+        if (!validation.isValid) {
+            setError(validation.error!);
+        } else {
+            setError(null);
+        }
+    };
+
+    const handleBlur = async () => {
+        if (isReverting.current) {
+            isReverting.current = false;
+            setError(null);
+            return;
+        }
+
+        // REFOCUS IF WRONG: If there is a validation error, force focus back
+        if (error) {
+            inputRef.current?.focus();
+            return;
+        }
+
+        const trimmedName = name.trim();
+
+        if (trimmedName === noteName || !trimmedName) {
+            setName(noteName);
+            return;
+        }
+
+        const result = await commands.execute(FacetCommands.RENAME_NOTE, null, trimmedName);
+
+        if (result.success) {
+            setNoteName(trimmedName);
+        } else {
+            setName(noteName);
+            setError(result.message);
+            // Focus again if the backend rejected the name (e.g. file exists)
+            inputRef.current?.focus();
+        }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            // Only allow blur (submit) if there's no error
+            if (!error) {
+                e.currentTarget.blur();
+            }
+        } else if (e.key === 'Escape') {
+            isReverting.current = true;
+            setError(null);
+            setName(noteName);
+            e.currentTarget.blur();
+        }
+    };
+
     return (
-        <input
-            type="text"
-            className="note-name-input"
-            placeholder="Note name..."
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-        />
+        <div className="note-name-container">
+            <input
+                ref={inputRef}
+                type="text"
+                className={`note-name-input ${error ? 'has-error' : ''}`}
+                placeholder="Note name..."
+                value={name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                onKeyDown={handleKeyDown}
+            />
+            {error && <div className="note-name-error-tooltip">{error}</div>}
+        </div>
     );
 }

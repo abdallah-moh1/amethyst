@@ -85,12 +85,16 @@ export class NoteService {
 
         const noteStat = await stat(this.getAbsolutePath(newPath));
 
-        this.facetService.addNote({
+        const renamedNote = {
             ...note,
             name: newName,
             path: newPath,
             modifiedAt: noteStat.mtime,
-        });
+        };
+
+        this.facetService.addNote(renamedNote);
+
+        return renamedNote;
     }
 
     async moveNote(id: string, newParentPath: ParentPath) {
@@ -111,12 +115,16 @@ export class NoteService {
 
         const noteStat = await stat(this.getAbsolutePath(newPath));
 
-        this.facetService.addNote({
+        const movedNote = {
             ...note,
             path: newPath,
             parentPath: newParentPath,
             modifiedAt: noteStat.mtime,
-        });
+        };
+
+        this.facetService.addNote(movedNote);
+
+        return movedNote;
     }
 
     async deleteNote(id: string) {

@@ -6,6 +6,22 @@ import { ipcMain } from 'electron';
 import { FacetService } from './facet.service.js';
 
 export function registerFacetIpc(facetService: FacetService) {
-    ipcMain.handle('facet:open', () => facetService.openFacet());
-    ipcMain.handle('facet:close', () => facetService.closeFacet());
+    ipcMain.handle('facet:open', async () => {
+        try {
+            return await facetService.openFacet();
+        } catch (error) {
+            return {
+                error,
+            };
+        }
+    });
+    ipcMain.handle('facet:close', async () => {
+        try {
+            return await facetService.closeFacet();
+        } catch (error) {
+            return {
+                error,
+            };
+        }
+    });
 }

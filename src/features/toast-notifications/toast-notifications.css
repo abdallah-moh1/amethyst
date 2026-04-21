@@ -1,0 +1,105 @@
+/* Container */
+.toast-container {
+    position: fixed;
+    bottom: 14px;
+    right: 14px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    z-index: 9999;
+}
+
+/* Base toast */
+.toast {
+    min-width: 220px;
+    max-width: 280px; /* Increased to accommodate longer errors */
+    width: fit-content;
+
+    padding: 12px 14px;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: flex-start; /* Better for multi-line text */
+    justify-content: space-between;
+    gap: 12px;
+
+    font-size: 14px;
+    line-height: 1.4;
+
+    color: var(--app-text-primary);
+    border: 1px solid var(--app-border);
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    animation: toast-in 0.15s ease;
+    transition: transform 0.2s ease;
+}
+
+.toast:hover {
+    transform: translateY(-2px);
+}
+
+/* INFO (very subtle blue tint) */
+.toast-info {
+    background: color-mix(in srgb, rgba(59, 130, 246, 0.12), var(--app-bg-secondary));
+}
+
+/* WARNING (soft yellow tint) */
+.toast-warning {
+    background: color-mix(in srgb, rgba(250, 204, 21, 0.12), var(--app-bg-secondary));
+}
+
+/* ERROR (soft red tint) */
+.toast-error {
+    background: color-mix(in srgb, rgba(239, 68, 68, 0.12), var(--app-bg-secondary));
+}
+
+/* SUCCESS (very subtle accent tint) */
+.toast-success {
+    background: color-mix(in srgb, var(--app-accent) 15%, var(--app-bg-secondary));
+}
+
+/* Text Handling */
+.toast-message {
+    flex: 1;
+    white-space: pre-wrap; /* Allows manual newlines if sent from server */
+    word-break: break-word; /* Prevents overflow from long strings/URLs */
+    overflow-wrap: anywhere;
+}
+
+/* Close button */
+.toast-close-btn {
+    background: transparent;
+    border: none;
+
+    color: var(--app-text-secondary);
+    cursor: pointer;
+
+    font-size: 18px; /* Larger for easier clicking */
+    line-height: 1;
+    padding: 0 4px;
+    margin-top: -2px; /* Align with top of text */
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.toast-close-btn:hover {
+    color: var(--app-text-primary);
+}
+
+/* Animation */
+@keyframes toast-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}

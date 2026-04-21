@@ -8,8 +8,10 @@ import { applyTheme } from '@/features/theme/theme.runtime';
 import { getSetting } from '@/clients/settings.client';
 import { getTheme } from '@/clients/themes.client';
 import { initFacet } from './initFacet';
+import { registerFacetCommands } from '@/features/commands';
 
 export async function bootstrapApp() {
+    registerFacetCommands();
     const themeSetting = (await getSetting('theme')) as Settings['theme'];
 
     applyTheme(await getTheme(themeSetting.id as BuiltInThemes));

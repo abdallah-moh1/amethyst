@@ -2,15 +2,13 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { openNote } from '@/clients/note.client';
-import { useWorkspaceStore } from '@/store';
+import { commands, FacetCommands } from '@/features/commands';
+import { useInteractionStore } from '@/store';
 import { FacetTreeItem } from '@/types/tree.type';
 import { useCallback } from 'react';
 
 export function useItemPrimaryAction() {
-    const setNoteContent = useWorkspaceStore((s) => s.setNoteContent);
-    const setNoteName = useWorkspaceStore((s) => s.setNoteName);
-    const setCurrentNoteId = useWorkspaceStore((s) => s.setCurrentNoteId);
+    const addToast = useInteractionStore((s) => s.addToast);
 
     const handlePrimaryAction = useCallback(
         async (item: FacetTreeItem) => {
@@ -18,12 +16,17 @@ export function useItemPrimaryAction() {
             const data = item.data;
             if (!data) return;
             if (data.type === 'note') {
-                setNoteContent(await openNote(data.node.id));
-                setNoteName(data.node.name);
-                setCurrentNoteId(data.node.id);
+                const result = await commands.execute(FacetCommands.OPEN_NOTE, data.node.id);
+                if (result.success) return;
+                addToast({
+                    id: Date.now().toString(),
+                    message: result.message,
+                    duration: 4000,
+                    type: 'error',
+                });
             }
         },
-        [setNoteContent, setNoteName, setCurrentNoteId],
+        [addToast],
     );
     return {
         handlePrimaryAction,
