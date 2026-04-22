@@ -9,7 +9,8 @@
 
 .note-empty-state img {
     width: 140px;
-    opacity: 70%;
+    -webkit-user-drag: none;
+    opacity: 60%;
 }
 
 .note-empty-state h2 {
