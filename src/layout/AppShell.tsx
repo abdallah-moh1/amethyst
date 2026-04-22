@@ -2,7 +2,7 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { ToastNotifications } from '@/features/toast-notifications/ToastNotifications';
+import { ToastNotifications } from '@/features/toast-notifications';
 import { WorkspacePanels } from './WorkspacePanels';
 
 export function AppShell() {

@@ -63,7 +63,7 @@ export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItem> | null>)
                     );
                 } else if (item.data?.type === 'notebook') {
                     result = await commands.execute(
-                        FacetCommands.RENAME_NOTE,
+                        FacetCommands.RENAME_NOTEBOOK,
                         newName,
                         item.data.node.path,
                     );
