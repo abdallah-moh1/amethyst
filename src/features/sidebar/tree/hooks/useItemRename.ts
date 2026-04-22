@@ -5,12 +5,12 @@
 import { useInteractionStore } from '@/store';
 import { RefObject, useCallback, useEffect } from 'react';
 import { GHOST_INDEX } from '../FacetTree';
-import { FacetTreeItem } from '@/types/tree.type';
+import { FacetTreeItem, FacetTreeItemData } from '@/types/tree.type';
 import { commands, FacetCommands } from '@/features/commands';
 import { TreeRef } from 'react-complex-tree';
 import { CommandExecutionResult } from '@/types/command.type';
 
-export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItem> | null>) {
+export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItemData> | null>) {
     const ghost = useInteractionStore((s) => s.ghost);
     const setGhost = useInteractionStore((s) => s.setGhost);
     const addToast = useInteractionStore((s) => s.addToast);
@@ -58,14 +58,14 @@ export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItem> | null>)
                 if (item.data?.type === 'note') {
                     result = await commands.execute(
                         FacetCommands.RENAME_NOTE,
-                        newName,
                         item.data.node.id,
+                        newName,
                     );
                 } else if (item.data?.type === 'notebook') {
                     result = await commands.execute(
                         FacetCommands.RENAME_NOTEBOOK,
-                        newName,
                         item.data.node.path,
+                        newName,
                     );
                 }
             }
