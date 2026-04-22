@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { ContextMenuState } from '.';
+import './context-menu.css';
 
 type Props = {
     menu: ContextMenuState;
