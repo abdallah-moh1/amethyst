@@ -20,9 +20,6 @@ Amethyst is a streamlined, architecture-first Markdown note-taking application. 
 - Side-by-side editing and previewing.
 - _Note: Synchronized scrolling introduced (to be refactored in 0.9.0)._
 
----
-
-## 📍 Current & Future Phases
 
 **0.4.0 — Notebook & Tree View (Current)**
 
@@ -33,6 +30,9 @@ Amethyst is a streamlined, architecture-first Markdown note-taking application. 
 - Intelligent sorting (notebooks first, then notes alphabetically).
 - _Note: Temporary removal of sync-scroll for performance refactoring._
 
+---
+
+## 📍 Current & Future Phases
 **0.5.0 — The Command System**
 
 - **Command Registry:** Centralized hub to register and trigger all app actions.
