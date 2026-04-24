@@ -113,7 +113,7 @@ export const registerNoteCommands = () => {
             if (!id || !newName) {
                 return {
                     success: false,
-                    message: 'Rename requires both a Note ID and a new name.',
+                    message: 'Rename requires both a note ID and a new name.',
                 };
             }
 
