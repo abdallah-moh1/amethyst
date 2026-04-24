@@ -143,12 +143,10 @@ export function useItems(treeRef: RefObject<TreeRef<FacetTreeItemData> | null>) 
                     contextItems = [
                         {
                             label: 'Rename',
-                            shortcut: 'F2',
                             action: () => treeRef.current?.startRenamingItem(item.index),
                         },
                         {
                             label: 'Delete',
-                            shortcut: 'Ctrl+D',
                             variant: 'destructive',
                             action: () => commands.execute(FacetCommands.DELETE_NOTE, data.node.id),
                         },

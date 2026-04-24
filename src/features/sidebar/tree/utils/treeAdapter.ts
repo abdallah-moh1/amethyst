@@ -17,6 +17,14 @@ export function buildFacetTree(notes: FacetNote[], notebooks: FacetNotebook[]): 
         data: null,
     };
 
+    notes = notes.sort((a, b) => {
+        return a.name.localeCompare(b.name);
+    });
+
+    notebooks = notebooks.sort((a, b) => {
+        return a.name.localeCompare(b.name);
+    });
+
     // add notebooks first
     for (const notebook of notebooks) {
         tree[notebook.path] = {
