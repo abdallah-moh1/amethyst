@@ -2,18 +2,23 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { useInteractionStore } from '@/store';
+import { useFacetStore, useInteractionStore } from '@/store';
 import { RefObject, useCallback, useEffect } from 'react';
 import { GHOST_INDEX } from '../FacetTree';
 import { FacetTreeItem, FacetTreeItemData } from '@/types/tree.type';
 import { commands, FacetCommands } from '@/features/commands';
 import { TreeRef } from 'react-complex-tree';
 import { CommandExecutionResult } from '@/types/command.type';
+import { createNotebook } from '@/clients/notebook.client';
+import { createNote } from '@/clients/note.client';
 
 export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItemData> | null>) {
     const ghost = useInteractionStore((s) => s.ghost);
     const setGhost = useInteractionStore((s) => s.setGhost);
     const addToast = useInteractionStore((s) => s.addToast);
+
+    const addNote = useFacetStore((s) => s.addNote);
+    const addNotebook = useFacetStore((s) => s.addNotebook);
 
     const expandedItems = useInteractionStore((s) => s.expandedItems);
     const setExpandedItems = useInteractionStore((s) => s.setExpandedItems);
@@ -41,17 +46,31 @@ export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItemData> | nu
 
             if (item.index === GHOST_INDEX && ghost) {
                 if (ghost.type === 'note') {
-                    result = await commands.execute(
-                        FacetCommands.CREATE_NOTE,
-                        newName,
-                        ghost.parentPath,
-                    );
+                    try {
+                        const note = await createNote(ghost.parentPath, newName);
+                        addNote(note);
+                        result = { success: true };
+                    } catch (error) {
+                        result = {
+                            success: false,
+                            message:
+                                error instanceof Error ? error.message : 'Failed to create note',
+                        };
+                    }
                 } else {
-                    result = await commands.execute(
-                        FacetCommands.CREATE_NOTEBOOK,
-                        newName,
-                        ghost.parentPath,
-                    );
+                    try {
+                        const notebook = await createNotebook(ghost.parentPath, newName);
+                        addNotebook(notebook);
+                        result = { success: true };
+                    } catch (error) {
+                        result = {
+                            success: false,
+                            message:
+                                error instanceof Error
+                                    ? error.message
+                                    : 'Failed to create notebook',
+                        };
+                    }
                 }
                 setGhost(null);
             } else {
@@ -78,7 +97,7 @@ export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItemData> | nu
                 });
             }
         },
-        [ghost, setGhost, addToast],
+        [ghost, setGhost, addToast, addNote, addNotebook],
     );
 
     const handleAbort = useCallback(() => {

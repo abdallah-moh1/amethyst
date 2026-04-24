@@ -4,15 +4,12 @@
 
 import { ParentPath, FacetNote, FacetNotebook } from '@shared/types/facet.type';
 import { commands } from '../registry';
-import { useFacetStore } from '@/store';
+import { useFacetStore, useInteractionStore } from '@/store';
 import { FacetCommands } from './facet.commands';
-import {
-    createNotebook,
-    deleteNotebook,
-    moveNotebook,
-    renameNotebook,
-} from '@/clients/notebook.client';
+import { deleteNotebook, moveNotebook, renameNotebook } from '@/clients/notebook.client';
 import { CommandExecutionResult } from '@/types/command.type';
+import { GHOST_INDEX } from '@/features/sidebar/tree/FacetTree';
+import { getParentRelativePath } from '@/utils';
 
 /**
  * Safely updates descendants when a parent path changes.
@@ -58,26 +55,32 @@ const getUpdatedDescendants = (
 
 export const registerNotebookCommands = () => {
     const facetStore = useFacetStore;
+    const interactionStore = useInteractionStore;
 
     commands.register({
         id: FacetCommands.CREATE_NOTEBOOK,
         label: 'Create notebook',
         canBeOverwritten: false,
         execute: async (...args): Promise<CommandExecutionResult> => {
-            const { addNotebook } = facetStore.getState();
-            const name = (args[0] as string) || 'New Notebook';
-            const parentPath = (args[1] as ParentPath) || null;
+            const { setGhost } = interactionStore.getState();
+            const { selectedItem } = interactionStore.getState();
 
-            try {
-                const notebook = await createNotebook(parentPath, name);
-                addNotebook(notebook);
-                return { success: true };
-            } catch (error) {
-                return {
-                    success: false,
-                    message: error instanceof Error ? error.message : 'Failed to create notebook',
-                };
-            }
+            const parentPath =
+                args.length === 0
+                    ? selectedItem
+                        ? selectedItem.type === 'note'
+                            ? getParentRelativePath(selectedItem.path)
+                            : selectedItem.path
+                        : null
+                    : (args[0] as ParentPath);
+
+            setGhost({
+                index: GHOST_INDEX,
+                parentPath,
+                type: 'notebook',
+            });
+
+            return { success: true };
         },
     });
 

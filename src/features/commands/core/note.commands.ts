@@ -5,21 +5,17 @@
 import { ParentPath } from '@shared/types/facet.type';
 import { commands } from '../registry';
 import { useWorkspaceStore } from '@/store/workspace.store';
-import { useFacetStore } from '@/store';
-import {
-    createNote,
-    deleteNote,
-    moveNote,
-    openNote,
-    renameNote,
-    saveNote,
-} from '@/clients/note.client';
+import { useFacetStore, useInteractionStore } from '@/store';
+import { deleteNote, moveNote, openNote, renameNote, saveNote } from '@/clients/note.client';
 import { FacetCommands } from './facet.commands';
 import { CommandExecutionResult } from '@/types/command.type';
+import { GHOST_INDEX } from '@/features/sidebar/tree/FacetTree';
+import { getParentRelativePath } from '@/utils';
 
 export const registerNoteCommands = () => {
     const workspaceStore = useWorkspaceStore;
     const facetStore = useFacetStore;
+    const interactionStore = useInteractionStore;
 
     // --- Note Operations ---
 
@@ -28,20 +24,25 @@ export const registerNoteCommands = () => {
         label: 'Create note',
         canBeOverwritten: false,
         execute: async (...args): Promise<CommandExecutionResult> => {
-            const { addNote } = facetStore.getState();
-            const name = (args[0] as string) || 'Untitled';
-            const parentPath = (args[1] || null) as ParentPath;
+            const { setGhost } = interactionStore.getState();
+            const { selectedItem } = interactionStore.getState();
 
-            try {
-                const note = await createNote(name, parentPath);
-                addNote(note);
-                return { success: true };
-            } catch (error) {
-                return {
-                    success: false,
-                    message: error instanceof Error ? error.message : 'Failed to create note',
-                };
-            }
+            const parentPath =
+                args.length === 0
+                    ? selectedItem
+                        ? selectedItem.type === 'note'
+                            ? getParentRelativePath(selectedItem.path)
+                            : selectedItem.path
+                        : null
+                    : (args[0] as ParentPath);
+
+            setGhost({
+                index: GHOST_INDEX,
+                parentPath,
+                type: 'note',
+            });
+
+            return { success: true };
         },
     });
 
@@ -50,11 +51,11 @@ export const registerNoteCommands = () => {
         label: 'Open note',
         canBeOverwritten: false,
         execute: async (...args): Promise<CommandExecutionResult> => {
-            const { notes } = facetStore.getState();
-            const { setNoteContent, setNoteName, setCurrentNoteId } = workspaceStore.getState();
-
             const id = args[0] as string;
             if (!id) return { success: false, message: 'Note ID is required to open a note.' };
+
+            const { notes } = facetStore.getState();
+            const { setNoteContent, setNoteName, setCurrentNoteId } = workspaceStore.getState();
 
             const note = notes.get(id);
             if (!note) return { success: false, message: `Note with id: ${id} does not exist.` };
