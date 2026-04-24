@@ -13,7 +13,6 @@ import { NoteEmptyState } from '../empty-state';
 import './workspace-view.css';
 
 export function WorkspaceView() {
-    const noteContent = useWorkspaceStore((state) => state.noteContent);
     const currentNoteId = useWorkspaceStore((state) => state.currentNoteId);
     const viewMode = useUIStore((state) => state.viewMode);
 
@@ -57,7 +56,6 @@ export function WorkspaceView() {
                             className="panel"
                         >
                             <Editor
-                                value={noteContent}
                                 onChange={(value) => {
                                     setNoteContent(value);
                                     markDirty();
@@ -79,7 +77,7 @@ export function WorkspaceView() {
                             panelRef={previewPanelRef}
                             className="panel"
                         >
-                            <Preview content={noteContent} />
+                            <Preview />
                         </Panel>
                     </Group>
                 </>

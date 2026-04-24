@@ -7,15 +7,16 @@ import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
 import rehypeRaw from 'rehype-raw';
 import remarkEmoji from 'remark-emoji';
-import { PreviewProps } from '@/types/preview.type';
 import { customComponents } from './customComponents';
 import rehypeHighlight from 'rehype-highlight';
 import { useRef } from 'react';
+import { useWorkspaceStore } from '@/store';
 
 import './preview.css';
 
-export function Preview({ content }: PreviewProps) {
+export function Preview() {
     const previewRef = useRef<HTMLDivElement | null>(null);
+    const noteContent = useWorkspaceStore((state) => state.noteContent);
 
     return (
         <div className="preview" ref={previewRef}>
@@ -25,7 +26,7 @@ export function Preview({ content }: PreviewProps) {
                     rehypePlugins={[rehypeRaw, rehypeHighlight]}
                     components={customComponents}
                 >
-                    {content}
+                    {noteContent}
                 </ReactMarkdown>
             </div>
         </div>

@@ -5,17 +5,18 @@
 import { useRef } from 'react';
 import { EditorProps } from '@/types/editor.type';
 import { useCodeMirror } from './hooks/useCodeMirror';
-// import { useSyncedScroll } from '@/hooks/useSyncedScroll';
 
 import './codemirror/cm-editor.css';
 import './editor.css';
+import { useWorkspaceStore } from '@/store';
 
-export function Editor({ value = '', onChange, placeholder }: EditorProps) {
+export function Editor({ onChange, placeholder }: EditorProps) {
     const containerRef = useRef<HTMLDivElement | null>(null);
+    const noteContent = useWorkspaceStore((state) => state.noteContent);
 
     useCodeMirror({
         containerRef,
-        value,
+        value: noteContent,
         onChange,
         placeholder,
     });

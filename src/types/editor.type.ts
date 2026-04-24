@@ -6,7 +6,6 @@ import type { RefObject } from 'react';
 import type { EditorView } from '@codemirror/view';
 
 export type EditorProps = {
-    value: string;
     onChange?: (value: string) => void;
     placeholder?: string;
 };
