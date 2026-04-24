@@ -36,32 +36,46 @@
     cursor: pointer;
     user-select: none;
 
-    color: var(--app-text-primary);
-
     transition:
         background 0.12s ease,
         color 0.12s ease;
 }
 
-/* hover */
-.context-menu__item:hover {
+/* default variant */
+.context-menu__item--default {
+    color: var(--app-text-primary);
+}
+
+.context-menu__item--default:hover {
     background: var(--editor-ui-selection);
 }
 
-/* active click */
-.context-menu__item:active {
+.context-menu__item--default:active {
     background: var(--app-primary);
     color: #fff;
 }
 
-/* disabled */
+/* destructive variant */
+.context-menu__item--destructive {
+    color: var(--app-danger, #e05252);
+}
+
+.context-menu__item--destructive:hover:not(.context-menu__item--disabled) {
+    background: rgba(224, 82, 82, 0.12);
+}
+
+.context-menu__item--destructive:active:not(.context-menu__item--disabled) {
+    background: rgba(224, 82, 82, 0.22);
+}
+
+/* disabled (applies to all variants) */
 .context-menu__item--disabled {
-    color: var(--app-text-secondary);
+    color: var(--app-text-secondary) !important;
     cursor: not-allowed;
 }
 
 .context-menu__item--disabled:hover {
-    background: transparent;
+    background: transparent !important;
 }
 
 /* separator */

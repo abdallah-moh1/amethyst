@@ -1,4 +1,10 @@
-import { useState } from "react";
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Amethyst - A modern markdown note-taking application
+// Copyright (C) 2026 Abdallah
+
+import { useState } from 'react';
+
+export type ContextMenuItemVariant = 'default' | 'destructive';
 
 export type ContextMenuItem = {
     label?: string;
@@ -6,6 +12,7 @@ export type ContextMenuItem = {
     disabled?: boolean;
     separator?: boolean;
     shortcut?: string;
+    variant?: ContextMenuItemVariant;
 };
 
 export type ContextMenuState = {
@@ -17,10 +24,7 @@ export type ContextMenuState = {
 export function useContextMenu() {
     const [menu, setMenu] = useState<ContextMenuState>(null);
 
-    const open = (
-        e: React.MouseEvent,
-        items: ContextMenuItem[]
-    ) => {
+    const open = (e: React.MouseEvent, items: ContextMenuItem[]) => {
         e.preventDefault();
 
         const menuWidth = 200;
@@ -29,14 +33,8 @@ export function useContextMenu() {
         let x = e.clientX;
         let y = e.clientY;
 
-        // prevent overflow
-        if (x + menuWidth > window.innerWidth) {
-            x -= menuWidth;
-        }
-
-        if (y + menuHeight > window.innerHeight) {
-            y -= menuHeight;
-        }
+        if (x + menuWidth > window.innerWidth) x -= menuWidth;
+        if (y + menuHeight > window.innerHeight) y -= menuHeight;
 
         setMenu({ x, y, items });
     };
