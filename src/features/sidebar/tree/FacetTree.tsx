@@ -12,7 +12,6 @@ import { useItemRename } from './hooks/useItemRename';
 import { useItems } from './hooks/useItems';
 import { ROOT_ID } from './utils/treeAdapter';
 import { useItemDrop } from './hooks/useItemDrop';
-import { ContextMenu } from '@/features/context-menu';
 
 import './rct.css';
 
@@ -21,7 +20,7 @@ export const GHOST_INDEX = '__ghost__';
 export function FacetTree() {
     const envRef = useRef<TreeRef<FacetTreeItemData>>(null);
 
-    const { items, contextMenu, renderItems } = useItems(envRef);
+    const { items, renderItems } = useItems(envRef);
     const { expandedItems, handleExpandItem, handleCollapseItem } = useItemExpansion();
     const { selectedItems, handleSelectItems } = useItemSelection(items);
     const { handlePrimaryAction } = useItemPrimaryAction();
@@ -29,31 +28,28 @@ export function FacetTree() {
     const { handleOnDrop } = useItemDrop();
 
     return (
-        <>
-            <ControlledTreeEnvironment
-                items={items}
-                getItemTitle={(item) => item.data?.node.name ?? ''}
-                canDragAndDrop
-                canReorderItems
-                canDropOnFolder
-                viewState={{
-                    facet: {
-                        expandedItems,
-                        selectedItems,
-                    },
-                }}
-                onSelectItems={handleSelectItems}
-                onExpandItem={handleExpandItem}
-                onCollapseItem={handleCollapseItem}
-                onPrimaryAction={handlePrimaryAction}
-                onRenameItem={handleRenameItem}
-                onAbortRenamingItem={handleAbort}
-                onDrop={handleOnDrop}
-                renderItem={renderItems}
-            >
-                <Tree treeId="facet" rootItem={ROOT_ID} treeLabel="Facet Tree" ref={envRef} />
-            </ControlledTreeEnvironment>
-            <ContextMenu {...contextMenu} />
-        </>
+        <ControlledTreeEnvironment
+            items={items}
+            getItemTitle={(item) => item.data?.node.name ?? ''}
+            canDragAndDrop
+            canReorderItems
+            canDropOnFolder
+            viewState={{
+                facet: {
+                    expandedItems,
+                    selectedItems,
+                },
+            }}
+            onSelectItems={handleSelectItems}
+            onExpandItem={handleExpandItem}
+            onCollapseItem={handleCollapseItem}
+            onPrimaryAction={handlePrimaryAction}
+            onRenameItem={handleRenameItem}
+            onAbortRenamingItem={handleAbort}
+            onDrop={handleOnDrop}
+            renderItem={renderItems}
+        >
+            <Tree treeId="facet" rootItem={ROOT_ID} treeLabel="Facet Tree" ref={envRef} />
+        </ControlledTreeEnvironment>
     );
 }

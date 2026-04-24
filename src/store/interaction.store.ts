@@ -2,6 +2,7 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
+import { ContextMenuState } from '@/features/context-menu';
 import { ToastMessage } from '@/features/toast-notifications/ToastNotifications';
 import { ParentPath } from '@shared/types/facet.type';
 import { create } from 'zustand';
@@ -16,6 +17,9 @@ type InteractionState = {
     expandedItems: string[];
 
     ghost: GhostItem | null;
+    contextMenu: ContextMenuState;
+
+    setContextMenu: (menu: ContextMenuState) => void;
 
     toasts: ToastMessage[];
 
@@ -40,7 +44,14 @@ export const useInteractionStore = create<InteractionState>((set) => ({
     expandedItems: [],
     ghost: null,
     toasts: [],
+    contextMenu: null,
 
+
+    setContextMenu(menu) {
+        set({
+            contextMenu: menu
+        });
+    },
     addToast(toast) {
         set((state) => ({
             toasts: [...state.toasts, toast],

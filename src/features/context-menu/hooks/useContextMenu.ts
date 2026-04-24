@@ -2,7 +2,8 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { useCallback, useState } from 'react';
+import { useInteractionStore } from '@/store';
+import { useCallback } from 'react';
 
 export type ContextMenuItemVariant = 'default' | 'destructive';
 
@@ -22,8 +23,8 @@ export type ContextMenuState = {
 } | null;
 
 export function useContextMenu() {
-    const [menu, setMenu] = useState<ContextMenuState>(null);
-
+    const menu = useInteractionStore(s => s.contextMenu);
+    const setMenu = useInteractionStore(s => s.setContextMenu);
     const open = useCallback((e: React.MouseEvent, items: ContextMenuItem[]) => {
         e.preventDefault();
 
@@ -37,9 +38,9 @@ export function useContextMenu() {
         if (y + menuHeight > window.innerHeight) y -= menuHeight;
 
         setMenu({ x, y, items });
-    }, []);
+    }, [setMenu]);
 
-    const close = useCallback(() => setMenu(null), []);
+    const close = useCallback(() => setMenu(null), [setMenu]);
 
     return { menu, open, close };
 }

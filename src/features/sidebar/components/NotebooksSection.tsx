@@ -9,7 +9,7 @@ import { commands, FacetCommands } from '@/features/commands';
 import { ParentPath } from '@shared/types/facet.type';
 import { getParentRelativePath } from '@/utils';
 import { useCallback } from 'react';
-import { ContextMenu, useContextMenu } from '@/features/context-menu';
+import { useContextMenu } from '@/features/context-menu';
 
 export function NotebooksSection() {
     const selectedItem = useInteractionStore((s) => s.selectedItem);
@@ -67,7 +67,6 @@ export function NotebooksSection() {
             <div className="section-tree" onContextMenu={handleContextMenu}>
                 <FacetTree />
             </div>
-            <ContextMenu {...contextMenu} />
         </div>
     );
 }
