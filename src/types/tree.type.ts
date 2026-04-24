@@ -9,5 +9,5 @@ export type FacetTreeItemData =
     | { type: 'note'; node: FacetNote; }
     | { type: 'notebook'; node: FacetNotebook; };
 
-export type FacetTreeItem = TreeItem<FacetTreeItemData>;
+export type FacetTreeItem = TreeItem<FacetTreeItemData | null>;
 export type FacetTree = Record<TreeItemIndex, FacetTreeItem>;
