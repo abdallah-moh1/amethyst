@@ -259,6 +259,8 @@
     gap: 0;
     animation: rct-fade-in 100ms ease forwards;
     max-width: 100%;
+
+    padding: 0 4px;
     height: 100%;
 }
 
@@ -279,7 +281,7 @@
     outline: none;
 
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--app-accent) 18%, transparent);
-    max-width: 100%;
+    width: 100%;
 
     transition:
         box-shadow 160ms ease,
