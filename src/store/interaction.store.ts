@@ -7,15 +7,13 @@ import { ParentPath } from '@shared/types/facet.type';
 import { create } from 'zustand';
 
 type SelectedItem =
-    | { type: 'note'; id: string; path: string }
-    | { type: 'notebook'; path: string }
+    | { type: 'note'; id: string; path: string; }
+    | { type: 'notebook'; path: string; }
     | null;
 
 type InteractionState = {
     selectedItem: SelectedItem;
     expandedItems: string[];
-
-    mode: 'idle' | 'creating' | 'renaming';
 
     ghost: GhostItem | null;
 
@@ -40,7 +38,6 @@ type GhostItem = {
 export const useInteractionStore = create<InteractionState>((set) => ({
     selectedItem: null,
     expandedItems: [],
-    mode: 'idle',
     ghost: null,
     toasts: [],
 
@@ -68,6 +65,5 @@ export const useInteractionStore = create<InteractionState>((set) => ({
         set({
             selectedItem: null,
             expandedItems: [],
-            mode: 'idle',
         }),
 }));
