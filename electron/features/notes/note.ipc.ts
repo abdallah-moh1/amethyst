@@ -7,9 +7,9 @@ import { NoteService } from './note.service.js';
 import { ParentPath } from '../../../shared/types/facet.type.js';
 
 export function registerNoteIpc(noteService: NoteService) {
-    ipcMain.handle('note:create', async (_, name: string, parentPath: ParentPath) => {
+    ipcMain.handle('note:create', async (_, parentPath: ParentPath, name: string) => {
         try {
-            return await noteService.createNote(name, parentPath);
+            return await noteService.createNote(parentPath, name);
         } catch (error) {
             return { error };
         }

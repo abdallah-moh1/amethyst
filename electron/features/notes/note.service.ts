@@ -15,7 +15,7 @@ export class NoteService {
         private facetService: FacetService,
     ) {}
 
-    async createNote(name: string, parentPath: ParentPath): Promise<FacetNote> {
+    async createNote(parentPath: ParentPath, name: string): Promise<FacetNote> {
         const notePath = parentPath ? joinRelativePath(parentPath, `${name}.md`) : `${name}.md`;
         const absolutePath = this.getAbsolutePath(notePath);
         if (await pathExists(absolutePath)) {
