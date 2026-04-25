@@ -18,7 +18,7 @@
     "scripts": {
         "dev": "concurrently -k \"npm:dev:renderer\" \"npm:dev:electron\"",
         "dev:renderer": "vite",
-        "dev:electron": "wait-on tcp:5173 && tsc -p tsconfig.node.json && cross-env ELECTRON_START_URL=http://localhost:5173 electron .",
+        "dev:electron": "wait-on tcp:5173 && tsc -p tsconfig.node.json && cross-env ELECTRON_DISABLE_SANDBOX=1 ELECTRON_START_URL=http://localhost:5173 electron .",
         "build": "tsc -p tsconfig.node.json && vite build",
         "build:electron": "npm run build && electron-builder --publish never",
         "build:electron:dir": "npm run build && electron-builder --dir",
@@ -70,10 +70,12 @@
         "react-markdown": "^10.1.0",
         "react-resizable-panels": "^4.8.0",
         "rehype-highlight": "^7.0.2",
+        "rehype-katex": "^7.0.1",
         "rehype-raw": "^7.0.0",
         "remark-breaks": "^4.0.0",
         "remark-emoji": "^5.0.2",
         "remark-gfm": "^4.0.1",
+        "remark-math": "^6.0.0",
         "unist-util-visit": "^5.1.0",
         "zustand": "^5.0.12"
     },
