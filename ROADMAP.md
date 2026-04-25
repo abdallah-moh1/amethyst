@@ -39,6 +39,7 @@ Amethyst is a streamlined, architecture-first Markdown note-taking application. 
 - **Context Menus:** Right-click support for the Sidebar and Editor.
 - **Shortcut Manager:** Mapping physical keys to Command IDs.
 - **Toast Notifications:** Global system for both **success** and **error** feedback.
+- **Math Support:** Latex math support
 
 **0.6.0 — File Safety & Advanced Operations**
 
