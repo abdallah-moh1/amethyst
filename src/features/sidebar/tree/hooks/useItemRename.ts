@@ -14,6 +14,8 @@ export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItemData> | nu
     const ghost = useInteractionStore((s) => s.ghost);
     const setGhost = useInteractionStore((s) => s.setGhost);
     const addToast = useInteractionStore((s) => s.addToast);
+    const renamingItem = useInteractionStore((s) => s.renamingItem);
+    const setRenamingItem = useInteractionStore((s) => s.setRenamingItem);
 
     const expandedItems = useInteractionStore((s) => s.expandedItems);
     const setExpandedItems = useInteractionStore((s) => s.setExpandedItems);
@@ -35,6 +37,13 @@ export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItemData> | nu
         }
     }, [ghost, treeRef, expandedItems, setExpandedItems]);
 
+    // As soon as the ghost appears, tell RCT to start renaming it
+    useEffect(() => {
+        if (renamingItem) {
+            treeRef.current?.startRenamingItem(renamingItem.index);
+        }
+    }, [renamingItem, treeRef]);
+
     const handleRenameItem = useCallback(
         async (item: FacetTreeItem, newName: string) => {
             let result: CommandExecutionResult | null = null;
@@ -43,14 +52,14 @@ export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItemData> | nu
                 if (ghost.type === 'note') {
                     result = await commands.execute(
                         FacetCommands.CREATE_NOTE,
-                        newName,
                         ghost.parentPath,
+                        newName,
                     );
                 } else {
                     result = await commands.execute(
                         FacetCommands.CREATE_NOTEBOOK,
-                        newName,
                         ghost.parentPath,
+                        newName,
                     );
                 }
                 setGhost(null);
@@ -77,14 +86,16 @@ export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItemData> | nu
                     type: 'error',
                 });
             }
+            setRenamingItem(null);
         },
-        [ghost, setGhost, addToast],
+        [ghost, setRenamingItem, setGhost, addToast],
     );
 
     const handleAbort = useCallback(() => {
         // User pressed Escape — discard the ghost
         setGhost(null);
-    }, [setGhost]);
+        setRenamingItem(null);
+    }, [setGhost, setRenamingItem]);
 
     return {
         handleRenameItem,

@@ -4,12 +4,15 @@
 
 import { ToastNotifications } from '@/features/toast-notifications';
 import { WorkspacePanels } from './WorkspacePanels';
+import { ContextMenu, useContextMenu } from '@/features/context-menu';
 
 export function AppShell() {
+    const contextMenu = useContextMenu();
     return (
         <main className="app-shell">
             <WorkspacePanels />
             <ToastNotifications />
+            <ContextMenu {...contextMenu} />
         </main>
     );
 }

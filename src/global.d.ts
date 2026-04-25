@@ -29,7 +29,7 @@ declare global {
                 };
             };
             notes: {
-                create: (name: string, parentPath: ParentPath) => Promise<FacetNote>;
+                create: (parentPath: ParentPath, name: string) => Promise<FacetNote>;
                 open: (id: string) => Promise<string>;
                 save: (id: string, content: string) => Promise<void>;
                 rename: (id: string, newName: string) => Promise<FacetNote>;

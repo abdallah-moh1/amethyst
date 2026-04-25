@@ -112,21 +112,47 @@ export function useItems(treeRef: RefObject<TreeRef<FacetTreeItemData> | null>) 
                 if (!data) return;
                 e.preventDefault();
 
-                const contextItems: ContextMenuItem[] = [
-                    {
-                        label: 'Rename',
-                        action: () => treeRef.current?.startRenamingItem(item.index),
-                    },
-                    { separator: true },
-                    {
-                        label: 'Delete',
-                        variant: 'destructive',
-                        action: () =>
-                            data.type === 'notebook'
-                                ? commands.execute(FacetCommands.DELETE_NOTEBOOK, data.node.path)
-                                : commands.execute(FacetCommands.DELETE_NOTE, data.node.id),
-                    },
-                ];
+                let contextItems: ContextMenuItem[] = [];
+
+                if (data.type === 'notebook') {
+                    contextItems = [
+                        {
+                            label: 'New Note',
+                            // Replace with your actual command later
+                            action: () =>
+                                commands.execute(FacetCommands.CREATE_NOTE, data.node.path),
+                        },
+                        {
+                            label: 'New Notebook',
+                            action: () =>
+                                commands.execute(FacetCommands.CREATE_NOTEBOOK, data.node.path),
+                        },
+                        { separator: true },
+                        {
+                            label: 'Rename',
+                            action: () =>
+                                commands.execute(FacetCommands.RENAME_NOTEBOOK, data.node.path),
+                        },
+                        {
+                            label: 'Delete',
+                            variant: 'destructive',
+                            action: () =>
+                                commands.execute(FacetCommands.DELETE_NOTEBOOK, data.node.path),
+                        },
+                    ];
+                } else {
+                    contextItems = [
+                        {
+                            label: 'Rename',
+                            action: () => treeRef.current?.startRenamingItem(item.index),
+                        },
+                        {
+                            label: 'Delete',
+                            variant: 'destructive',
+                            action: () => commands.execute(FacetCommands.DELETE_NOTE, data.node.id),
+                        },
+                    ];
+                }
 
                 contextMenu.open(e, contextItems);
             };

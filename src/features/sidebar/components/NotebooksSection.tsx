@@ -3,49 +3,48 @@
 // Copyright (C) 2026 Abdallah
 
 import { FilePlus, FolderPlus } from 'lucide-react';
-import { FacetTree, GHOST_INDEX } from '../tree/FacetTree';
+import { FacetTree } from '../tree/FacetTree';
 import { useInteractionStore } from '@/store';
-
-function getParentRelativePath(path: string): string | null {
-    const parts = path.split('/');
-    if (parts.length <= 1) return null;
-
-    parts.pop();
-
-    return parts.join('/');
-}
+import { commands, FacetCommands } from '@/features/commands';
+import { ParentPath } from '@shared/types/facet.type';
+import { useCallback } from 'react';
+import { useContextMenu } from '@/features/context-menu';
 
 export function NotebooksSection() {
-    const setGhost = useInteractionStore((s) => s.setGhost);
     const selectedItem = useInteractionStore((s) => s.selectedItem);
+    const getResolvedParentPath = useInteractionStore((s) => s.getResolvedParentPath);
 
-    function handleAddNote() {
-        let parentPath: string | null = '';
-        if (!selectedItem) parentPath = null;
-        else if (selectedItem.type === 'notebook') parentPath = selectedItem.path;
-        else if (selectedItem.type === 'note')
-            parentPath = getParentRelativePath(selectedItem.path);
+    const contextMenu = useContextMenu();
 
-        setGhost({
-            index: GHOST_INDEX,
-            type: 'note',
-            parentPath,
-        });
-    }
+    const handleAddNote = useCallback(() => {
+        const parentPath: ParentPath = selectedItem ? getResolvedParentPath() : null;
 
-    function handleAddNotebook() {
-        let parentPath: string | null = '';
-        if (!selectedItem) parentPath = null;
-        else if (selectedItem.type === 'notebook') parentPath = selectedItem.path;
-        else if (selectedItem.type === 'note')
-            parentPath = getParentRelativePath(selectedItem.path);
+        commands.execute(FacetCommands.CREATE_NOTE, parentPath);
+    }, [selectedItem, getResolvedParentPath]);
 
-        setGhost({
-            index: GHOST_INDEX,
-            type: 'notebook',
-            parentPath,
-        });
-    }
+    const handleAddNotebook = useCallback(() => {
+        const parentPath: ParentPath = selectedItem ? getResolvedParentPath() : null;
+
+        commands.execute(FacetCommands.CREATE_NOTEBOOK, parentPath);
+    }, [selectedItem, getResolvedParentPath]);
+
+    const handleContextMenu = useCallback(
+        (e: React.MouseEvent<Element, MouseEvent>) => {
+            if (e.defaultPrevented) return;
+            contextMenu.open(e, [
+                {
+                    label: 'New Note',
+                    // Replace with your actual command later
+                    action: () => commands.execute(FacetCommands.CREATE_NOTE, null),
+                },
+                {
+                    label: 'New Notebook',
+                    action: () => commands.execute(FacetCommands.CREATE_NOTEBOOK, null),
+                },
+            ]);
+        },
+        [contextMenu],
+    );
 
     return (
         <div className="notebooks-section">
@@ -60,7 +59,7 @@ export function NotebooksSection() {
                     </button>
                 </div>
             </div>
-            <div className="section-tree">
+            <div className="section-tree" onContextMenu={handleContextMenu}>
                 <FacetTree />
             </div>
         </div>

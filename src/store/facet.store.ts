@@ -59,16 +59,20 @@ export const useFacetStore = create<FacetState>((set) => ({
             const notebooks = new Map(state.notebooks);
             const notes = new Map(state.notes);
 
-            // 1. Remove the target notebook and all descendants from notebooks Map
+            // This helper ensures we only target the folder itself or its contents
+            const shouldDelete = (targetPath: string) =>
+                targetPath === path || targetPath.startsWith(`${path}/`);
+
+            // 1. Filter Notebooks
             for (const [nbPath] of notebooks) {
-                if (nbPath.startsWith(path)) {
+                if (shouldDelete(nbPath)) {
                     notebooks.delete(nbPath);
                 }
             }
 
-            // 2. Remove all notes that were inside that folder
+            // 2. Filter Notes
             for (const [id, note] of notes) {
-                if (note.path.startsWith(path)) {
+                if (shouldDelete(note.path)) {
                     notes.delete(id);
                 }
             }

@@ -2,7 +2,8 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { useCallback, useState } from 'react';
+import { useInteractionStore } from '@/store';
+import { useCallback } from 'react';
 
 export type ContextMenuItemVariant = 'default' | 'destructive';
 
@@ -22,24 +23,27 @@ export type ContextMenuState = {
 } | null;
 
 export function useContextMenu() {
-    const [menu, setMenu] = useState<ContextMenuState>(null);
+    const menu = useInteractionStore((s) => s.contextMenu);
+    const setMenu = useInteractionStore((s) => s.setContextMenu);
+    const open = useCallback(
+        (e: React.MouseEvent, items: ContextMenuItem[]) => {
+            e.preventDefault();
 
-    const open = useCallback((e: React.MouseEvent, items: ContextMenuItem[]) => {
-        e.preventDefault();
+            const menuWidth = 200;
+            const menuHeight = items.length * 34;
 
-        const menuWidth = 200;
-        const menuHeight = items.length * 34;
+            let x = e.clientX;
+            let y = e.clientY;
 
-        let x = e.clientX;
-        let y = e.clientY;
+            if (x + menuWidth > window.innerWidth) x -= menuWidth;
+            if (y + menuHeight > window.innerHeight) y -= menuHeight;
 
-        if (x + menuWidth > window.innerWidth) x -= menuWidth;
-        if (y + menuHeight > window.innerHeight) y -= menuHeight;
+            setMenu({ x, y, items });
+        },
+        [setMenu],
+    );
 
-        setMenu({ x, y, items });
-    }, []);
-
-    const close = useCallback(() => setMenu(null), []);
+    const close = useCallback(() => setMenu(null), [setMenu]);
 
     return { menu, open, close };
 }

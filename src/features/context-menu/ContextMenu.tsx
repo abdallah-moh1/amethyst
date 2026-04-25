@@ -15,10 +15,18 @@ export function ContextMenu({ menu, close }: Props) {
     useEffect(() => {
         if (!menu) return;
 
-        const handleClick = () => close();
-        window.addEventListener('click', handleClick);
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') close();
+        };
+        window.addEventListener('click', close);
+        window.addEventListener('resize', close);
+        window.addEventListener('keydown', handleKeyDown);
 
-        return () => window.removeEventListener('click', handleClick);
+        return () => {
+            window.removeEventListener('click', close);
+            window.removeEventListener('resize', close);
+            window.removeEventListener('keydown', handleKeyDown);
+        };
     }, [menu, close]);
 
     if (!menu) return null;
