@@ -95,7 +95,11 @@ export const customComponents: Components = {
         ),
     blockquote: ({ children }) => <blockquote className="md-blockquote">{children}</blockquote>,
     hr: () => <hr className="md-hr" />,
-    table: ({ children }) => <table className="md-table">{children}</table>,
+    table: ({ children }) => (
+        <div className="md-table-scroll">
+            <table className="md-table">{children}</table>
+        </div>
+    ),
     tr: ({ children }) => <tr className="md-tr">{children}</tr>,
     th: ({ children }) => <th className="md-th">{children}</th>,
     td: ({ children }) => <td className="md-td">{children}</td>,
