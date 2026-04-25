@@ -130,7 +130,8 @@ export function useItems(treeRef: RefObject<TreeRef<FacetTreeItemData> | null>) 
                         { separator: true },
                         {
                             label: 'Rename',
-                            action: () => treeRef.current?.startRenamingItem(item.index),
+                            action: () =>
+                                commands.execute(FacetCommands.RENAME_NOTEBOOK, data.node.path),
                         },
                         {
                             label: 'Delete',

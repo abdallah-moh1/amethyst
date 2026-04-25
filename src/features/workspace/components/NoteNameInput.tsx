@@ -60,7 +60,6 @@ export function NoteNameInput() {
         if (result.success) {
             setNoteName(trimmedName);
         } else {
-            setName(noteName);
             setError(result.message);
             // Focus again if the backend rejected the name (e.g. file exists)
             inputRef.current?.focus();

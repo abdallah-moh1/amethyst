@@ -2,23 +2,20 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { useFacetStore, useInteractionStore } from '@/store';
+import { useInteractionStore } from '@/store';
 import { RefObject, useCallback, useEffect } from 'react';
 import { GHOST_INDEX } from '../FacetTree';
 import { FacetTreeItem, FacetTreeItemData } from '@/types/tree.type';
 import { commands, FacetCommands } from '@/features/commands';
 import { TreeRef } from 'react-complex-tree';
 import { CommandExecutionResult } from '@/types/command.type';
-import { createNotebook } from '@/clients/notebook.client';
-import { createNote } from '@/clients/note.client';
 
 export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItemData> | null>) {
     const ghost = useInteractionStore((s) => s.ghost);
     const setGhost = useInteractionStore((s) => s.setGhost);
     const addToast = useInteractionStore((s) => s.addToast);
-
-    const addNote = useFacetStore((s) => s.addNote);
-    const addNotebook = useFacetStore((s) => s.addNotebook);
+    const renamingItem = useInteractionStore((s) => s.renamingItem);
+    const setRenamingItem = useInteractionStore((s) => s.setRenamingItem);
 
     const expandedItems = useInteractionStore((s) => s.expandedItems);
     const setExpandedItems = useInteractionStore((s) => s.setExpandedItems);
@@ -40,37 +37,30 @@ export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItemData> | nu
         }
     }, [ghost, treeRef, expandedItems, setExpandedItems]);
 
+    // As soon as the ghost appears, tell RCT to start renaming it
+    useEffect(() => {
+        if (renamingItem) {
+            treeRef.current?.startRenamingItem(renamingItem.index);
+        }
+    }, [renamingItem, treeRef]);
+
     const handleRenameItem = useCallback(
         async (item: FacetTreeItem, newName: string) => {
             let result: CommandExecutionResult | null = null;
 
             if (item.index === GHOST_INDEX && ghost) {
                 if (ghost.type === 'note') {
-                    try {
-                        const note = await createNote(ghost.parentPath, newName);
-                        addNote(note);
-                        result = { success: true };
-                    } catch (error) {
-                        result = {
-                            success: false,
-                            message:
-                                error instanceof Error ? error.message : 'Failed to create note',
-                        };
-                    }
+                    result = await commands.execute(
+                        FacetCommands.CREATE_NOTE,
+                        ghost.parentPath,
+                        newName,
+                    );
                 } else {
-                    try {
-                        const notebook = await createNotebook(ghost.parentPath, newName);
-                        addNotebook(notebook);
-                        result = { success: true };
-                    } catch (error) {
-                        result = {
-                            success: false,
-                            message:
-                                error instanceof Error
-                                    ? error.message
-                                    : 'Failed to create notebook',
-                        };
-                    }
+                    result = await commands.execute(
+                        FacetCommands.CREATE_NOTEBOOK,
+                        ghost.parentPath,
+                        newName,
+                    );
                 }
                 setGhost(null);
             } else {
@@ -96,14 +86,16 @@ export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItemData> | nu
                     type: 'error',
                 });
             }
+            setRenamingItem(null);
         },
-        [ghost, setGhost, addToast, addNote, addNotebook],
+        [ghost, setRenamingItem, setGhost, addToast],
     );
 
     const handleAbort = useCallback(() => {
         // User pressed Escape — discard the ghost
         setGhost(null);
-    }, [setGhost]);
+        setRenamingItem(null);
+    }, [setGhost, setRenamingItem]);
 
     return {
         handleRenameItem,

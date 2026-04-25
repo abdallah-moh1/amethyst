@@ -4,10 +4,11 @@
 
 import { ContextMenuState } from '@/features/context-menu';
 import { ToastMessage } from '@/features/toast-notifications/ToastNotifications';
+import { getParentRelativePath } from '@/utils';
 import { ParentPath } from '@shared/types/facet.type';
 import { create } from 'zustand';
 
-type SelectedItem =
+export type SelectedItem =
     | { type: 'note'; id: string; path: string }
     | { type: 'notebook'; path: string }
     | null;
@@ -18,6 +19,11 @@ type InteractionState = {
 
     ghost: GhostItem | null;
     contextMenu: ContextMenuState;
+
+    renamingItem: RenamingItem;
+    setRenamingItem: (item: RenamingItem) => void;
+
+    getResolvedParentPath: () => ParentPath;
 
     setContextMenu: (menu: ContextMenuState) => void;
 
@@ -38,13 +44,32 @@ type GhostItem = {
     parentPath: ParentPath;
     index: string; // e.g. '__ghost__'
 };
+type RenamingItem = {
+    index: string;
+} | null;
 
-export const useInteractionStore = create<InteractionState>((set) => ({
+export const useInteractionStore = create<InteractionState>((set, get) => ({
     selectedItem: null,
     expandedItems: [],
     ghost: null,
     toasts: [],
     contextMenu: null,
+    renamingItem: null,
+
+    setRenamingItem(item: RenamingItem) {
+        set({ renamingItem: item });
+    },
+
+    getResolvedParentPath: () => {
+        const { selectedItem } = get();
+        if (!selectedItem) return null;
+
+        if (selectedItem.type === 'note') {
+            return getParentRelativePath(selectedItem.path);
+        }
+
+        return selectedItem.path;
+    },
 
     setContextMenu(menu) {
         set({

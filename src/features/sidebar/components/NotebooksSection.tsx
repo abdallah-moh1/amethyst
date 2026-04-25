@@ -7,31 +7,26 @@ import { FacetTree } from '../tree/FacetTree';
 import { useInteractionStore } from '@/store';
 import { commands, FacetCommands } from '@/features/commands';
 import { ParentPath } from '@shared/types/facet.type';
-import { getParentRelativePath } from '@/utils';
 import { useCallback } from 'react';
 import { useContextMenu } from '@/features/context-menu';
 
 export function NotebooksSection() {
     const selectedItem = useInteractionStore((s) => s.selectedItem);
+    const getResolvedParentPath = useInteractionStore((s) => s.getResolvedParentPath);
+
     const contextMenu = useContextMenu();
 
     const handleAddNote = useCallback(() => {
-        let parentPath: ParentPath = null;
-        if (selectedItem?.type === 'notebook') parentPath = selectedItem.path;
-        else if (selectedItem?.type === 'note')
-            parentPath = getParentRelativePath(selectedItem.path);
+        const parentPath: ParentPath = selectedItem ? getResolvedParentPath() : null;
 
         commands.execute(FacetCommands.CREATE_NOTE, parentPath);
-    }, [selectedItem]);
+    }, [selectedItem, getResolvedParentPath]);
 
     const handleAddNotebook = useCallback(() => {
-        let parentPath: ParentPath = null;
-        if (selectedItem?.type === 'notebook') parentPath = selectedItem.path;
-        else if (selectedItem?.type === 'note')
-            parentPath = getParentRelativePath(selectedItem.path);
+        const parentPath: ParentPath = selectedItem ? getResolvedParentPath() : null;
 
         commands.execute(FacetCommands.CREATE_NOTEBOOK, parentPath);
-    }, [selectedItem]);
+    }, [selectedItem, getResolvedParentPath]);
 
     const handleContextMenu = useCallback(
         (e: React.MouseEvent<Element, MouseEvent>) => {

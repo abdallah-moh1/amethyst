@@ -1,4 +1,4 @@
-import { FacetNote, FacetNotebook } from "@shared/types/facet.type";
+import { FacetNote, FacetNotebook } from '@shared/types/facet.type';
 
 export function getParentRelativePath(path: string): string | null {
     const parts = path.split('/');
@@ -49,4 +49,4 @@ export function getUpdatedDescendantsPath(
     });
 
     return { updatedNotes, updatedNotebooks };
-};
+}
