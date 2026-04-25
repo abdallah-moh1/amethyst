@@ -23,22 +23,25 @@ export type ContextMenuState = {
 } | null;
 
 export function useContextMenu() {
-    const menu = useInteractionStore(s => s.contextMenu);
-    const setMenu = useInteractionStore(s => s.setContextMenu);
-    const open = useCallback((e: React.MouseEvent, items: ContextMenuItem[]) => {
-        e.preventDefault();
+    const menu = useInteractionStore((s) => s.contextMenu);
+    const setMenu = useInteractionStore((s) => s.setContextMenu);
+    const open = useCallback(
+        (e: React.MouseEvent, items: ContextMenuItem[]) => {
+            e.preventDefault();
 
-        const menuWidth = 200;
-        const menuHeight = items.length * 34;
+            const menuWidth = 200;
+            const menuHeight = items.length * 34;
 
-        let x = e.clientX;
-        let y = e.clientY;
+            let x = e.clientX;
+            let y = e.clientY;
 
-        if (x + menuWidth > window.innerWidth) x -= menuWidth;
-        if (y + menuHeight > window.innerHeight) y -= menuHeight;
+            if (x + menuWidth > window.innerWidth) x -= menuWidth;
+            if (y + menuHeight > window.innerHeight) y -= menuHeight;
 
-        setMenu({ x, y, items });
-    }, [setMenu]);
+            setMenu({ x, y, items });
+        },
+        [setMenu],
+    );
 
     const close = useCallback(() => setMenu(null), [setMenu]);
 

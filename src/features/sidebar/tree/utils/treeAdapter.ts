@@ -19,7 +19,7 @@ export function buildFacetTree(notes: FacetNote[], notebooks: FacetNotebook[]): 
     };
 
     // 2. CREATE ALL NODES FIRST (The "Registration" Pass)
-    // This solves the "child before parent" issue because every possible 
+    // This solves the "child before parent" issue because every possible
     // destination now exists in the 'tree' object before we link them.
     for (const notebook of notebooks) {
         tree[notebook.path] = {
@@ -55,7 +55,7 @@ export function buildFacetTree(notes: FacetNote[], notebooks: FacetNotebook[]): 
     }
 
     // 4. THE "BETTER SORTER"
-    // Instead of sorting the input arrays, we sort the 'children' arrays 
+    // Instead of sorting the input arrays, we sort the 'children' arrays
     // inside each folder. This ensures the UI displays them alphabetically.
     for (const node of Object.values(tree)) {
         if (node.isFolder && node.children && node.children.length > 0) {
