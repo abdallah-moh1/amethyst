@@ -11,7 +11,10 @@ import { customComponents } from './customComponents';
 import rehypeHighlight from 'rehype-highlight';
 import { useRef } from 'react';
 import { useWorkspaceStore } from '@/store';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
+import 'katex/dist/katex.min.css';
 import './preview.css';
 
 export function Preview() {
@@ -22,8 +25,8 @@ export function Preview() {
         <div className="preview" ref={previewRef}>
             <div className="preview-inner">
                 <ReactMarkdown
-                    remarkPlugins={[remarkGfm, remarkBreaks, remarkEmoji]}
-                    rehypePlugins={[rehypeRaw, rehypeHighlight]}
+                    remarkPlugins={[remarkGfm, remarkBreaks, remarkEmoji, remarkMath]}
+                    rehypePlugins={[rehypeRaw, rehypeHighlight, rehypeKatex]}
                     components={customComponents}
                 >
                     {noteContent}
