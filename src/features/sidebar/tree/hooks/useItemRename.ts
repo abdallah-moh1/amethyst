@@ -5,12 +5,12 @@
 import { useInteractionStore } from '@/store';
 import { RefObject, useCallback, useEffect } from 'react';
 import { GHOST_INDEX } from '../FacetTree';
-import { FacetTreeItem, FacetTreeItemData } from '@/types/tree.type';
+import { FacetTree, FacetTreeItem, FacetTreeItemData } from '@/types/tree.type';
 import { commands, FacetCommands } from '@/features/commands';
 import { TreeRef } from 'react-complex-tree';
 import { CommandExecutionResult } from '@/types/command.type';
 
-export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItemData> | null>) {
+export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItemData> | null>, items: FacetTree) {
     const ghost = useInteractionStore((s) => s.ghost);
     const setGhost = useInteractionStore((s) => s.setGhost);
     const addToast = useInteractionStore((s) => s.addToast);
@@ -35,14 +35,14 @@ export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItemData> | nu
             }, 0);
             return () => clearTimeout(id);
         }
-    }, [ghost, treeRef, expandedItems, setExpandedItems]);
+    }, [ghost]);
 
     // As soon as the ghost appears, tell RCT to start renaming it
     useEffect(() => {
-        if (renamingItem) {
+        if (renamingItem && items[renamingItem.index]) {
             treeRef.current?.startRenamingItem(renamingItem.index);
         }
-    }, [renamingItem, treeRef]);
+    }, [renamingItem]);
 
     const handleRenameItem = useCallback(
         async (item: FacetTreeItem, newName: string) => {

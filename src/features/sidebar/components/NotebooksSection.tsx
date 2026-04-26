@@ -12,6 +12,7 @@ import { useContextMenu } from '@/features/context-menu';
 
 export function NotebooksSection() {
     const selectedItem = useInteractionStore((s) => s.selectedItem);
+    const addToast = useInteractionStore((s) => s.addToast);
     const getResolvedParentPath = useInteractionStore((s) => s.getResolvedParentPath);
 
     const contextMenu = useContextMenu();
@@ -19,14 +20,32 @@ export function NotebooksSection() {
     const handleAddNote = useCallback(() => {
         const parentPath: ParentPath = selectedItem ? getResolvedParentPath() : null;
 
-        commands.execute(FacetCommands.CREATE_NOTE, parentPath);
-    }, [selectedItem, getResolvedParentPath]);
+        commands.execute(FacetCommands.CREATE_NOTE, parentPath).then((res) => {
+            if (res.success === false) {
+                addToast({
+                    id: Date.now().toString(),
+                    message: res.message,
+                    duration: 4000,
+                    type: 'error',
+                });
+            }
+        });
+    }, [selectedItem, getResolvedParentPath, addToast]);
 
     const handleAddNotebook = useCallback(() => {
         const parentPath: ParentPath = selectedItem ? getResolvedParentPath() : null;
 
-        commands.execute(FacetCommands.CREATE_NOTEBOOK, parentPath);
-    }, [selectedItem, getResolvedParentPath]);
+        commands.execute(FacetCommands.CREATE_NOTEBOOK, parentPath).then((res) => {
+            if (res.success === false) {
+                addToast({
+                    id: Date.now().toString(),
+                    message: res.message,
+                    duration: 4000,
+                    type: 'error',
+                });
+            }
+        });
+    }, [selectedItem, getResolvedParentPath, addToast]);
 
     const handleContextMenu = useCallback(
         (e: React.MouseEvent<Element, MouseEvent>) => {

@@ -24,7 +24,7 @@ export function FacetTree() {
     const { expandedItems, handleExpandItem, handleCollapseItem } = useItemExpansion();
     const { selectedItems, handleSelectItems } = useItemSelection(items);
     const { handlePrimaryAction } = useItemPrimaryAction();
-    const { handleRenameItem, handleAbort } = useItemRename(envRef);
+    const { handleRenameItem, handleAbort } = useItemRename(envRef, items);
     const { handleOnDrop } = useItemDrop();
 
     return (
