@@ -1,3 +1,45 @@
+/* Default CSS if issues happen with the theme */
+:root {
+    --app-accent: #bf80e8;
+    --app-bg-primary: #181818;
+    --app-bg-secondary: #1f1f1f;
+    --app-primary: #9954cb;
+    --app-text-primary: #e5e7eb;
+    --app-text-secondary: #9ca3af;
+    --app-border: #2a2a2a;
+    --editor-ui-text: #e5e7eb;
+    --editor-ui-text-muted: #9ca3af;
+    --editor-ui-caret: #bf80e8;
+    --editor-ui-selection: #3a2a47;
+    --editor-ui-border: #2a2a2a;
+    --editor-ui-fold-placeholder-bg: #252525;
+    --editor-ui-fold-placeholder-text: #9ca3af;
+    --editor-markdown-heading-1: #bf80e8;
+    --editor-markdown-heading-2: #c89cff;
+    --editor-markdown-heading-3: #d4b3ff;
+    --editor-markdown-heading-4: #dcc2ff;
+    --editor-markdown-heading-5: #e3d1ff;
+    --editor-markdown-heading-6: #e9ddff;
+    --editor-markdown-quote: #b794f4;
+    --editor-markdown-link: #bf80e8;
+    --editor-markdown-bold: #ffffff;
+    --editor-markdown-italic: #d1d5db;
+    --editor-markdown-inline-code-bg: #232323;
+    --editor-markdown-inline-code-text: #e5e7eb;
+    --editor-markdown-code-block-bg: #1f1f1f;
+    --editor-syntax-keyword: #c792ea;
+    --editor-syntax-string: #ecc48d;
+    --editor-syntax-comment: #7f848e;
+    --editor-syntax-number: #f78c6c;
+    --editor-syntax-variable: #e5e7eb;
+    --editor-syntax-type: #82aaff;
+    --editor-syntax-function: #c3a6ff;
+    --editor-syntax-operator: #89ddff;
+    --scrollbar-thumb: rgba(156, 163, 175, 0.28);
+    --scrollbar-thumb-hover: rgba(156, 163, 175, 0.45);
+    --scrollbar-thumb-active: rgba(191, 128, 232, 0.65);
+}
+
 html,
 body,
 #root {
