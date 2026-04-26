@@ -10,7 +10,10 @@ import { commands, FacetCommands } from '@/features/commands';
 import { TreeRef } from 'react-complex-tree';
 import { CommandExecutionResult } from '@/types/command.type';
 
-export function useItemRename(treeRef: RefObject<TreeRef<FacetTreeItemData> | null>, items: FacetTree) {
+export function useItemRename(
+    treeRef: RefObject<TreeRef<FacetTreeItemData> | null>,
+    items: FacetTree,
+) {
     const ghost = useInteractionStore((s) => s.ghost);
     const setGhost = useInteractionStore((s) => s.setGhost);
     const addToast = useInteractionStore((s) => s.addToast);
