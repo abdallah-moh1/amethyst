@@ -6,9 +6,9 @@ import { useInteractionStore } from '@/store';
 import { RefObject, useCallback, useEffect } from 'react';
 import { GHOST_INDEX } from '../FacetTree';
 import { FacetTree, FacetTreeItem, FacetTreeItemData } from '@/types/tree.type';
-import { commands, FacetCommands } from '@/features/commands';
+import { FacetCommands } from '@/features/commands';
 import { TreeRef } from 'react-complex-tree';
-import { CommandExecutionResult } from '@/types/command.type';
+import { CommandRunner } from '@/features/commands/runner';
 
 export function useItemRename(
     treeRef: RefObject<TreeRef<FacetTreeItemData> | null>,
@@ -16,7 +16,6 @@ export function useItemRename(
 ) {
     const ghost = useInteractionStore((s) => s.ghost);
     const setGhost = useInteractionStore((s) => s.setGhost);
-    const addToast = useInteractionStore((s) => s.addToast);
     const renamingItem = useInteractionStore((s) => s.renamingItem);
     const setRenamingItem = useInteractionStore((s) => s.setRenamingItem);
 
@@ -49,49 +48,28 @@ export function useItemRename(
 
     const handleRenameItem = useCallback(
         async (item: FacetTreeItem, newName: string) => {
-            let result: CommandExecutionResult | null = null;
-
             if (item.index === GHOST_INDEX && ghost) {
                 if (ghost.type === 'note') {
-                    result = await commands.execute(
-                        FacetCommands.CREATE_NOTE,
-                        ghost.parentPath,
-                        newName,
-                    );
+                    CommandRunner.execute(FacetCommands.CREATE_NOTE, ghost.parentPath, newName);
                 } else {
-                    result = await commands.execute(
-                        FacetCommands.CREATE_NOTEBOOK,
-                        ghost.parentPath,
-                        newName,
-                    );
+                    CommandRunner.execute(FacetCommands.CREATE_NOTEBOOK, ghost.parentPath, newName);
                 }
                 setGhost(null);
             } else {
                 if (item.data?.type === 'note') {
-                    result = await commands.execute(
-                        FacetCommands.RENAME_NOTE,
-                        item.data.node.id,
-                        newName,
-                    );
+                    CommandRunner.execute(FacetCommands.RENAME_NOTE, item.data.node.id, newName);
                 } else if (item.data?.type === 'notebook') {
-                    result = await commands.execute(
+                    CommandRunner.execute(
                         FacetCommands.RENAME_NOTEBOOK,
                         item.data.node.path,
                         newName,
                     );
                 }
             }
-            if (result && !result?.success) {
-                addToast({
-                    id: Date.now().toString(),
-                    message: result.message,
-                    duration: 4000,
-                    type: 'error',
-                });
-            }
+
             setRenamingItem(null);
         },
-        [ghost, setRenamingItem, setGhost, addToast],
+        [ghost, setRenamingItem, setGhost],
     );
 
     const handleAbort = useCallback(() => {
