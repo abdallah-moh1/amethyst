@@ -8,8 +8,9 @@ import { useFacetStore, useInteractionStore } from '@/store';
 import { GHOST_INDEX } from '../FacetTree';
 import { FacetTreeItem, FacetTreeItemData } from '@/types/tree.type';
 import { TreeInformation, TreeItemRenderContext, TreeRef } from 'react-complex-tree';
-import { commands, FacetCommands } from '@/features/commands';
+import { FacetCommands } from '@/features/commands';
 import { ContextMenuItem, useContextMenu } from '@/features/context-menu';
+import { CommandRunner } from '@/features/commands/runner';
 
 /**
  * Generates the class string for the <li> element based on the tree item state.
@@ -120,24 +121,33 @@ export function useItems(treeRef: RefObject<TreeRef<FacetTreeItemData> | null>) 
                             label: 'New Note',
                             // Replace with your actual command later
                             action: () =>
-                                commands.execute(FacetCommands.CREATE_NOTE, data.node.path),
+                                CommandRunner.execute(FacetCommands.CREATE_NOTE, data.node.path),
                         },
                         {
                             label: 'New Notebook',
                             action: () =>
-                                commands.execute(FacetCommands.CREATE_NOTEBOOK, data.node.path),
+                                CommandRunner.execute(
+                                    FacetCommands.CREATE_NOTEBOOK,
+                                    data.node.path,
+                                ),
                         },
                         { separator: true },
                         {
                             label: 'Rename',
                             action: () =>
-                                commands.execute(FacetCommands.RENAME_NOTEBOOK, data.node.path),
+                                CommandRunner.execute(
+                                    FacetCommands.RENAME_NOTEBOOK,
+                                    data.node.path,
+                                ),
                         },
                         {
                             label: 'Delete',
                             variant: 'destructive',
                             action: () =>
-                                commands.execute(FacetCommands.DELETE_NOTEBOOK, data.node.path),
+                                CommandRunner.execute(
+                                    FacetCommands.DELETE_NOTEBOOK,
+                                    data.node.path,
+                                ),
                         },
                     ];
                 } else {
@@ -149,7 +159,8 @@ export function useItems(treeRef: RefObject<TreeRef<FacetTreeItemData> | null>) 
                         {
                             label: 'Delete',
                             variant: 'destructive',
-                            action: () => commands.execute(FacetCommands.DELETE_NOTE, data.node.id),
+                            action: () =>
+                                CommandRunner.execute(FacetCommands.DELETE_NOTE, data.node.id),
                         },
                     ];
                 }
