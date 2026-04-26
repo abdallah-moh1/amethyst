@@ -5,7 +5,7 @@
 import { FilePlus, FolderPlus } from 'lucide-react';
 import { FacetTree } from '../tree/FacetTree';
 import { useInteractionStore } from '@/store';
-import { commands, FacetCommands } from '@/features/commands';
+import { FacetCommands } from '@/features/commands';
 import { ParentPath } from '@shared/types/facet.type';
 import { useCallback } from 'react';
 import { useContextMenu } from '@/features/context-menu';
