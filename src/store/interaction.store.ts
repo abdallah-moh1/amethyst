@@ -4,13 +4,13 @@
 
 import { ContextMenuState } from '@/features/context-menu';
 import { ToastMessage } from '@/features/toast-notifications/ToastNotifications';
-import { getParentRelativePath } from '@/utils';
+import { getParentRelativePath } from '@/shared/utils';
 import { ParentPath } from '@shared/types/facet.type';
 import { create } from 'zustand';
 
 export type SelectedItem =
-    | { type: 'note'; id: string; path: string }
-    | { type: 'notebook'; path: string }
+    | { type: 'note'; id: string; path: string; }
+    | { type: 'notebook'; path: string; }
     | null;
 
 type InteractionState = {

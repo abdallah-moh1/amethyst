@@ -2,11 +2,11 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { FacetCommands } from '@/features/commands';
+import { FacetCommands } from '@/core/commands';
 import { ROOT_ID } from '../utils/treeAdapter';
 import { DraggingPosition, TreeItem } from 'react-complex-tree';
 import { FacetTreeItemData } from '@/types/tree.type';
-import { CommandRunner } from '@/features/commands/runner';
+import { CommandRunner } from '@/core/commands';
 
 export function useItemDrop() {
     const handleOnDrop = async (

@@ -2,24 +2,29 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { EditorProps } from '@/types/editor.type';
-import { useCodeMirror } from './hooks/useCodeMirror';
-
-import './codemirror/cm-editor.css';
-import './editor.css';
+import { useCodeMirror } from '../../shared/hooks/useCodeMirror';
 import { useWorkspaceStore } from '@/store';
+
+import './editor.css';
 
 export function Editor({ onChange, placeholder }: EditorProps) {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const noteContent = useWorkspaceStore((state) => state.noteContent);
+    const currentNoteId = useWorkspaceStore((state) => state.currentNoteId);
 
-    useCodeMirror({
+    const { resetState } = useCodeMirror({
         containerRef,
         value: noteContent,
         onChange,
         placeholder,
     });
+
+    useEffect(() => {
+        resetState();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentNoteId]);
 
     return <div className="editor-wrapper" ref={containerRef} />;
 }

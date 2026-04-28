@@ -8,7 +8,7 @@ import { applyTheme } from '@/features/theme/theme.runtime';
 import { getSetting } from '@/clients/settings.client';
 import { getTheme } from '@/clients/themes.client';
 import { initFacet } from './initFacet';
-import { registerFacetCommands } from '@/features/commands';
+import { registerFacetCommands } from '@/core/commands';
 
 export async function bootstrapApp() {
     registerFacetCommands();

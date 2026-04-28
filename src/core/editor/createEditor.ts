@@ -4,12 +4,14 @@
 
 import { EditorState } from '@codemirror/state';
 import { EditorView, type ViewUpdate } from '@codemirror/view';
-import type { CreateEditorOptions } from '../../../types/editor.type';
+import type { CreateEditorOptions } from '@/types/editor.type';
 import { baseExtensions } from './extensions/baseExtensions';
 import { markdownExtensions } from './extensions/markdownExtensions';
 import { placeholderExtension } from './extensions/placeholder';
 import { syntaxTheme } from './extensions/syntaxTheme';
 import { editorTheme } from './extensions/editorTheme';
+
+import './cm-editor.css';
 
 export function createState({
     doc,

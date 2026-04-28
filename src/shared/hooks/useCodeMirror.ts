@@ -4,10 +4,9 @@
 
 import { useEffect, useRef } from 'react';
 import { EditorView } from '@codemirror/view';
-import { createEditor, createState } from '../codemirror/createEditor';
-import { updateEditor } from '../codemirror/updateEditor';
+import { createEditor, createState } from '@/core/editor';
+import { updateEditor } from '@/core/editor';
 import type { UseCodeMirrorOptions } from '@/types/editor.type';
-import { useWorkspaceStore } from '@/store';
 
 export function useCodeMirror({
     containerRef,
@@ -16,7 +15,6 @@ export function useCodeMirror({
     placeholder,
 }: UseCodeMirrorOptions) {
     const viewRef = useRef<EditorView | null>(null);
-    const currentNoteId = useWorkspaceStore((s) => s.currentNoteId);
 
     // This ref acts as a gatekeeper to prevent programmatic updates
     // from triggering the 'isDirty' logic in the store.
@@ -65,21 +63,17 @@ export function useCodeMirror({
         }
     }, [value]);
 
-    // Handles note switching
-    useEffect(() => {
-        const view = viewRef.current;
-        if (!view) return;
-
-        isProgrammaticUpdate.current = true;
-        view.setState(
-            createState({
-                doc: value,
-                onChange: handleDocChange, // Re-bind the wrapped version
-                placeholder,
-            }),
-        );
-        isProgrammaticUpdate.current = false;
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentNoteId]);
+    return {
+        resetState() {
+            const view = viewRef.current;
+            if (!view) return;
+            view.setState(
+                createState({
+                    doc: value,
+                    onChange: handleDocChange, // Re-bind the wrapped version
+                    placeholder,
+                }),
+            );
+        }
+    };
 }

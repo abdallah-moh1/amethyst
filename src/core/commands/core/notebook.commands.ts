@@ -13,8 +13,8 @@ import {
     renameNotebook,
 } from '@/clients/notebook.client';
 import { CommandExecutionResult } from '@/types/command.type';
-import { GHOST_INDEX } from '@/features/sidebar/tree/FacetTree';
-import { getUpdatedDescendantsPath } from '@/utils';
+import { GHOST_INDEX } from '@/features/facet-tree';
+import { getUpdatedDescendantsPath } from '@/shared/utils';
 
 export const registerNotebookCommands = () => {
     commands.register({

@@ -2,10 +2,10 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { FacetCommands } from '@/features/commands';
-import { CommandRunner } from '@/features/commands/runner';
+import { FacetCommands } from '@/core/commands';
+import { CommandRunner } from '@/core/commands';
 import { useWorkspaceStore } from '@/store';
-import { validateFileName } from '@/utils';
+import { validateFileName } from '@/shared/utils';
 import { KeyboardEvent, useEffect, useState, useRef } from 'react';
 
 export function NoteNameInput() {

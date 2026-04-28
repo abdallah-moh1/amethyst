@@ -2,8 +2,8 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { FacetCommands } from '@/features/commands';
-import { CommandRunner } from '@/features/commands/runner';
+import { FacetCommands } from '@/core/commands';
+import { CommandRunner } from '@/core/commands';
 import { FacetTreeItem } from '@/types/tree.type';
 import { useCallback } from 'react';
 

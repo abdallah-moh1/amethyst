@@ -6,9 +6,9 @@ import { useInteractionStore } from '@/store';
 import { RefObject, useCallback, useEffect } from 'react';
 import { GHOST_INDEX } from '../FacetTree';
 import { FacetTree, FacetTreeItem, FacetTreeItemData } from '@/types/tree.type';
-import { FacetCommands } from '@/features/commands';
+import { FacetCommands } from '@/core/commands';
 import { TreeRef } from 'react-complex-tree';
-import { CommandRunner } from '@/features/commands/runner';
+import { CommandRunner } from '@/core/commands';
 
 export function useItemRename(
     treeRef: RefObject<TreeRef<FacetTreeItemData> | null>,

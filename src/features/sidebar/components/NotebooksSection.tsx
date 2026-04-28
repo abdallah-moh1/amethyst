@@ -3,13 +3,13 @@
 // Copyright (C) 2026 Abdallah
 
 import { FilePlus, FolderPlus } from 'lucide-react';
-import { FacetTree } from '../tree/FacetTree';
+import { FacetTree } from '@/features/facet-tree';
 import { useInteractionStore } from '@/store';
-import { FacetCommands } from '@/features/commands';
+import { FacetCommands } from '@/core/commands';
 import { ParentPath } from '@shared/types/facet.type';
 import { useCallback } from 'react';
 import { useContextMenu } from '@/features/context-menu';
-import { CommandRunner } from '@/features/commands/runner';
+import { CommandRunner } from '@/core/commands';
 
 export function NotebooksSection() {
     const selectedItem = useInteractionStore((s) => s.selectedItem);
