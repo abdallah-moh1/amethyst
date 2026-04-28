@@ -86,7 +86,7 @@ export function NoteNameInput() {
                 ref={inputRef}
                 type="text"
                 className={`note-name-input ${error ? 'has-error' : ''}`}
-                placeholder="Note name..."
+                placeholder="Note name"
                 value={name}
                 onChange={handleChange}
                 onBlur={handleBlur}
