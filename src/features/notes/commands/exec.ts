@@ -49,16 +49,18 @@ export const openNoteCommandExec = async (...args: unknown[]): Promise<CommandEx
     if (!id) return { success: false, message: 'Note ID is required to open a note.' };
 
     const { notes } = useFacetStore.getState();
-    const { setNoteContent, setNoteName, setCurrentNoteId } = useWorkspaceStore.getState();
+    const { setNewNote } = useWorkspaceStore.getState();
 
     const note = notes.get(id);
     if (!note) return { success: false, message: `Note with id: ${id} does not exist.` };
 
     try {
         const content = await NoteClient.open(id);
-        setNoteContent(content);
-        setNoteName(note.name);
-        setCurrentNoteId(note.id);
+        setNewNote({
+            id: note.id,
+            name: note.name,
+            content
+        });
         return { success: true };
     } catch (error) {
         return {
@@ -156,7 +158,7 @@ export const deleteNoteCommandExec = async (
     ...args: unknown[]
 ): Promise<CommandExecutionResult> => {
     const { notes, removeNote } = useFacetStore.getState();
-    const { currentNoteId, setCurrentNoteId, setNoteContent } = useWorkspaceStore.getState();
+    const { currentNoteId, setNewNote } = useWorkspaceStore.getState();
 
     const target = (args[0] as string) || currentNoteId;
 
@@ -166,8 +168,7 @@ export const deleteNoteCommandExec = async (
 
     try {
         if (target === currentNoteId) {
-            setCurrentNoteId(null);
-            setNoteContent('');
+            setNewNote(null);
         }
         await NoteClient.delete(target);
         removeNote(target);
