@@ -4,7 +4,7 @@
 
 import { useEffect, useRef } from 'react';
 import { EditorProps } from '@/shared/types/editor.type';
-import { useCodeMirror } from '../../shared/hooks/useCodeMirror';
+import { useCodeMirror } from '@/shared/hooks/useCodeMirror';
 import { useWorkspaceStore } from '@/store';
 
 import './editor.css';
