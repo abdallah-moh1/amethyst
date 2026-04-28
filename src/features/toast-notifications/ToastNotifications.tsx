@@ -51,6 +51,7 @@ function ToastItem({ toast }: { toast: ToastMessage }) {
     useEffect(() => {
         startTimer();
         return clearTimer; // Cleanup on unmount
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

@@ -3,15 +3,13 @@
 // Copyright (C) 2026 Abdallah
 
 import { useEffect } from 'react';
-import { ContextMenuState } from '.';
+import { useContextMenu } from '@/shared/hooks/useContextMenu';
+
 import './context-menu.css';
 
-type Props = {
-    menu: ContextMenuState;
-    close: () => void;
-};
+export function ContextMenu() {
+    const { menu, close } = useContextMenu();
 
-export function ContextMenu({ menu, close }: Props) {
     useEffect(() => {
         if (!menu) return;
 

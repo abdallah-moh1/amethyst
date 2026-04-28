@@ -2,12 +2,12 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { Editor } from '../editor';
+import { NoteEditor } from '../note-editor';
 import { WorkspaceToolbar } from './components/WorkspaceToolbar';
-import { Preview } from '../preview';
+import { NotePreview } from '../note-preview';
 import { useUIStore, useWorkspaceStore } from '@/store';
 import { Group, Panel, PanelImperativeHandle, Separator } from 'react-resizable-panels';
-import { useEffect, useRef } from 'react';
+import { useCallback, useLayoutEffect, useRef } from 'react';
 import { NoteEmptyState } from '../empty-state';
 
 import './workspace-view.css';
@@ -22,7 +22,15 @@ export function WorkspaceView() {
     const editorPanelRef = useRef<PanelImperativeHandle | null>(null);
     const previewPanelRef = useRef<PanelImperativeHandle | null>(null);
 
-    useEffect(() => {
+    const onChange = useCallback(
+        (value: string) => {
+            setNoteContent(value);
+            markDirty();
+        },
+        [setNoteContent, markDirty],
+    );
+
+    useLayoutEffect(() => {
         switch (viewMode) {
             case 'editor':
                 editorPanelRef.current?.expand();
@@ -55,11 +63,9 @@ export function WorkspaceView() {
                             panelRef={editorPanelRef}
                             className="panel"
                         >
-                            <Editor
-                                onChange={(value) => {
-                                    setNoteContent(value);
-                                    markDirty();
-                                }}
+                            <NoteEditor
+                                key={currentNoteId}
+                                onChange={onChange}
                                 placeholder="Get Creative..."
                             />
                         </Panel>
@@ -77,7 +83,7 @@ export function WorkspaceView() {
                             panelRef={previewPanelRef}
                             className="panel"
                         >
-                            <Preview />
+                            <NotePreview />
                         </Panel>
                     </Group>
                 </>

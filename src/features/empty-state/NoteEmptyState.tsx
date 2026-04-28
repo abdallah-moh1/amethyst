@@ -2,7 +2,7 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import GrayscaleLogo from '@/assets/GrayscaleLogo.svg';
+import GrayscaleLogo from '@/shared/assets/GrayscaleLogo.svg';
 import './empty-state.css';
 
 export function NoteEmptyState() {

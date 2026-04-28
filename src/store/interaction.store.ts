@@ -2,9 +2,9 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { ContextMenuState } from '@/features/context-menu';
 import { ToastMessage } from '@/features/toast-notifications/ToastNotifications';
-import { getParentRelativePath } from '@/utils';
+import { ContextMenuState } from '@/shared/types/context-menu.type';
+import { getParentRelativePath } from '@/shared/utils';
 import { ParentPath } from '@shared/types/facet.type';
 import { create } from 'zustand';
 

@@ -39,6 +39,7 @@
 
 .note-name-input::placeholder {
     color: var(--app-text-secondary);
+    opacity: 50%;
 }
 
 .note-name-input.has-error {

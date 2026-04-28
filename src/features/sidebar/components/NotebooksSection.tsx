@@ -3,13 +3,13 @@
 // Copyright (C) 2026 Abdallah
 
 import { FilePlus, FolderPlus } from 'lucide-react';
-import { FacetTree } from '../tree/FacetTree';
+import { FacetTree } from '@/features/facet-tree';
 import { useInteractionStore } from '@/store';
-import { FacetCommands } from '@/features/commands';
 import { ParentPath } from '@shared/types/facet.type';
 import { useCallback } from 'react';
-import { useContextMenu } from '@/features/context-menu';
-import { CommandRunner } from '@/features/commands/runner';
+import { useContextMenu } from '@/shared/hooks/useContextMenu';
+import { useNotebookActions } from '@/features/notebooks';
+import { useNoteActions } from '@/features/notes';
 
 export function NotebooksSection() {
     const selectedItem = useInteractionStore((s) => s.selectedItem);
@@ -17,17 +17,20 @@ export function NotebooksSection() {
 
     const contextMenu = useContextMenu();
 
+    const noteActions = useNoteActions();
+    const notebookActions = useNotebookActions();
+
     const handleAddNote = useCallback(() => {
         const parentPath: ParentPath = selectedItem ? getResolvedParentPath() : null;
 
-        CommandRunner.execute(FacetCommands.CREATE_NOTE, parentPath);
-    }, [selectedItem, getResolvedParentPath]);
+        noteActions.create({ parentPath });
+    }, [selectedItem, noteActions, getResolvedParentPath]);
 
     const handleAddNotebook = useCallback(() => {
         const parentPath: ParentPath = selectedItem ? getResolvedParentPath() : null;
 
-        CommandRunner.execute(FacetCommands.CREATE_NOTEBOOK, parentPath);
-    }, [selectedItem, getResolvedParentPath]);
+        notebookActions.create({ parentPath });
+    }, [selectedItem, notebookActions, getResolvedParentPath]);
 
     const handleContextMenu = useCallback(
         (e: React.MouseEvent<Element, MouseEvent>) => {
@@ -36,15 +39,15 @@ export function NotebooksSection() {
                 {
                     label: 'New Note',
                     // Replace with your actual command later
-                    action: () => CommandRunner.execute(FacetCommands.CREATE_NOTE, null),
+                    action: () => noteActions.create({ parentPath: null }),
                 },
                 {
                     label: 'New Notebook',
-                    action: () => CommandRunner.execute(FacetCommands.CREATE_NOTEBOOK, null),
+                    action: () => notebookActions.create({ parentPath: null }),
                 },
             ]);
         },
-        [contextMenu],
+        [contextMenu, noteActions, notebookActions],
     );
 
     return (
