@@ -35,7 +35,6 @@ export function WorkspaceView() {
             case 'editor':
                 editorPanelRef.current?.expand();
                 previewPanelRef.current?.collapse();
-
                 break;
             case 'preview':
                 previewPanelRef.current?.expand();
@@ -48,7 +47,8 @@ export function WorkspaceView() {
                 editorPanelRef.current?.resize('50%');
                 break;
         }
-    }, [viewMode]);
+        console.log(viewMode);
+    }, [viewMode, currentNoteId]);
 
     return (
         <div className="workspace-view">

@@ -29,7 +29,7 @@ type UIState = {
 };
 
 export const useUIStore = create<UIState>((set) => ({
-    viewMode: 'split-view',
+    viewMode: 'preview',
 
     sidebar: {
         collapsed: false,
