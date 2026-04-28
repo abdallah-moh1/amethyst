@@ -44,7 +44,7 @@ export class FacetService {
         // Create facet if it doesn't exist
         if (!existsSync(this.facetPath)) {
             await mkdir(this.facetPath, { recursive: true });
-            await writeFile(join(this.facetPath, "Welcome.md"), WELCOME_NOTE, "utf-8");
+            await writeFile(join(this.facetPath, 'Welcome.md'), WELCOME_NOTE, 'utf-8');
         }
 
         await FacetScanService.scanDisk(this.facetPath, this);
