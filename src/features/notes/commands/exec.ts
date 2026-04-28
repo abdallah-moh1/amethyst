@@ -2,61 +2,14 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { ParentPath } from '@shared/types/facet.type';
-import { commands } from '../registry';
-import { useWorkspaceStore } from '@/store/workspace.store';
-import { useFacetStore, useInteractionStore } from '@/store';
-import { NoteClient } from '@/infrastructure/clients';
-import { FacetCommands } from './facet.commands';
-import { CommandExecutionResult } from '@/shared/types/command.type';
-import { GHOST_INDEX } from '@/features/facet-tree';
-
-export const registerNoteCommands = () => {
-    commands.register({
-        id: FacetCommands.CREATE_NOTE,
-        label: 'Create note',
-        canBeOverwritten: false,
-        execute: createNoteCommandExec,
-    });
-
-    commands.register({
-        id: FacetCommands.OPEN_NOTE,
-        label: 'Open note',
-        canBeOverwritten: false,
-        execute: openNoteCommandExec,
-    });
-
-    commands.register({
-        id: FacetCommands.SAVE_NOTE,
-        label: 'Save note',
-        canBeOverwritten: false,
-        execute: saveNoteCommandExec,
-    });
-
-    commands.register({
-        id: FacetCommands.RENAME_NOTE,
-        label: 'Rename note',
-        canBeOverwritten: false,
-        execute: renameNoteCommandExec,
-    });
-
-    commands.register({
-        id: FacetCommands.MOVE_NOTE,
-        label: 'Move note',
-        canBeOverwritten: false,
-        execute: moveNoteCommandExec,
-    });
-
-    commands.register({
-        id: FacetCommands.DELETE_NOTE,
-        label: 'Delete note',
-        canBeOverwritten: false,
-        execute: deleteNoteCommandExec,
-    });
-};
+import { GHOST_INDEX } from "@/features/facet-tree";
+import { NoteClient } from "@/infrastructure/clients";
+import { CommandExecutionResult } from "@/shared/types/command.type";
+import { useFacetStore, useInteractionStore, useWorkspaceStore } from "@/store";
+import { ParentPath } from "@shared/types/facet.type";
 
 // Takes as argument [parentPath, name] if parentPath not available use selectedItem for reference or use the root if name not available create a ghost item
-const createNoteCommandExec = async (...args: unknown[]): Promise<CommandExecutionResult> => {
+export const createNoteCommandExec = async (...args: unknown[]): Promise<CommandExecutionResult> => {
     const { addNote } = useFacetStore.getState();
     const { setGhost, getResolvedParentPath } = useInteractionStore.getState();
 
@@ -89,7 +42,7 @@ const createNoteCommandExec = async (...args: unknown[]): Promise<CommandExecuti
 };
 
 // Takes as argument [id] the id of the note to open
-const openNoteCommandExec = async (...args: unknown[]): Promise<CommandExecutionResult> => {
+export const openNoteCommandExec = async (...args: unknown[]): Promise<CommandExecutionResult> => {
     const id = args[0] as string;
     if (!id) return { success: false, message: 'Note ID is required to open a note.' };
 

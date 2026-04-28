@@ -3,43 +3,11 @@
 // Copyright (C) 2026 Abdallah
 
 import { ParentPath } from '@shared/types/facet.type';
-import { commands } from '../registry';
 import { useFacetStore, useInteractionStore } from '@/store';
-import { FacetCommands } from './facet.commands';
 import { NotebookClient } from '@/infrastructure/clients';
 import { CommandExecutionResult } from '@/shared/types/command.type';
 import { GHOST_INDEX } from '@/features/facet-tree';
 import { getUpdatedDescendantsPath } from '@/shared/utils';
-
-export const registerNotebookCommands = () => {
-    commands.register({
-        id: FacetCommands.CREATE_NOTEBOOK,
-        label: 'Create notebook',
-        canBeOverwritten: false,
-        execute: createNotebookCommandExec,
-    });
-
-    commands.register({
-        id: FacetCommands.DELETE_NOTEBOOK,
-        label: 'Delete notebook',
-        canBeOverwritten: false,
-        execute: deleteNotebookCommandExec,
-    });
-
-    commands.register({
-        id: FacetCommands.MOVE_NOTEBOOK,
-        label: 'Move notebook',
-        canBeOverwritten: false,
-        execute: moveNotebookCommandExec,
-    });
-
-    commands.register({
-        id: FacetCommands.RENAME_NOTEBOOK,
-        label: 'Rename notebook',
-        canBeOverwritten: false,
-        execute: renameNotebookCommandExec,
-    });
-};
 
 // Takes as argument [parentPath] if not available use selectedItem for reference or use the root
 export const createNotebookCommandExec = async (

@@ -8,7 +8,7 @@ class CommandRegistry {
     private static instance: CommandRegistry;
     private commands = new Map<CommandId, Command>();
 
-    private constructor() {}
+    private constructor() { }
 
     public static getInstance(): CommandRegistry {
         if (!CommandRegistry.instance) {
@@ -21,13 +21,12 @@ class CommandRegistry {
     register(command: Command): void {
         const cmd = this.commands.get(command.id);
 
-        if (cmd) {
-            if (cmd.canBeOverwritten)
-                console.warn(`[CommandRegistry] Overwriting command: ${command.id}`);
-            else {
-                console.warn(`[CommandRegistry] Command: ${command.id}, can't be overwritten`);
-                return;
-            }
+        if (cmd && cmd.canBeOverwritten) {
+            console.warn(`[CommandRegistry] Overwriting command: ${command.id}`);
+        }
+        else if (cmd) {
+            console.warn(`[CommandRegistry] Command: ${command.id}, can't be overwritten`);
+            return;
         }
 
         this.commands.set(command.id, command);
@@ -42,7 +41,7 @@ class CommandRegistry {
     }
 
     async execute(id: CommandId, ...args: unknown[]): Promise<CommandExecutionResult> {
-        const cmd = this.commands.get(id);
+        const cmd = this.getCommand(id);
         if (cmd && this.canExecute(id)) {
             return await cmd.execute(...args);
         } else if (cmd) {
@@ -57,6 +56,10 @@ class CommandRegistry {
             success: false,
             message: `Command ${id} doesn't exist`,
         };
+    }
+
+    getCommand(id: string): Command | undefined {
+        return this.commands.get(id);
     }
 
     // Critical for Command Palette: Returns all registered commands
