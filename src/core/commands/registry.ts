@@ -3,6 +3,7 @@
 // Copyright (C) 2026 Abdallah
 
 import { Command, CommandExecutionResult, CommandId } from '@/shared/types/command.type';
+import { shortcuts } from '../shortcuts-manager/registry';
 
 class CommandRegistry {
     private static instance: CommandRegistry;
@@ -28,6 +29,7 @@ class CommandRegistry {
             return;
         }
 
+        shortcuts.register(command);
         this.commands.set(command.id, command);
     }
 
@@ -41,6 +43,7 @@ class CommandRegistry {
 
     async execute(id: CommandId, ...args: unknown[]): Promise<CommandExecutionResult> {
         const cmd = this.getCommand(id);
+
         if (cmd && this.canExecute(id)) {
             return await cmd.execute(...args);
         } else if (cmd) {

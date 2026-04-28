@@ -9,6 +9,7 @@ import {
     moveNotebookCommandExec,
     renameNotebookCommandExec,
 } from './exec';
+import { useInteractionStore } from '@/store';
 
 export const NotebookCommands = {
     CREATE_NOTEBOOK: 'notebook:create',
@@ -22,6 +23,11 @@ export const registerNotebookCommands = () => {
         id: NotebookCommands.CREATE_NOTEBOOK,
         label: 'Create notebook',
         canBeOverwritten: false,
+        shortcut: {
+            ctrlKey: true,
+            shiftKey: true,
+            key: 'N',
+        },
         execute: createNotebookCommandExec,
     });
 
@@ -29,6 +35,12 @@ export const registerNotebookCommands = () => {
         id: NotebookCommands.DELETE_NOTEBOOK,
         label: 'Delete notebook',
         canBeOverwritten: false,
+        shortcut: {
+            key: 'Delete',
+        },
+        isApplicable() {
+            return useInteractionStore.getState().selectedItem?.type === 'notebook';
+        },
         execute: deleteNotebookCommandExec,
     });
 
@@ -43,6 +55,12 @@ export const registerNotebookCommands = () => {
         id: NotebookCommands.RENAME_NOTEBOOK,
         label: 'Rename notebook',
         canBeOverwritten: false,
+        shortcut: {
+            key: 'F2',
+        },
+        isApplicable() {
+            return useInteractionStore.getState().selectedItem?.type === 'notebook';
+        },
         execute: renameNotebookCommandExec,
     });
 };

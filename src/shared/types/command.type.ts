@@ -6,12 +6,22 @@ import { ParentPath } from '@shared/types/facet.type';
 
 export type CommandId = string;
 
+export type Shortcut = {
+    ctrlKey?: boolean;
+    metaKey?: boolean;
+    shiftKey?: boolean;
+    altKey?: boolean;
+    key: string;
+};
+
 export type Command = {
     id: CommandId;
     label: string;
+    shortcut?: Shortcut;
     canBeOverwritten: boolean;
     execute: (...args: unknown[]) => Promise<CommandExecutionResult>;
     isEnabled?: () => boolean;
+    isApplicable?: () => boolean;
 };
 
 export type CommandExecutionResult =

@@ -48,7 +48,10 @@ export const deleteNotebookCommandExec = async (
     ...args: unknown[]
 ): Promise<CommandExecutionResult> => {
     const { removeNotebook, notebooks } = useFacetStore.getState();
-    const path = args[0] as string;
+    const { selectedItem } = useInteractionStore.getState();
+
+    const path =
+        (args[0] as string) || selectedItem?.type === 'notebook' ? selectedItem?.path : null;
 
     if (!path || !notebooks.has(path)) {
         return { success: false, message: 'Notebook path is invalid or not found.' };
@@ -106,7 +109,11 @@ export const renameNotebookCommandExec = async (
 ): Promise<CommandExecutionResult> => {
     const { notes, notebooks, setNotes, setNotebooks } = useFacetStore.getState();
     const { setRenamingItem } = useInteractionStore.getState();
-    const path = args[0] as string;
+    const { selectedItem } = useInteractionStore.getState();
+
+    const path =
+        (args[0] as string) || selectedItem?.type === 'notebook' ? selectedItem?.path : null;
+
     const newName = args[1] as string;
 
     if (!path) {

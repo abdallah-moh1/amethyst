@@ -11,6 +11,7 @@ import {
     renameNoteCommandExec,
     saveNoteCommandExec,
 } from './exec';
+import { useInteractionStore } from '@/store';
 
 export const NoteCommands = {
     CREATE_NOTE: 'note:create',
@@ -26,6 +27,10 @@ export const registerNoteCommands = () => {
         id: NoteCommands.CREATE_NOTE,
         label: 'Create note',
         canBeOverwritten: false,
+        shortcut: {
+            ctrlKey: true,
+            key: 'N',
+        },
         execute: createNoteCommandExec,
     });
 
@@ -40,6 +45,10 @@ export const registerNoteCommands = () => {
         id: NoteCommands.SAVE_NOTE,
         label: 'Save note',
         canBeOverwritten: false,
+        shortcut: {
+            ctrlKey: true,
+            key: 'S',
+        },
         execute: saveNoteCommandExec,
     });
 
@@ -47,6 +56,12 @@ export const registerNoteCommands = () => {
         id: NoteCommands.RENAME_NOTE,
         label: 'Rename note',
         canBeOverwritten: false,
+        shortcut: {
+            key: 'F2',
+        },
+        isApplicable() {
+            return useInteractionStore.getState().selectedItem?.type === 'note';
+        },
         execute: renameNoteCommandExec,
     });
 
@@ -61,6 +76,12 @@ export const registerNoteCommands = () => {
         id: NoteCommands.DELETE_NOTE,
         label: 'Delete note',
         canBeOverwritten: false,
+        shortcut: {
+            key: 'Delete',
+        },
+        isApplicable() {
+            return useInteractionStore.getState().selectedItem?.type === 'note';
+        },
         execute: deleteNoteCommandExec,
     });
 };
