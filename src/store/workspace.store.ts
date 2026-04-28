@@ -11,7 +11,7 @@ type WorkspaceState = {
 
     isDirty: boolean;
 
-    setNewNote: (newNote: { id: string, content: string, name: string; } | null) => void,
+    setNewNote: (newNote: { id: string; content: string; name: string } | null) => void;
     setCurrentNoteId: (id: string | null) => void;
     setNoteContent: (content: string) => void;
     setNoteName: (content: string) => void;
@@ -29,24 +29,25 @@ export const useWorkspaceStore = create<WorkspaceState>((set) => ({
     noteName: '',
 
     setNewNote(newNote) {
-        if (!newNote) return set({
-            currentNoteId: null,
-            noteContent: '',
-            noteName: ''
-        });
+        if (!newNote)
+            return set({
+                currentNoteId: null,
+                noteContent: '',
+                noteName: '',
+            });
 
         const { id, name, content } = newNote;
         return set({
             currentNoteId: id,
             noteContent: content,
-            noteName: name
+            noteName: name,
         });
     },
 
     setCurrentNoteId: (id) => {
         return set({
             currentNoteId: id,
-            isDirty: false
+            isDirty: false,
         });
     },
 

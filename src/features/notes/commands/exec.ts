@@ -59,7 +59,7 @@ export const openNoteCommandExec = async (...args: unknown[]): Promise<CommandEx
         setNewNote({
             id: note.id,
             name: note.name,
-            content
+            content,
         });
         return { success: true };
     } catch (error) {
