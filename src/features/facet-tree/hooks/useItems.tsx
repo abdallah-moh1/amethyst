@@ -9,8 +9,9 @@ import { GHOST_INDEX } from '../FacetTree';
 import { FacetTreeItem, FacetTreeItemData } from '@/shared/types/tree.type';
 import { TreeInformation, TreeItemRenderContext, TreeRef } from 'react-complex-tree';
 import { FacetCommands } from '@/core/commands';
-import { ContextMenuItem, useContextMenu } from '@/features/context-menu';
 import { CommandRunner } from '@/core/commands';
+import { useContextMenu } from '@/shared/hooks/useContextMenu';
+import { ContextMenuItem } from '@/shared/types/context-menu.type';
 
 /**
  * Generates the class string for the <li> element based on the tree item state.

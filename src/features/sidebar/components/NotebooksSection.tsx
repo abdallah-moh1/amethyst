@@ -8,8 +8,8 @@ import { useInteractionStore } from '@/store';
 import { FacetCommands } from '@/core/commands';
 import { ParentPath } from '@shared/types/facet.type';
 import { useCallback } from 'react';
-import { useContextMenu } from '@/features/context-menu';
 import { CommandRunner } from '@/core/commands';
+import { useContextMenu } from '@/shared/hooks/useContextMenu';
 
 export function NotebooksSection() {
     const selectedItem = useInteractionStore((s) => s.selectedItem);

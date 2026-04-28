@@ -3,7 +3,8 @@
 // Copyright (C) 2026 Abdallah
 
 import { useEffect } from 'react';
-import { useContextMenu } from '.';
+import { useContextMenu } from '@/shared/hooks/useContextMenu';
+
 import './context-menu.css';
 
 export function ContextMenu() {
