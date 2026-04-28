@@ -2,14 +2,16 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { GHOST_INDEX } from "@/features/facet-tree";
-import { NoteClient } from "@/infrastructure/clients";
-import { CommandExecutionResult } from "@/shared/types/command.type";
-import { useFacetStore, useInteractionStore, useWorkspaceStore } from "@/store";
-import { ParentPath } from "@shared/types/facet.type";
+import { GHOST_INDEX } from '@/features/facet-tree';
+import { NoteClient } from '@/infrastructure/clients';
+import { CommandExecutionResult } from '@/shared/types/command.type';
+import { useFacetStore, useInteractionStore, useWorkspaceStore } from '@/store';
+import { ParentPath } from '@shared/types/facet.type';
 
 // Takes as argument [parentPath, name] if parentPath not available use selectedItem for reference or use the root if name not available create a ghost item
-export const createNoteCommandExec = async (...args: unknown[]): Promise<CommandExecutionResult> => {
+export const createNoteCommandExec = async (
+    ...args: unknown[]
+): Promise<CommandExecutionResult> => {
     const { addNote } = useFacetStore.getState();
     const { setGhost, getResolvedParentPath } = useInteractionStore.getState();
 

@@ -2,7 +2,7 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { ParentPath } from "@shared/types/facet.type";
+import { ParentPath } from '@shared/types/facet.type';
 
 export type CommandId = string;
 
@@ -16,21 +16,56 @@ export type Command = {
 
 export type CommandExecutionResult =
     | {
-        success: true;
-    }
+          success: true;
+      }
     | {
-        success: false;
-        message: string;
-    };
+          success: false;
+          message: string;
+      };
 
-export type CreateNoteArgs = [ParentPath?, string?];
-export type OpenNoteArgs = [string];
-export type SaveNoteArgs = [string?, string?];
-export type RenameNoteArgs = [string?, string?];
-export type MoveNoteArgs = [string, ParentPath];
-export type DeleteNoteArgs = [string?];
+export type CreateNoteArgs = {
+    parentPath?: ParentPath;
+    name?: string;
+};
 
-export type CreateNotebookArgs = [ParentPath?, string?];
-export type DeleteNotebookArgs = [string];
-export type MoveNotebookArgs = [string, ParentPath];
-export type RenameNotebookArgs = [string, string?];
+export type OpenNoteArgs = {
+    id: string;
+};
+
+export type SaveNoteArgs = {
+    id?: string;
+    content?: string;
+};
+
+export type RenameNoteArgs = {
+    id?: string | null;
+    newName?: string;
+};
+
+export type MoveNoteArgs = {
+    id: string;
+    newParentPath: ParentPath;
+};
+
+export type DeleteNoteArgs = {
+    id?: string;
+};
+
+export type CreateNotebookArgs = {
+    parentPath?: ParentPath;
+    name?: string;
+};
+
+export type DeleteNotebookArgs = {
+    path: string;
+};
+
+export type MoveNotebookArgs = {
+    oldPath: string;
+    newParentPath: ParentPath;
+};
+
+export type RenameNotebookArgs = {
+    path: string;
+    newName?: string;
+};

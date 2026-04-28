@@ -2,20 +2,24 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { FacetCommands } from '@/core/commands';
-import { CommandRunner } from '@/core/commands';
+import { useNoteActions } from '@/features/notes';
 import { FacetTreeItem } from '@/shared/types/tree.type';
 import { useCallback } from 'react';
 
 export function useItemPrimaryAction() {
-    const handlePrimaryAction = useCallback(async (item: FacetTreeItem) => {
-        // if (!) return;
-        const data = item.data;
-        if (!data) return;
-        if (data.type === 'note') {
-            CommandRunner.execute(FacetCommands.OPEN_NOTE, data.node.id);
-        }
-    }, []);
+    const noteActions = useNoteActions();
+
+    const handlePrimaryAction = useCallback(
+        async (item: FacetTreeItem) => {
+            const data = item.data;
+            if (!data) return;
+            if (data.type === 'note') {
+                noteActions.open({ id: data.node.id });
+            }
+        },
+        [noteActions],
+    );
+
     return {
         handlePrimaryAction,
     };

@@ -20,7 +20,7 @@ export const GHOST_INDEX = '__ghost__';
 export function FacetTree() {
     const envRef = useRef<TreeRef<FacetTreeItemData>>(null);
 
-    const { items, renderItems } = useItems(envRef);
+    const { items, renderItems } = useItems();
     const { expandedItems, handleExpandItem, handleCollapseItem } = useItemExpansion();
     const { selectedItems, handleSelectItems } = useItemSelection(items);
     const { handlePrimaryAction } = useItemPrimaryAction();

@@ -1,21 +1,19 @@
 import { useInteractionStore } from '@/store';
 
+import { createNotebook, deleteNotebook, moveNotebook, renameNotebook } from '../commands/wrappers';
 import {
-    createNotebook,
-    deleteNotebook,
-    moveNotebook,
-    renameNotebook,
-} from '../commands/wrappers';
-import { CommandExecutionResult } from '@/shared/types/command.type';
+    CommandExecutionResult,
+    CreateNotebookArgs,
+    DeleteNotebookArgs,
+    MoveNotebookArgs,
+    RenameNotebookArgs,
+} from '@/shared/types/command.type';
 
 export function useNotebookActions() {
     const toast = useInteractionStore.getState().addToast;
 
-    const handle = async <T extends unknown[]>(
-        fn: (...args: T) => Promise<CommandExecutionResult>,
-        args: T,
-    ) => {
-        const result = await fn(...args);
+    const handle = async <T>(fn: (args: T) => Promise<CommandExecutionResult>, args: T) => {
+        const result = await fn(args);
 
         if (!result.success) {
             toast({
@@ -30,16 +28,12 @@ export function useNotebookActions() {
     };
 
     return {
-        create: (...args: Parameters<typeof createNotebook>) =>
-            handle(createNotebook, args),
+        create: (args: CreateNotebookArgs) => handle(createNotebook, args),
 
-        remove: (...args: Parameters<typeof deleteNotebook>) =>
-            handle(deleteNotebook, args),
+        remove: (args: DeleteNotebookArgs) => handle(deleteNotebook, args),
 
-        move: (...args: Parameters<typeof moveNotebook>) =>
-            handle(moveNotebook, args),
+        move: (args: MoveNotebookArgs) => handle(moveNotebook, args),
 
-        rename: (...args: Parameters<typeof renameNotebook>) =>
-            handle(renameNotebook, args),
+        rename: (args: RenameNotebookArgs) => handle(renameNotebook, args),
     };
 }

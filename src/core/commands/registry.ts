@@ -8,7 +8,7 @@ class CommandRegistry {
     private static instance: CommandRegistry;
     private commands = new Map<CommandId, Command>();
 
-    private constructor() { }
+    private constructor() {}
 
     public static getInstance(): CommandRegistry {
         if (!CommandRegistry.instance) {
@@ -23,8 +23,7 @@ class CommandRegistry {
 
         if (cmd && cmd.canBeOverwritten) {
             console.warn(`[CommandRegistry] Overwriting command: ${command.id}`);
-        }
-        else if (cmd) {
+        } else if (cmd) {
             console.warn(`[CommandRegistry] Command: ${command.id}, can't be overwritten`);
             return;
         }

@@ -2,16 +2,16 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { ReactNode, RefObject, useCallback, useMemo } from 'react';
+import { ReactNode, useCallback, useMemo } from 'react';
 import { buildFacetTree, ROOT_ID } from '../utils/treeAdapter';
 import { useFacetStore, useInteractionStore } from '@/store';
 import { GHOST_INDEX } from '../FacetTree';
-import { FacetTreeItem, FacetTreeItemData } from '@/shared/types/tree.type';
-import { TreeInformation, TreeItemRenderContext, TreeRef } from 'react-complex-tree';
-import { FacetCommands } from '@/core/commands';
-import { CommandRunner } from '@/core/commands';
+import { FacetTreeItem } from '@/shared/types/tree.type';
+import { TreeInformation, TreeItemRenderContext } from 'react-complex-tree';
 import { useContextMenu } from '@/shared/hooks/useContextMenu';
 import { ContextMenuItem } from '@/shared/types/context-menu.type';
+import { useNoteActions } from '@/features/notes';
+import { useNotebookActions } from '@/features/notebooks';
 
 /**
  * Generates the class string for the <li> element based on the tree item state.
@@ -52,13 +52,15 @@ function getLiClass(isFolder: boolean, context: TreeItemRenderContext): string {
     return classes.join(' ');
 }
 
-export function useItems(treeRef: RefObject<TreeRef<FacetTreeItemData> | null>) {
+export function useItems() {
     const notesMap = useFacetStore((s) => s.notes);
     const notebooksMap = useFacetStore((s) => s.notebooks);
 
     const ghost = useInteractionStore((s) => s.ghost);
 
     const contextMenu = useContextMenu();
+    const noteActions = useNoteActions();
+    const notebookActions = useNotebookActions();
 
     const baseItems = useMemo(
         () => buildFacetTree(Array.from(notesMap.values()), Array.from(notebooksMap.values())),
@@ -120,48 +122,33 @@ export function useItems(treeRef: RefObject<TreeRef<FacetTreeItemData> | null>) 
                     contextItems = [
                         {
                             label: 'New Note',
-                            // Replace with your actual command later
-                            action: () =>
-                                CommandRunner.execute(FacetCommands.CREATE_NOTE, data.node.path),
+                            action: () => noteActions.create({ parentPath: data.node.path }),
                         },
                         {
                             label: 'New Notebook',
-                            action: () =>
-                                CommandRunner.execute(
-                                    FacetCommands.CREATE_NOTEBOOK,
-                                    data.node.path,
-                                ),
+                            action: () => notebookActions.create({ parentPath: data.node.path }),
                         },
                         { separator: true },
                         {
                             label: 'Rename',
-                            action: () =>
-                                CommandRunner.execute(
-                                    FacetCommands.RENAME_NOTEBOOK,
-                                    data.node.path,
-                                ),
+                            action: () => notebookActions.rename({ path: data.node.path }),
                         },
                         {
                             label: 'Delete',
                             variant: 'destructive',
-                            action: () =>
-                                CommandRunner.execute(
-                                    FacetCommands.DELETE_NOTEBOOK,
-                                    data.node.path,
-                                ),
+                            action: () => notebookActions.remove({ path: data.node.path }),
                         },
                     ];
                 } else {
                     contextItems = [
                         {
                             label: 'Rename',
-                            action: () => treeRef.current?.startRenamingItem(item.index),
+                            action: () => noteActions.rename({ id: item.index as string }),
                         },
                         {
                             label: 'Delete',
                             variant: 'destructive',
-                            action: () =>
-                                CommandRunner.execute(FacetCommands.DELETE_NOTE, data.node.id),
+                            action: () => noteActions.remove({ id: data.node.id }),
                         },
                     ];
                 }
@@ -217,7 +204,7 @@ export function useItems(treeRef: RefObject<TreeRef<FacetTreeItemData> | null>) 
                 </li>
             );
         },
-        [contextMenu, treeRef],
+        [contextMenu, noteActions, notebookActions],
     );
 
     return { items, renderItems, contextMenu };

@@ -14,27 +14,22 @@ import {
     DeleteNoteArgs,
 } from '@/shared/types/command.type';
 
-const run = <TArgs extends unknown[]>(
-    id: string,
-    ...args: TArgs
-) => {
+const run = (id: string, args: unknown[]) => {
     return commands.execute(id, ...args);
 };
 
-export const createNote = (...args: CreateNoteArgs) =>
-    run(NoteCommands.CREATE_NOTE, ...args);
+export const createNote = (args: CreateNoteArgs) =>
+    run(NoteCommands.CREATE_NOTE, [args.parentPath, args.name]);
 
-export const openNote = (...args: OpenNoteArgs) =>
-    run(NoteCommands.OPEN_NOTE, ...args);
+export const openNote = (args: OpenNoteArgs) => run(NoteCommands.OPEN_NOTE, [args.id]);
 
-export const saveNote = (...args: SaveNoteArgs) =>
-    run(NoteCommands.SAVE_NOTE, ...args);
+export const saveNote = (args: SaveNoteArgs) =>
+    run(NoteCommands.SAVE_NOTE, [args.id, args.content]);
 
-export const renameNote = (...args: RenameNoteArgs) =>
-    run(NoteCommands.RENAME_NOTE, ...args);
+export const renameNote = (args: RenameNoteArgs) =>
+    run(NoteCommands.RENAME_NOTE, [args.id, args.newName]);
 
-export const moveNote = (...args: MoveNoteArgs) =>
-    run(NoteCommands.MOVE_NOTE, ...args);
+export const moveNote = (args: MoveNoteArgs) =>
+    run(NoteCommands.MOVE_NOTE, [args.id, args.newParentPath]);
 
-export const deleteNote = (...args: DeleteNoteArgs) =>
-    run(NoteCommands.DELETE_NOTE, ...args);
+export const deleteNote = (args: DeleteNoteArgs) => run(NoteCommands.DELETE_NOTE, [args.id]);

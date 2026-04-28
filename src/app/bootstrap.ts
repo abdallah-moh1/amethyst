@@ -7,10 +7,13 @@ import { Settings } from '@shared/types/settings.type';
 import { applyTheme } from '@/features/theme/theme.runtime';
 import { SettingsClient, ThemesClient } from '@/infrastructure/clients';
 import { initFacet } from './initFacet';
-import { registerFacetCommands } from '@/core/commands';
+import { registerNotebookCommands } from '@/features/notebooks';
+import { registerNoteCommands } from '@/features/notes';
 
 export async function bootstrapApp() {
-    registerFacetCommands();
+    registerNotebookCommands();
+    registerNoteCommands();
+
     const themeSetting = (await SettingsClient.get('theme')) as Settings['theme'];
 
     applyTheme(await ThemesClient.get(themeSetting.id as BuiltInThemes));

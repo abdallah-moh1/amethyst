@@ -3,8 +3,12 @@
 // Copyright (C) 2026 Abdallah
 
 import { commands } from '@/core/commands';
-import { createNotebookCommandExec, deleteNotebookCommandExec, moveNotebookCommandExec, renameNotebookCommandExec } from './exec';
-
+import {
+    createNotebookCommandExec,
+    deleteNotebookCommandExec,
+    moveNotebookCommandExec,
+    renameNotebookCommandExec,
+} from './exec';
 
 export const NotebookCommands = {
     CREATE_NOTEBOOK: 'notebook:create',
@@ -12,7 +16,6 @@ export const NotebookCommands = {
     RENAME_NOTEBOOK: 'notebook:rename',
     DELETE_NOTEBOOK: 'notebook:delete',
 } as const;
-
 
 export const registerNotebookCommands = () => {
     commands.register({

@@ -2,11 +2,10 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { FacetCommands } from '@/core/commands';
-import { CommandRunner } from '@/core/commands';
 import { useWorkspaceStore } from '@/store';
 import { validateFileName } from '@/shared/utils';
 import { KeyboardEvent, useEffect, useState, useRef } from 'react';
+import { renameNote } from '@/features/notes';
 
 export function NoteNameInput() {
     const noteName = useWorkspaceStore((s) => s.noteName);
@@ -56,7 +55,7 @@ export function NoteNameInput() {
             return;
         }
 
-        const result = await CommandRunner.execute(FacetCommands.RENAME_NOTE, null, trimmedName);
+        const result = await renameNote({ id: null, newName: trimmedName });
 
         if (result.success) {
             setNoteName(trimmedName);

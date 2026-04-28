@@ -8,3 +8,5 @@ export {
     moveNote,
     deleteNote,
 } from './commands/wrappers';
+
+export { registerNoteCommands, NoteCommands } from './commands/register';

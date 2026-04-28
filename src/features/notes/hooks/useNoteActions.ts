@@ -12,16 +12,21 @@ import {
     moveNote,
     deleteNote,
 } from '../commands/wrappers';
-import { CommandExecutionResult } from '@/shared/types/command.type';
+import {
+    CommandExecutionResult,
+    CreateNoteArgs,
+    DeleteNoteArgs,
+    MoveNoteArgs,
+    OpenNoteArgs,
+    RenameNoteArgs,
+    SaveNoteArgs,
+} from '@/shared/types/command.type';
 
 export function useNoteActions() {
     const toast = useInteractionStore.getState().addToast;
 
-    const handle = async <T extends unknown[]>(
-        fn: (...args: T) => Promise<CommandExecutionResult>,
-        args: T,
-    ) => {
-        const result = await fn(...args);
+    const handle = async <T>(fn: (args: T) => Promise<CommandExecutionResult>, args: T) => {
+        const result = await fn(args);
 
         if (!result.success) {
             toast({
@@ -36,22 +41,11 @@ export function useNoteActions() {
     };
 
     return {
-        create: (...args: Parameters<typeof createNote>) =>
-            handle(createNote, args),
-
-        open: (...args: Parameters<typeof openNote>) =>
-            handle(openNote, args),
-
-        save: (...args: Parameters<typeof saveNote>) =>
-            handle(saveNote, args),
-
-        rename: (...args: Parameters<typeof renameNote>) =>
-            handle(renameNote, args),
-
-        move: (...args: Parameters<typeof moveNote>) =>
-            handle(moveNote, args),
-
-        remove: (...args: Parameters<typeof deleteNote>) =>
-            handle(deleteNote, args),
+        create: (args: CreateNoteArgs) => handle(createNote, args),
+        open: (args: OpenNoteArgs) => handle(openNote, args),
+        save: (args: SaveNoteArgs) => handle(saveNote, args),
+        rename: (args: RenameNoteArgs) => handle(renameNote, args),
+        move: (args: MoveNoteArgs) => handle(moveNote, args),
+        remove: (args: DeleteNoteArgs) => handle(deleteNote, args),
     };
 }

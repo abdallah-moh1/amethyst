@@ -3,8 +3,14 @@
 // Copyright (C) 2026 Abdallah
 
 import { commands } from '@/core/commands';
-import { createNoteCommandExec, deleteNoteCommandExec, moveNoteCommandExec, openNoteCommandExec, renameNoteCommandExec, saveNoteCommandExec } from './exec';
-
+import {
+    createNoteCommandExec,
+    deleteNoteCommandExec,
+    moveNoteCommandExec,
+    openNoteCommandExec,
+    renameNoteCommandExec,
+    saveNoteCommandExec,
+} from './exec';
 
 export const NoteCommands = {
     CREATE_NOTE: 'note:create',
@@ -13,7 +19,6 @@ export const NoteCommands = {
     MOVE_NOTE: 'note:move',
     SAVE_NOTE: 'note:save',
     DELETE_NOTE: 'note:delete',
-
 } as const;
 
 export const registerNoteCommands = () => {

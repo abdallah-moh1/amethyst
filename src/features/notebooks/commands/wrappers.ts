@@ -12,21 +12,18 @@ import {
     RenameNotebookArgs,
 } from '@/shared/types/command.type';
 
-const run = <TArgs extends unknown[]>(
-    id: string,
-    ...args: TArgs
-) => {
+const run = (id: string, args: unknown[]) => {
     return commands.execute(id, ...args);
 };
 
-export const createNotebook = (...args: CreateNotebookArgs) =>
-    run(NotebookCommands.CREATE_NOTEBOOK, ...args);
+export const createNotebook = (args: CreateNotebookArgs) =>
+    run(NotebookCommands.CREATE_NOTEBOOK, [args.parentPath, args.name]);
 
-export const deleteNotebook = (...args: DeleteNotebookArgs) =>
-    run(NotebookCommands.DELETE_NOTEBOOK, ...args);
+export const deleteNotebook = (args: DeleteNotebookArgs) =>
+    run(NotebookCommands.DELETE_NOTEBOOK, [args.path]);
 
-export const moveNotebook = (...args: MoveNotebookArgs) =>
-    run(NotebookCommands.MOVE_NOTEBOOK, ...args);
+export const moveNotebook = (args: MoveNotebookArgs) =>
+    run(NotebookCommands.MOVE_NOTEBOOK, [args.oldPath, args.newParentPath]);
 
-export const renameNotebook = (...args: RenameNotebookArgs) =>
-    run(NotebookCommands.RENAME_NOTEBOOK, ...args);
+export const renameNotebook = (args: RenameNotebookArgs) =>
+    run(NotebookCommands.RENAME_NOTEBOOK, [args.path, args.newName]);
