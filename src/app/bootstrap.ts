@@ -5,15 +5,14 @@
 import { BuiltInThemes } from '@shared/types/themes.type';
 import { Settings } from '@shared/types/settings.type';
 import { applyTheme } from '@/features/theme/theme.runtime';
-import { getSetting } from '@/clients/settings.client';
-import { getTheme } from '@/clients/themes.client';
+import { SettingsClient, ThemesClient } from '@/infrastructure/clients';
 import { initFacet } from './initFacet';
 import { registerFacetCommands } from '@/core/commands';
 
 export async function bootstrapApp() {
     registerFacetCommands();
-    const themeSetting = (await getSetting('theme')) as Settings['theme'];
+    const themeSetting = (await SettingsClient.get('theme')) as Settings['theme'];
 
-    applyTheme(await getTheme(themeSetting.id as BuiltInThemes));
+    applyTheme(await ThemesClient.get(themeSetting.id as BuiltInThemes));
     await initFacet();
 }

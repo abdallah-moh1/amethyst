@@ -37,6 +37,7 @@ export function useItemRename(
             }, 0);
             return () => clearTimeout(id);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ghost]);
 
     // As soon as the ghost appears, tell RCT to start renaming it
@@ -44,6 +45,7 @@ export function useItemRename(
         if (renamingItem && items[renamingItem.index]) {
             treeRef.current?.startRenamingItem(renamingItem.index);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [renamingItem]);
 
     const handleRenameItem = useCallback(

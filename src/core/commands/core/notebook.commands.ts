@@ -6,12 +6,7 @@ import { ParentPath } from '@shared/types/facet.type';
 import { commands } from '../registry';
 import { useFacetStore, useInteractionStore } from '@/store';
 import { FacetCommands } from './facet.commands';
-import {
-    createNotebook,
-    deleteNotebook,
-    moveNotebook,
-    renameNotebook,
-} from '@/clients/notebook.client';
+import { NotebookClient } from '@/infrastructure/clients';
 import { CommandExecutionResult } from '@/shared/types/command.type';
 import { GHOST_INDEX } from '@/features/facet-tree';
 import { getUpdatedDescendantsPath } from '@/shared/utils';
@@ -60,7 +55,7 @@ export const createNotebookCommandExec = async (
 
     if (newName) {
         try {
-            const notebook = await createNotebook(parentPath, newName);
+            const notebook = await NotebookClient.create(parentPath, newName);
             addNotebook(notebook);
             return { success: true };
         } catch (error) {
@@ -92,7 +87,7 @@ export const deleteNotebookCommandExec = async (
     }
 
     try {
-        await deleteNotebook(path);
+        await NotebookClient.delete(path);
         removeNotebook(path);
         return { success: true };
     } catch (error) {
@@ -116,7 +111,7 @@ export const moveNotebookCommandExec = async (
     }
 
     try {
-        const moved = await moveNotebook(oldPath, newParentPath);
+        const moved = await NotebookClient.move(oldPath, newParentPath);
         const { updatedNotes, updatedNotebooks } = getUpdatedDescendantsPath(
             oldPath,
             moved.path,
@@ -155,7 +150,7 @@ export const renameNotebookCommandExec = async (
 
     if (newName) {
         try {
-            const renamed = await renameNotebook(path, newName);
+            const renamed = await NotebookClient.rename(path, newName);
             const { updatedNotes, updatedNotebooks } = getUpdatedDescendantsPath(
                 path,
                 renamed.path,

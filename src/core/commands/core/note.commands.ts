@@ -6,14 +6,7 @@ import { ParentPath } from '@shared/types/facet.type';
 import { commands } from '../registry';
 import { useWorkspaceStore } from '@/store/workspace.store';
 import { useFacetStore, useInteractionStore } from '@/store';
-import {
-    createNote,
-    deleteNote,
-    moveNote,
-    openNote,
-    renameNote,
-    saveNote,
-} from '@/clients/note.client';
+import { NoteClient } from '@/infrastructure/clients';
 import { FacetCommands } from './facet.commands';
 import { CommandExecutionResult } from '@/shared/types/command.type';
 import { GHOST_INDEX } from '@/features/facet-tree';
@@ -75,7 +68,7 @@ const createNoteCommandExec = async (...args: unknown[]): Promise<CommandExecuti
 
     if (newName) {
         try {
-            const note = await createNote(parentPath, newName);
+            const note = await NoteClient.create(parentPath, newName);
             addNote(note);
             return { success: true };
         } catch (error) {
@@ -107,7 +100,7 @@ const openNoteCommandExec = async (...args: unknown[]): Promise<CommandExecution
     if (!note) return { success: false, message: `Note with id: ${id} does not exist.` };
 
     try {
-        const content = await openNote(id);
+        const content = await NoteClient.open(id);
         setNoteContent(content);
         setNoteName(note.name);
         setCurrentNoteId(note.id);
@@ -130,7 +123,7 @@ export const saveNoteCommandExec = async (...args: unknown[]): Promise<CommandEx
     if (!targetId) return { success: false, message: 'No active note to save.' };
 
     try {
-        await saveNote(targetId, content);
+        await NoteClient.save(targetId, content);
         return { success: true };
     } catch (error) {
         return {
@@ -160,7 +153,7 @@ export const renameNoteCommandExec = async (
 
     if (newName) {
         try {
-            const note = await renameNote(id, newName);
+            const note = await NoteClient.rename(id, newName);
             removeNote(id);
             addNote(note);
 
@@ -191,7 +184,7 @@ export const moveNoteCommandExec = async (...args: unknown[]): Promise<CommandEx
         return { success: false, message: 'Move requires a target Note ID and new parent path.' };
 
     try {
-        const note = await moveNote(id, newParentPath);
+        const note = await NoteClient.move(id, newParentPath);
         removeNote(id);
         addNote(note);
         return { success: true };
@@ -221,7 +214,7 @@ export const deleteNoteCommandExec = async (
             setCurrentNoteId(null);
             setNoteContent('');
         }
-        await deleteNote(target);
+        await NoteClient.delete(target);
         removeNote(target);
         return { success: true };
     } catch (error) {
