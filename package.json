@@ -118,6 +118,7 @@
                 "AppImage",
                 "deb",
                 "rpm",
+                "pacman",
                 "tar.gz"
             ],
             "icon": "assets/icons/icon.png",
