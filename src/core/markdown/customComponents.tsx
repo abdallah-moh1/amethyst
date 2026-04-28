@@ -2,106 +2,125 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { useWorkspaceStore } from '@/store';
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+import React, { memo } from 'react';
 import { Components } from 'react-markdown';
 
-export const customComponents: Components = {
-    h1: ({ children }) => <h1 className="md-h1">{children}</h1>,
-    h2: ({ children }) => <h2 className="md-h2">{children}</h2>,
-    h3: ({ children }) => <h3 className="md-h3">{children}</h3>,
-    h4: ({ children }) => <h4 className="md-h4">{children}</h4>,
-    h5: ({ children }) => <h5 className="md-h5">{children}</h5>,
-    h6: ({ children }) => <h6 className="md-h6">{children}</h6>,
-    p: ({ children }) => <p className="md-p">{children}</p>,
-    ul: ({ children }) => <ul className="md-ul">{children}</ul>,
-    ol: ({ children }) => <ol className="md-ol">{children}</ol>,
-    li: ({ node, children, className }) => {
-        if (className === 'task-list-item' && Array.isArray(children)) {
-            const firstChild = children[0];
+type CustomComponentsProps = {
+    onCheckboxChecked?: (props: { offset: number; checked: boolean }) => void;
+};
 
-            if (React.isValidElement(firstChild)) {
-                const checked = (firstChild.props as { checked?: boolean })?.checked;
-                const offset = node?.position?.start?.offset;
+export const useCustomComponents = ({ onCheckboxChecked }: CustomComponentsProps) => {
+    const customComponents: Components = {
+        h1: memo(({ node: _node, ...props }) => <h1 className="md-h1" {...props} />),
+        h2: memo(({ node: _node, ...props }) => <h2 className="md-h2" {...props} />),
+        h3: memo(({ node: _node, ...props }) => <h3 className="md-h3" {...props} />),
+        h4: memo(({ node: _node, ...props }) => <h4 className="md-h4" {...props} />),
+        h5: memo(({ node: _node, ...props }) => <h5 className="md-h5" {...props} />),
+        h6: memo(({ node: _node, ...props }) => <h6 className="md-h6" {...props} />),
+        p: memo(({ node: _node, ...props }) => <p className="md-p" {...props} />),
+        ul: memo(({ node: _node, ...props }) => <ul className="md-ul" {...props} />),
+        ol: memo(({ node: _node, ...props }) => <ol className="md-ol" {...props} />),
 
-                return (
-                    <li className="md-li task-list-item">
-                        <input
-                            type="checkbox"
-                            checked={checked ?? false}
-                            onChange={() => {
-                                const note = useWorkspaceStore.getState().noteContent;
+        li: memo(({ node, children, className, ...props }) => {
+            if (className === 'task-list-item' && Array.isArray(children)) {
+                const firstChild = children[0];
 
-                                if (offset == null) return;
-                                // Find the exact "- [ ]" or "- [x]" at this position
-                                const before = note.slice(0, offset);
-                                const after = note.slice(offset);
+                if (React.isValidElement(firstChild)) {
+                    const checked = (firstChild.props as { checked?: boolean })?.checked;
+                    const offset = node?.position?.start?.offset;
 
-                                const updated = after.replace(
-                                    /^- \[( |x)\]/,
-                                    checked ? '- [ ]' : '- [x]',
-                                );
+                    return (
+                        <li className="md-li task-list-item" {...props}>
+                            <input
+                                type="checkbox"
+                                checked={checked ?? false}
+                                onChange={() => {
+                                    if (!offset || !onCheckboxChecked) return;
 
-                                useWorkspaceStore.getState().setNoteContent(before + updated);
-                            }}
-                            className="task-list-checkbox"
-                        />
-                        <span>{children.slice(1)}</span>
-                    </li>
-                );
+                                    onCheckboxChecked({
+                                        offset,
+                                        checked: checked ?? false,
+                                    });
+                                }}
+                                className="task-list-checkbox"
+                            />
+                            <span>{children.slice(1)}</span>
+                        </li>
+                    );
+                }
             }
-        }
+            return (
+                <li className="md-li" {...props}>
+                    {children}
+                </li>
+            );
+        }),
 
-        return <li className="md-li">{children}</li>;
-    },
+        em: memo(({ node: _node, ...props }) => <em className="md-em" {...props} />),
+        strong: memo(({ node: _node, ...props }) => <strong className="md-strong" {...props} />),
+        del: memo(({ node: _node, ...props }) => <del className="md-del" {...props} />),
 
-    em: ({ children }) => <em className="md-em">{children}</em>,
-    strong: ({ children }) => <strong className="md-strong">{children}</strong>,
-    del: ({ children }) => <del className="md-del">{children}</del>,
-    a: ({ href = '', children, id }) => {
-        const isInternal = href.startsWith('#');
+        a: memo(({ href = '', children, id, ...props }) => {
+            const isInternal = href.startsWith('#');
 
-        return (
-            <a
-                className="md-link"
-                href={href}
-                id={id}
-                onClick={(e) => {
-                    e.preventDefault();
-                    if (isInternal) {
-                        // 👉 Handle footnote scroll
-                        const el = document.querySelector(href);
-                        if (el) {
-                            el.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start',
-                            });
+            return (
+                <a
+                    className="md-link"
+                    href={href}
+                    id={id}
+                    {...props}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        if (isInternal) {
+                            const el = document.querySelector(href);
+                            el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        } else {
+                            window.open(href, '_blank', 'noopener,noreferrer');
                         }
-                    } else {
-                        window.open(href, '_blank', 'noopener,noreferrer');
-                    }
-                }}
-            >
-                {children}
-            </a>
-        );
-    },
-    pre: ({ children }) => <pre className="md-pre">{children}</pre>,
-    code: ({ children, className }) =>
-        className ? (
-            <code className={`md-code ${className}`}>{children}</code>
-        ) : (
-            <code className="md-inline-code">{children}</code>
+                    }}
+                >
+                    {children}
+                </a>
+            );
+        }),
+
+        pre: memo(({ node: _node, ...props }) => <pre className="md-pre" {...props} />),
+        code: memo(({ children, className, ...props }) =>
+            className ? (
+                <code className={`md-code ${className}`} {...props}>
+                    {children}
+                </code>
+            ) : (
+                <code className="md-inline-code" {...props}>
+                    {children}
+                </code>
+            ),
         ),
-    blockquote: ({ children }) => <blockquote className="md-blockquote">{children}</blockquote>,
-    hr: () => <hr className="md-hr" />,
-    table: ({ children }) => (
-        <div className="md-table-scroll">
-            <table className="md-table">{children}</table>
-        </div>
-    ),
-    tr: ({ children }) => <tr className="md-tr">{children}</tr>,
-    th: ({ children }) => <th className="md-th">{children}</th>,
-    td: ({ children }) => <td className="md-td">{children}</td>,
-    img: ({ src, alt }) => <img src={src ?? ''} alt={alt ?? ''} className="md-img" />,
+
+        blockquote: memo(({ node: _node, ...props }) => (
+            <blockquote className="md-blockquote" {...props} />
+        )),
+        hr: memo(({ node: _node, ...props }) => <hr className="md-hr" {...props} />),
+
+        table: memo(({ children, ...props }) => (
+            <div className="md-table-scroll">
+                <table className="md-table" {...props}>
+                    {children}
+                </table>
+            </div>
+        )),
+
+        tr: memo(({ node: _node, ...props }) => <tr className="md-tr" {...props} />),
+        th: memo(({ node: _node, ...props }) => <th className="md-th" {...props} />),
+        td: memo(({ node: _node, ...props }) => <td className="md-td" {...props} />),
+        img: memo(({ src, alt, ...props }) => (
+            <img src={src ?? ''} alt={alt ?? ''} className="md-img" {...props} />
+        )),
+    };
+
+    return {
+        customComponents,
+    };
 };

@@ -7,7 +7,7 @@ import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
 import rehypeRaw from 'rehype-raw';
 import remarkEmoji from 'remark-emoji';
-import { customComponents } from '../../core/markdown/customComponents';
+import { useCustomComponents } from '../../core/markdown/customComponents';
 import rehypeHighlight from 'rehype-highlight';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
@@ -16,9 +16,11 @@ import './markdown.css';
 
 type MarkdownPreviewProps = {
     content: string;
+    onCheckboxChecked?: (props: { offset: number; checked: boolean }) => void;
 };
 
-export function MarkdownPreview({ content }: MarkdownPreviewProps) {
+export function MarkdownPreview({ content, onCheckboxChecked }: MarkdownPreviewProps) {
+    const { customComponents } = useCustomComponents({ onCheckboxChecked });
     return (
         <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkBreaks, remarkEmoji, remarkMath]}

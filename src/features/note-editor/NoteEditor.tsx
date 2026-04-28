@@ -9,7 +9,7 @@ import { useWorkspaceStore } from '@/store';
 
 import './editor.css';
 
-export function Editor({ onChange, placeholder }: EditorProps) {
+export function NoteEditor({ onChange, placeholder }: EditorProps) {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const noteContent = useWorkspaceStore((state) => state.noteContent);
     const currentNoteId = useWorkspaceStore((state) => state.currentNoteId);

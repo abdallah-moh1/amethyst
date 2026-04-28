@@ -2,9 +2,9 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { Editor } from '../note-editor';
+import { NoteEditor } from '../note-editor';
 import { WorkspaceToolbar } from './components/WorkspaceToolbar';
-import { Preview } from '../preview';
+import { NotePreview } from '../note-preview';
 import { useUIStore, useWorkspaceStore } from '@/store';
 import { Group, Panel, PanelImperativeHandle, Separator } from 'react-resizable-panels';
 import { useEffect, useRef } from 'react';
@@ -55,7 +55,7 @@ export function WorkspaceView() {
                             panelRef={editorPanelRef}
                             className="panel"
                         >
-                            <Editor
+                            <NoteEditor
                                 onChange={(value) => {
                                     setNoteContent(value);
                                     markDirty();
@@ -77,7 +77,7 @@ export function WorkspaceView() {
                             panelRef={previewPanelRef}
                             className="panel"
                         >
-                            <Preview />
+                            <NotePreview />
                         </Panel>
                     </Group>
                 </>
