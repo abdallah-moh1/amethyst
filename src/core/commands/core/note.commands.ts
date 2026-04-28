@@ -15,7 +15,7 @@ import {
     saveNote,
 } from '@/clients/note.client';
 import { FacetCommands } from './facet.commands';
-import { CommandExecutionResult } from '@/types/command.type';
+import { CommandExecutionResult } from '@/shared/types/command.type';
 import { GHOST_INDEX } from '@/features/facet-tree';
 
 export const registerNoteCommands = () => {

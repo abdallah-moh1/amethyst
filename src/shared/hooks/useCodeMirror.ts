@@ -6,7 +6,7 @@ import { useEffect, useRef } from 'react';
 import { EditorView } from '@codemirror/view';
 import { createEditor, createState } from '@/core/editor';
 import { updateEditor } from '@/core/editor';
-import type { UseCodeMirrorOptions } from '@/types/editor.type';
+import type { UseCodeMirrorOptions } from '@/shared/types/editor.type';
 
 export function useCodeMirror({
     containerRef,

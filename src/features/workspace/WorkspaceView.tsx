@@ -7,7 +7,7 @@ import { WorkspaceToolbar } from './components/WorkspaceToolbar';
 import { NotePreview } from '../note-preview';
 import { useUIStore, useWorkspaceStore } from '@/store';
 import { Group, Panel, PanelImperativeHandle, Separator } from 'react-resizable-panels';
-import { useEffect, useRef } from 'react';
+import { useCallback, useLayoutEffect, useRef } from 'react';
 import { NoteEmptyState } from '../empty-state';
 
 import './workspace-view.css';
@@ -22,7 +22,15 @@ export function WorkspaceView() {
     const editorPanelRef = useRef<PanelImperativeHandle | null>(null);
     const previewPanelRef = useRef<PanelImperativeHandle | null>(null);
 
-    useEffect(() => {
+    const onChange = useCallback(
+        (value: string) => {
+            setNoteContent(value);
+            markDirty();
+        },
+        [setNoteContent, markDirty],
+    );
+
+    useLayoutEffect(() => {
         switch (viewMode) {
             case 'editor':
                 editorPanelRef.current?.expand();
@@ -56,10 +64,8 @@ export function WorkspaceView() {
                             className="panel"
                         >
                             <NoteEditor
-                                onChange={(value) => {
-                                    setNoteContent(value);
-                                    markDirty();
-                                }}
+                                key={currentNoteId}
+                                onChange={onChange}
                                 placeholder="Get Creative..."
                             />
                         </Panel>

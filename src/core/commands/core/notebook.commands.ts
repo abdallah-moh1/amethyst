@@ -12,7 +12,7 @@ import {
     moveNotebook,
     renameNotebook,
 } from '@/clients/notebook.client';
-import { CommandExecutionResult } from '@/types/command.type';
+import { CommandExecutionResult } from '@/shared/types/command.type';
 import { GHOST_INDEX } from '@/features/facet-tree';
 import { getUpdatedDescendantsPath } from '@/shared/utils';
 

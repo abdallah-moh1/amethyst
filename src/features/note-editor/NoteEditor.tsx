@@ -3,7 +3,7 @@
 // Copyright (C) 2026 Abdallah
 
 import { useEffect, useRef } from 'react';
-import { EditorProps } from '@/types/editor.type';
+import { EditorProps } from '@/shared/types/editor.type';
 import { useCodeMirror } from '../../shared/hooks/useCodeMirror';
 import { useWorkspaceStore } from '@/store';
 

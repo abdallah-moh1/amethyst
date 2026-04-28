@@ -1,2 +1,2 @@
 export { NoteEditor } from './NoteEditor';
-export type { EditorProps } from '../../types/editor.type';
+export type { EditorProps } from '../../shared/types/editor.type';

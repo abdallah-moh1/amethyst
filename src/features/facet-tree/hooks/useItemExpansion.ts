@@ -3,7 +3,7 @@
 // Copyright (C) 2026 Abdallah
 
 import { useInteractionStore } from '@/store';
-import { FacetTreeItem } from '@/types/tree.type';
+import { FacetTreeItem } from '@/shared/types/tree.type';
 import { useCallback } from 'react';
 
 export function useItemExpansion() {

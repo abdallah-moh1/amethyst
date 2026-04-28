@@ -5,7 +5,7 @@
 import { useInteractionStore } from '@/store';
 import { RefObject, useCallback, useEffect } from 'react';
 import { GHOST_INDEX } from '../FacetTree';
-import { FacetTree, FacetTreeItem, FacetTreeItemData } from '@/types/tree.type';
+import { FacetTree, FacetTreeItem, FacetTreeItemData } from '@/shared/types/tree.type';
 import { FacetCommands } from '@/core/commands';
 import { TreeRef } from 'react-complex-tree';
 import { CommandRunner } from '@/core/commands';

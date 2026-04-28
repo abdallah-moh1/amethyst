@@ -4,7 +4,7 @@
 
 import { EditorState } from '@codemirror/state';
 import { EditorView, type ViewUpdate } from '@codemirror/view';
-import type { CreateEditorOptions } from '@/types/editor.type';
+import type { CreateEditorOptions } from '@/shared/types/editor.type';
 import { baseExtensions } from './extensions/baseExtensions';
 import { markdownExtensions } from './extensions/markdownExtensions';
 import { placeholderExtension } from './extensions/placeholder';

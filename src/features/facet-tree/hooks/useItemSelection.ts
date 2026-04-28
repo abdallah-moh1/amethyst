@@ -3,7 +3,7 @@
 // Copyright (C) 2026 Abdallah
 
 import { useInteractionStore } from '@/store';
-import { FacetTree } from '@/types/tree.type';
+import { FacetTree } from '@/shared/types/tree.type';
 import { useCallback } from 'react';
 import { TreeItemIndex } from 'react-complex-tree';
 

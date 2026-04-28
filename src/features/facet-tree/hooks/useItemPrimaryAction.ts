@@ -4,7 +4,7 @@
 
 import { FacetCommands } from '@/core/commands';
 import { CommandRunner } from '@/core/commands';
-import { FacetTreeItem } from '@/types/tree.type';
+import { FacetTreeItem } from '@/shared/types/tree.type';
 import { useCallback } from 'react';
 
 export function useItemPrimaryAction() {

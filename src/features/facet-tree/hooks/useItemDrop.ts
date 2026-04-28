@@ -5,7 +5,7 @@
 import { FacetCommands } from '@/core/commands';
 import { ROOT_ID } from '../utils/treeAdapter';
 import { DraggingPosition, TreeItem } from 'react-complex-tree';
-import { FacetTreeItemData } from '@/types/tree.type';
+import { FacetTreeItemData } from '@/shared/types/tree.type';
 import { CommandRunner } from '@/core/commands';
 
 export function useItemDrop() {

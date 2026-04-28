@@ -7,7 +7,7 @@ import { Tree, ControlledTreeEnvironment, TreeRef } from 'react-complex-tree';
 import { useItemSelection } from './hooks/useItemSelection';
 import { useItemExpansion } from './hooks/useItemExpansion';
 import { useItemPrimaryAction } from './hooks/useItemPrimaryAction';
-import { FacetTreeItemData } from '@/types/tree.type';
+import { FacetTreeItemData } from '@/shared/types/tree.type';
 import { useItemRename } from './hooks/useItemRename';
 import { useItems } from './hooks/useItems';
 import { ROOT_ID } from './utils/treeAdapter';

@@ -2,7 +2,7 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { Command, CommandExecutionResult, CommandId } from '@/types/command.type';
+import { Command, CommandExecutionResult, CommandId } from '@/shared/types/command.type';
 
 class CommandRegistry {
     private static instance: CommandRegistry;

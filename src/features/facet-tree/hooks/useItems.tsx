@@ -6,7 +6,7 @@ import { ReactNode, RefObject, useCallback, useMemo } from 'react';
 import { buildFacetTree, ROOT_ID } from '../utils/treeAdapter';
 import { useFacetStore, useInteractionStore } from '@/store';
 import { GHOST_INDEX } from '../FacetTree';
-import { FacetTreeItem, FacetTreeItemData } from '@/types/tree.type';
+import { FacetTreeItem, FacetTreeItemData } from '@/shared/types/tree.type';
 import { TreeInformation, TreeItemRenderContext, TreeRef } from 'react-complex-tree';
 import { FacetCommands } from '@/core/commands';
 import { ContextMenuItem, useContextMenu } from '@/features/context-menu';

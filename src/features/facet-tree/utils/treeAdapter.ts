@@ -3,7 +3,7 @@
 // Copyright (C) 2026 Abdallah
 
 import { FacetNote, FacetNotebook } from '@shared/types/facet.type';
-import { FacetTree } from '@/types/tree.type';
+import { FacetTree } from '@/shared/types/tree.type';
 
 export const ROOT_ID = '__rct_root__';
 
