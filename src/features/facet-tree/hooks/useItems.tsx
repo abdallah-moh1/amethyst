@@ -10,8 +10,9 @@ import { FacetTreeItem } from '@/shared/types/tree.type';
 import { TreeInformation, TreeItemRenderContext } from 'react-complex-tree';
 import { useContextMenu } from '@/shared/hooks/useContextMenu';
 import { ContextMenuItem } from '@/shared/types/context-menu.type';
-import { useNoteActions } from '@/features/notes';
-import { useNotebookActions } from '@/features/notebooks';
+import { NoteCommands, useNoteActions } from '@/features/notes';
+import { NotebookCommands, useNotebookActions } from '@/features/notebooks';
+import { commands } from '@/core/commands';
 
 /**
  * Generates the class string for the <li> element based on the tree item state.
@@ -123,19 +124,23 @@ export function useItems() {
                         {
                             label: 'New Note',
                             action: () => noteActions.create({ parentPath: data.node.path }),
+                            shortcut: commands.getCommandShortcut(NoteCommands.CREATE_NOTE),
                         },
                         {
                             label: 'New Notebook',
+                            shortcut: commands.getCommandShortcut(NotebookCommands.CREATE_NOTEBOOK),
                             action: () => notebookActions.create({ parentPath: data.node.path }),
                         },
                         { separator: true },
                         {
                             label: 'Rename',
+                            shortcut: commands.getCommandShortcut(NotebookCommands.RENAME_NOTEBOOK),
                             action: () => notebookActions.rename({ path: data.node.path }),
                         },
                         {
                             label: 'Delete',
                             variant: 'destructive',
+                            shortcut: commands.getCommandShortcut(NotebookCommands.DELETE_NOTEBOOK),
                             action: () => notebookActions.remove({ path: data.node.path }),
                         },
                     ];
@@ -143,11 +148,13 @@ export function useItems() {
                     contextItems = [
                         {
                             label: 'Rename',
+                            shortcut: commands.getCommandShortcut(NoteCommands.RENAME_NOTE),
                             action: () => noteActions.rename({ id: item.index as string }),
                         },
                         {
                             label: 'Delete',
                             variant: 'destructive',
+                            shortcut: commands.getCommandShortcut(NoteCommands.DELETE_NOTE),
                             action: () => noteActions.remove({ id: data.node.id }),
                         },
                     ];

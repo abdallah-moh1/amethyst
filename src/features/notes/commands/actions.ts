@@ -3,7 +3,7 @@
 // Copyright (C) 2026 Abdallah
 
 import { commands } from '@/core/commands';
-import { NoteCommands } from './register';
+import { NoteCommands } from './commands';
 
 import {
     CreateNoteArgs,

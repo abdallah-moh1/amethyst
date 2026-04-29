@@ -1,6 +1,6 @@
 import { useInteractionStore } from '@/store';
 
-import { createNotebook, deleteNotebook, moveNotebook, renameNotebook } from '../commands/wrappers';
+import { createNotebook, deleteNotebook, moveNotebook, renameNotebook } from '../commands/actions';
 import {
     CommandExecutionResult,
     CreateNotebookArgs,
@@ -10,13 +10,12 @@ import {
 } from '@/shared/types/command.type';
 
 export function useNotebookActions() {
-    const toast = useInteractionStore.getState().addToast;
 
     const handle = async <T>(fn: (args: T) => Promise<CommandExecutionResult>, args: T) => {
         const result = await fn(args);
 
         if (!result.success) {
-            toast({
+            useInteractionStore.getState().addToast({
                 id: crypto.randomUUID(),
                 message: result.message,
                 type: 'error',

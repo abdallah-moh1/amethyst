@@ -8,7 +8,7 @@ import {
     deleteNotebookCommandExec,
     moveNotebookCommandExec,
     renameNotebookCommandExec,
-} from './exec';
+} from './handlers';
 import { useInteractionStore } from '@/store';
 
 export const NotebookCommands = {

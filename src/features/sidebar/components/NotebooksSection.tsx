@@ -8,8 +8,9 @@ import { useInteractionStore } from '@/store';
 import { ParentPath } from '@shared/types/facet.type';
 import { useCallback } from 'react';
 import { useContextMenu } from '@/shared/hooks/useContextMenu';
-import { useNotebookActions } from '@/features/notebooks';
-import { useNoteActions } from '@/features/notes';
+import { NotebookCommands, useNotebookActions } from '@/features/notebooks';
+import { NoteCommands, useNoteActions } from '@/features/notes';
+import { commands } from '@/core/commands';
 
 export function NotebooksSection() {
     const selectedItem = useInteractionStore((s) => s.selectedItem);
@@ -38,11 +39,12 @@ export function NotebooksSection() {
             contextMenu.open(e, [
                 {
                     label: 'New Note',
-                    // Replace with your actual command later
+                    shortcut: commands.getCommandShortcut(NoteCommands.CREATE_NOTE),
                     action: () => noteActions.create({ parentPath: null }),
                 },
                 {
                     label: 'New Notebook',
+                    shortcut: commands.getCommandShortcut(NotebookCommands.CREATE_NOTEBOOK),
                     action: () => notebookActions.create({ parentPath: null }),
                 },
             ]);

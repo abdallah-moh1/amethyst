@@ -7,6 +7,6 @@ export {
     renameNote,
     moveNote,
     deleteNote,
-} from './commands/wrappers';
+} from './commands/actions';
 
-export { registerNoteCommands, NoteCommands } from './commands/register';
+export { registerNoteCommands, NoteCommands } from './commands/commands';

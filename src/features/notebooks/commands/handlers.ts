@@ -51,7 +51,7 @@ export const deleteNotebookCommandExec = async (
     const { selectedItem } = useInteractionStore.getState();
 
     const path =
-        (args[0] as string) || selectedItem?.type === 'notebook' ? selectedItem?.path : null;
+        (args[0] as string) || (selectedItem?.type === 'notebook' ? selectedItem?.path : null);
 
     if (!path || !notebooks.has(path)) {
         return { success: false, message: 'Notebook path is invalid or not found.' };
@@ -112,7 +112,7 @@ export const renameNotebookCommandExec = async (
     const { selectedItem } = useInteractionStore.getState();
 
     const path =
-        (args[0] as string) || selectedItem?.type === 'notebook' ? selectedItem?.path : null;
+        (args[0] as string) || (selectedItem?.type === 'notebook' ? selectedItem?.path : null);
 
     const newName = args[1] as string;
 

@@ -10,7 +10,7 @@ import {
     openNoteCommandExec,
     renameNoteCommandExec,
     saveNoteCommandExec,
-} from './exec';
+} from './handlers';
 import { useInteractionStore } from '@/store';
 
 export const NoteCommands = {
