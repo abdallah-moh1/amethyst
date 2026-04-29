@@ -98,8 +98,7 @@ export const renameNoteCommandExec = async (
     const { currentNoteId, setNoteName } = useWorkspaceStore.getState();
     const { selectedItem, setRenamingItem } = useInteractionStore.getState();
 
-
-    const id = args[0] as string || (selectedItem?.type === 'note' ? selectedItem.id : null);
+    const id = (args[0] as string) || (selectedItem?.type === 'note' ? selectedItem.id : null);
 
     const newName = args[1] as string;
 
@@ -163,7 +162,7 @@ export const deleteNoteCommandExec = async (
     const { currentNoteId, setNewNote } = useWorkspaceStore.getState();
     const { selectedItem } = useInteractionStore.getState();
 
-    const target = args[0] as string || (selectedItem?.type === 'note' ? selectedItem.id : null);;
+    const target = (args[0] as string) || (selectedItem?.type === 'note' ? selectedItem.id : null);
 
     if (!target || !notes.has(target)) {
         return { success: false, message: 'Delete target invalid or not found.' };

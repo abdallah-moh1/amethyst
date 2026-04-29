@@ -17,7 +17,6 @@ export function normalizeShortcut(shortcut: Shortcut) {
         .join('+');
 }
 
-
 export function getDisplayableShortcut(shortcut: Shortcut) {
     const parts: string[] = [];
 
@@ -29,8 +28,7 @@ export function getDisplayableShortcut(shortcut: Shortcut) {
     parts.push(shortcut.key);
     if (parts.length === 0) return '';
 
-    return parts
-        .join(' + ');
+    return parts.join(' + ');
 }
 
 export function eventToShortcut(e: KeyboardEvent) {

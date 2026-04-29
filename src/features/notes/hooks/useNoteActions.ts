@@ -23,7 +23,6 @@ import {
 } from '@/shared/types/command.type';
 
 export function useNoteActions() {
-
     const handle = async <T>(fn: (args: T) => Promise<CommandExecutionResult>, args: T) => {
         const result = await fn(args);
 

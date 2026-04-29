@@ -10,7 +10,6 @@ import {
 } from '@/shared/types/command.type';
 
 export function useNotebookActions() {
-
     const handle = async <T>(fn: (args: T) => Promise<CommandExecutionResult>, args: T) => {
         const result = await fn(args);
 
