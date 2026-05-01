@@ -8,7 +8,8 @@ import {
     deleteNotebookCommandExec,
     moveNotebookCommandExec,
     renameNotebookCommandExec,
-} from './exec';
+} from './handlers';
+import { useInteractionStore } from '@/store';
 
 export const NotebookCommands = {
     CREATE_NOTEBOOK: 'notebook:create',
@@ -18,31 +19,29 @@ export const NotebookCommands = {
 } as const;
 
 export const registerNotebookCommands = () => {
-    commands.register({
+    commands.registerCommand({
         id: NotebookCommands.CREATE_NOTEBOOK,
         label: 'Create notebook',
-        canBeOverwritten: false,
         execute: createNotebookCommandExec,
     });
 
-    commands.register({
+    commands.registerCommand({
         id: NotebookCommands.DELETE_NOTEBOOK,
         label: 'Delete notebook',
-        canBeOverwritten: false,
+        isApplicable: () => useInteractionStore.getState().selectedItem?.type === 'notebook',
         execute: deleteNotebookCommandExec,
     });
 
-    commands.register({
+    commands.registerCommand({
         id: NotebookCommands.MOVE_NOTEBOOK,
         label: 'Move notebook',
-        canBeOverwritten: false,
         execute: moveNotebookCommandExec,
     });
 
-    commands.register({
+    commands.registerCommand({
         id: NotebookCommands.RENAME_NOTEBOOK,
         label: 'Rename notebook',
-        canBeOverwritten: false,
+        isApplicable: () => useInteractionStore.getState().selectedItem?.type === 'notebook',
         execute: renameNotebookCommandExec,
     });
 };

@@ -181,6 +181,7 @@
 .rct-tree-item-button {
     background: none;
     border: none;
+    outline: none;
 
     padding: 0 6px 0 4px;
     margin: 0;

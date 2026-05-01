@@ -12,6 +12,7 @@ export function useContextMenu() {
     const open = useCallback(
         (e: React.MouseEvent, items: ContextMenuItem[]) => {
             e.preventDefault();
+            e.stopPropagation();
 
             const menuWidth = 200;
             const menuHeight = items.length * 34;

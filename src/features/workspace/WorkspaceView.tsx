@@ -47,7 +47,6 @@ export function WorkspaceView() {
                 editorPanelRef.current?.resize('50%');
                 break;
         }
-        console.log(viewMode);
     }, [viewMode, currentNoteId]);
 
     return (

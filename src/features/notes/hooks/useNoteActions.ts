@@ -11,7 +11,7 @@ import {
     renameNote,
     moveNote,
     deleteNote,
-} from '../commands/wrappers';
+} from '../commands/actions';
 import {
     CommandExecutionResult,
     CreateNoteArgs,
@@ -23,13 +23,11 @@ import {
 } from '@/shared/types/command.type';
 
 export function useNoteActions() {
-    const toast = useInteractionStore.getState().addToast;
-
     const handle = async <T>(fn: (args: T) => Promise<CommandExecutionResult>, args: T) => {
         const result = await fn(args);
 
         if (!result.success) {
-            toast({
+            useInteractionStore.getState().addToast({
                 id: crypto.randomUUID(),
                 message: result.message,
                 type: 'error',

@@ -96,9 +96,10 @@ export const renameNoteCommandExec = async (
 ): Promise<CommandExecutionResult> => {
     const { removeNote, addNote } = useFacetStore.getState();
     const { currentNoteId, setNoteName } = useWorkspaceStore.getState();
-    const { setRenamingItem } = useInteractionStore.getState();
+    const { selectedItem, setRenamingItem } = useInteractionStore.getState();
 
-    const id = (args[0] as string) || currentNoteId;
+    const id = (args[0] as string) || (selectedItem?.type === 'note' ? selectedItem.id : null);
+
     const newName = args[1] as string;
 
     if (!id) {
@@ -159,8 +160,9 @@ export const deleteNoteCommandExec = async (
 ): Promise<CommandExecutionResult> => {
     const { notes, removeNote } = useFacetStore.getState();
     const { currentNoteId, setNewNote } = useWorkspaceStore.getState();
+    const { selectedItem } = useInteractionStore.getState();
 
-    const target = (args[0] as string) || currentNoteId;
+    const target = (args[0] as string) || (selectedItem?.type === 'note' ? selectedItem.id : null);
 
     if (!target || !notes.has(target)) {
         return { success: false, message: 'Delete target invalid or not found.' };

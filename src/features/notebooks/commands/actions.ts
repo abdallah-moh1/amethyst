@@ -3,7 +3,7 @@
 // Copyright (C) 2026 Abdallah
 
 import { commands } from '@/core/commands';
-import { NotebookCommands } from './register';
+import { NotebookCommands } from './commands';
 
 import {
     CreateNotebookArgs,

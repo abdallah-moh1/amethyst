@@ -10,7 +10,8 @@ import {
     openNoteCommandExec,
     renameNoteCommandExec,
     saveNoteCommandExec,
-} from './exec';
+} from './handlers';
+import { useInteractionStore } from '@/store';
 
 export const NoteCommands = {
     CREATE_NOTE: 'note:create',
@@ -22,45 +23,41 @@ export const NoteCommands = {
 } as const;
 
 export const registerNoteCommands = () => {
-    commands.register({
+    commands.registerCommand({
         id: NoteCommands.CREATE_NOTE,
         label: 'Create note',
-        canBeOverwritten: false,
         execute: createNoteCommandExec,
     });
 
-    commands.register({
+    commands.registerCommand({
         id: NoteCommands.OPEN_NOTE,
         label: 'Open note',
-        canBeOverwritten: false,
         execute: openNoteCommandExec,
     });
 
-    commands.register({
+    commands.registerCommand({
         id: NoteCommands.SAVE_NOTE,
         label: 'Save note',
-        canBeOverwritten: false,
         execute: saveNoteCommandExec,
     });
 
-    commands.register({
+    commands.registerCommand({
         id: NoteCommands.RENAME_NOTE,
         label: 'Rename note',
-        canBeOverwritten: false,
+        isApplicable: () => useInteractionStore.getState().selectedItem?.type === 'note',
         execute: renameNoteCommandExec,
     });
 
-    commands.register({
+    commands.registerCommand({
         id: NoteCommands.MOVE_NOTE,
         label: 'Move note',
-        canBeOverwritten: false,
         execute: moveNoteCommandExec,
     });
 
-    commands.register({
+    commands.registerCommand({
         id: NoteCommands.DELETE_NOTE,
         label: 'Delete note',
-        canBeOverwritten: false,
+        isApplicable: () => useInteractionStore.getState().selectedItem?.type === 'note',
         execute: deleteNoteCommandExec,
     });
 };

@@ -2,35 +2,46 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useContextMenu } from '@/shared/hooks/useContextMenu';
 
 import './context-menu.css';
 
 export function ContextMenu() {
     const { menu, close } = useContextMenu();
+    const menuRef = useRef<HTMLUListElement>(null);
 
     useEffect(() => {
         if (!menu) return;
+        const handlePointerDown = (e: MouseEvent) => {
+            if (!menuRef.current) return;
+
+            if (!menuRef.current.contains(e.target as Node)) {
+                close();
+            }
+        };
 
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Escape') close();
         };
-        window.addEventListener('click', close);
-        window.addEventListener('resize', close);
+
+        window.addEventListener('mousedown', handlePointerDown);
         window.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('blur', close);
+        window.addEventListener('resize', close);
 
         return () => {
-            window.removeEventListener('click', close);
-            window.removeEventListener('resize', close);
+            window.removeEventListener('mousedown', handlePointerDown);
             window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('blur', close);
+            window.removeEventListener('resize', close);
         };
     }, [menu, close]);
 
     if (!menu) return null;
 
     return (
-        <ul className="context-menu" style={{ top: menu.y, left: menu.x }}>
+        <ul className="context-menu" style={{ top: menu.y, left: menu.x }} ref={menuRef}>
             {menu.items.map((item, i) => {
                 if (item.separator) {
                     return <li key={i} className="context-menu__separator" />;
@@ -40,7 +51,7 @@ export function ContextMenu() {
 
                 return (
                     <li
-                        key={i}
+                        key={item.label}
                         className={[
                             'context-menu__item',
                             `context-menu__item--${variant}`,
@@ -48,7 +59,8 @@ export function ContextMenu() {
                         ]
                             .filter(Boolean)
                             .join(' ')}
-                        onClick={() => {
+                        onClick={(e) => {
+                            e.preventDefault();
                             if (!item.disabled && item.action) {
                                 item.action();
                                 close();
