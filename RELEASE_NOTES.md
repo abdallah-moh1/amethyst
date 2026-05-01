@@ -1,24 +1,26 @@
-## Amethyst v0.3.0
+## Amethyst v0.5.0
 
-Third development release of Amethyst.
+Fifth development release of Amethyst.
 
-### Included
+### Added
 
-- Split editor/preview mode
-- Synced scrolling between the editor and preview
+- **Keyboard Shortcut System:** A new system to manage and use keyboard shortcuts, making navigation and editing much faster.
+- **Tree Drag & Drop:** A way to rearrange and move notes inside the app.
+- **Context Menus:** You can now right-click on notes, notebooks, or empty areas in the sidebar to quickly access actions like renaming or deleting.
+- **Toast Notifications:** Smooth pop-up alerts now confirm your actions (like saving or moving files) and stay visible if you hover over them.
+- **LaTeX Math Support:** You can now write and preview complex mathematical equations directly in your notes.
+- **Rename from Header:** Changed your mind on a title? You can now rename a note by clicking its name at the very top of the editor.
+- **New Welcome Note:** A helpful starter note to guide new users through the app's features.
+- **Empty state:** A new feature where when no note is selected instead of showing an empty editor an empty state would display (TODO: add quick actions in it).
+- **Linux Support:** Added support for the Arch Linux package manager (`pacman`).
 
-### Improvements
+### Improved
 
-- Improved writing workflow with quick switching between editing and previewing
+- **Smart Sorting:** Notes and notebooks now automatically stay organized and sorted as you create or move them.
+- **Better Tables:** Large tables in the preview window now have horizontal scrollbars, so they no longer break the page layout.
+- **Clean Interface:** The right-side panel is now tucked away by default to give you more room to write.
+- **Reliability:** Significant improvements to how files are moved and deleted to prevent data errors.
 
-This release is still an early development milestone.
+### Fixed
 
-- Notes and notebooks are not implemented yet
-- Markdown content is not persisted (no save/load functionality)
-- Search functionality is not available
-- Outline panel is not implemented
-- Settings UI is not available yet (settings are stored but not user-editable)
-- Note title bar is not fully implemented
-- Layout persistence is not implemented (panel sizes reset on restart)
-
-The current focus is on validating the editor + preview workflow before introducing the note system and split-view architecture.
+- **Text Alignment:** Fixed cases where long note titles would overlap or "leak" out of their boxes.
