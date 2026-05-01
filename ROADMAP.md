@@ -29,10 +29,6 @@ Amethyst is a streamlined, architecture-first Markdown note-taking application. 
 - Intelligent sorting (notebooks first, then notes alphabetically).
 - _Note: Temporary removal of sync-scroll for performance refactoring._
 
----
-
-## 📍 Current & Future Phases
-
 **0.5.0 — The Command System**
 
 - **Command Registry:** Centralized hub to register and trigger all app actions.
@@ -40,10 +36,14 @@ Amethyst is a streamlined, architecture-first Markdown note-taking application. 
 - **Shortcut Manager:** Mapping physical keys to Command IDs.
 - **Toast Notifications:** Global system for both **success** and **error** feedback.
 - **Math Support:** Latex math support
+- **Rename & Move:** Full support for changing file/folder paths.
+
+---
+
+## 📍 Current & Future Phases
 
 **0.6.0 — File Safety & Advanced Operations**
 
-- **Rename & Move:** Full support for changing file/folder paths.
 - **Safe Deletion:** Command-triggered deletion with confirmation modals and `.trash` logic.
 - **Conflict Handling:** Banner-based resolution for external file changes.
 - **Debounced Autosave & Dirty State:** 2s interval with "Save on Switch" protection and unsaved changes indicator.
