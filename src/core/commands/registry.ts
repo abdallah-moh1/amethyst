@@ -15,7 +15,7 @@ class CommandRegistry {
 
     private commands = new Map<CommandId, Command>();
 
-    private constructor() { }
+    private constructor() {}
 
     public static getInstance(): CommandRegistry {
         if (!CommandRegistry.instance) {

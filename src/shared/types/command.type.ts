@@ -22,9 +22,7 @@ export type Command = {
     isApplicable?: () => boolean;
 };
 
-export type CommandExecutionResult =
-    | { success: true; }
-    | { success: false; message: string; };
+export type CommandExecutionResult = { success: true } | { success: false; message: string };
 
 export type CreateNoteArgs = {
     parentPath?: ParentPath;
