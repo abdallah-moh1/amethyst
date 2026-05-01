@@ -1,27 +1,28 @@
 # 💎 Amethyst
 
-![Version](https://img.shields.io/badge/version-0.4.0-blue.svg)
+![Version](https://img.shields.io/badge/version-0.5.0-blue.svg)
 ![License](https://img.shields.io/badge/license-AGPL--3.0-green.svg)
 ![Release](https://github.com/abdallah-moh1/amethyst/actions/workflows/release.yml/badge.svg)
 ![CI](https://github.com/abdallah-moh1/amethyst/actions/workflows/ci.yml/badge.svg)
 
 A streamlined, architecture-first Markdown note-taking desktop application built with **Electron, React, Vite, and TypeScript**.
 
-Amethyst is currently in active early development. The latest `v0.4.0` milestone introduces **Facets** (single-workspace management) with a recursive filesystem tree view.
-
 ---
 
-## 🚀 Current Status (`v0.4.0`)
+## 🚀 Current Status (`v0.5.0`)
 
 What currently works:
 
-- **Single-Facet Workspace:** Support for a single local root directory (currently set to a fixed default path for development).
-- **Recursive Tree View:** Hierarchical navigation of folders (notebooks) and files (notes) within the active Facet.
+- **Single-Facet Workspace:** Support for a single local root directory.
+- **Recursive Tree View:** Hierarchical navigation with **Drag & Drop** support to rearrange notes and notebooks.
+- **Command & Shortcut System:** A robust internal command registry with a centralized keyboard shortcut manager for high-speed navigation.
+- **Context Menus:** Right-click support for notes, notebooks, and sidebar areas for quick actions (rename, delete, create).
+- **Editor:** CodeMirror 6 integration with **Header Renaming** (click the title in the workspace header to rename).
+- **Preview:** Live Markdown-to-HTML rendering with **LaTeX Math support** and scrollable tables.
+- **Empty State & Onboarding:** A polished "Empty State" view when no note is selected and a built-in **Welcome Note** for new users.
+- **Notifications:** A global **Toast Notification** system providing real-time feedback on app actions.
 - **Real-time Sync:** Main-process filesystem watching (Chokidar) to reflect external changes instantly in the UI.
-- **Editor:** CodeMirror 6 integration with tab-less, single-note focused loading.
-- **Preview:** Live Markdown-to-HTML rendering with toggle and split-view modes.
 - **Theming:** Built-in dark and light theme loading via CSS variables and JSON.
-- **Infrastructure:** Settings persistence and GitHub Actions CI/CD workflows for multi-platform releases.
 
 > **Note:** Synchronized scrolling has been temporarily removed in v0.4.0 to undergo a high-performance refactor scheduled for v0.9.0.
 
@@ -33,36 +34,81 @@ What currently works:
 
 ## 🛠️ Tech Stack
 
-| Layer         | Technology                  |
-| ------------- | --------------------------- |
-| Desktop Shell | Electron                    |
-| Renderer      | React                       |
-| Build Tool    | Vite                        |
-| Language      | TypeScript                  |
-| Editor        | CodeMirror 6                |
-| Layout        | react-resizable-panels      |
-| Styling       | CSS variables + JSON themes |
-| Packaging     | electron-builder            |
+| Layer          | Technology                  |
+| -------------- | --------------------------- |
+| Desktop Shell  | Electron                    |
+| Renderer       | React                       |
+| Build Tool     | Vite                        |
+| Language       | TypeScript                  |
+| Editor         | CodeMirror 6                |
+| Math Rendering | LaTeX                       |
+| Layout         | react-resizable-panels      |
+| Styling        | CSS variables + JSON themes |
+| Packaging      | electron-builder            |
 
 ## 📂 Project Structure
 
 ```text
 amethyst/
-├── assets/                # Icons and packaging assets
-├── electron/              # Electron main process, preload, IPC, native-side services
-│   ├── ipc/               # IPC handler registration
-│   ├── services/          # Settings, theme, and filesystem services
-│   ├── themes/            # Built-in JSON theme definitions
-│   └── window/            # BrowserWindow creation
-├── shared/                # Types shared by main and renderer
-├── src/                   # React renderer application
-│   ├── app/               # App bootstrap and root app component
-│   ├── features/          # Feature modules (editor, sidebar/tree, workspace)
-│   ├── layout/            # App shell and panel layout composition
-│   ├── services/          # Renderer-side IPC client wrappers
-│   └── styles/            # Global and layout CSS
-├── .github/workflows/     # CI and release automation
+├── assets/
+├── electron/
+│   ├── features/
+│   ├── ipc/
+│   ├── services/
+│   ├── themes/
+│   ├── utils/
+│   ├── window/
+│   ├── main.ts
+│   └── preload.mts
+├── screenshots/
+├── shared/
+│   └── types/
+├── src/
+│   ├── app/
+│   ├── core/
+│   │   ├── commands/
+│   │   ├── editor/
+│   │   ├── keybindings/
+│   │   └── markdown/
+│   ├── features/
+│   │   ├── context-menu/
+│   │   ├── empty-state/
+│   │   ├── facet-tree/
+│   │   ├── notebooks/
+│   │   ├── note-editor/
+│   │   ├── note-preview/
+│   │   ├── notes/
+│   │   ├── right-panel/
+│   │   ├── sidebar/
+│   │   ├── theme/
+│   │   ├── toast-notifications/
+│   │   └── workspace/
+│   ├── infrastructure/
+│   │   ├── clients/
+│   ├── layout/
+│   ├── shared/
+│   │   ├── assets/
+│   │   ├── hooks/
+│   │   ├── types/
+│   │   └── utils/
+│   ├── store/
+│   ├── styles/
+│   ├── global.d.ts
+│   ├── main.tsx
+│   └── vite-env.d.ts
+├── ARCHITECTURE.md
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── eslint.config.js
+├── index.html
+├── LICENSE
 ├── package.json
+├── package-lock.json
+├── README.md
+├── RELEASE_NOTES.md
+├── ROADMAP.md
+├── tsconfig.json
+├── tsconfig.node.json
 └── vite.config.ts
 ```
 
@@ -72,24 +118,25 @@ Amethyst follows a strict, secure Electron architecture:
 
 - **Main Process:** Manages native windows, recursive filesystem scanning, and real-time file watching.
 - **Preload:** Exposes a narrow, secure API to the renderer through `window.amethyst`.
+- **Command Registry:** Centralized logic for executing app actions consistently via shortcuts, menus, or UI buttons.
 - **Renderer:** Contains the React UI and communicates via IPC wrappers to maintain a clean separation of concerns.
 - **Shared Types:** Keeps the contract between the main process and renderer strictly aligned.
 
 ## 💻 Development
 
-### 1\. Install Dependencies
+### 1. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 2\. Run Locally
+### 2. Run Locally
 
 ```bash
 npm run dev
 ```
 
-### 3\. Run Checks
+### 3. Run Checks
 
 ```bash
 npm run check
@@ -106,7 +153,7 @@ npm run check
 
 - **Windows:** NSIS installer, portable executable
 - **macOS:** DMG, ZIP
-- **Linux:** AppImage, DEB, RPM, tar.gz
+- **Linux:** AppImage, DEB, RPM, pacman (Arch), tar.gz
 
 ## 💾 Storage
 
@@ -120,7 +167,7 @@ npm run check
 
 ## 🤝 Contributing
 
-Contributions are welcome\! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+Contributions are welcome! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
 ## 👨‍💻 Author
 
