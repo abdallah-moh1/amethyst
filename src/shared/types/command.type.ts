@@ -17,21 +17,14 @@ export type Shortcut = {
 export type Command = {
     id: CommandId;
     label: string;
-    shortcut?: Shortcut;
-    canBeOverwritten: boolean;
     execute: (...args: unknown[]) => Promise<CommandExecutionResult>;
     isEnabled?: () => boolean;
     isApplicable?: () => boolean;
 };
 
 export type CommandExecutionResult =
-    | {
-          success: true;
-      }
-    | {
-          success: false;
-          message: string;
-      };
+    | { success: true; }
+    | { success: false; message: string; };
 
 export type CreateNoteArgs = {
     parentPath?: ParentPath;

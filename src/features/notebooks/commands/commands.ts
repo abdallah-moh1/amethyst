@@ -19,48 +19,29 @@ export const NotebookCommands = {
 } as const;
 
 export const registerNotebookCommands = () => {
-    commands.register({
+    commands.registerCommand({
         id: NotebookCommands.CREATE_NOTEBOOK,
         label: 'Create notebook',
-        canBeOverwritten: false,
-        shortcut: {
-            ctrlKey: true,
-            shiftKey: true,
-            key: 'N',
-        },
         execute: createNotebookCommandExec,
     });
 
-    commands.register({
+    commands.registerCommand({
         id: NotebookCommands.DELETE_NOTEBOOK,
         label: 'Delete notebook',
-        canBeOverwritten: false,
-        shortcut: {
-            key: 'Delete',
-        },
-        isApplicable() {
-            return useInteractionStore.getState().selectedItem?.type === 'notebook';
-        },
+        isApplicable: () => useInteractionStore.getState().selectedItem?.type === 'notebook',
         execute: deleteNotebookCommandExec,
     });
 
-    commands.register({
+    commands.registerCommand({
         id: NotebookCommands.MOVE_NOTEBOOK,
         label: 'Move notebook',
-        canBeOverwritten: false,
         execute: moveNotebookCommandExec,
     });
 
-    commands.register({
+    commands.registerCommand({
         id: NotebookCommands.RENAME_NOTEBOOK,
         label: 'Rename notebook',
-        canBeOverwritten: false,
-        shortcut: {
-            key: 'F2',
-        },
-        isApplicable() {
-            return useInteractionStore.getState().selectedItem?.type === 'notebook';
-        },
+        isApplicable: () => useInteractionStore.getState().selectedItem?.type === 'notebook',
         execute: renameNotebookCommandExec,
     });
 };

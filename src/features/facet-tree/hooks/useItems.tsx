@@ -91,6 +91,68 @@ export function useItems() {
         return injected;
     }, [baseItems, ghost]);
 
+    const getContextItems = useCallback(
+        (item: FacetTreeItem) => {
+            const { data } = item;
+            if (!data) return;
+            let contextItems: ContextMenuItem[] = [];
+
+            if (data.type === 'notebook') {
+                contextItems = [
+                    {
+                        label: 'New Note',
+                        action: () => noteActions.create({ parentPath: data.node.path }),
+                        shortcut: commands.getCommandShortcut(NoteCommands.CREATE_NOTE),
+                    },
+                    {
+                        label: 'New Notebook',
+                        shortcut: commands.getCommandShortcut(NotebookCommands.CREATE_NOTEBOOK),
+                        action: () => notebookActions.create({ parentPath: data.node.path }),
+                    },
+                    { separator: true },
+                    {
+                        label: 'Rename',
+                        shortcut: commands.getCommandShortcut(NotebookCommands.RENAME_NOTEBOOK),
+                        action: () => notebookActions.rename({ path: data.node.path }),
+                    },
+                    {
+                        label: 'Delete',
+                        variant: 'destructive',
+                        shortcut: commands.getCommandShortcut(NotebookCommands.DELETE_NOTEBOOK),
+                        action: () => notebookActions.remove({ path: data.node.path }),
+                    },
+                ];
+            } else {
+                contextItems = [
+                    {
+                        label: 'Rename',
+                        shortcut: commands.getCommandShortcut(NoteCommands.RENAME_NOTE),
+                        action: () => noteActions.rename({ id: item.index as string }),
+                    },
+                    {
+                        label: 'Delete',
+                        variant: 'destructive',
+                        shortcut: commands.getCommandShortcut(NoteCommands.DELETE_NOTE),
+                        action: () => noteActions.remove({ id: data.node.id }),
+                    },
+                ];
+            }
+            return contextItems;
+        },
+        [noteActions, notebookActions],
+    );
+
+    const handleContextMenu = useCallback(
+        (e: React.MouseEvent<HTMLDivElement, MouseEvent>, item: FacetTreeItem) => {
+            const contextItems = getContextItems(item);
+            if (!contextItems) return;
+            e.preventDefault();
+
+            contextMenu.open(e, contextItems);
+        },
+        [contextMenu, getContextItems],
+    );
+
     const renderItems = useCallback(
         ({
             item,
@@ -108,60 +170,8 @@ export function useItems() {
             context: TreeItemRenderContext<'expandedItems' | 'selectedItems'>;
             info: TreeInformation;
         }) => {
-            const { data } = item;
-
             // These are the props that turn a normal div/button into the tree's focusable/draggable item
             const interactiveProps = context.interactiveElementProps;
-
-            const handleContextMenu = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-                if (!data) return;
-                e.preventDefault();
-
-                let contextItems: ContextMenuItem[] = [];
-
-                if (data.type === 'notebook') {
-                    contextItems = [
-                        {
-                            label: 'New Note',
-                            action: () => noteActions.create({ parentPath: data.node.path }),
-                            shortcut: commands.getCommandShortcut(NoteCommands.CREATE_NOTE),
-                        },
-                        {
-                            label: 'New Notebook',
-                            shortcut: commands.getCommandShortcut(NotebookCommands.CREATE_NOTEBOOK),
-                            action: () => notebookActions.create({ parentPath: data.node.path }),
-                        },
-                        { separator: true },
-                        {
-                            label: 'Rename',
-                            shortcut: commands.getCommandShortcut(NotebookCommands.RENAME_NOTEBOOK),
-                            action: () => notebookActions.rename({ path: data.node.path }),
-                        },
-                        {
-                            label: 'Delete',
-                            variant: 'destructive',
-                            shortcut: commands.getCommandShortcut(NotebookCommands.DELETE_NOTEBOOK),
-                            action: () => notebookActions.remove({ path: data.node.path }),
-                        },
-                    ];
-                } else {
-                    contextItems = [
-                        {
-                            label: 'Rename',
-                            shortcut: commands.getCommandShortcut(NoteCommands.RENAME_NOTE),
-                            action: () => noteActions.rename({ id: item.index as string }),
-                        },
-                        {
-                            label: 'Delete',
-                            variant: 'destructive',
-                            shortcut: commands.getCommandShortcut(NoteCommands.DELETE_NOTE),
-                            action: () => noteActions.remove({ id: data.node.id }),
-                        },
-                    ];
-                }
-
-                contextMenu.open(e, contextItems);
-            };
 
             return (
                 <li
@@ -181,7 +191,7 @@ export function useItems() {
                             } as React.CSSProperties
                         }
                         onContextMenu={(e) => {
-                            handleContextMenu(e);
+                            handleContextMenu(e, item);
                         }}
                     >
                         {arrow}
@@ -211,7 +221,7 @@ export function useItems() {
                 </li>
             );
         },
-        [contextMenu, noteActions, notebookActions],
+        [handleContextMenu],
     );
 
     return { items, renderItems, contextMenu };

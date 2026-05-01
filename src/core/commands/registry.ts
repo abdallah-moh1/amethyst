@@ -2,15 +2,20 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { Command, CommandExecutionResult, CommandId } from '@/shared/types/command.type';
-import { shortcuts } from '../shortcuts-manager/registry';
-import { getDisplayableShortcut } from '@/shared/utils/shortcut';
+import { Command, CommandExecutionResult, CommandId, Shortcut } from '@/shared/types/command.type';
+import { getDisplayableShortcut, normalizeShortcut } from '@/shared/utils/shortcut';
+
+type BindingEntry = {
+    commandId: string;
+    shortcut: Shortcut;
+};
 
 class CommandRegistry {
     private static instance: CommandRegistry;
+
     private commands = new Map<CommandId, Command>();
 
-    private constructor() {}
+    private constructor() { }
 
     public static getInstance(): CommandRegistry {
         if (!CommandRegistry.instance) {
@@ -19,58 +24,93 @@ class CommandRegistry {
         return CommandRegistry.instance;
     }
 
-    // Allows any module to "plug in" a command at runtime
-    register(command: Command): void {
-        const cmd = this.commands.get(command.id);
+    // normalized key (e.g. "ctrl+n") → binding entries
+    // kept separate from commands so keys can be rebound without touching command definitions
+    private bindings = new Map<string, BindingEntry[]>();
 
-        if (cmd && cmd.canBeOverwritten) {
-            console.warn(`[CommandRegistry] Overwriting command: ${command.id}`);
-        } else if (cmd) {
-            console.warn(`[CommandRegistry] Command: ${command.id}, can't be overwritten`);
+    // ─── Command Registration ────────────────────────────────────────────────
+
+    registerCommand(command: Command): void {
+        if (this.commands.has(command.id)) {
+            console.warn(`[CommandRegistry] Duplicate command ignored: ${command.id}`);
             return;
         }
-
-        shortcuts.register(command);
         this.commands.set(command.id, command);
     }
 
-    canExecute(id: CommandId): boolean {
-        const cmd = this.commands.get(id);
-        if (!cmd) return false;
+    // ─── Key Binding ─────────────────────────────────────────────────────────
 
-        // If no check is provided, it's always enabled
-        return cmd.isEnabled ? cmd.isEnabled() : true;
+    bindKey(shortcut: Shortcut, commandId: string): void {
+        if (!this.commands.has(commandId)) {
+            console.warn(`[CommandRegistry] bindKey: command "${commandId}" is not registered`);
+        }
+        const key = normalizeShortcut(shortcut);
+        const existing = this.bindings.get(key) ?? [];
+        this.bindings.set(key, [...existing, { commandId, shortcut }]);
+    }
+
+    unbindKey(shortcut: Shortcut, commandId: string): void {
+        const key = normalizeShortcut(shortcut);
+        const existing = this.bindings.get(key) ?? [];
+        this.bindings.set(
+            key,
+            existing.filter((e) => e.commandId !== commandId),
+        );
+    }
+
+    rebindKey(commandId: string, oldShortcut: Shortcut, newShortcut: Shortcut): void {
+        this.unbindKey(oldShortcut, commandId);
+        this.bindKey(newShortcut, commandId);
+    }
+
+    // ─── Execution ───────────────────────────────────────────────────────────
+
+    async executeShortcut(normalizedKey: string): Promise<CommandExecutionResult> {
+        const entries = this.bindings.get(normalizedKey) ?? [];
+
+        const applicable = entries
+            .map((e) => this.commands.get(e.commandId))
+            .filter((cmd): cmd is Command => {
+                if (!cmd) return false;
+                if (cmd.isEnabled && !cmd.isEnabled()) return false;
+                if (cmd.isApplicable && !cmd.isApplicable()) return false;
+                return true;
+            });
+
+        if (applicable.length === 0) return { success: true };
+
+        const results = await Promise.all(applicable.map((cmd) => cmd.execute()));
+        return results.find((r) => !r.success) ?? { success: true };
     }
 
     async execute(id: CommandId, ...args: unknown[]): Promise<CommandExecutionResult> {
-        const cmd = this.getCommand(id);
+        const cmd = this.commands.get(id);
 
-        if (cmd && this.canExecute(id)) {
-            return await cmd.execute(...args);
-        } else if (cmd) {
-            console.warn(`[CommandRegistry] Command ${id} is blocked by isEnabled logic.`);
-            return {
-                success: false,
-                message: `Command ${id} is blocked by isEnabled logic.`,
-            };
+        if (!cmd) {
+            return { success: false, message: `Command "${id}" not found` };
         }
 
-        return {
-            success: false,
-            message: `Command ${id} doesn't exist`,
-        };
+        if (cmd.isEnabled && !cmd.isEnabled()) {
+            return { success: false, message: `Command "${id}" is currently disabled` };
+        }
+
+        return cmd.execute(...args);
     }
 
-    getCommandShortcut(id: string) {
-        const cmd = this.getCommand(id);
-        return cmd?.shortcut ? getDisplayableShortcut(cmd.shortcut) : undefined;
+    // ─── Queries ─────────────────────────────────────────────────────────────
+
+    /** Returns the displayable shortcut string for the first binding of a command */
+    getCommandShortcut(commandId: string): string | undefined {
+        for (const entries of this.bindings.values()) {
+            const entry = entries.find((e) => e.commandId === commandId);
+            if (entry) return getDisplayableShortcut(entry.shortcut);
+        }
     }
 
     getCommand(id: string): Command | undefined {
         return this.commands.get(id);
     }
 
-    // Critical for Command Palette: Returns all registered commands
     getAllCommands(): Command[] {
         return Array.from(this.commands.values());
     }

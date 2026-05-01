@@ -7,20 +7,20 @@ import { WorkspacePanels } from './WorkspacePanels';
 import { ContextMenu } from '@/features/context-menu';
 import { useEffect } from 'react';
 import { eventToShortcut } from '@/shared/utils/shortcut';
-import { shortcuts } from '@/core/shortcuts-manager/registry';
 import { useInteractionStore } from '@/store';
+import { commands } from '@/core/commands';
 
 export function AppShell() {
     const addToast = useInteractionStore((s) => s.addToast);
 
     useEffect(() => {
         function handler(e: KeyboardEvent) {
-            shortcuts.execute(eventToShortcut(e)).then((v) => {
-                if (v.success) return;
+            commands.executeShortcut(eventToShortcut(e)).then((result) => {
+                if (result.success) return;
 
                 addToast({
                     id: crypto.randomUUID(),
-                    message: v.message,
+                    message: result.message,
                     duration: 4000,
                     type: 'error',
                 });
@@ -28,10 +28,7 @@ export function AppShell() {
         }
 
         window.addEventListener('keydown', handler);
-
-        return () => {
-            window.removeEventListener('keydown', handler);
-        };
+        return () => window.removeEventListener('keydown', handler);
     }, []);
 
     return (

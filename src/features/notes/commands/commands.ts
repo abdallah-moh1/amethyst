@@ -23,65 +23,41 @@ export const NoteCommands = {
 } as const;
 
 export const registerNoteCommands = () => {
-    commands.register({
+    commands.registerCommand({
         id: NoteCommands.CREATE_NOTE,
         label: 'Create note',
-        canBeOverwritten: false,
-        shortcut: {
-            ctrlKey: true,
-            key: 'N',
-        },
         execute: createNoteCommandExec,
     });
 
-    commands.register({
+    commands.registerCommand({
         id: NoteCommands.OPEN_NOTE,
         label: 'Open note',
-        canBeOverwritten: false,
         execute: openNoteCommandExec,
     });
 
-    commands.register({
+    commands.registerCommand({
         id: NoteCommands.SAVE_NOTE,
         label: 'Save note',
-        canBeOverwritten: false,
-        shortcut: {
-            ctrlKey: true,
-            key: 'S',
-        },
         execute: saveNoteCommandExec,
     });
 
-    commands.register({
+    commands.registerCommand({
         id: NoteCommands.RENAME_NOTE,
         label: 'Rename note',
-        canBeOverwritten: false,
-        shortcut: {
-            key: 'F2',
-        },
-        isApplicable() {
-            return useInteractionStore.getState().selectedItem?.type === 'note';
-        },
+        isApplicable: () => useInteractionStore.getState().selectedItem?.type === 'note',
         execute: renameNoteCommandExec,
     });
 
-    commands.register({
+    commands.registerCommand({
         id: NoteCommands.MOVE_NOTE,
         label: 'Move note',
-        canBeOverwritten: false,
         execute: moveNoteCommandExec,
     });
 
-    commands.register({
+    commands.registerCommand({
         id: NoteCommands.DELETE_NOTE,
         label: 'Delete note',
-        canBeOverwritten: false,
-        shortcut: {
-            key: 'Delete',
-        },
-        isApplicable() {
-            return useInteractionStore.getState().selectedItem?.type === 'note';
-        },
+        isApplicable: () => useInteractionStore.getState().selectedItem?.type === 'note',
         execute: deleteNoteCommandExec,
     });
 };
