@@ -155,6 +155,16 @@ npm run check
 - **macOS:** DMG, ZIP
 - **Linux:** AppImage, DEB, RPM, pacman (Arch), tar.gz
 
+## ⌨️ Shortcuts
+
+| Shortcut       | Action                           |
+| -------------- | -------------------------------- |
+| `Ctrl+S`       | Save the current active note     |
+| `Ctrl+N`       | Create a new note                |
+| `Ctrl+Shift+N` | Create a new notebook            |
+| `Delete`       | Delete selected note or notebook |
+| `F2`           | Rename selected note or notebook |
+
 ## 💾 Storage
 
 - **Settings:** Stored in the app's `userData/settings.json`.
