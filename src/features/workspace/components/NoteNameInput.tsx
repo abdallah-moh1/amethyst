@@ -83,7 +83,7 @@ export function NoteNameInput() {
     };
 
     return (
-        <div className="note-name-container">
+        <div className={`note-name-container ${isDirty ? 'note-dirty' : ''}`}>
             <input
                 ref={inputRef}
                 type="text"
@@ -94,7 +94,6 @@ export function NoteNameInput() {
                 onBlur={handleBlur}
                 onKeyDown={handleKeyDown}
             />
-            <p style={{ color: 'red' }}>{isDirty ? '*' : ''}</p>
             {error && <div className="note-name-error-tooltip">{error}</div>}
         </div>
     );
