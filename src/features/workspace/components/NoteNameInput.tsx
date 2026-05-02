@@ -16,6 +16,8 @@ export function NoteNameInput() {
     const inputRef = useRef<HTMLInputElement>(null);
     const isReverting = useRef(false);
 
+    const isDirty = useWorkspaceStore((s) => s.isDirty);
+
     useEffect(() => {
         if (noteName === name) return;
         setName(noteName);
@@ -92,6 +94,7 @@ export function NoteNameInput() {
                 onBlur={handleBlur}
                 onKeyDown={handleKeyDown}
             />
+            <p style={{ color: 'red' }}>{isDirty ? '*' : ''}</p>
             {error && <div className="note-name-error-tooltip">{error}</div>}
         </div>
     );

@@ -11,6 +11,7 @@ import { useCallback, useLayoutEffect, useRef } from 'react';
 import { NoteEmptyState } from '../empty-state';
 
 import './workspace-view.css';
+import { useNoteActions } from '../notes';
 
 export function WorkspaceView() {
     const currentNoteId = useWorkspaceStore((state) => state.currentNoteId);
@@ -22,12 +23,23 @@ export function WorkspaceView() {
     const editorPanelRef = useRef<PanelImperativeHandle | null>(null);
     const previewPanelRef = useRef<PanelImperativeHandle | null>(null);
 
+    const noteActions = useNoteActions();
+
+    const timeout = useRef<NodeJS.Timeout | null>(null);
+
     const onChange = useCallback(
         (value: string) => {
             setNoteContent(value);
             markDirty();
+
+            if (timeout.current) clearTimeout(timeout.current);
+
+            timeout.current = setTimeout(() => {
+                noteActions.save({});
+                console.log('debounce save');
+            }, 1000);
         },
-        [setNoteContent, markDirty],
+        [setNoteContent, markDirty, noteActions],
     );
 
     useLayoutEffect(() => {

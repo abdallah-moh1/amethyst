@@ -16,16 +16,6 @@ export function useCodeMirror({
 }: UseCodeMirrorOptions) {
     const viewRef = useRef<EditorView | null>(null);
 
-    // This ref acts as a gatekeeper to prevent programmatic updates
-    // from triggering the 'isDirty' logic in the store.
-    const isProgrammaticUpdate = useRef(false);
-
-    // Wrap the onChange to check our gatekeeper
-    const handleDocChange = (content: string) => {
-        if (isProgrammaticUpdate.current) return;
-        onChange?.(content);
-    };
-
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
@@ -34,7 +24,7 @@ export function useCodeMirror({
         const view = createEditor({
             parent: container,
             doc: value,
-            onChange: handleDocChange, // Use the wrapped version
+            onChange,
             placeholder,
         });
 
@@ -52,25 +42,21 @@ export function useCodeMirror({
         const view = viewRef.current;
         if (!view) return;
 
-        // Only update if the editor content actually differs to avoid feedback loops
-        if (view.state.doc.toString() !== value) {
-            isProgrammaticUpdate.current = true;
-            updateEditor({
-                view,
-                value,
-            });
-            isProgrammaticUpdate.current = false;
-        }
+        updateEditor({
+            view,
+            value,
+        });
     }, [value]);
 
     return {
         resetState() {
             const view = viewRef.current;
             if (!view) return;
+
             view.setState(
                 createState({
                     doc: value,
-                    onChange: handleDocChange, // Re-bind the wrapped version
+                    onChange,
                     placeholder,
                 }),
             );
