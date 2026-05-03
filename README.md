@@ -1,4 +1,6 @@
-# 💎 Amethyst
+![img](./banner.png)
+
+# Amethyst
 
 ![Version](https://img.shields.io/badge/version-0.5.0-blue.svg)
 ![License](https://img.shields.io/badge/license-AGPL--3.0-green.svg)
