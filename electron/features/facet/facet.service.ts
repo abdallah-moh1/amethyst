@@ -106,7 +106,11 @@ export class FacetService {
             const relativePath = toRelativeFacetPath(this.facetPath, absolutePath);
             const note = [...this.notes.values()].find((n) => n.path === relativePath);
             if (!note) return;
+
             const fileStat = await stat(absolutePath);
+
+            if (note.modifiedAt.toString() === fileStat.mtime.toString()) return;
+
             const updated = { ...note, modifiedAt: fileStat.mtime };
             this.addNote(updated);
             this.push('facet:note-changed', updated);
@@ -187,29 +191,12 @@ export class FacetService {
 }
 
 const WELCOME_NOTE = `<div style="text-align: center;">
-<svg width="120" viewBox="0 0 86 75" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M5.49133 40.1671L9.97437 30.51L11.8759 36.4205L8.9667 47.1277L5.49133 40.1671Z" fill="#4A0F80"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M11.8759 36.4205L9.97437 30.51L17.9399 39.4955L11.8759 36.4205Z" fill="#BF80E8"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M8.9667 47.1277L11.8759 36.4205L17.9399 39.4955L25.0839 66.101L25.3411 70.522L8.9667 47.1277Z" fill="#9954CB"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M8.9667 47.1277L25.3411 70.522L17.7288 68.9479L8.9667 47.1277Z" fill="#4A0F80"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M5.49133 40.1671L8.9667 47.1277L17.7288 68.9479L6.76048 52.5485L5.49133 40.1671Z" fill="#39015F"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M80.2694 40.1671L75.7864 30.51L73.8849 36.4205L76.794 47.1277L80.2694 40.1671Z" fill="#4A0F80"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M73.8849 36.4205L75.7864 30.51L67.8209 39.4955L73.8849 36.4205Z" fill="#BF80E8"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M76.794 47.1277L73.8849 36.4205L67.8209 39.4955L60.6769 66.101L60.4197 70.522L76.794 47.1277Z" fill="#9954CB"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M76.794 47.1277L60.4197 70.522L68.0319 68.9479L76.794 47.1277Z" fill="#4A0F80"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M80.2694 40.1671L76.794 47.1277L68.0319 68.9479L79.0003 52.5485L80.2694 40.1671Z" fill="#39015F"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M33.7937 22.3585L43.0974 9.28494L52.9277 22.3585L43.6211 62.2188L33.7937 22.3585Z" fill="#9954CB"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M32.5469 11.0039L43.082 0L54.1562 11.0078L52.9277 22.3585L43.0974 9.28494L33.7937 22.3585L32.5038 11.1715L32.5469 11.0039Z" fill="#4A0F80"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M28 28.6836L32.5038 11.1715L33.7937 22.3585L34.8047 56.7734L28 28.6836Z" fill="#39015F"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M43.6211 62.2188L34.8047 56.7734L33.7937 22.3585L43.6211 62.2188Z" fill="#4A0F80"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M51.8906 56.7773L43.6211 62.2188L52.9277 22.3585L51.8906 56.7773Z" fill="#4A0F80"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M58.6797 28.707L51.8906 56.7773L52.9277 22.3585L54.1562 11.0078L58.6797 28.707Z" fill="#39015F"/>
-</svg>
+    <img width="120px" src="https://raw.githubusercontent.com/abdallah-moh1/amethyst/refs/heads/main/assets/logo.svg" />
 </div>
 
 <h1 style="text-align: center;">Welcome to Amethyst</h1>
 
-#### Welcome—I'm glad you're here.
+#### Welcome - I'm glad you're here.
 
 Amethyst is still a work in progress. You may notice things changing, features evolving, or the occasional rough edge along the way.
 

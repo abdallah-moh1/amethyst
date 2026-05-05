@@ -50,6 +50,17 @@
     box-shadow: 0 0 0 2px rgba(207, 34, 34, 0.2);
 }
 
+.note-name-container.note-dirty::before {
+    content: 'not saved';
+    position: absolute;
+    left: 10px;
+    top: 100%;
+    transform: translateY(-50%);
+    color: var(--app-accent);
+    font-size: small;
+    pointer-events: none;
+}
+
 .note-name-error-tooltip {
     position: absolute;
     /* Placed below the bold title */

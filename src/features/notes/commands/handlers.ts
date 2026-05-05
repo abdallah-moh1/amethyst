@@ -49,7 +49,9 @@ export const openNoteCommandExec = async (...args: unknown[]): Promise<CommandEx
     if (!id) return { success: false, message: 'Note ID is required to open a note.' };
 
     const { notes } = useFacetStore.getState();
-    const { setNewNote } = useWorkspaceStore.getState();
+    const { currentNoteId, isDirty, setNewNote } = useWorkspaceStore.getState();
+
+    if (currentNoteId && isDirty) saveNoteCommandExec();
 
     const note = notes.get(id);
     if (!note) return { success: false, message: `Note with id: ${id} does not exist.` };
@@ -72,7 +74,7 @@ export const openNoteCommandExec = async (...args: unknown[]): Promise<CommandEx
 
 // Takes as argument [targetId, content] if not available give error
 export const saveNoteCommandExec = async (...args: unknown[]): Promise<CommandExecutionResult> => {
-    const { currentNoteId, noteContent } = useWorkspaceStore.getState();
+    const { currentNoteId, noteContent, markSaved } = useWorkspaceStore.getState();
 
     const targetId = args[0] !== undefined ? (args[0] as string) : currentNoteId;
     const content = args[1] !== undefined ? (args[1] as string) : noteContent;
@@ -81,6 +83,7 @@ export const saveNoteCommandExec = async (...args: unknown[]): Promise<CommandEx
 
     try {
         await NoteClient.save(targetId, content);
+        markSaved();
         return { success: true };
     } catch (error) {
         return {

@@ -41,6 +41,7 @@ export const useWorkspaceStore = create<WorkspaceState>((set) => ({
             currentNoteId: id,
             noteContent: content,
             noteName: name,
+            // isDirty: false
         });
     },
 

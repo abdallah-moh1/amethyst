@@ -16,6 +16,8 @@ export function NoteNameInput() {
     const inputRef = useRef<HTMLInputElement>(null);
     const isReverting = useRef(false);
 
+    const isDirty = useWorkspaceStore((s) => s.isDirty);
+
     useEffect(() => {
         if (noteName === name) return;
         setName(noteName);
@@ -81,7 +83,7 @@ export function NoteNameInput() {
     };
 
     return (
-        <div className="note-name-container">
+        <div className={`note-name-container ${isDirty ? 'note-dirty' : ''}`}>
             <input
                 ref={inputRef}
                 type="text"
