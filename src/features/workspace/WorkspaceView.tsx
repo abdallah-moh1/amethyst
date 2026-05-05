@@ -35,9 +35,9 @@ export function WorkspaceView() {
             if (timeout.current) clearTimeout(timeout.current);
 
             timeout.current = setTimeout(() => {
+                // Save current note
                 noteActions.save({});
-                console.log('debounce save');
-            }, 1000);
+            }, 2000);
         },
         [setNoteContent, markDirty, noteActions],
     );
