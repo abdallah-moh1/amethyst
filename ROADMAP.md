@@ -38,6 +38,10 @@ Amethyst is a streamlined, architecture-first Markdown note-taking application. 
 - **Math Support:** Latex math support
 - **Rename & Move:** Full support for changing file/folder paths.
 
+**0.5.5 — Auto save**
+
+- **Debounced Autosave & Dirty State:** 2s interval with "Save on Switch" protection and unsaved changes indicator.
+
 ---
 
 ## 📍 Current & Future Phases
@@ -46,7 +50,6 @@ Amethyst is a streamlined, architecture-first Markdown note-taking application. 
 
 - **Safe Deletion:** Command-triggered deletion with confirmation modals and `.trash` logic.
 - **Conflict Handling:** Banner-based resolution for external file changes.
-- **Debounced Autosave & Dirty State:** 2s interval with "Save on Switch" protection and unsaved changes indicator.
 
 **0.7.0 — Search & Global Navigation**
 
