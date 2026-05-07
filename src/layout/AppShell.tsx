@@ -15,6 +15,16 @@ export function AppShell() {
 
     useEffect(() => {
         function handler(e: KeyboardEvent) {
+            const target = e.target as HTMLElement;
+
+            if (
+                target instanceof HTMLInputElement ||
+                target instanceof HTMLTextAreaElement ||
+                target.isContentEditable
+            ) {
+                return;
+            }
+
             commands.executeShortcut(eventToShortcut(e)).then((result) => {
                 if (result.success) return;
 
@@ -29,7 +39,7 @@ export function AppShell() {
 
         window.addEventListener('keydown', handler);
         return () => window.removeEventListener('keydown', handler);
-    }, []);
+    }, [addToast]);
 
     return (
         <main className="app-shell">

@@ -20,8 +20,10 @@ export function NoteNameInput() {
 
     useEffect(() => {
         if (noteName === name) return;
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setName(noteName);
         setError(null);
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [noteName]);
 
