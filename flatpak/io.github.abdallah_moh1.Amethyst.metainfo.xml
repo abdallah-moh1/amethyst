@@ -3,6 +3,7 @@
   <id>io.github.abdallah_moh1.Amethyst</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>AGPL-3.0-or-later</project_license>
+  <content_rating type="oars-1.0" />
   <name>Amethyst</name>
   <summary>A modern markdown note-taking application</summary>
   <developer id="io.github.abdallah_moh1">
