@@ -37,10 +37,15 @@ Amethyst is a streamlined, architecture-first Markdown note-taking application. 
 - **Toast Notifications:** Global system for both **success** and **error** feedback.
 - **Math Support:** Latex math support
 - **Rename & Move:** Full support for changing file/folder paths.
+- **Empty States:** Onboarding UI for empty Facets or unselected notes.
 
 **0.5.5 — Auto save**
 
 - **Debounced Autosave & Dirty State:** 2s interval with "Save on Switch" protection and unsaved changes indicator.
+
+**0.5.6 — Trash**
+
+- **Added Trash:** Deleted items are now moved to `.trash` folder inside the facet so on accidental delete the data can still be retrieved
 
 ---
 
@@ -48,16 +53,16 @@ Amethyst is a streamlined, architecture-first Markdown note-taking application. 
 
 **0.6.0 — File Safety & Advanced Operations**
 
-- **Safe Deletion:** Command-triggered deletion with confirmation modals and `.trash` logic.
+- **Safe Deletion:** Command-triggered deletion with confirmation modals.
 - **Conflict Handling:** Banner-based resolution for external file changes.
+- **Breadcrumbs:** Path-based navigation trail at the top of the editor.
 
-**0.7.0 — Search & Global Navigation**
+**0.7.0 — Search**
 
 - **Quick Open:** `Ctrl+P` modal to instantly jump to any file by name.
 - **Command Palette:** `Ctrl+Shift+P` to search and execute any registered command.
 - **Local Find & Replace:** `Ctrl+F` interface to search/modify text within the active note.
 - **Global Search:** Full-text indexing across the entire Facet.
-- **Breadcrumbs:** Path-based navigation trail at the top of the editor.
 
 **0.8.0 — Outline & Status**
 
@@ -66,16 +71,14 @@ Amethyst is a streamlined, architecture-first Markdown note-taking application. 
 
 **0.9.0 — Workspace, Themes & Focus**
 
-- **Theme Engine:** Logic to load JSON theme files and inject CSS variables.
 - **Efficient Sync-Scroll:** Re-introduction of high-performance synchronized scrolling.
 - **Focus Mode:** Dedicated mode to hide peripheral UI for distraction-free writing.
-- **Layout Recovery:** Persist sidebar width, panel states, and active Facet path.
+- **Layout Recovery:** Persist sidebar width, panel states, and active note.
 
 **1.0.0 — Stable Release**
 
 - **Export Engine:** One-click export to PDF and HTML.
 - **App Menu Polish:** Native window menus wired to the Command System.
-- **Empty States:** Onboarding UI for empty Facets or unselected notes.
 - **Keyboard Cheat-Sheet:** Quick-reference modal for all shortcuts.
 
 ---
