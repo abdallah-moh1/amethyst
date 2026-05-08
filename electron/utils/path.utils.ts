@@ -2,7 +2,7 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { access } from 'node:fs/promises';
+import { access, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 
 export function normalizeRelativePath(path: string): string {
@@ -61,4 +61,16 @@ export async function pathExists(path: string): Promise<boolean> {
     } catch {
         return false;
     }
+}
+
+
+export async function getTrashedItemPath(facetPath: string, relativePath: string): Promise<string> {
+    const trashPath = path.join(facetPath, '.trash', relativePath);
+    const trashDir = path.dirname(trashPath);
+
+    if (!(await pathExists(trashDir))) {
+        mkdir(trashDir, { recursive: true });
+    }
+
+    return trashPath;
 }

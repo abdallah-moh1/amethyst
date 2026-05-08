@@ -4,16 +4,16 @@
 
 import { randomUUID } from 'node:crypto';
 import { ParentPath, FacetNote } from '../../../shared/types/facet.type.js';
-import { joinRelativePath, pathExists, toAbsoluteFacetPath } from '../../utils/path.utils.js';
+import { getTrashedItemPath, joinRelativePath, pathExists, toAbsoluteFacetPath } from '../../utils/path.utils.js';
 import { FacetService } from '../facet/facet.service.js';
-import { readFile, rename, rm, stat, writeFile } from 'node:fs/promises';
+import { readFile, rename, stat, writeFile } from 'node:fs/promises';
 import matter from 'gray-matter';
 
 export class NoteService {
     constructor(
         private facetPath: string,
         private facetService: FacetService,
-    ) {}
+    ) { }
 
     async createNote(parentPath: ParentPath, name: string): Promise<FacetNote> {
         const notePath = parentPath ? joinRelativePath(parentPath, `${name}.md`) : `${name}.md`;
@@ -131,8 +131,9 @@ export class NoteService {
         const note = this.facetService.getNote(id);
 
         if (!note) throw new Error(`A note with ${id} doesn't exist`);
+        const trash = getTrashedItemPath(this.facetPath, note.path);
 
-        await rm(this.getAbsolutePath(note.path));
+        await rename(this.getAbsolutePath(note.path), await trash);
 
         this.facetService.removeNote(id);
     }

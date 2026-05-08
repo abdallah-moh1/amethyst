@@ -6,19 +6,20 @@ import { FacetNote, FacetNotebook, ParentPath } from '../../../shared/types/face
 import {
     getNameFromPath,
     getParentRelativePath,
+    getTrashedItemPath,
     joinRelativePath,
     pathExists,
     replacePrefix,
     toAbsoluteFacetPath,
 } from '../../utils/path.utils.js';
 import { FacetService } from '../facet/facet.service.js';
-import { mkdir, rename, rm } from 'node:fs/promises';
+import { mkdir, rename } from 'node:fs/promises';
 
 export class NotebookService {
     constructor(
         private facetPath: string,
         private facetService: FacetService,
-    ) {}
+    ) { }
 
     async createNotebook(parentPath: ParentPath, name: string): Promise<FacetNotebook> {
         const notebookPath = parentPath ? joinRelativePath(parentPath, name) : name;
@@ -86,7 +87,9 @@ export class NotebookService {
 
     async deleteNotebook(notebookPath: string): Promise<void> {
         const children = this.getChildrenOfNotebook(notebookPath);
-        await rm(this.getAbsolutePath(notebookPath), { recursive: true });
+        const trash = getTrashedItemPath(this.facetPath, notebookPath);
+
+        await rename(this.getAbsolutePath(notebookPath), await trash);
 
         this.facetService.removeNotebook(notebookPath);
 
