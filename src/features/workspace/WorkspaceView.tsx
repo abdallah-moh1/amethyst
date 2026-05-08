@@ -83,6 +83,9 @@ export function WorkspaceView() {
 
                         <Separator
                             className="panel-separator"
+                            style={{
+                                margin: '0 2px',
+                            }}
                             disabled={viewMode !== 'split-view'}
                             hidden={viewMode !== 'split-view'}
                         />

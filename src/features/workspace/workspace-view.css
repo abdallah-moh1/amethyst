@@ -4,6 +4,7 @@
     background-color: var(--app-bg-primary);
     display: flex;
     flex-direction: column;
+    padding: 0 2px;
 }
 
 .workspace-toolbar {

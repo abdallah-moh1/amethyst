@@ -1,6 +1,5 @@
 .sidebar {
     background-color: var(--app-bg-secondary);
-    border-right: 1px solid var(--app-border);
     height: 100%;
     width: 100%;
 }

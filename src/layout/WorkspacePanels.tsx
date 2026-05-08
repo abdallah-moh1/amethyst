@@ -5,7 +5,7 @@
 import { RightPanel } from '@/features/right-panel';
 import { Sidebar } from '@/features/sidebar';
 import { WorkspaceView } from '@/features/workspace';
-import { Panel, Group } from 'react-resizable-panels';
+import { Panel, Group, Separator } from 'react-resizable-panels';
 
 export function WorkspacePanels() {
     return (
@@ -20,10 +20,12 @@ export function WorkspacePanels() {
             >
                 <Sidebar />
             </Panel>
+            <Separator className="panel-separator" />
 
             <Panel className="panel" minSize={300}>
                 <WorkspaceView />
             </Panel>
+            <Separator className="panel-separator" />
 
             <Panel
                 className="panel"

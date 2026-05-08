@@ -6,7 +6,12 @@
 
 .panel-separator {
     width: 1px;
-    margin: 0 4px;
+    margin: 0;
     background: var(--app-border);
-    outline: none;
+    transition: background 0.2s;
+}
+
+.panel-separator[data-separator='active'] {
+    background: var(--app-accent);
+    width: 2px;
 }
