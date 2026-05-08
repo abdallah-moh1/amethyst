@@ -19,7 +19,7 @@ export class NotebookService {
     constructor(
         private facetPath: string,
         private facetService: FacetService,
-    ) { }
+    ) {}
 
     async createNotebook(parentPath: ParentPath, name: string): Promise<FacetNotebook> {
         const notebookPath = parentPath ? joinRelativePath(parentPath, name) : name;

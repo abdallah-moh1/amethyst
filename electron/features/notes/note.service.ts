@@ -4,7 +4,12 @@
 
 import { randomUUID } from 'node:crypto';
 import { ParentPath, FacetNote } from '../../../shared/types/facet.type.js';
-import { getTrashedItemPath, joinRelativePath, pathExists, toAbsoluteFacetPath } from '../../utils/path.utils.js';
+import {
+    getTrashedItemPath,
+    joinRelativePath,
+    pathExists,
+    toAbsoluteFacetPath,
+} from '../../utils/path.utils.js';
 import { FacetService } from '../facet/facet.service.js';
 import { readFile, rename, stat, writeFile } from 'node:fs/promises';
 import matter from 'gray-matter';
@@ -13,7 +18,7 @@ export class NoteService {
     constructor(
         private facetPath: string,
         private facetService: FacetService,
-    ) { }
+    ) {}
 
     async createNote(parentPath: ParentPath, name: string): Promise<FacetNote> {
         const notePath = parentPath ? joinRelativePath(parentPath, `${name}.md`) : `${name}.md`;

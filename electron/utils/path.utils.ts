@@ -63,7 +63,6 @@ export async function pathExists(path: string): Promise<boolean> {
     }
 }
 
-
 export async function getTrashedItemPath(facetPath: string, relativePath: string): Promise<string> {
     const trashPath = path.join(facetPath, '.trash', relativePath);
     const trashDir = path.dirname(trashPath);
