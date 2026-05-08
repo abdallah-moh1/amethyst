@@ -2,7 +2,7 @@
 
 # Amethyst
 
-![Version](https://img.shields.io/badge/version-0.5.0-blue.svg)
+![Version](https://img.shields.io/badge/version-0.5.7-blue.svg)
 ![License](https://img.shields.io/badge/license-AGPL--3.0-green.svg)
 ![Release](https://github.com/abdallah-moh1/amethyst/actions/workflows/release.yml/badge.svg)
 ![CI](https://github.com/abdallah-moh1/amethyst/actions/workflows/ci.yml/badge.svg)
@@ -11,7 +11,7 @@ A streamlined, architecture-first Markdown note-taking desktop application built
 
 ---
 
-## 🚀 Current Status (`v0.5.0`)
+## 🚀 Current Status (`v0.5.7`)
 
 What currently works:
 
@@ -24,6 +24,7 @@ What currently works:
 - **Empty State & Onboarding:** A polished "Empty State" view when no note is selected and a built-in **Welcome Note** for new users.
 - **Notifications:** A global **Toast Notification** system providing real-time feedback on app actions.
 - **Real-time Sync:** Main-process filesystem watching (Chokidar) to reflect external changes instantly in the UI.
+- **Trash Reliability:** Improved `.trash` handling with unique trash destinations on Windows and fixed empty notebook delete failures.
 - **Theming:** Built-in dark and light theme loading via CSS variables and JSON.
 
 > **Note:** Synchronized scrolling has been temporarily removed in v0.4.0 to undergo a high-performance refactor scheduled for v0.9.0.
