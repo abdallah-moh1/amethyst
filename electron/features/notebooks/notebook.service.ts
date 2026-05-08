@@ -87,9 +87,9 @@ export class NotebookService {
 
     async deleteNotebook(notebookPath: string): Promise<void> {
         const children = this.getChildrenOfNotebook(notebookPath);
-        const trash = getTrashedItemPath(this.facetPath, notebookPath);
+        const trash = await getTrashedItemPath(this.facetPath, notebookPath);
 
-        await rename(this.getAbsolutePath(notebookPath), await trash);
+        await rename(this.getAbsolutePath(notebookPath), trash);
 
         this.facetService.removeNotebook(notebookPath);
 

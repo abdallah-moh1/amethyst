@@ -136,9 +136,9 @@ export class NoteService {
         const note = this.facetService.getNote(id);
 
         if (!note) throw new Error(`A note with ${id} doesn't exist`);
-        const trash = getTrashedItemPath(this.facetPath, note.path);
+        const trash = await getTrashedItemPath(this.facetPath, note.path);
 
-        await rename(this.getAbsolutePath(note.path), await trash);
+        await rename(this.getAbsolutePath(note.path), trash);
 
         this.facetService.removeNote(id);
     }

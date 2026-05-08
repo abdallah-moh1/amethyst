@@ -63,13 +63,31 @@ export async function pathExists(path: string): Promise<boolean> {
     }
 }
 
+function getUniqueTrashPath(trashPath: string, index: number): string {
+    const dir = path.dirname(trashPath);
+    const ext = path.extname(trashPath);
+    const baseName = path.basename(trashPath, ext);
+
+    return path.join(dir, `${baseName}-${index}${ext}`);
+}
+
 export async function getTrashedItemPath(facetPath: string, relativePath: string): Promise<string> {
-    const trashPath = path.join(facetPath, '.trash', relativePath);
+    const trashPath = path.join(facetPath, '.trash', normalizeRelativePath(relativePath));
     const trashDir = path.dirname(trashPath);
 
-    if (!(await pathExists(trashDir))) {
-        mkdir(trashDir, { recursive: true });
+    await mkdir(trashDir, { recursive: true });
+
+    if (!(await pathExists(trashPath))) {
+        return trashPath;
     }
 
-    return trashPath;
+    let index = 1;
+    let candidate = getUniqueTrashPath(trashPath, index);
+
+    while (await pathExists(candidate)) {
+        index += 1;
+        candidate = getUniqueTrashPath(trashPath, index);
+    }
+
+    return candidate;
 }

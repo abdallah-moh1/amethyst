@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.7] - 2026-05-08
+
+### Fixed
+
+- **Trash deletion reliability:** Fixed `.trash` rename failures when deleting empty notebooks and nested notes on Windows.
+- **Unique trash targets:** Deleted items now get unique `.trash` destination paths to avoid rename collisions.
+
 ## [0.5.6] - 2026-05-08
 
 ### Added
