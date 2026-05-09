@@ -16,17 +16,15 @@ import { NotebookCommands } from '@/features/notebooks';
  * after this and call commands.rebindKey() for each override.
  */
 export const registerDefaultKeybindings = () => {
-    // ── Notes ────────────────────────────────────────────────────────────────
     commands.bindKey({ ctrlKey: true, key: 'N' }, NoteCommands.CREATE_NOTE);
     commands.bindKey({ ctrlKey: true, key: 'S' }, NoteCommands.SAVE_NOTE);
     commands.bindKey({ key: 'F2' }, NoteCommands.RENAME_NOTE);
     commands.bindKey({ key: 'Delete' }, NoteCommands.DELETE_NOTE);
 
-    // ── Notebooks ────────────────────────────────────────────────────────────
     commands.bindKey({ ctrlKey: true, shiftKey: true, key: 'N' }, NotebookCommands.CREATE_NOTEBOOK);
+
+    // F2 and Delete each have two bindings and isApplicable() on each command
+    // determines which one fires based on what's currently selected.
     commands.bindKey({ key: 'F2' }, NotebookCommands.RENAME_NOTEBOOK);
     commands.bindKey({ key: 'Delete' }, NotebookCommands.DELETE_NOTEBOOK);
-
-    // F2 and Delete each have two bindings — isApplicable() on each command
-    // determines which one fires based on what's currently selected.
 };

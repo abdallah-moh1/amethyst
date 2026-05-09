@@ -28,7 +28,7 @@ export function useItemRename(
     // As soon as the ghost appears, tell RCT to start renaming it
     useEffect(() => {
         if (ghost) {
-            // Small delay — RCT needs one render to mount the item first
+            // Small delay RCT needs one render to mount the item first
             if (ghost.parentPath) {
                 const already = expandedItems.includes(ghost.parentPath);
                 if (!already) {
@@ -43,7 +43,6 @@ export function useItemRename(
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ghost]);
 
-    // As soon as the ghost appears, tell RCT to start renaming it
     useEffect(() => {
         if (renamingItem && items[renamingItem.index]) {
             treeRef.current?.startRenamingItem(renamingItem.index);
@@ -80,7 +79,6 @@ export function useItemRename(
     );
 
     const handleAbort = useCallback(() => {
-        // User pressed Escape — discard the ghost
         setGhost(null);
         setRenamingItem(null);
     }, [setGhost, setRenamingItem]);

@@ -30,7 +30,6 @@ function getLiClass(isFolder: boolean, context: TreeItemRenderContext): string {
     }
 
     if (context.isExpanded) {
-        // This is required for your CSS animation: .rct-tree-item-li > .rct-tree-items-container
         classes.push('rct-tree-item-li-expanded');
     }
 

@@ -7,7 +7,7 @@ import path from 'node:path';
 
 export function normalizeRelativePath(path: string): string {
     return path
-        .replace(/\\/g, '/') // convert \ → /
+        .replace(/\\/g, '/') // convert \ to /
         .replace(/\/+/g, '/') // remove duplicate slashes
         .replace(/^\/+/, '') // remove leading slash
         .replace(/\/+$/, ''); // remove trailing slash

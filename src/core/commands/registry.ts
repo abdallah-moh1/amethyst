@@ -24,11 +24,7 @@ class CommandRegistry {
         return CommandRegistry.instance;
     }
 
-    // normalized key (e.g. "ctrl+n") → binding entries
-    // kept separate from commands so keys can be rebound without touching command definitions
     private bindings = new Map<string, BindingEntry[]>();
-
-    // ─── Command Registration ────────────────────────────────────────────────
 
     registerCommand(command: Command): void {
         if (this.commands.has(command.id)) {
@@ -37,8 +33,6 @@ class CommandRegistry {
         }
         this.commands.set(command.id, command);
     }
-
-    // ─── Key Binding ─────────────────────────────────────────────────────────
 
     bindKey(shortcut: Shortcut, commandId: string): void {
         if (!this.commands.has(commandId)) {
@@ -62,8 +56,6 @@ class CommandRegistry {
         this.unbindKey(oldShortcut, commandId);
         this.bindKey(newShortcut, commandId);
     }
-
-    // ─── Execution ───────────────────────────────────────────────────────────
 
     async executeShortcut(normalizedKey: string): Promise<CommandExecutionResult> {
         const entries = this.bindings.get(normalizedKey) ?? [];
@@ -97,9 +89,6 @@ class CommandRegistry {
         return cmd.execute(...args);
     }
 
-    // ─── Queries ─────────────────────────────────────────────────────────────
-
-    /** Returns the displayable shortcut string for the first binding of a command */
     getCommandShortcut(commandId: string): string | undefined {
         for (const entries of this.bindings.values()) {
             const entry = entries.find((e) => e.commandId === commandId);

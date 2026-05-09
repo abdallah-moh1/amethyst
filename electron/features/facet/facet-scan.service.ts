@@ -76,7 +76,7 @@ export class FacetScanService {
     static async readFrontmatter(absolutePath: string): Promise<{ id: string } | null> {
         const fd = await open(absolutePath);
         try {
-            // read first 1024 bytes — enough for any frontmatter block
+            // read first 1024 bytes enough for the frontmatter block
             const buffer = Buffer.alloc(1024);
             await fd.read(buffer, 0, 1024, 0);
             const chunk = buffer.toString('utf-8');
@@ -99,7 +99,6 @@ export class FacetScanService {
         const timeDifference = existingNote.createdAt.getTime() - note.createdAt.getTime();
 
         if (timeDifference > 0) {
-            // The existing note is newer — reassign it a new id
             const existingNoteAbsPath = toAbsoluteFacetPath(facetPath, existingNote.path);
             const content = await readFile(existingNoteAbsPath, { encoding: 'utf-8' });
 
@@ -111,7 +110,6 @@ export class FacetScanService {
             facetService.removeNote(note.id);
             facetService.addNote(existingNote);
         } else if (timeDifference < 0) {
-            // The existing note is older — reassign the new note a new id
             note.id = randomUUID();
         }
 
