@@ -118,8 +118,7 @@
     color: var(--app-accent);
 }
 .switcher-btn.active {
-    color: var(--app-text-primary);
-    background-color: var(--app-primary);
+    color: var(--app-primary);
 }
 
 @keyframes tooltipFadeIn {

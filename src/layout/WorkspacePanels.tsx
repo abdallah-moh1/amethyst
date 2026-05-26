@@ -2,7 +2,7 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { RightPanel } from '@/features/right-panel';
+// import { RightPanel } from '@/features/right-panel';
 import { Sidebar } from '@/features/sidebar';
 import { WorkspaceView } from '@/features/workspace';
 import { Panel, Group, Separator } from 'react-resizable-panels';
@@ -25,7 +25,7 @@ export function WorkspacePanels() {
             <Panel className="panel" minSize={300}>
                 <WorkspaceView />
             </Panel>
-            <Separator className="panel-separator" />
+            {/* <Separator className="panel-separator" />
 
             <Panel
                 className="panel"
@@ -36,7 +36,7 @@ export function WorkspacePanels() {
                 groupResizeBehavior="preserve-pixel-size"
             >
                 <RightPanel />
-            </Panel>
+            </Panel> */}
         </Group>
     );
 }
