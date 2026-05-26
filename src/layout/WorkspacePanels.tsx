@@ -30,9 +30,9 @@ export function WorkspacePanels() {
             <Panel
                 className="panel"
                 collapsible
-                defaultSize={40}
+                defaultSize={0}
                 minSize={100}
-                collapsedSize={40}
+                collapsedSize={0}
                 groupResizeBehavior="preserve-pixel-size"
             >
                 <RightPanel />
