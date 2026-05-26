@@ -6,13 +6,13 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
 import rehypeRaw from 'rehype-raw';
-import remarkEmoji from 'remark-emoji';
 import { useCustomComponents } from '@/core/markdown/customComponents';
 import rehypeHighlight from 'rehype-highlight';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
 import './markdown.css';
+import { remarkGemoji } from './remarkGemoji';
 
 type MarkdownPreviewProps = {
     content: string;
@@ -23,7 +23,7 @@ export function MarkdownPreview({ content, onCheckboxChecked }: MarkdownPreviewP
     const { customComponents } = useCustomComponents({ onCheckboxChecked });
     return (
         <ReactMarkdown
-            remarkPlugins={[remarkGfm, remarkBreaks, remarkEmoji, remarkMath]}
+            remarkPlugins={[remarkGfm, remarkBreaks, remarkGemoji, remarkMath]}
             rehypePlugins={[rehypeRaw, rehypeHighlight, rehypeKatex]}
             components={customComponents}
         >
