@@ -12,7 +12,7 @@
 
 - Confirmation modal before any destructive delete
 - Banner prompt when a file has been changed externally
-- Breadcrumb navigation at the top of the editor
+- Current path breadcrumb at the top of the editor
 - Trash UI: browse deleted items, restore them or remove them permanently, and empty the trash
 
 ### 0.7.0 — Search & State
