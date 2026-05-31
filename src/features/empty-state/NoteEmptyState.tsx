@@ -2,13 +2,13 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import GrayscaleLogo from '@/shared/assets/GrayscaleLogo.svg';
 import './empty-state.css';
+import GrayScaleLogoAnimation from '@/shared/assets/GrayScaleLogoAnimated.svg';
 
 export function NoteEmptyState() {
     return (
         <div className="note-empty-state">
-            <img src={GrayscaleLogo} alt="" />
+            <img src={GrayScaleLogoAnimation} />
             <h2>No note selected</h2>
             <p>Todo: Add quick actions here</p>
         </div>
