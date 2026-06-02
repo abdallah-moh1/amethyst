@@ -124,7 +124,8 @@
     border-radius: 6px;
     background: var(--editor-markdown-inline-code-bg);
     color: var(--editor-markdown-inline-code-text);
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-family: 'JetBrains Mono', monospace;
+
     font-size: 0.92em;
 }
 
@@ -148,7 +149,7 @@
 }
 
 .md-code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-family: 'JetBrains Mono', monospace;
 }
 
 /* Blockquote */

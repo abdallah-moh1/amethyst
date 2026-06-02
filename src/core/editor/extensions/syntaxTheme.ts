@@ -51,7 +51,7 @@ const markdownHighlightStyle = HighlightStyle.define([
     { tag: tags.quote, color: 'var(--editor-markdown-quote)' },
     {
         tag: tags.monospace,
-        fontFamily: 'ui-monospace, monospace',
+        fontFamily: "'JetBrains Mono', monospace",
         color: 'var(--editor-markdown-inline-code-text)',
     },
     { tag: tags.contentSeparator, color: 'var(--editor-ui-text-muted)' },
