@@ -2,7 +2,7 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { FilePlus, FolderPlus } from 'lucide-react';
+import { FilePlus2, Folder } from 'lucide-react';
 import { FacetTree } from '@/features/facet-tree';
 import { useInteractionStore } from '@/store';
 import { ParentPath } from '@shared/types/facet.type';
@@ -55,13 +55,13 @@ export function NotebooksSection() {
     return (
         <div className="notebooks-section">
             <div className="section-header">
-                <p>Notebooks</p>
+                <p>My Notebooks</p>
                 <div className="action-btns">
                     <button onClick={handleAddNote}>
-                        <FilePlus width={16} />
+                        <FilePlus2 width={17} />
                     </button>
                     <button onClick={handleAddNotebook}>
-                        <FolderPlus width={16} />
+                        <Folder width={17} />
                     </button>
                 </div>
             </div>

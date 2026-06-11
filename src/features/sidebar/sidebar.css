@@ -26,10 +26,9 @@
 
 .section-header p {
     margin: 0;
-    font-size: 12px;
-    /* letter-spacing: 0.04em; */
-    text-transform: uppercase;
-    color: var(--app-text-secondary);
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--app-text-primary);
 }
 .action-btns {
     display: flex;

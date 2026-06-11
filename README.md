@@ -6,6 +6,7 @@
 ![CI](https://github.com/abdallah-moh1/amethyst/actions/workflows/ci.yml/badge.svg)
 
 A local markdown note-taking app built with Electron and React. No cloud, no accounts, just your files.
+
 > [!NOTE]
 > Amethyst is still in beta, it is still under development features are still being added regularly. Some functionality may be incomplete or subject to change between releases.
 
