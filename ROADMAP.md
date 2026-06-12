@@ -19,7 +19,9 @@
 
 - Context-Aware Quick Open and Command Palette (`Ctrl+P`): Features dynamic syntax modes (`>` for commands) and context-aware actions.
 - Breadcrumbs: Current file path breadcrumbs displayed right at the top of the editor.
-- File Sync Awareness: Immediate banner prompt if a file gets modified externally.
+- File Sync Awareness: If the current note gets modified externally
+  - If it is dirty show a banner saying that it got modified externally, and give 2 options overwrite/discard current changes
+  - If the note doesnt have changes to save then silently load the updated file
 
 ### 0.8.0: Images, Content and Panels
 
