@@ -4,7 +4,7 @@
 
 import { BuiltInThemes } from '@shared/types/themes.type';
 import { Settings } from '@shared/types/settings.type';
-import { applyTheme } from '@/features/theme/theme.runtime';
+import { applyTheme } from '@/infrastructure/services/theme.service';
 import { SettingsClient, ThemesClient } from '@/infrastructure/clients';
 import { initFacet } from './initFacet';
 import { registerNotebookCommands } from '@/features/notebooks';
