@@ -1,2 +1,3 @@
-export { AppShell } from './AppShell';
-export { WorkspacePanels } from './WorkspacePanels';
+export { MainApp } from './MainApp';
+export { GeodesManager } from "./GeodesManager";
+export { AppShell } from "./AppShell";
