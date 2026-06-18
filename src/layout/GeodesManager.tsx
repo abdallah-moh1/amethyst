@@ -2,7 +2,14 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
+import { GeodesManagerContent } from '@/features/geodes-manager/GeodesManagerContent';
 import './geodes-manager.css';
+
 export function GeodesManager() {
-    return <div className="geodes-manager">Geodes Manager</div>;
+    return (
+        <div className="geodes-manager" data-tauri-drag-region>
+            <div className="geodes-manager-titlebar" data-tauri-drag-region></div>
+            <GeodesManagerContent />
+        </div>
+    );
 }
