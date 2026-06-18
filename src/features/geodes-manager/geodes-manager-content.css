@@ -29,11 +29,11 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 10px;
+    gap: 16px;
 }
 
 .geodes-empty-state img {
-    width: 110px;
+    width: 120px;
     -webkit-user-drag: none;
     opacity: 60%;
 }

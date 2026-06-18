@@ -9,8 +9,10 @@ export function NoteEmptyState() {
     return (
         <div className="note-empty-state">
             <img src={GrayScaleLogoAnimation} />
-            <h2>No note selected</h2>
-            <p>Todo: Add quick actions here</p>
+            <section>
+                <h2>No note selected</h2>
+                <p>Todo: Add quick actions here</p>
+            </section>
         </div>
     );
 }
