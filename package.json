@@ -67,7 +67,7 @@
         "@tauri-apps/api": "^2.11.0",
         "chokidar": "^5.0.0",
         "gemoji": "^8.1.0",
-        "gray-matter": "^4.0.3",
+        "gray-matter": "^2.0.1",
         "highlight.js": "^11.11.1",
         "lucide-react": "^1.7.0",
         "mdast-util-find-and-replace": "^3.0.2",
