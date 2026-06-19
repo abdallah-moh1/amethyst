@@ -1,7 +1,4 @@
-use tauri::{
-    AppHandle, LogicalPosition, Manager, TitleBarStyle, WebviewUrl, WebviewWindow,
-    WebviewWindowBuilder,
-};
+use tauri::{AppHandle, Manager, WebviewUrl, WebviewWindow, WebviewWindowBuilder};
 
 pub const GEODES_MANAGER: &str = "geodes-manager";
 // pub const GEODE_WINDOW_PREFIX: &str = "geode-";
