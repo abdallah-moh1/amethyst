@@ -1,2 +1,2 @@
-pub mod geodes_window;
+pub mod geodes_manager_window;
 pub mod main_window;

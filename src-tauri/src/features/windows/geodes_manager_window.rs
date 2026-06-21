@@ -1,7 +1,10 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Amethyst - A modern markdown note-taking application
+// Copyright (C) 2026 Abdallah
+
 use tauri::{AppHandle, Manager, WebviewUrl, WebviewWindow, WebviewWindowBuilder};
 
 pub const GEODES_MANAGER: &str = "geodes-manager";
-// pub const GEODE_WINDOW_PREFIX: &str = "geode-";
 
 pub fn create_geodes_manager_window(app: &AppHandle) -> tauri::Result<WebviewWindow> {
     if let Some(window) = app.get_webview_window(GEODES_MANAGER) {

@@ -1,10 +1,20 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Amethyst - A modern markdown note-taking application
+// Copyright (C) 2026 Abdallah
+
 use tauri::{AppHandle, Manager, WebviewUrl, WebviewWindow, WebviewWindowBuilder};
 use uuid::Uuid;
 
-pub const GEODE_WINDOW_PREFIX: &str = "geode-";
+pub fn geode_id_from_label(label: &str) -> Result<Uuid, String> {
+    let id = label
+        .strip_prefix("geode-")
+        .ok_or_else(|| "Current window is not a geode window".to_string())?;
+
+    Uuid::parse_str(id).map_err(|error| error.to_string())
+}
 
 pub fn create_main_window(app: &AppHandle, geode_id: Uuid) -> tauri::Result<WebviewWindow> {
-    let window_label = format!("{GEODE_WINDOW_PREFIX}{geode_id}");
+    let window_label = format!("geode-{geode_id}");
 
     if let Some(window) = app.get_webview_window(&window_label) {
         window.show()?;
