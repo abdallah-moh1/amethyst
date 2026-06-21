@@ -13,7 +13,7 @@ import { eventToShortcut } from '@/shared/utils/shortcut';
 import { useInteractionStore } from '@/store';
 import { commands } from '@/core/commands';
 
-import './main-app.css';
+import './styles/main-app.css';
 
 export function MainApp() {
     const addToast = useInteractionStore((s) => s.addToast);

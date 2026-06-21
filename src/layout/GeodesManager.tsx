@@ -3,7 +3,7 @@
 // Copyright (C) 2026 Abdallah
 
 import { GeodesManagerContent } from '@/features/geodes-manager/GeodesManagerContent';
-import './geodes-manager.css';
+import './styles/geodes-manager.css';
 
 export function GeodesManager() {
     return (
