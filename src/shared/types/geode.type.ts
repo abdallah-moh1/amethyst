@@ -1,6 +1,6 @@
 export type Geode = {
-    id: GeodeId,
-    name: string,
+    id: GeodeId;
+    name: string;
     path: string;
 };
 
@@ -11,16 +11,15 @@ export type GeodeIdInput = {
 export type GeodeId = string;
 
 export type CreateGeodeInput = {
-    name: string,
-    parentPath: string,
+    name: string;
+    parentPath: string;
 };
 
 export type OpenFolderAsGeodeInput = {
     path: string;
 };
 
-
 export type RenameGeodeInput = {
-    id: string,
+    id: string;
     newName: string;
 };
