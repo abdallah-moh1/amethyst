@@ -21,7 +21,7 @@ pub fn run() {
             geodes_manager::commands::set_last_opened_geode,
             geodes_manager::commands::rename_geode,
             geodes_manager::commands::remove_geode_from_list,
-            windows::commands::open_geode_window,
+            windows::commands::open_geode_main_window,
         ])
         .setup(|app| {
             let app_handle = app.handle();

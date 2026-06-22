@@ -5,7 +5,7 @@ use crate::features::{
 };
 
 #[tauri::command]
-pub fn open_geode_window(app: AppHandle, input: GeodeIdInput) -> Result<(), String> {
+pub fn open_geode_main_window(app: AppHandle, input: GeodeIdInput) -> Result<(), String> {
     create_main_window(&app, input.id).map_err(|err| err.to_string())?;
     Ok(())
 }
