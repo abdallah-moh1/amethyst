@@ -6,7 +6,7 @@ mod features;
 
 use crate::features::{
     geodes_manager,
-    windows::{geodes_manager_window, main_window},
+    windows::{self, geodes_manager_window, main_window},
 };
 
 pub fn run() {
@@ -21,6 +21,7 @@ pub fn run() {
             geodes_manager::commands::set_last_opened_geode,
             geodes_manager::commands::rename_geode,
             geodes_manager::commands::remove_geode_from_list,
+            windows::commands::open_geode_window,
         ])
         .setup(|app| {
             let app_handle = app.handle();
