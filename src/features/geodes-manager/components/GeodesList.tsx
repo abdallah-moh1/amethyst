@@ -6,7 +6,6 @@ import '../styles/geodes-list.css';
 
 import { Geode } from '@/shared/types/geode.type';
 import { EllipsisIcon } from 'lucide-react';
-import { getCurrentWindow } from '@tauri-apps/api/window';
 import { WindowsClient } from '@/infrastructure/clients/windows.client';
 
 export function GeodesList({ geodes }: GeodesListProps) {
@@ -20,17 +19,13 @@ export function GeodesList({ geodes }: GeodesListProps) {
 }
 
 function GeodeListItem({ geode }: GeodeListItemProps) {
+    async function handleGeodeItemClick() {
+        await WindowsClient.openGeodeMainWindowAndCloseCurrent({
+            id: geode.id,
+        });
+    }
     return (
-        <button
-            className="geode-list-item"
-            onClick={() => {
-                WindowsClient.openGeodeMainWindow({
-                    id: geode.id,
-                });
-
-                getCurrentWindow().close();
-            }}
-        >
+        <div className="geode-list-item" onClick={handleGeodeItemClick}>
             <div className="geode-details">
                 <p className="geode-name">{geode.name}</p>
                 <p className="geode-path">{geode.path}</p>
@@ -43,7 +38,7 @@ function GeodeListItem({ geode }: GeodeListItemProps) {
             >
                 <EllipsisIcon />
             </button>
-        </button>
+        </div>
     );
 }
 

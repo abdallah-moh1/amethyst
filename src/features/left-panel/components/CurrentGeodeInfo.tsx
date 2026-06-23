@@ -18,9 +18,8 @@ export function CurrentGeodeInfo() {
 
     return (
         <div className="current-geode-info">
-            <div className="geode-details">
+            <div className="geode-details" title={currentGeode?.path}>
                 <p className="geode-name">{currentGeode?.name}</p>
-                <p className="geode-path">{currentGeode?.path}</p>
             </div>
 
             <button

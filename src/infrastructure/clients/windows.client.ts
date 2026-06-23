@@ -4,13 +4,23 @@
 
 import { Geode, GeodeIdInput } from '@/shared/types/geode.type';
 import { invoke } from '@tauri-apps/api/core';
+import { GeodesManagerClient } from './geodes-manager.client';
+import { getCurrentWindow } from '@tauri-apps/api/window';
 
 export class WindowsClient {
     static async openGeodeMainWindow(input: GeodeIdInput) {
-        return await invoke<void>('open_geode_main_window', {
+        await invoke<void>('open_geode_main_window', {
             input,
         });
+
+        await GeodesManagerClient.setLastOpenedGeodeId(input);
     }
+
+    static async openGeodeMainWindowAndCloseCurrent(input: GeodeIdInput) {
+        await this.openGeodeMainWindow(input);
+        await getCurrentWindow().close();
+    }
+
     static async openGeodesManagerWindow() {
         return await invoke<void>('open_geodes_manager_window');
     }
