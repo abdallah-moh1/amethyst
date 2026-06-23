@@ -2,7 +2,7 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { GHOST_INDEX } from '@/features/facet-tree';
+import { GHOST_INDEX } from '@/features/file-explorer-tree';
 import { NoteClient } from '@/infrastructure/clients';
 import { CommandExecutionResult } from '@/shared/types/command.type';
 import { useFacetStore, useInteractionStore, useWorkspaceStore } from '@/store';

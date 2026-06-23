@@ -6,7 +6,7 @@ import { ParentPath } from '@shared/types/facet.type';
 import { useFacetStore, useInteractionStore } from '@/store';
 import { NotebookClient } from '@/infrastructure/clients';
 import { CommandExecutionResult } from '@/shared/types/command.type';
-import { GHOST_INDEX } from '@/features/facet-tree';
+import { GHOST_INDEX } from '@/features/file-explorer-tree';
 import { getUpdatedDescendantsPath } from '@/shared/utils';
 
 // Takes as argument [parentPath] if not available use selectedItem for reference or use the root

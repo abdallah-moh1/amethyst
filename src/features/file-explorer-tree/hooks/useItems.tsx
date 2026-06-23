@@ -5,7 +5,7 @@
 import { ReactNode, useCallback, useMemo } from 'react';
 import { buildFacetTree, ROOT_ID } from '../utils/treeAdapter';
 import { useFacetStore, useInteractionStore } from '@/store';
-import { GHOST_INDEX } from '../FacetTree';
+import { GHOST_INDEX } from '../FileExplorerTree';
 import { FacetTreeItem } from '@/shared/types/tree.type';
 import { TreeInformation, TreeItemRenderContext } from 'react-complex-tree';
 import { useContextMenu } from '@/shared/hooks/useContextMenu';

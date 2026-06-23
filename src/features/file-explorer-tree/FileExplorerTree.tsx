@@ -17,7 +17,7 @@ import './rct.css';
 
 export const GHOST_INDEX = '__ghost__';
 
-export function FacetTree() {
+export function FileExplorerTree() {
     const envRef = useRef<TreeRef<FacetTreeItemData>>(null);
 
     const { items, renderItems } = useItems();

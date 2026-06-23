@@ -4,7 +4,7 @@
 
 import { useInteractionStore } from '@/store';
 import { RefObject, useCallback, useEffect } from 'react';
-import { GHOST_INDEX } from '../FacetTree';
+import { GHOST_INDEX } from '../FileExplorerTree';
 import { FacetTree, FacetTreeItem, FacetTreeItemData } from '@/shared/types/tree.type';
 import { TreeRef } from 'react-complex-tree';
 import { useNoteActions } from '@/features/notes';

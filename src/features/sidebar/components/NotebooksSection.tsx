@@ -3,7 +3,7 @@
 // Copyright (C) 2026 Abdallah
 
 import { FilePlus2, Folder } from 'lucide-react';
-import { FacetTree } from '@/features/facet-tree';
+import { FileExplorerTree } from '@/features/file-explorer-tree';
 import { useInteractionStore } from '@/store';
 import { ParentPath } from '@shared/types/facet.type';
 import { useCallback } from 'react';
@@ -13,25 +13,10 @@ import { NoteCommands, useNoteActions } from '@/features/notes';
 import { commands } from '@/core/commands';
 
 export function NotebooksSection() {
-    const selectedItem = useInteractionStore((s) => s.selectedItem);
-    const getResolvedParentPath = useInteractionStore((s) => s.getResolvedParentPath);
-
     const contextMenu = useContextMenu();
 
     const noteActions = useNoteActions();
     const notebookActions = useNotebookActions();
-
-    const handleAddNote = useCallback(() => {
-        const parentPath: ParentPath = selectedItem ? getResolvedParentPath() : null;
-
-        noteActions.create({ parentPath });
-    }, [selectedItem, noteActions, getResolvedParentPath]);
-
-    const handleAddNotebook = useCallback(() => {
-        const parentPath: ParentPath = selectedItem ? getResolvedParentPath() : null;
-
-        notebookActions.create({ parentPath });
-    }, [selectedItem, notebookActions, getResolvedParentPath]);
 
     const handleContextMenu = useCallback(
         (e: React.MouseEvent<Element, MouseEvent>) => {
@@ -54,19 +39,43 @@ export function NotebooksSection() {
 
     return (
         <div className="notebooks-section">
-            <div className="section-header">
-                <p>My Notebooks</p>
-                <div className="action-btns">
-                    <button onClick={handleAddNote}>
-                        <FilePlus2 width={17} />
-                    </button>
-                    <button onClick={handleAddNotebook}>
-                        <Folder width={17} />
-                    </button>
-                </div>
-            </div>
+            <NotebooksSectionHeader />
             <div className="section-tree" onContextMenu={handleContextMenu}>
-                <FacetTree />
+                <FileExplorerTree />
+            </div>
+        </div>
+    );
+}
+
+function NotebooksSectionHeader() {
+    const selectedItem = useInteractionStore((s) => s.selectedItem);
+    const getResolvedParentPath = useInteractionStore((s) => s.getResolvedParentPath);
+
+    const noteActions = useNoteActions();
+    const notebookActions = useNotebookActions();
+
+    const handleAddNote = useCallback(() => {
+        const parentPath: ParentPath = selectedItem ? getResolvedParentPath() : null;
+
+        noteActions.create({ parentPath });
+    }, [selectedItem, noteActions, getResolvedParentPath]);
+
+    const handleAddNotebook = useCallback(() => {
+        const parentPath: ParentPath = selectedItem ? getResolvedParentPath() : null;
+
+        notebookActions.create({ parentPath });
+    }, [selectedItem, notebookActions, getResolvedParentPath]);
+
+    return (
+        <div className="section-header">
+            <p>My Notebooks</p>
+            <div className="action-btns">
+                <button onClick={handleAddNote} title="Add Note">
+                    <FilePlus2 width={17} />
+                </button>
+                <button onClick={handleAddNotebook} title="Add Notebook">
+                    <Folder width={17} />
+                </button>
             </div>
         </div>
     );
