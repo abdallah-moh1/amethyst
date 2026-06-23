@@ -5,6 +5,11 @@
 use tauri::{AppHandle, Manager, WebviewUrl, WebviewWindow, WebviewWindowBuilder};
 use uuid::Uuid;
 
+use crate::features::{
+    self,
+    geodes_manager::models::{Geode, GeodeIdInput},
+};
+
 pub fn geode_id_from_label(label: &str) -> Result<Uuid, String> {
     let id = label
         .strip_prefix("geode-")
@@ -23,9 +28,14 @@ pub fn create_main_window(app: &AppHandle, geode_id: Uuid) -> tauri::Result<Webv
         return Ok(window);
     }
 
+    let geode =
+        features::geodes_manager::service::get_geode(app, GeodeIdInput { id: geode_id }).ok();
     let builder =
         WebviewWindowBuilder::new(app, &window_label, WebviewUrl::App("index.html".into()))
-            .title("Amethyst")
+            .title(format!(
+                "Amethyst - {}",
+                geode.as_ref().map(|g| g.name.as_str()).unwrap_or("")
+            ))
             .inner_size(1200.0, 800.0)
             .resizable(true)
             .center();

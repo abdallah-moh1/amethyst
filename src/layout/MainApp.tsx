@@ -2,18 +2,15 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { ToastNotifications } from '@/features/toast-notifications';
-// import { RightPanel } from '@/features/right-panel';
+import './styles/main-app.css';
+
 import { Sidebar } from '@/features/sidebar';
 import { WorkspaceView } from '@/features/workspace';
 import { Panel, Group, Separator } from 'react-resizable-panels';
-import { ContextMenu } from '@/features/context-menu';
 import { useEffect } from 'react';
 import { eventToShortcut } from '@/shared/utils/shortcut';
 import { useInteractionStore } from '@/store';
 import { commands } from '@/core/commands';
-
-import './styles/main-app.css';
 
 export function MainApp() {
     const addToast = useInteractionStore((s) => s.addToast);
@@ -47,10 +44,8 @@ export function MainApp() {
     }, [addToast]);
 
     return (
-        <main className="app-shell">
+        <main className="main-app">
             <WorkspacePanels />
-            <ToastNotifications />
-            <ContextMenu />
         </main>
     );
 }
