@@ -1,13 +1,15 @@
-.sidebar {
+.left-panel {
     background-color: var(--app-bg-secondary);
     height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
+
 .notebooks-section {
     display: flex;
     flex-direction: column;
-    max-height: 100%;
-    height: 100%;
+    flex: 1;
 }
 
 .section-header {
@@ -48,18 +50,65 @@
     cursor: pointer;
     transition:
         transform 0.1s ease,
-        color 0.2s ease,
-        background-color 0.2s ease;
-    outline: none;
+        color 0.2s ease;
 }
 
 /* Hover: subtle background and accent color */
 .action-btns button:hover {
-    background-color: var(--app-bg-secondary);
     color: var(--app-accent);
 }
 
 /* Active: Scale down for a "pressed" feel */
 .action-btns button:active {
-    transform: scale(0.9); /* Size transform instead of color change */
+    transform: scale(0.9);
+}
+
+.current-geode-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+}
+
+.geode-details {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 2px;
+}
+
+.geode-list-item:hover .geode-name {
+    color: var(--app-accent);
+}
+
+.geode-name {
+    color: var(--app-text-primary);
+    font-weight: 500;
+    transition: color ease-in 150ms;
+    font-size: 16px;
+}
+
+.geode-path {
+    color: var(--app-text-secondary);
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.open-geodes-manager-btn {
+    border: none;
+    background: none;
+    color: var(--app-text-secondary);
+    cursor: pointer;
+    display: flex;
+    transition:
+        transform 0.1s ease,
+        color 0.2s ease;
+}
+
+.open-geodes-manager-btn:hover {
+    color: var(--app-accent);
+}
+
+.open-geodes-manager-btn:active {
+    transform: scale(0.9);
 }

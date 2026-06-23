@@ -4,7 +4,7 @@
 
 import './styles/main-app.css';
 
-import { Sidebar } from '@/features/sidebar';
+import { LeftPanel } from '@/features/left-panel';
 import { WorkspaceView } from '@/features/workspace';
 import { Panel, Group, Separator } from 'react-resizable-panels';
 import { useEffect } from 'react';
@@ -61,7 +61,7 @@ function WorkspacePanels() {
                 collapsedSize={40}
                 groupResizeBehavior="preserve-pixel-size"
             >
-                <Sidebar />
+                <LeftPanel />
             </Panel>
             <Separator className="panel-separator" />
 

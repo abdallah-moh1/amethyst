@@ -2,12 +2,12 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import { GeodesManagerClient } from '@/infrastructure/clients/geodes-manager.client';
 import '../styles/geodes-list.css';
 
 import { Geode } from '@/shared/types/geode.type';
 import { EllipsisIcon } from 'lucide-react';
 import { getCurrentWindow } from '@tauri-apps/api/window';
+import { WindowsClient } from '@/infrastructure/clients/windows.client';
 
 export function GeodesList({ geodes }: GeodesListProps) {
     return (
@@ -24,7 +24,7 @@ function GeodeListItem({ geode }: GeodeListItemProps) {
         <button
             className="geode-list-item"
             onClick={() => {
-                GeodesManagerClient.openGeodeMainWindow({
+                WindowsClient.openGeodeMainWindow({
                     id: geode.id,
                 });
 
@@ -36,7 +36,7 @@ function GeodeListItem({ geode }: GeodeListItemProps) {
                 <p className="geode-path">{geode.path}</p>
             </div>
             <button
-                className="geode-options"
+                className="geode-options-btn"
                 onClick={(e) => {
                     e.stopPropagation();
                 }}

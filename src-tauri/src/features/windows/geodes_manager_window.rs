@@ -17,9 +17,9 @@ pub fn create_geodes_manager_window(app: &AppHandle) -> tauri::Result<WebviewWin
     let builder =
         WebviewWindowBuilder::new(app, GEODES_MANAGER, WebviewUrl::App("index.html".into()))
             .title("Amethyst")
-            .inner_size(600.0, 500.0)
+            .inner_size(700.0, 600.0)
             .resizable(false)
-            .center();
+            .visible(false);
 
     #[cfg(target_os = "macos")]
     let builder = builder.decorations(true);
@@ -33,6 +33,9 @@ pub fn create_geodes_manager_window(app: &AppHandle) -> tauri::Result<WebviewWin
     {
         window.set_title_bar_style(TitleBarStyle::Overlay)?;
     }
+
+    window.center()?;
+    window.show()?;
 
     Ok(window)
 }

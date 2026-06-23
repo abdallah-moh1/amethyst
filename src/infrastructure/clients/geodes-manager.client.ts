@@ -13,12 +13,6 @@ import {
 import { invoke } from '@tauri-apps/api/core';
 
 export class GeodesManagerClient {
-    static async openGeodeMainWindow(input: GeodeIdInput) {
-        return await invoke<void>('open_geode_main_window', {
-            input,
-        });
-    }
-
     static async listGeodes() {
         return await invoke<Geode[]>('list_geodes');
     }

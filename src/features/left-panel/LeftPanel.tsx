@@ -2,13 +2,16 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
+import { CurrentGeodeInfo } from './components/CurrentGeodeInfo';
 import { NotebooksSection } from './components/NotebooksSection';
-import './sidebar.css';
 
-export function Sidebar() {
+import './left-panel.css';
+
+export function LeftPanel() {
     return (
-        <div className="sidebar">
+        <div className="left-panel">
             <NotebooksSection />
+            <CurrentGeodeInfo />
         </div>
     );
 }

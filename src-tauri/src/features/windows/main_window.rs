@@ -5,10 +5,7 @@
 use tauri::{AppHandle, Manager, WebviewUrl, WebviewWindow, WebviewWindowBuilder};
 use uuid::Uuid;
 
-use crate::features::{
-    self,
-    geodes_manager::models::{Geode, GeodeIdInput},
-};
+use crate::features::{self, geodes_manager::models::GeodeIdInput};
 
 pub fn geode_id_from_label(label: &str) -> Result<Uuid, String> {
     let id = label
@@ -38,7 +35,8 @@ pub fn create_main_window(app: &AppHandle, geode_id: Uuid) -> tauri::Result<Webv
             ))
             .inner_size(1200.0, 800.0)
             .resizable(true)
-            .center();
+            .visible(false);
+    ();
 
     #[cfg(target_os = "macos")]
     let builder = builder.decorations(true);
@@ -52,6 +50,9 @@ pub fn create_main_window(app: &AppHandle, geode_id: Uuid) -> tauri::Result<Webv
     {
         window.set_title_bar_style(TitleBarStyle::Overlay)?;
     }
+
+    window.center()?;
+    window.show()?;
 
     Ok(window)
 }

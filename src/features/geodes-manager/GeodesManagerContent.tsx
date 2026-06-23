@@ -13,10 +13,12 @@ import { GeodesList } from './components/GeodesList';
 
 export function GeodesManagerContent() {
     const [geodes, setGeodes] = useState<Geode[]>([]);
+    const [areGeodesLoaded, setGeodeLoaded] = useState(false);
 
     useEffect(() => {
         GeodesManagerClient.listGeodes().then((value) => {
             setGeodes(value);
+            setGeodeLoaded(true);
         });
     }, []);
 
@@ -26,7 +28,8 @@ export function GeodesManagerContent() {
                 <p className="panel-title" data-tauri-drag-region>
                     My Geodes
                 </p>
-                {geodes.length > 0 ? <GeodesList geodes={geodes} /> : <GeodesEmptyState />}
+                {areGeodesLoaded &&
+                    (geodes.length > 0 ? <GeodesList geodes={geodes} /> : <GeodesEmptyState />)}
             </div>
             <GeodesActionBtns />
         </div>
