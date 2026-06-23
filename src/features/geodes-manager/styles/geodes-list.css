@@ -1,0 +1,61 @@
+.geodes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.geode-list-item {
+    background-color: var(--app-bg-primary);
+    border-radius: 8px;
+    padding: 15px 20px;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.geode-list-item:hover {
+    border: 1px solid var(--app-border);
+}
+
+.geode-details {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 2px;
+}
+
+.geode-list-item:hover .geode-name {
+    color: var(--app-accent);
+}
+
+.geode-name {
+    color: var(--app-text-primary);
+    font-weight: 500;
+    transition: color ease-in 150ms;
+    font-size: 16px;
+}
+
+.geode-path {
+    color: var(--app-text-secondary);
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.geode-options {
+    color: var(--app-text-secondary);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.geode-options:hover {
+    color: var(--app-accent);
+    background: none;
+    border: none;
+}
+
+.geode-options:active {
+    color: var(--app-primary);
+    background: none;
+    border: none;
+}

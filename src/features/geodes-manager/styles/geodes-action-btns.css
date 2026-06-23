@@ -1,0 +1,40 @@
+.geodes-manager-actions {
+    display: flex;
+    gap: 8px;
+    flex: 0 0 auto;
+}
+
+.geodes-manager-actions button {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: none;
+    color: var(--app-text-primary);
+    cursor: pointer;
+    width: 100%;
+    border: var(--app-border) 1px solid;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.geodes-manager-actions .create-geode {
+    background-color: var(--app-primary);
+}
+
+.geodes-manager-actions .open-folder {
+    background-color: var(--app-bg-primary);
+}
+
+.geodes-manager-actions .create-geode:hover {
+    background-color: var(--app-accent);
+}
+
+.geodes-manager-actions .open-folder:hover {
+    background-color: var(--app-bg-secondary);
+}
+
+.geodes-manager-actions .create-geode:active {
+    background-color: var(--app-primary);
+}
+
+.geodes-manager-actions .open-folder:active {
+    background-color: var(--app-bg-primary);
+}

@@ -1,0 +1,24 @@
+.geodes-manager-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    gap: 16px;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.geodes-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.panel-title {
+    margin: 0;
+    font-weight: 600;
+    color: var(--app-text-primary);
+    font-size: 20px;
+}
