@@ -8,6 +8,12 @@ import App from './app/App';
 
 import './styles/globals.css';
 
+const disableContextMenu = (event: PointerEvent) => {
+    event.preventDefault();
+};
+
+// document.addEventListener('contextmenu', disableContextMenu);
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <App />

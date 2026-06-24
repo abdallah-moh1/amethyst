@@ -53,5 +53,29 @@
         "thumb": "rgba(107, 114, 128, 0.28)",
         "thumb-hover": "rgba(107, 114, 128, 0.42)",
         "thumb-active": "rgba(153, 84, 203, 0.55)"
+    },
+    "window-controls": {
+        "icon": "#1f2937",
+        "icon-muted": "#6b7280",
+        "button-bg": "transparent",
+        "button-hover-bg": "rgba(31, 41, 55, 0.08)",
+        "button-active-bg": "rgba(31, 41, 55, 0.14)",
+        "close-hover-bg": "#c42b1c",
+        "close-active-bg": "#a82418",
+        "close-icon": "#ffffff",
+        "linux": {
+            "button-hover-bg": "rgba(31, 41, 55, 0.10)",
+            "button-active-bg": "rgba(31, 41, 55, 0.16)",
+            "close-hover-bg": "#c01c28",
+            "close-active-bg": "#a51d2d",
+            "close-icon": "#ffffff"
+        },
+        "windows": {
+            "button-hover-bg": "rgba(31, 41, 55, 0.08)",
+            "button-active-bg": "rgba(31, 41, 55, 0.14)",
+            "close-hover-bg": "#c42b1c",
+            "close-active-bg": "#a82418",
+            "close-icon": "#ffffff"
+        }
     }
 }

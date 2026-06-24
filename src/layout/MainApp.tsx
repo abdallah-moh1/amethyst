@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import { eventToShortcut } from '@/shared/utils/shortcut';
 import { useInteractionStore } from '@/store';
 import { commands } from '@/core/commands';
+import { WindowControls } from './WindowControls';
 
 export function MainApp() {
     const addToast = useInteractionStore((s) => s.addToast);
@@ -45,6 +46,7 @@ export function MainApp() {
 
     return (
         <main className="main-app">
+            <WindowControls />
             <WorkspacePanels />
         </main>
     );

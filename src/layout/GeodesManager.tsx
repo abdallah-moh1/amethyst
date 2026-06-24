@@ -5,10 +5,12 @@
 import './styles/geodes-manager.css';
 
 import { GeodesManagerContent } from '@/features/geodes-manager/GeodesManagerContent';
+import { WindowControls } from './WindowControls';
 
 export function GeodesManager() {
     return (
         <div className="geodes-manager" data-tauri-drag-region>
+            <WindowControls hideToggleMaximize={true} />
             <div className="geodes-manager-titlebar" data-tauri-drag-region></div>
             <GeodesManagerContent />
         </div>

@@ -53,5 +53,14 @@
         "thumb": "rgba(156, 163, 175, 0.28)",
         "thumb-hover": "rgba(156, 163, 175, 0.45)",
         "thumb-active": "rgba(191, 128, 232, 0.65)"
+    },
+    "window-controls": {
+        "icon": "#e5e7eb",
+        "button-bg": "transparent",
+        "button-hover-bg": "rgba(229, 231, 235, 0.10)",
+        "button-active-bg": "rgba(229, 231, 235, 0.16)",
+        "close-hover-bg": "#c42b1c",
+        "close-active-bg": "#a82418",
+        "close-icon": "#ffffff"
     }
 }

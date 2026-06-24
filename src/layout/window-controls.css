@@ -1,0 +1,89 @@
+.window-controls {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 999;
+}
+
+.window-control {
+    appearance: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: var(--window-controls-icon);
+    background: var(--window-controls-button-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+}
+
+.window-control svg {
+    /* width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.25;
+    stroke-linecap: round;
+    stroke-linejoin: round; */
+
+    display: block;
+    flex: none;
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.window-control:hover {
+    background: var(--window-controls-button-hover-bg);
+}
+
+.window-control:active {
+    background: var(--window-controls-button-active-bg);
+}
+
+.window-control--close:hover {
+    color: var(--window-controls-close-icon);
+    background: var(--window-controls-close-hover-bg);
+}
+
+.window-control--close:active {
+    color: var(--window-controls-close-icon);
+    background: var(--window-controls-close-active-bg);
+}
+
+.window-controls--linux {
+    height: 38px;
+    gap: 10px;
+    padding-inline: 10px;
+}
+
+.window-controls--linux .window-control {
+    width: 24px;
+    height: 24px;
+    border-radius: 50px;
+    color: var(--window-controls-icon);
+}
+
+.window-controls--linux .window-control svg {
+    width: 14px;
+    height: 14px;
+    stroke-width: 1.7;
+}
+
+.window-controls--windows {
+    height: 32px;
+}
+
+.window-controls--windows .window-control {
+    width: 46px;
+    height: 32px;
+    color: var(--window-controls-icon);
+}

@@ -1,14 +1,18 @@
 {
-    "$schema": "../gen/schemas/desktop-schema.json",
-    "identifier": "default",
-    "description": "enables the default permissions",
-    "windows": ["geodes-manager", "geode-*"],
-    "permissions": [
-        "core:default",
-        "core:window:allow-start-dragging",
-        "core:window:allow-minimize",
-        "core:window:allow-toggle-maximize",
-        "core:window:allow-close",
-        "dialog:allow-open"
-    ]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "enables the default permissions",
+  "windows": [
+    "geodes-manager",
+    "geode-*"
+  ],
+  "permissions": [
+    "core:default",
+    "core:window:allow-start-dragging",
+    "core:window:allow-minimize",
+    "core:window:allow-toggle-maximize",
+    "core:window:allow-close",
+    "dialog:allow-open",
+    "os:default"
+  ]
 }

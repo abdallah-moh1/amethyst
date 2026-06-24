@@ -35,6 +35,7 @@
     --app-text-primary: #e5e7eb;
     --app-text-secondary: #9ca3af;
     --app-border: #2a2a2a;
+
     --editor-ui-text: #e5e7eb;
     --editor-ui-text-muted: #9ca3af;
     --editor-ui-caret: #bf80e8;
@@ -42,6 +43,7 @@
     --editor-ui-border: #2a2a2a;
     --editor-ui-fold-placeholder-bg: #252525;
     --editor-ui-fold-placeholder-text: #9ca3af;
+
     --editor-markdown-heading-1: #bf80e8;
     --editor-markdown-heading-2: #c89cff;
     --editor-markdown-heading-3: #d4b3ff;
@@ -55,6 +57,7 @@
     --editor-markdown-inline-code-bg: #232323;
     --editor-markdown-inline-code-text: #e5e7eb;
     --editor-markdown-code-block-bg: #1f1f1f;
+
     --editor-syntax-keyword: #c792ea;
     --editor-syntax-string: #ecc48d;
     --editor-syntax-comment: #7f848e;
@@ -63,9 +66,20 @@
     --editor-syntax-type: #82aaff;
     --editor-syntax-function: #c3a6ff;
     --editor-syntax-operator: #89ddff;
+
     --scrollbar-thumb: rgba(156, 163, 175, 0.28);
     --scrollbar-thumb-hover: rgba(156, 163, 175, 0.45);
     --scrollbar-thumb-active: rgba(191, 128, 232, 0.65);
+
+    /* Window controls */
+    --window-controls-icon: #e5e7eb;
+    --window-controls-icon-muted: #9ca3af;
+    --window-controls-button-bg: transparent;
+    --window-controls-button-hover-bg: rgba(229, 231, 235, 0.1);
+    --window-controls-button-active-bg: rgba(229, 231, 235, 0.16);
+    --window-controls-close-hover-bg: #c42b1c;
+    --window-controls-close-active-bg: #a82418;
+    --window-controls-close-icon: #ffffff;
 }
 
 html,
