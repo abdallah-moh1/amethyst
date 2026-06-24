@@ -3,3 +3,7 @@
     height: 100%;
     width: 100%;
 }
+
+.right-panel-non-macos-overlay {
+    padding-top: 40px;
+}
