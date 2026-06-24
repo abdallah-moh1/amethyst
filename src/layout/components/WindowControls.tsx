@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { platform } from '@tauri-apps/plugin-os';
 
-import './window-controls.css';
+import '../styles/window-controls.css';
 
 type WindowControlsProps = {
     hideClose?: boolean;

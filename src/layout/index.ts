@@ -1,3 +1,4 @@
-export { MainApp } from './MainApp';
-export { GeodesManager } from './GeodesManager';
-export { AppShell } from './AppShell';
+export { MainApp } from './components/MainApp';
+export { GeodesManager } from './components/GeodesManager';
+export { AppShell } from './components/AppShell';
+export { WindowControls } from './components/WindowControls';

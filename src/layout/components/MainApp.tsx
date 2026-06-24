@@ -2,7 +2,7 @@
 // Amethyst - A modern markdown note-taking application
 // Copyright (C) 2026 Abdallah
 
-import './styles/main-app.css';
+import '../styles/main-app.css';
 
 import { LeftPanel } from '@/features/left-panel';
 import { WorkspaceView } from '@/features/workspace';
