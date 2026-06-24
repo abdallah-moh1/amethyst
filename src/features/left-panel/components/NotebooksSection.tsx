@@ -12,6 +12,8 @@ import { NotebookCommands, useNotebookActions } from '@/features/notebooks';
 import { NoteCommands, useNoteActions } from '@/features/notes';
 import { commands } from '@/core/commands';
 
+import '../styles/notebooks-section.css';
+
 export function NotebooksSection() {
     const contextMenu = useContextMenu();
 

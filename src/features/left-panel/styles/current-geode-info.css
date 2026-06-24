@@ -1,0 +1,54 @@
+.current-geode-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+}
+
+.geode-details {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 2px;
+    max-width: 75%;
+}
+
+.geode-name {
+    color: var(--app-text-primary);
+    font-weight: 500;
+    transition: color ease-in 150ms;
+    font-size: 16px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.geode-path {
+    color: var(--app-text-secondary);
+    font-weight: 400;
+    font-size: 12px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.open-geodes-manager-btn {
+    border: none;
+    background: none;
+    color: var(--app-text-secondary);
+    cursor: pointer;
+    display: flex;
+    transition:
+        transform 0.1s ease,
+        color 0.2s ease;
+}
+
+.open-geodes-manager-btn:hover {
+    color: var(--app-accent);
+}
+
+.open-geodes-manager-btn:active {
+    transform: scale(0.9);
+}

@@ -5,7 +5,7 @@
 import { CurrentGeodeInfo } from './components/CurrentGeodeInfo';
 import { NotebooksSection } from './components/NotebooksSection';
 
-import './left-panel.css';
+import './styles/left-panel.css';
 
 export function LeftPanel() {
     return (
