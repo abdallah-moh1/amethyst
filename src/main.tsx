@@ -12,7 +12,7 @@ const disableContextMenu = (event: PointerEvent) => {
     event.preventDefault();
 };
 
-// document.addEventListener('contextmenu', disableContextMenu);
+document.addEventListener('contextmenu', disableContextMenu);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
