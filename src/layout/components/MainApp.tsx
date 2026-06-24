@@ -12,6 +12,7 @@ import { eventToShortcut } from '@/shared/utils/shortcut';
 import { useInteractionStore } from '@/store';
 import { commands } from '@/core/commands';
 import { WindowControls } from './WindowControls';
+import { WindowTitlebar } from '@/features/window-titlebar/WindowTitlebar';
 
 export function MainApp() {
     const addToast = useInteractionStore((s) => s.addToast);
@@ -68,6 +69,7 @@ function WorkspacePanels() {
             <Separator className="panel-separator" />
 
             <Panel className="panel" minSize={300}>
+                <WindowTitlebar />
                 <WorkspaceView />
             </Panel>
             {/* <Separator className="panel-separator" />
