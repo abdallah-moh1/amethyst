@@ -35,8 +35,8 @@ pub fn create_main_window(app: &AppHandle, geode_id: Uuid) -> tauri::Result<Webv
             ))
             .inner_size(1200.0, 800.0)
             .resizable(true)
-            .visible(false);
-    ();
+            .visible(false)
+            .min_inner_size(600.0, 400.0);
 
     #[cfg(target_os = "macos")]
     let builder = builder.decorations(true);

@@ -24,7 +24,9 @@ log = "0.4.33"
 tauri = { version = "2.11.3", features = [] }
 tauri-plugin-log = "2"
 uuid = { version = "1", features = ["v4", "serde"] }
-tauri-plugin-dialog = "2"
+tauri-plugin-dialog = { version = "2", default-features = false, features = [
+    "xdg-portal",
+] }
 tauri-plugin-os = "2"
 
 [profile.release]
