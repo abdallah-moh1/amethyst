@@ -1,8 +1,8 @@
 {
     "$schema": "../gen/schemas/desktop-schema.json",
-    "identifier": "default",
+    "identifier": "geodes-manager",
     "description": "enables the default permissions",
-    "windows": ["geodes-manager", "geode-*"],
+    "windows": ["geodes-manager"],
     "permissions": [
         "core:default",
         "core:window:allow-start-dragging",
