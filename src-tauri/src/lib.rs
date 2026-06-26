@@ -4,10 +4,7 @@
 
 mod features;
 
-use crate::features::{
-    geodes_manager,
-    windows::{self, geodes_manager_window, main_window},
-};
+use crate::features::{geodes_manager, windows};
 
 pub fn run() {
     tauri::Builder::default()
@@ -32,11 +29,11 @@ pub fn run() {
             if let Some(last_opened_geode_id) =
                 geodes_manager::service::get_last_opened_geode_id(app_handle)?
             {
-                main_window::create_main_window(app_handle, last_opened_geode_id)?;
+                windows::service::create_main_window(app_handle, last_opened_geode_id)?;
                 return Ok(());
             }
 
-            geodes_manager_window::create_geodes_manager_window(app_handle)?;
+            windows::service::create_geodes_manager_window(app_handle)?;
 
             Ok(())
         })
