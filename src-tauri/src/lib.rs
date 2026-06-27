@@ -4,21 +4,21 @@
 
 mod features;
 
-use crate::features::{geodes_manager, windows};
+use crate::features::{geodes, windows};
 
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_dialog::init())
         .invoke_handler(tauri::generate_handler![
-            geodes_manager::commands::list_geodes,
-            geodes_manager::commands::create_geode,
-            geodes_manager::commands::open_geode_as_folder,
-            geodes_manager::commands::get_geode,
-            geodes_manager::commands::get_last_opened_geode_id,
-            geodes_manager::commands::set_last_opened_geode,
-            geodes_manager::commands::rename_geode,
-            geodes_manager::commands::remove_geode_from_list,
+            geodes::commands::list_geodes,
+            geodes::commands::create_geode,
+            geodes::commands::open_geode_as_folder,
+            geodes::commands::get_geode,
+            geodes::commands::get_last_opened_geode_id,
+            geodes::commands::set_last_opened_geode,
+            geodes::commands::rename_geode,
+            geodes::commands::remove_geode_from_list,
             windows::commands::get_geode_for_current_window,
             windows::commands::open_geode_main_window,
             windows::commands::open_geodes_manager_window
@@ -27,7 +27,7 @@ pub fn run() {
             let app_handle = app.handle();
 
             if let Some(last_opened_geode_id) =
-                geodes_manager::service::get_last_opened_geode_id(app_handle)?
+                geodes::service::get_last_opened_geode_id(app_handle)?
             {
                 windows::service::create_main_window(app_handle, last_opened_geode_id)?;
                 return Ok(());

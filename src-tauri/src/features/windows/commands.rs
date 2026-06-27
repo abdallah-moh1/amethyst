@@ -2,7 +2,7 @@ use tauri::{AppHandle, Window};
 
 use crate::features::{
     self,
-    geodes_manager::models::{Geode, GeodeIdInput},
+    geodes::models::{Geode, GeodeIdInput},
 };
 
 #[tauri::command]
@@ -20,5 +20,5 @@ pub fn open_geode_main_window(app: AppHandle, input: GeodeIdInput) -> Result<(),
 #[tauri::command]
 pub fn get_geode_for_current_window(app: AppHandle, window: Window) -> Result<Geode, String> {
     let id = super::service::geode_id_from_label(window.label())?;
-    features::geodes_manager::service::get_geode(&app, GeodeIdInput { id: id })
+    features::geodes::service::get_geode(&app, GeodeIdInput { id: id })
 }

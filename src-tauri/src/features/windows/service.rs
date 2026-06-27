@@ -7,7 +7,7 @@ use tauri::{
 };
 use uuid::Uuid;
 
-use crate::features::{self, geodes_manager::models::GeodeIdInput};
+use crate::features::{self, geodes::models::GeodeIdInput};
 
 fn create_window(app: &AppHandle, window_label: &str, title: &str) -> tauri::Result<WebviewWindow> {
     if let Some(window) = app.get_webview_window(&window_label) {
@@ -37,6 +37,7 @@ fn create_window(app: &AppHandle, window_label: &str, title: &str) -> tauri::Res
 pub fn create_geodes_manager_window(app: &AppHandle) -> tauri::Result<WebviewWindow> {
     let window = create_window(app, "geodes-manager", "Amethyst - Geodes Manager")?;
 
+    window.set_size(LogicalSize::new(700.0, 600.0))?;
     window.set_resizable(false)?;
 
     window.center()?;
@@ -47,8 +48,7 @@ pub fn create_geodes_manager_window(app: &AppHandle) -> tauri::Result<WebviewWin
 }
 
 pub fn create_main_window(app: &AppHandle, geode_id: Uuid) -> tauri::Result<WebviewWindow> {
-    let geode =
-        features::geodes_manager::service::get_geode(app, GeodeIdInput { id: geode_id }).ok();
+    let geode = features::geodes::service::get_geode(app, GeodeIdInput { id: geode_id }).ok();
 
     let window_label = format!("geode-{geode_id}");
     let title = format!(
